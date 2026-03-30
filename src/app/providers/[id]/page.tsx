@@ -103,7 +103,7 @@ export default async function ProviderProfilePage({
               Transport Modes
             </p>
             <div className="flex flex-wrap gap-2">
-              {provider.modes.map((m) => (
+              {provider.modes.map((m: string) => (
                 <span
                   key={m}
                   className="rounded-full bg-ocean-50 px-3 py-1 text-xs font-medium text-ocean-700"
@@ -121,7 +121,7 @@ export default async function ProviderProfilePage({
                 Service Areas
               </p>
               <div className="flex flex-wrap gap-2">
-                {provider.serviceArea.map((a) => (
+                {provider.serviceArea.map((a: string) => (
                   <span
                     key={a}
                     className="rounded-full bg-sky-50 px-3 py-1 text-xs text-sky-700"
@@ -140,7 +140,7 @@ export default async function ProviderProfilePage({
                 Certifications
               </p>
               <div className="flex flex-wrap gap-2">
-                {provider.certifications.map((c) => (
+                {provider.certifications.map((c: string) => (
                   <span
                     key={c}
                     className="rounded-full bg-green-50 px-3 py-1 text-xs text-green-700"
@@ -164,7 +164,7 @@ export default async function ProviderProfilePage({
             </div>
           ) : (
             <div className="space-y-3">
-              {provider.reviews.map((review) => (
+              {provider.reviews.map((review: ProviderReview) => (
                 <div
                   key={review.id}
                   className="rounded-xl bg-white p-5 shadow-sm border border-gray-100"

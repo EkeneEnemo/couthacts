@@ -151,7 +151,7 @@ export default async function DashboardPage() {
                 </div>
               ) : (
                 <div className="space-y-3">
-                  {postings.map((p) => {
+                  {postings.map((p: PostingRow) => {
                     const style = STATUS_STYLES[p.status] || STATUS_STYLES.OPEN;
                     const Icon = style.icon;
                     return (
@@ -193,7 +193,7 @@ export default async function DashboardPage() {
                   Your Bookings
                 </h2>
                 <div className="space-y-3">
-                  {customerBookings.map((b) => (
+                  {customerBookings.map((b: CustomerBookingRow) => (
                     <Link
                       key={b.id}
                       href={`/bookings/${b.id}`}
@@ -267,7 +267,7 @@ export default async function DashboardPage() {
                       Your Bookings
                     </h2>
                     <div className="space-y-3">
-                      {providerBookings.map((b) => (
+                      {providerBookings.map((b: ProviderBookingRow) => (
                         <Link
                           key={b.id}
                           href={`/bookings/${b.id}`}
@@ -299,7 +299,7 @@ export default async function DashboardPage() {
                       Your Recent Bids
                     </h2>
                     <div className="space-y-3">
-                      {providerBids.map((bid) => (
+                      {providerBids.map((bid: ProviderBidRow) => (
                         <Link
                           key={bid.id}
                           href={`/postings/${bid.posting.id}`}

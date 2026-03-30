@@ -7,7 +7,7 @@ import { Navbar } from "@/components/navbar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { TRANSPORT_CATEGORIES } from "@/lib/transport-modes";
-import { calculatePostingFee } from "@/lib/posting-fees";
+import { calculatePostingFee, getMinimumBudgetUsd } from "@/lib/posting-fees";
 import { ArrowLeft, ArrowRight, AlertTriangle } from "lucide-react";
 
 const STEPS = ["Mode", "Route", "Cargo", "Schedule & Budget", "Options"];
@@ -366,15 +366,47 @@ export default function NewPostingPage() {
               <Input
                 label={`Budget (${userCurrency})`}
                 type="number"
-                placeholder={`Your max budget in ${userCurrency}`}
+                placeholder={`Min ${userCurrency !== "USD" && exchangeRate ? (getMinimumBudgetUsd(form.mode) * exchangeRate).toLocaleString(undefined, { maximumFractionDigits: 0 }) : getMinimumBudgetUsd(form.mode)} ${userCurrency}`}
                 value={form.budgetUsd}
                 onChange={(e) => update({ budgetUsd: e.target.value })}
               />
-              {userCurrency !== "USD" && exchangeRate && form.budgetUsd && (
-                <p className="text-xs text-gray-500 -mt-2">
-                  ≈ ${(parseFloat(form.budgetUsd) / exchangeRate).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD at current rate (1 USD = {exchangeRate.toLocaleString()} {userCurrency})
-                </p>
-              )}
+              {(() => {
+                const minUsd = getMinimumBudgetUsd(form.mode);
+                const enteredLocal = parseFloat(form.budgetUsd) || 0;
+                const enteredUsd = exchangeRate && userCurrency !== "USD"
+                  ? enteredLocal / exchangeRate
+                  : enteredLocal;
+                const belowMin = enteredLocal > 0 && enteredUsd < minUsd;
+                const minLocal = exchangeRate && userCurrency !== "USD"
+                  ? minUsd * exchangeRate
+                  : minUsd;
+
+                return (
+                  <>
+                    {userCurrency !== "USD" && exchangeRate && form.budgetUsd && (
+                      <p className={`text-xs -mt-2 ${belowMin ? "text-red-500" : "text-gray-500"}`}>
+                        ≈ ${enteredUsd.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD
+                        {belowMin && (
+                          <span className="font-medium"> — below minimum of ${minUsd.toFixed(2)} USD ({minLocal.toLocaleString(undefined, { maximumFractionDigits: 0 })} {userCurrency})</span>
+                        )}
+                      </p>
+                    )}
+                    {userCurrency === "USD" && form.budgetUsd && enteredUsd < minUsd && (
+                      <p className="text-xs text-red-500 -mt-2">
+                        Minimum budget for {form.mode.replace(/_/g, " ")} is ${minUsd.toFixed(2)}
+                      </p>
+                    )}
+                    {!form.budgetUsd && (
+                      <p className="text-xs text-gray-400 -mt-2">
+                        Minimum: {userCurrency !== "USD" && exchangeRate
+                          ? `${minLocal.toLocaleString(undefined, { maximumFractionDigits: 0 })} ${userCurrency} (~$${minUsd} USD)`
+                          : `$${minUsd.toFixed(2)} USD`
+                        }
+                      </p>
+                    )}
+                  </>
+                );
+              })()}
               <label className="flex items-center gap-2 text-sm">
                 <input
                   type="checkbox"
@@ -552,18 +584,30 @@ export default function NewPostingPage() {
                 <ArrowRight className="ml-1 h-4 w-4" />
               </Button>
             ) : (() => {
-              const budget = parseFloat(form.budgetUsd) || 0;
-              const fee = form.mode && budget > 0
-                ? calculatePostingFee(form.mode, budget)
+              const enteredLocal = parseFloat(form.budgetUsd) || 0;
+              const enteredUsd = exchangeRate && userCurrency !== "USD"
+                ? enteredLocal / exchangeRate
+                : enteredLocal;
+              const fee = form.mode && enteredUsd > 0
+                ? calculatePostingFee(form.mode, enteredUsd)
                 : 0;
               const hasEnough = walletBalance !== null && walletBalance >= fee;
+              const minUsd = getMinimumBudgetUsd(form.mode);
+              const belowMin = enteredLocal > 0 && enteredUsd < minUsd;
+
+              const buttonLabel = belowMin
+                ? "Below minimum budget"
+                : !hasEnough
+                ? "Insufficient balance"
+                : "Post job";
+
               return (
                 <Button
                   onClick={handleSubmit}
                   loading={submitting}
-                  disabled={!form.title || !form.budgetUsd || !form.pickupDate || !hasEnough}
+                  disabled={!form.title || !form.budgetUsd || !form.pickupDate || !hasEnough || belowMin}
                 >
-                  {hasEnough ? "Post job" : "Insufficient balance"}
+                  {buttonLabel}
                 </Button>
               );
             })(

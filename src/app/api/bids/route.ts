@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { notifyNewBid } from "@/lib/notifications";
+import { getMinimumBudgetUsd } from "@/lib/posting-fees";
 import { pushToPosting } from "@/lib/pusher-server";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -35,11 +36,20 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const bidAmountUsd = parseFloat(body.amountUsd);
+  const minBid = getMinimumBudgetUsd(posting.mode);
+  if (bidAmountUsd < minBid) {
+    return NextResponse.json(
+      { error: `Minimum bid for ${posting.mode.replace(/_/g, " ")} is $${minBid.toFixed(2)} USD` },
+      { status: 400 }
+    );
+  }
+
   const bid = await db.bid.create({
     data: {
       postingId: body.postingId,
       providerId: provider.id,
-      amountUsd: parseFloat(body.amountUsd),
+      amountUsd: bidAmountUsd,
       message: body.message || null,
       estimatedPickup: body.estimatedPickup
         ? new Date(body.estimatedPickup)

@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { debitWallet, getOrCreateWallet } from "@/lib/wallet";
-import { calculatePostingFee } from "@/lib/posting-fees";
+import { calculatePostingFee, validateBudget } from "@/lib/posting-fees";
 import { localToUsd } from "@/lib/currency";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -56,6 +56,12 @@ export async function POST(req: NextRequest) {
   const budgetUsd = currency !== "USD"
     ? await localToUsd(rawBudget, currency)
     : rawBudget;
+
+  // Enforce minimum budget
+  const budgetError = validateBudget(body.mode, budgetUsd);
+  if (budgetError) {
+    return NextResponse.json({ error: budgetError }, { status: 400 });
+  }
 
   const postingFeeUsd = calculatePostingFee(body.mode, budgetUsd);
 

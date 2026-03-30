@@ -94,6 +94,61 @@ export async function sendEscrowReleasedEmail(
   });
 }
 
+export async function sendNewBidEmail(
+  email: string,
+  firstName: string,
+  postingTitle: string,
+  providerName: string,
+  bidAmount: string,
+  postingId: string
+) {
+  if (!process.env.RESEND_API_KEY) return;
+  const baseUrl = process.env.NEXTAUTH_URL || "https://couthacts.com";
+  await getResend().emails.send({
+    from: FROM,
+    to: email,
+    subject: `New bid on "${postingTitle}"`,
+    html: `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+        <h1 style="color: #1E3A5F;">You've Got a New Bid!</h1>
+        <p style="color: #444;">Hi ${firstName}, <strong>${providerName}</strong> placed a bid of <strong>${bidAmount}</strong> on your posting <strong>"${postingTitle}"</strong>.</p>
+        <p style="color: #444;">Log in to review the bid, check the provider's CouthActs&trade; Score, and accept or wait for more offers.</p>
+        <a href="${baseUrl}/postings/${postingId}"
+           style="display: inline-block; background: #2563EB; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin-top: 16px;">
+          View Bids
+        </a>
+      </div>
+    `,
+  });
+}
+
+export async function sendBidAcceptedEmail(
+  email: string,
+  firstName: string,
+  postingTitle: string,
+  agreedAmount: string,
+  bookingId: string
+) {
+  if (!process.env.RESEND_API_KEY) return;
+  const baseUrl = process.env.NEXTAUTH_URL || "https://couthacts.com";
+  await getResend().emails.send({
+    from: FROM,
+    to: email,
+    subject: `Your bid on "${postingTitle}" was accepted!`,
+    html: `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+        <h1 style="color: #1E3A5F;">Bid Accepted!</h1>
+        <p style="color: #444;">Hi ${firstName}, your bid of <strong>${agreedAmount}</strong> on <strong>"${postingTitle}"</strong> has been accepted.</p>
+        <p style="color: #444;">You can now start the job. The customer's funds are held in escrow and will be released to your wallet upon completion.</p>
+        <a href="${baseUrl}/bookings/${bookingId}"
+           style="display: inline-block; background: #2563EB; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin-top: 16px;">
+          View Booking
+        </a>
+      </div>
+    `,
+  });
+}
+
 export async function sendDisputeFiledEmail(
   email: string,
   firstName: string,

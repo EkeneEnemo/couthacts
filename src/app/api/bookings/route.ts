@@ -3,7 +3,7 @@ import { getSession } from "@/lib/auth";
 import { createEscrow, releaseEscrow, refundEscrow } from "@/lib/escrow";
 import { creditWallet } from "@/lib/wallet";
 import { notifyBidAccepted, notifyBookingComplete, notifyEscrowReleased } from "@/lib/notifications";
-import { sendBookingConfirmationEmail } from "@/lib/email";
+import { sendBookingConfirmationEmail, sendBidAcceptedEmail } from "@/lib/email";
 import { NextRequest, NextResponse } from "next/server";
 import { randomBytes } from "crypto";
 
@@ -103,6 +103,18 @@ export async function POST(req: NextRequest) {
     bid.posting.title,
     booking.id
   );
+
+  // Email the provider that their bid was accepted
+  const providerUser = await db.user.findUnique({ where: { id: providerRecord.userId } });
+  if (providerUser) {
+    sendBidAcceptedEmail(
+      providerUser.email,
+      providerUser.firstName,
+      bid.posting.title,
+      `$${Number(bid.amountUsd).toFixed(2)}`,
+      booking.id
+    ).catch(() => {});
+  }
 
   return NextResponse.json(
     { booking, escrow, clientSecret },

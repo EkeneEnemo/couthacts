@@ -156,16 +156,39 @@ export function Navbar() {
                         <p className="px-4 py-8 text-center text-sm text-gray-400">No notifications</p>
                       ) : (
                         notifications.slice(0, 15).map((n) => (
-                          <Link
+                          <a
                             key={n.id}
                             href={n.link || "/dashboard"}
-                            onClick={() => setShowNotifs(false)}
-                            className={`block px-4 py-3 border-b border-gray-50 hover:bg-gray-50 transition ${!n.isRead ? "bg-sky-50/50" : ""}`}
+                            onClick={async (e) => {
+                              e.preventDefault();
+                              setShowNotifs(false);
+                              if (!n.isRead) {
+                                // Mark as read
+                                fetch("/api/notifications", {
+                                  method: "PATCH",
+                                  headers: { "Content-Type": "application/json" },
+                                  body: JSON.stringify({ action: "mark_read", notificationId: n.id }),
+                                }).catch(() => {});
+                                setNotifications((prev) =>
+                                  prev.map((x) => x.id === n.id ? { ...x, isRead: true } : x)
+                                );
+                                setUnreadCount((c) => Math.max(0, c - 1));
+                              }
+                              window.location.href = n.link || "/dashboard";
+                            }}
+                            className={`block px-4 py-3 border-b border-gray-50 hover:bg-gray-50 transition cursor-pointer ${!n.isRead ? "bg-sky-50/50" : ""}`}
                           >
-                            <p className="text-sm font-medium text-ocean-800">{n.title}</p>
-                            <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{n.body}</p>
-                            <p className="text-xs text-gray-400 mt-1">{new Date(n.createdAt).toLocaleDateString()}</p>
-                          </Link>
+                            <div className="flex items-start gap-2">
+                              {!n.isRead && (
+                                <span className="mt-1.5 flex-shrink-0 h-2 w-2 rounded-full bg-sky-500" />
+                              )}
+                              <div className={!n.isRead ? "" : "ml-4"}>
+                                <p className="text-sm font-medium text-ocean-800">{n.title}</p>
+                                <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{n.body}</p>
+                                <p className="text-xs text-gray-400 mt-1">{new Date(n.createdAt).toLocaleDateString()}</p>
+                              </div>
+                            </div>
+                          </a>
                         ))
                       )}
                     </div>

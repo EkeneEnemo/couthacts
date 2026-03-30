@@ -3,19 +3,20 @@ import { getSession } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 /**
- * GET /api/wallet/receipt?id=xxx — Generate a PDF receipt for a wallet transaction.
+ * GET /api/wallet/receipt?id=xxx — Render a printable HTML receipt.
+ * Users can print to PDF from the browser (Cmd+P / Ctrl+P).
  */
 export async function GET(req: NextRequest) {
   const session = await getSession();
   if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return new NextResponse("Unauthorized", { status: 401 });
   }
 
   const { searchParams } = new URL(req.url);
   const txId = searchParams.get("id");
 
   if (!txId) {
-    return NextResponse.json({ error: "Transaction ID required" }, { status: 400 });
+    return new NextResponse("Transaction ID required", { status: 400 });
   }
 
   const tx = await db.walletTransaction.findUnique({
@@ -24,11 +25,11 @@ export async function GET(req: NextRequest) {
   });
 
   if (!tx) {
-    return NextResponse.json({ error: "Transaction not found" }, { status: 404 });
+    return new NextResponse("Transaction not found", { status: 404 });
   }
 
   if (tx.wallet.userId !== session.user.id) {
-    return NextResponse.json({ error: "Not your transaction" }, { status: 403 });
+    return new NextResponse("Forbidden", { status: 403 });
   }
 
   const user = tx.wallet.user;
@@ -56,188 +57,215 @@ export async function GET(req: NextRequest) {
     ADJUSTMENT: "Adjustment",
   };
 
-  // Build PDF manually using raw PDF syntax (no external dependencies)
   const typeLabel = typeLabels[tx.type] || tx.type;
   const receiptNumber = `CA-${tx.id.slice(0, 8).toUpperCase()}`;
 
-  const pdf = buildPdf({
-    receiptNumber,
-    date: dateStr,
-    time: timeStr,
-    userName: `${user.firstName} ${user.lastName}`,
-    userEmail: user.email,
-    type: typeLabel,
-    description: tx.description,
-    amount: `${isCredit ? "+" : "-"}$${absAmount} USD`,
-    isCredit,
-    balanceBefore: `$${Number(tx.balanceBefore).toFixed(2)}`,
-    balanceAfter: `$${Number(tx.balanceAfter).toFixed(2)}`,
-    reference: tx.reference || undefined,
-    stripeId: tx.stripeId || undefined,
-    postingId: tx.postingId || undefined,
-    bookingId: tx.bookingId || undefined,
-    txId: tx.id,
-  });
-
-  return new NextResponse(new Uint8Array(pdf), {
-    headers: {
-      "Content-Type": "application/pdf",
-      "Content-Disposition": `inline; filename="CouthActs-Receipt-${receiptNumber}.pdf"`,
-    },
-  });
-}
-
-// ─── Minimal PDF generator (no dependencies) ──────────────────
-
-interface ReceiptData {
-  receiptNumber: string;
-  date: string;
-  time: string;
-  userName: string;
-  userEmail: string;
-  type: string;
-  description: string;
-  amount: string;
-  isCredit: boolean;
-  balanceBefore: string;
-  balanceAfter: string;
-  reference?: string;
-  stripeId?: string;
-  postingId?: string;
-  bookingId?: string;
-  txId: string;
-}
-
-function buildPdf(data: ReceiptData): Buffer {
-  const objects: string[] = [];
-  let objectCount = 0;
-
-  function addObject(content: string): number {
-    objectCount++;
-    objects.push(`${objectCount} 0 obj\n${content}\nendobj`);
-    return objectCount;
-  }
-
-  // Build receipt text content
-  const textLines = [
-    { text: "CouthActs™ Incorporated", size: 20, y: 760, bold: true },
-    { text: "TRANSACTION RECEIPT", size: 14, y: 735, bold: true },
-    { text: `Receipt: ${data.receiptNumber}`, size: 10, y: 710, bold: false },
-    { text: `Date: ${data.date}`, size: 10, y: 695, bold: false },
-    { text: `Time: ${data.time}`, size: 10, y: 680, bold: false },
-    { text: "", size: 10, y: 660, bold: false },
-    { text: "ACCOUNT HOLDER", size: 11, y: 645, bold: true },
-    { text: `Name: ${data.userName}`, size: 10, y: 628, bold: false },
-    { text: `Email: ${data.userEmail}`, size: 10, y: 613, bold: false },
-    { text: "", size: 10, y: 595, bold: false },
-    { text: "TRANSACTION DETAILS", size: 11, y: 580, bold: true },
-    { text: `Type: ${data.type}`, size: 10, y: 563, bold: false },
-    { text: `Description: ${data.description}`, size: 10, y: 548, bold: false },
-    { text: `Amount: ${data.amount}`, size: 12, y: 528, bold: true },
-    { text: "", size: 10, y: 510, bold: false },
-    { text: "BALANCE", size: 11, y: 495, bold: true },
-    { text: `Before: ${data.balanceBefore}`, size: 10, y: 478, bold: false },
-    { text: `After:  ${data.balanceAfter}`, size: 10, y: 463, bold: false },
-  ];
-
-  let nextY = 440;
-
-  if (data.reference) {
-    textLines.push({ text: "", size: 10, y: nextY, bold: false });
-    nextY -= 20;
-    textLines.push({ text: "REFERENCES", size: 11, y: nextY, bold: true });
-    nextY -= 17;
-    textLines.push({ text: `Reference: ${data.reference}`, size: 10, y: nextY, bold: false });
-    nextY -= 15;
-  }
-
-  if (data.stripeId) {
-    if (!data.reference) {
-      textLines.push({ text: "", size: 10, y: nextY, bold: false });
-      nextY -= 20;
-      textLines.push({ text: "REFERENCES", size: 11, y: nextY, bold: true });
-      nextY -= 17;
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Receipt ${receiptNumber} — CouthActs</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: #1a1a2e;
+      background: #f8f7f4;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px;
     }
-    textLines.push({ text: `Stripe ID: ${data.stripeId}`, size: 10, y: nextY, bold: false });
-    nextY -= 15;
-  }
+    .receipt {
+      background: white;
+      max-width: 600px;
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+    .header {
+      background: linear-gradient(135deg, #1E3A5F 0%, #0EA5E9 100%);
+      padding: 32px 40px;
+      color: white;
+    }
+    .header h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .header p {
+      font-size: 13px;
+      opacity: 0.8;
+      margin-top: 4px;
+    }
+    .badge {
+      display: inline-block;
+      margin-top: 16px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .body { padding: 32px 40px; }
+    .section { margin-bottom: 24px; }
+    .section-title {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #0EA5E9;
+      margin-bottom: 12px;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 8px 0;
+      font-size: 14px;
+    }
+    .row .label { color: #6b7280; }
+    .row .value { font-weight: 500; color: #1E3A5F; text-align: right; }
+    .amount-row {
+      background: #f0f9ff;
+      margin: 0 -40px;
+      padding: 16px 40px;
+      border-top: 1px solid #e0f2fe;
+      border-bottom: 1px solid #e0f2fe;
+    }
+    .amount-row .value {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: ${isCredit ? "#059669" : "#dc2626"};
+    }
+    .divider {
+      height: 1px;
+      background: #f3f4f6;
+      margin: 0 0 24px 0;
+    }
+    .ref { font-size: 12px; color: #9ca3af; word-break: break-all; }
+    .ref span { color: #6b7280; font-weight: 500; }
+    .footer {
+      border-top: 1px solid #f3f4f6;
+      padding: 24px 40px;
+      font-size: 11px;
+      color: #9ca3af;
+      line-height: 1.6;
+    }
+    .footer strong { color: #6b7280; }
+    .print-btn {
+      display: block;
+      margin: 24px auto 0;
+      background: #1E3A5F;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 32px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .print-btn:hover { background: #163050; }
+    @media print {
+      body { background: white; padding: 0; }
+      .receipt { box-shadow: none; border-radius: 0; max-width: 100%; }
+      .print-btn { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="receipt">
+    <div class="header">
+      <h1>CouthActs&trade;</h1>
+      <p>Transaction Receipt</p>
+      <div class="badge">${receiptNumber}</div>
+    </div>
 
-  if (data.postingId) {
-    textLines.push({ text: `Posting ID: ${data.postingId}`, size: 10, y: nextY, bold: false });
-    nextY -= 15;
-  }
+    <div class="body">
+      <div class="section">
+        <div class="section-title">Transaction Details</div>
+        <div class="row">
+          <span class="label">Type</span>
+          <span class="value">${typeLabel}</span>
+        </div>
+        <div class="row">
+          <span class="label">Description</span>
+          <span class="value">${tx.description}</span>
+        </div>
+        <div class="row">
+          <span class="label">Date</span>
+          <span class="value">${dateStr}</span>
+        </div>
+        <div class="row">
+          <span class="label">Time</span>
+          <span class="value">${timeStr}</span>
+        </div>
+      </div>
 
-  if (data.bookingId) {
-    textLines.push({ text: `Booking ID: ${data.bookingId}`, size: 10, y: nextY, bold: false });
-    nextY -= 15;
-  }
+      <div class="amount-row">
+        <div class="row" style="padding:0">
+          <span class="label" style="font-size:16px;font-weight:600;color:#1E3A5F">Amount</span>
+          <span class="value">${isCredit ? "+" : "-"}$${absAmount}</span>
+        </div>
+      </div>
 
-  nextY -= 25;
-  textLines.push({ text: `Transaction ID: ${data.txId}`, size: 8, y: nextY, bold: false });
-  nextY -= 30;
+      <div class="section" style="margin-top:24px">
+        <div class="section-title">Balance</div>
+        <div class="row">
+          <span class="label">Before</span>
+          <span class="value">$${Number(tx.balanceBefore).toFixed(2)}</span>
+        </div>
+        <div class="row">
+          <span class="label">After</span>
+          <span class="value" style="font-weight:700">$${Number(tx.balanceAfter).toFixed(2)}</span>
+        </div>
+      </div>
 
-  // Separator line
-  textLines.push({ text: "────────────────────────────────────────────────────", size: 8, y: nextY, bold: false });
-  nextY -= 15;
-  textLines.push({ text: "This receipt was generated by CouthActs™ Incorporated.", size: 8, y: nextY, bold: false });
-  nextY -= 12;
-  textLines.push({ text: "All top-ups are final and non-refundable. All amounts in USD.", size: 8, y: nextY, bold: false });
-  nextY -= 12;
-  textLines.push({ text: "Intellectual property of Enemo Consulting Group, Inc.", size: 8, y: nextY, bold: false });
-  nextY -= 12;
-  textLines.push({ text: "https://couthacts.com", size: 8, y: nextY, bold: false });
+      <div class="section">
+        <div class="section-title">Account Holder</div>
+        <div class="row">
+          <span class="label">Name</span>
+          <span class="value">${user.firstName} ${user.lastName}</span>
+        </div>
+        <div class="row">
+          <span class="label">Email</span>
+          <span class="value">${user.email}</span>
+        </div>
+      </div>
 
-  // Build stream content
-  let stream = "";
-  for (const line of textLines) {
-    if (!line.text) continue;
-    const font = line.bold ? "/F2" : "/F1";
-    // Escape special PDF characters
-    const escaped = line.text
-      .replace(/\\/g, "\\\\")
-      .replace(/\(/g, "\\(")
-      .replace(/\)/g, "\\)")
-      .replace(/™/g, "(TM)");
-    stream += `BT ${font} ${line.size} Tf 50 ${line.y} Td (${escaped}) Tj ET\n`;
-  }
+      ${(tx.stripeId || tx.postingId || tx.bookingId || tx.reference) ? `
+      <div class="divider"></div>
+      <div class="section">
+        <div class="section-title">References</div>
+        ${tx.stripeId ? `<p class="ref"><span>Stripe:</span> ${tx.stripeId}</p>` : ""}
+        ${tx.postingId ? `<p class="ref"><span>Posting:</span> ${tx.postingId}</p>` : ""}
+        ${tx.bookingId ? `<p class="ref"><span>Booking:</span> ${tx.bookingId}</p>` : ""}
+        ${tx.reference ? `<p class="ref"><span>Ref:</span> ${tx.reference}</p>` : ""}
+      </div>
+      ` : ""}
 
-  // Catalog
-  const catalogId = addObject("<< /Type /Catalog /Pages 2 0 R >>");
+      <p class="ref" style="margin-top:16px"><span>Transaction ID:</span> ${tx.id}</p>
 
-  // Pages
-  const pagesId = addObject("<< /Type /Pages /Kids [3 0 R] /Count 1 >>");
+      <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+    </div>
 
-  // Font (Helvetica + Helvetica-Bold)
-  const font1Id = addObject("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>");
-  const font2Id = addObject("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>");
+    <div class="footer">
+      <strong>CouthActs&trade; Incorporated</strong><br>
+      All top-ups are final and non-refundable. All amounts in USD.<br>
+      Intellectual property of Enemo Consulting Group, Inc.<br>
+      https://couthacts.com
+    </div>
+  </div>
+</body>
+</html>`;
 
-  // Content stream
-  const streamBytes = Buffer.from(stream, "utf-8");
-  const streamId = addObject(
-    `<< /Length ${streamBytes.length} >>\nstream\n${stream}endstream`
-  );
-
-  // Page
-  addObject(
-    `<< /Type /Page /Parent ${pagesId} 0 R /MediaBox [0 0 612 792] /Contents ${streamId} 0 R /Resources << /Font << /F1 ${font1Id} 0 R /F2 ${font2Id} 0 R >> >> >>`
-  );
-
-  // Build PDF file
-  let pdf = "%PDF-1.4\n";
-  const offsets: number[] = [];
-
-  for (const obj of objects) {
-    offsets.push(Buffer.byteLength(pdf, "utf-8"));
-    pdf += obj + "\n";
-  }
-
-  const xrefOffset = Buffer.byteLength(pdf, "utf-8");
-  pdf += `xref\n0 ${objectCount + 1}\n0000000000 65535 f \n`;
-  for (const offset of offsets) {
-    pdf += `${String(offset).padStart(10, "0")} 00000 n \n`;
-  }
-
-  pdf += `trailer\n<< /Size ${objectCount + 1} /Root ${catalogId} 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`;
-
-  return Buffer.from(pdf, "utf-8");
+  return new NextResponse(html, {
+    headers: { "Content-Type": "text/html; charset=utf-8" },
+  });
 }

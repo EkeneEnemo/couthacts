@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { notifyNewBid } from "@/lib/notifications";
+import { sendNewBidEmail } from "@/lib/email";
 import { getMinimumBudgetUsd } from "@/lib/posting-fees";
 import { pushToPosting } from "@/lib/pusher-server";
 import { NextRequest, NextResponse } from "next/server";
@@ -86,7 +87,19 @@ export async function POST(req: NextRequest) {
   }
 
   // Notify customer + real-time push
+  // Notify + email the customer
   await notifyNewBid(body.postingId, provider.businessName);
+  const customer = await db.user.findUnique({ where: { id: posting.customerId } });
+  if (customer) {
+    sendNewBidEmail(
+      customer.email,
+      customer.firstName,
+      posting.title,
+      provider.businessName,
+      `$${Number(bid.amountUsd).toFixed(2)}`,
+      posting.id
+    ).catch(() => {});
+  }
   pushToPosting(body.postingId, "new-bid", {
     bidId: bid.id,
     amount: Number(bid.amountUsd),

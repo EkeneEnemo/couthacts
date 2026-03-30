@@ -9,6 +9,7 @@ import {
   Wallet,
   ArrowUpRight,
   ArrowDownLeft,
+  FileText,
   CheckCircle,
   XCircle,
 } from "lucide-react";
@@ -336,25 +337,36 @@ function WalletContent() {
                             </div>
                           </div>
                         </div>
-                        <div className="text-right">
-                          <p
-                            className={`text-sm font-semibold ${
-                              isCredit ? "text-green-600" : "text-red-500"
-                            }`}
+                        <div className="flex items-center gap-3">
+                          <div className="text-right">
+                            <p
+                              className={`text-sm font-semibold ${
+                                isCredit ? "text-green-600" : "text-red-500"
+                              }`}
+                            >
+                              {isCredit ? "+" : ""}$
+                              {Math.abs(tx.amountUsd).toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              })}
+                            </p>
+                            <p className="text-xs text-gray-400">
+                              Bal: $
+                              {tx.balanceAfter.toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              })}
+                            </p>
+                          </div>
+                          <a
+                            href={`/api/wallet/receipt?id=${tx.id}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="Download receipt"
+                            className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:bg-ocean-50 hover:text-ocean-600 transition-colors"
                           >
-                            {isCredit ? "+" : ""}$
-                            {Math.abs(tx.amountUsd).toLocaleString(undefined, {
-                              minimumFractionDigits: 2,
-                              maximumFractionDigits: 2,
-                            })}
-                          </p>
-                          <p className="text-xs text-gray-400">
-                            Bal: $
-                            {tx.balanceAfter.toLocaleString(undefined, {
-                              minimumFractionDigits: 2,
-                              maximumFractionDigits: 2,
-                            })}
-                          </p>
+                            <FileText className="h-4 w-4" />
+                          </a>
                         </div>
                       </div>
                     );

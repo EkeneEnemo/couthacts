@@ -20,8 +20,8 @@ const HERO_MOSAIC = [
     alt: "Woman smiling while riding in a taxi through the city",
   },
   {
-    src: "https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=800&q=80",
-    alt: "Bike courier delivering a package through a busy street",
+    src: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80",
+    alt: "Delivery courier on a bicycle riding through the city",
   },
   {
     src: "https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=800&q=80",
@@ -40,8 +40,8 @@ const USE_CASES = [
   {
     title: "Need a ride across town?",
     description: "Book a verified taxi or limo in minutes. See your driver\u2019s CouthActs\u2122 Score before you step in.",
-    image: "https://images.unsplash.com/photo-1582650949767-75876fff6738?w=900&q=80",
-    alt: "Smiling passenger getting into a car in a warm city setting",
+    image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0afa?w=900&q=80",
+    alt: "Passenger stepping into a yellow taxi on a city street",
     tag: "Rides",
   },
   {
@@ -96,8 +96,8 @@ const STEPS = [
     num: "02",
     title: "Choose your provider",
     description: "Verified providers bid with their price and timeline. Compare scores, reviews, and on-time rates before choosing.",
-    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80",
-    alt: "Professional woman reviewing options on a tablet",
+    image: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=900&q=80",
+    alt: "Fleet of semi trucks and vehicles lined up at a transport yard",
   },
   {
     num: "03",
@@ -110,8 +110,8 @@ const STEPS = [
     num: "04",
     title: "Track and relax",
     description: "Real-time GPS, flight tracking, maritime AIS \u2014 watch every step from pickup to your front door.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80",
-    alt: "Live tracking dashboard showing a route on a map",
+    image: "https://images.unsplash.com/photo-1524661135-423995f22d0b?w=1200&q=90",
+    alt: "Satellite view of city roads and navigation routes at night",
   },
 ];
 

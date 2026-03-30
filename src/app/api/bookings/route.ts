@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { createEscrow, releaseEscrow, refundEscrow } from "@/lib/escrow";
+import { creditWallet } from "@/lib/wallet";
 import { notifyBidAccepted, notifyBookingComplete, notifyEscrowReleased } from "@/lib/notifications";
 import { sendBookingConfirmationEmail } from "@/lib/email";
 import { NextRequest, NextResponse } from "next/server";
@@ -58,14 +59,30 @@ export async function POST(req: NextRequest) {
     data: { isAccepted: true },
   });
 
-  // Create escrow
+  // Create escrow (budget already held in wallet at posting time)
+  const bidAmount = Number(bid.amountUsd);
+  const budgetHeld = Number(bid.posting.budgetUsd);
+
   const { escrow, clientSecret } = await createEscrow({
     postingId: bid.postingId,
     bookingId: booking.id,
-    totalAmountUsd: Number(bid.amountUsd),
+    totalAmountUsd: bidAmount,
     customerId: session.user.id,
     paymentTerm: bid.posting.paymentTerm,
   });
+
+  // If the accepted bid is less than the posted budget, refund the difference
+  if (bidAmount < budgetHeld) {
+    const refundAmount = Math.round((budgetHeld - bidAmount) * 100) / 100;
+    await creditWallet({
+      userId: session.user.id,
+      amountUsd: refundAmount,
+      type: "ESCROW_REFUND",
+      description: `Budget surplus refund (bid $${bidAmount.toFixed(2)} < budget $${budgetHeld.toFixed(2)})`,
+      postingId: bid.postingId,
+      bookingId: booking.id,
+    });
+  }
 
   // Send booking confirmation email
   sendBookingConfirmationEmail(

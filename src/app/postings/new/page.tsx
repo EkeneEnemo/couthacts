@@ -444,11 +444,15 @@ export default function NewPostingPage() {
 
           {/* Step 4: Options + Fee Summary */}
           {step === 4 && (() => {
-            const budget = parseFloat(form.budgetUsd) || 0;
-            const fee = form.mode && budget > 0
-              ? calculatePostingFee(form.mode, budget)
+            const enteredLocal = parseFloat(form.budgetUsd) || 0;
+            const budgetUsdEst = exchangeRate && userCurrency !== "USD"
+              ? enteredLocal / exchangeRate
+              : enteredLocal;
+            const fee = form.mode && budgetUsdEst > 0
+              ? calculatePostingFee(form.mode, budgetUsdEst)
               : 0;
-            const hasEnough = walletBalance !== null && walletBalance >= fee;
+            const totalDebit = fee + budgetUsdEst;
+            const hasEnough = walletBalance !== null && walletBalance >= totalDebit;
 
             return (
               <div className="space-y-4">
@@ -514,21 +518,27 @@ export default function NewPostingPage() {
                 {fee > 0 && (
                   <div className="mt-2 rounded-xl border border-ocean-200 bg-ocean-50/50 p-4 space-y-2">
                     <p className="text-xs font-semibold uppercase tracking-wider text-ocean-600">
-                      Posting Fee Summary
+                      Payment Summary
                     </p>
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Budget</span>
+                      <span className="text-gray-600">Budget hold</span>
                       <span className="font-medium text-ocean-800">
-                        ${budget.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                        ${budgetUsdEst.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600">Posting fee</span>
-                      <span className="font-semibold text-ocean-700">
+                      <span className="font-medium text-ocean-800">
                         ${fee.toFixed(2)}
                       </span>
                     </div>
                     <hr className="border-ocean-200" />
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600 font-semibold">Total deducted</span>
+                      <span className="font-bold text-ocean-700">
+                        ${totalDebit.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      </span>
+                    </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600">Wallet balance</span>
                       <span className={`font-semibold ${hasEnough ? "text-green-600" : "text-red-500"}`}>
@@ -537,6 +547,9 @@ export default function NewPostingPage() {
                           : "—"}
                       </span>
                     </div>
+                    <p className="text-xs text-gray-400">
+                      Budget is held in your wallet until a provider is matched. If a provider bids lower, the difference is refunded. If the posting expires with no bids, the full budget is refunded.
+                    </p>
 
                     {!hasEnough && (
                       <div className="flex items-start gap-2 rounded-lg bg-red-50 border border-red-200 p-3 mt-1">
@@ -546,7 +559,7 @@ export default function NewPostingPage() {
                             Insufficient balance
                           </p>
                           <p className="text-xs text-red-600 mt-0.5">
-                            You need ${(fee - (walletBalance ?? 0)).toFixed(2)} more.{" "}
+                            You need ${(totalDebit - (walletBalance ?? 0)).toFixed(2)} more.{" "}
                             <Link href="/wallet" className="underline font-medium">
                               Top up your wallet
                             </Link>
@@ -591,7 +604,8 @@ export default function NewPostingPage() {
               const fee = form.mode && enteredUsd > 0
                 ? calculatePostingFee(form.mode, enteredUsd)
                 : 0;
-              const hasEnough = walletBalance !== null && walletBalance >= fee;
+              const totalNeeded = fee + enteredUsd;
+              const hasEnough = walletBalance !== null && walletBalance >= totalNeeded;
               const minUsd = getMinimumBudgetUsd(form.mode);
               const belowMin = enteredLocal > 0 && enteredUsd < minUsd;
 

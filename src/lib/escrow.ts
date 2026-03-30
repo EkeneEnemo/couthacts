@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { getStripe } from "@/lib/stripe";
-import { debitWallet, creditWallet } from "@/lib/wallet";
+import { creditWallet } from "@/lib/wallet";
 
 const ESCROW_FEE_PERCENT = 3.5;
 
@@ -30,15 +30,8 @@ export async function createEscrow({
   const escrowFeeUsd = Math.round(totalAmountUsd * ESCROW_FEE_PERCENT) / 100;
   const providerPayoutUsd = Math.round((totalAmountUsd - escrowFeeUsd) * 100) / 100;
 
-  // Debit customer wallet (already atomic internally)
-  await debitWallet({
-    userId: customerId,
-    amountUsd: totalAmountUsd,
-    type: "ESCROW_HOLD",
-    description: "Escrow hold for booking",
-    bookingId,
-    postingId,
-  });
+  // NOTE: Budget is already held in wallet at posting time.
+  // No wallet debit here — the funds were reserved when the job was posted.
 
   let firstPaymentUsd: number | null = null;
   let finalPaymentUsd: number | null = null;

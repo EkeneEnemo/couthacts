@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
-import { debitWallet, getOrCreateWallet } from "@/lib/wallet";
+import { debitWallet, creditWallet, getOrCreateWallet } from "@/lib/wallet";
 import { calculatePostingFee, validateBudget } from "@/lib/posting-fees";
 import { localToUsd } from "@/lib/currency";
 import { NextRequest, NextResponse } from "next/server";
@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
   // Ensure wallet exists
   await getOrCreateWallet(session.user.id);
 
-  // Debit posting fee from customer wallet
+  // Debit posting fee from wallet
   try {
     await debitWallet({
       userId: session.user.id,
@@ -78,7 +78,28 @@ export async function POST(req: NextRequest) {
     });
   } catch (err: unknown) {
     const message =
-      err instanceof Error ? err.message : "Failed to charge posting fee";
+      err instanceof Error ? err.message : "Insufficient balance for posting fee";
+    return NextResponse.json({ error: message }, { status: 400 });
+  }
+
+  // Hold budget amount in wallet (escrow reserve)
+  try {
+    await debitWallet({
+      userId: session.user.id,
+      amountUsd: budgetUsd,
+      type: "ESCROW_HOLD",
+      description: `Budget hold for ${body.mode.replace(/_/g, " ")} job ($${budgetUsd.toFixed(2)})`,
+    });
+  } catch (err: unknown) {
+    // Refund the posting fee since we can't hold the budget
+    await creditWallet({
+      userId: session.user.id,
+      amountUsd: postingFeeUsd,
+      type: "REFUND",
+      description: "Posting fee refund — insufficient balance for budget hold",
+    });
+    const message =
+      err instanceof Error ? err.message : "Insufficient balance for budget hold";
     return NextResponse.json({ error: message }, { status: 400 });
   }
 

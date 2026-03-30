@@ -2,6 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { Logo } from "@/components/logo";
 import { TrackInput } from "@/components/track-input";
+import { VideoHero } from "@/components/video-hero";
+import { VideoShowcase } from "@/components/video-showcase";
+import { AnimatedCounter } from "@/components/animated-counter";
 import { ArrowRight, Shield, Zap, Globe, Lock, Eye, Heart, ChevronRight } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 
@@ -12,16 +15,7 @@ export default function LandingPage() {
 
       {/* ═══════════════════════ HERO ═══════════════════════ */}
       <section className="relative overflow-hidden bg-ocean-900 min-h-[90vh] flex items-center">
-        <div className="absolute inset-0">
-          <Image
-            src="https://images.unsplash.com/photo-1494412574643-ff11b0a5eb95?w=1920&q=85"
-            alt="Aerial view of global shipping infrastructure"
-            fill
-            className="object-cover opacity-30"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-ocean-900 via-ocean-900/90 to-ocean-900/60" />
-        </div>
+        <VideoHero />
 
         <div className="relative mx-auto max-w-7xl px-6 py-24 lg:py-0 w-full">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -169,22 +163,43 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ═══════════════════════ SCALE NUMBERS ═══════════════════════ */}
+      {/* ═══════════════════════ VIDEO SHOWCASE ═══════════════════════ */}
       <section className="bg-ocean-900 border-y border-white/5">
         <div className="mx-auto max-w-7xl px-6 py-20">
+          <div className="text-center mb-12">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-sky-400">In Motion</p>
+            <h2 className="mt-2 text-2xl font-display font-bold text-white sm:text-3xl">
+              See every mode. Live.
+            </h2>
+          </div>
+          <VideoShowcase />
+        </div>
+      </section>
+
+      {/* ═══════════════════════ SCALE NUMBERS (ANIMATED) ═══════════════════════ */}
+      <section className="bg-cream-50 border-b border-gray-100">
+        <div className="mx-auto max-w-7xl px-6 py-20">
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-            {[
-              { value: "18", label: "Transport modes", desc: "Every way to move" },
-              { value: "190+", label: "Countries served", desc: "True global reach" },
-              { value: "3.5%", label: "Platform fee", desc: "Transparent pricing" },
-              { value: "24/7", label: "Tracking & support", desc: "Always watching" },
-            ].map((s) => (
-              <div key={s.label} className="text-center">
-                <p className="text-4xl font-display font-bold text-white sm:text-5xl">{s.value}</p>
-                <p className="mt-2 text-sm font-semibold text-sky-300">{s.label}</p>
-                <p className="text-xs text-sky-400/50">{s.desc}</p>
-              </div>
-            ))}
+            <div className="text-center">
+              <p className="text-4xl font-display font-bold text-ocean-900 sm:text-5xl"><AnimatedCounter end={18} /></p>
+              <p className="mt-2 text-sm font-semibold text-ocean-600">Transport modes</p>
+              <p className="text-xs text-gray-400">Every way to move</p>
+            </div>
+            <div className="text-center">
+              <p className="text-4xl font-display font-bold text-ocean-900 sm:text-5xl"><AnimatedCounter end={190} suffix="+" /></p>
+              <p className="mt-2 text-sm font-semibold text-ocean-600">Countries served</p>
+              <p className="text-xs text-gray-400">True global reach</p>
+            </div>
+            <div className="text-center">
+              <p className="text-4xl font-display font-bold text-ocean-900 sm:text-5xl"><AnimatedCounter end={3.5} suffix="%" decimals={1} /></p>
+              <p className="mt-2 text-sm font-semibold text-ocean-600">Platform fee</p>
+              <p className="text-xs text-gray-400">Transparent pricing</p>
+            </div>
+            <div className="text-center">
+              <p className="text-4xl font-display font-bold text-ocean-900 sm:text-5xl">24/7</p>
+              <p className="mt-2 text-sm font-semibold text-ocean-600">Tracking &amp; support</p>
+              <p className="text-xs text-gray-400">Always watching</p>
+            </div>
           </div>
         </div>
       </section>
@@ -249,39 +264,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ═══════════════════════ TESTIMONIALS ═══════════════════════ */}
-      <section className="bg-cream-50 border-y border-gray-100">
-        <div className="mx-auto max-w-7xl px-6 py-24">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-sky-600">Trusted Globally</p>
-            <h2 className="mt-3 text-3xl font-display font-bold tracking-tight text-ocean-900 sm:text-4xl">
-              Moving the world, one transaction at a time.
-            </h2>
-          </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              { quote: "We switched our entire last-mile operation to CouthActs. The escrow system alone saved us from three bad carrier experiences in the first month.", name: "Logistics Director", company: "E-commerce fulfillment company, Lagos", flag: "🇳🇬" },
-              { quote: "Booking a private charter used to take 48 hours of back-and-forth. On CouthActs, I had three verified bids within an hour. The tracking was flawless.", name: "Executive Assistant", company: "Financial services firm, London", flag: "🇬🇧" },
-              { quote: "As a solo courier, CouthActs gave me a professional platform and a CouthActs Score that customers actually trust. My bookings tripled in two months.", name: "Independent Courier", company: "Bike delivery, New York", flag: "🇺🇸" },
-              { quote: "We manage hazmat shipments across state lines. The compliance documentation and insurance verification CouthActs requires from carriers gives us real peace of mind.", name: "Safety Compliance Manager", company: "Chemical distributor, Houston", flag: "🇺🇸" },
-              { quote: "The multi-currency feature is what sold us. Our team in Nairobi posts in KES, our clients in Dubai see AED, and the accounting is always clean in USD.", name: "Operations Lead", company: "Import/export firm, Nairobi", flag: "🇰🇪" },
-              { quote: "We needed armored transport for high-value electronics. Within hours we had two verified, insured providers bidding. The PIN confirmation at delivery was the cherry on top.", name: "Supply Chain Manager", company: "Consumer electronics, Dubai", flag: "🇦🇪" },
-            ].map((t, i) => (
-              <div key={i} className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-                <p className="text-sm text-gray-600 leading-relaxed italic">&ldquo;{t.quote}&rdquo;</p>
-                <div className="mt-4 flex items-center gap-3">
-                  <span className="text-lg">{t.flag}</span>
-                  <div>
-                    <p className="text-sm font-semibold text-ocean-800">{t.name}</p>
-                    <p className="text-xs text-gray-400">{t.company}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ═══════════════════════ PRICING ═══════════════════════ */}
       <section className="bg-white">

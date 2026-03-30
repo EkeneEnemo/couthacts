@@ -168,20 +168,20 @@ export default function LandingPage() {
         <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-10 lg:pt-32 lg:pb-16">
           <div className="text-center max-w-3xl mx-auto">
             <p className="animate-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-sky-300">
-              For everyone who needs to get somewhere &mdash; or get something there
+              The global transportation marketplace
             </p>
             <h1 className="animate-fade-up animation-delay-150 mt-6 text-5xl font-display font-bold leading-[1.1] tracking-tight text-white sm:text-6xl lg:text-7xl">
-              Your ride. Your move.
+              Need a ride? Drop off? Flight?
               <br />
               <span className="bg-gradient-to-r from-sky-200 via-sky-300 to-white bg-clip-text text-transparent">
-                Your way.
+                Look no further.
               </span>
             </h1>
             <p className="animate-fade-up animation-delay-300 mt-6 text-lg leading-relaxed text-sky-100/90 max-w-2xl mx-auto">
-              Whether it&apos;s a taxi across town, a courier for your package, movers
-              for your apartment, or a cargo ship across the Atlantic &mdash;
-              CouthActs&#8482; connects you with verified providers for every kind of
-              transport. Payments protected. Every mile tracked.
+              From a taxi across town to an interstate move, a same-day courier
+              to an international cargo shipment &mdash; CouthActs&#8482; connects you
+              with verified providers for every kind of transport. Payments
+              protected. Every mile tracked.
             </p>
             <div className="animate-fade-up animation-delay-450 mt-10 flex flex-wrap justify-center gap-4">
               <Link

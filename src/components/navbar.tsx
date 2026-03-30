@@ -91,7 +91,7 @@ export function Navbar() {
           href="/"
           className="text-2xl font-display font-bold text-ocean-800"
         >
-          CouthActs
+          CouthActs&#8482;
         </Link>
 
         {/* Desktop nav */}

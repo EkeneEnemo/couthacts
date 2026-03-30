@@ -4,7 +4,7 @@
 
 :root {
   --background: #FAF8F5;
-  --foreground: #1a1a2e;
+  --foreground: #0f1729;
 }
 
 body {
@@ -23,3 +23,36 @@ body {
     text-wrap: balance;
   }
 }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease both;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animation-delay-150 { animation-delay: 150ms; }
+.animation-delay-300 { animation-delay: 300ms; }
+.animation-delay-450 { animation-delay: 450ms; }
+.animation-delay-600 { animation-delay: 600ms; }
+.animation-delay-750 { animation-delay: 750ms; }

@@ -19,8 +19,11 @@ function getDatabaseUrl(): string {
     );
   }
 
-  // Remove channel_binding param which the Neon serverless driver doesn't support
+  // Strip surrounding quotes (Vercel env vars sometimes include them)
+  // and remove channel_binding param the Neon serverless driver doesn't support
   return url
+    .replace(/^["']|["']$/g, "")
+    .trim()
     .replace(/[?&]channel_binding=[^&]*/g, "")
     .replace(/\?&/, "?")
     .replace(/\?$/, "");

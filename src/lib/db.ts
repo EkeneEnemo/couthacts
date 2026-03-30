@@ -6,12 +6,12 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 function getDatabaseUrl(): string {
-  // Vercel Neon integration may use different env var names
   const url =
     process.env.DATABASE_URL ||
     process.env.POSTGRES_PRISMA_URL ||
     process.env.POSTGRES_URL_NON_POOLING ||
-    process.env.POSTGRES_URL;
+    process.env.POSTGRES_URL ||
+    "";
 
   if (!url) {
     throw new Error(
@@ -19,16 +19,11 @@ function getDatabaseUrl(): string {
     );
   }
 
-  // Strip channel_binding param — the Neon serverless driver doesn't support it
-  // and it causes "Invalid URL" errors in the adapter
-  try {
-    const parsed = new URL(url);
-    parsed.searchParams.delete("channel_binding");
-    return parsed.toString();
-  } catch {
-    // If URL parsing fails, return as-is and let the adapter handle the error
-    return url;
-  }
+  // Remove channel_binding param which the Neon serverless driver doesn't support
+  return url
+    .replace(/[?&]channel_binding=[^&]*/g, "")
+    .replace(/\?&/, "?")
+    .replace(/\?$/, "");
 }
 
 function createPrismaClient() {

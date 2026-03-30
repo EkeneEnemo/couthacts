@@ -69,7 +69,7 @@ export default function TermsPage() {
               The CouthActs&#8482; Wallet is a stored-value system used to facilitate transactions on the Platform. The Wallet is not a bank account, deposit account, or any form of financial institution product. Wallet balances do not earn interest.
             </p>
             <p>
-              <strong>Top-Ups.</strong> You may add funds to your Wallet via credit/debit card through our payment processor, Stripe, Inc. All top-ups are processed in United States Dollars (USD). The minimum top-up is $5.00 USD and the maximum single top-up is $50,000 USD. Top-ups are non-refundable except as required by applicable law or as described in these Terms.
+              <strong>Top-Ups.</strong> You may add funds to your Wallet via credit/debit card through our payment processor, Stripe, Inc. All top-ups are processed in United States Dollars (USD). The minimum top-up is $5.00 USD and the maximum single top-up is $50,000 USD. All top-ups are final and non-refundable.
             </p>
             <p>
               <strong>Multi-Currency Display.</strong> Users may select a preferred display currency in their account settings. All prices, balances, and fees are displayed in the user&apos;s preferred currency alongside the USD equivalent. The internal ledger is maintained exclusively in USD. Exchange rates are provided for informational purposes and are updated periodically; the Company does not guarantee the accuracy of displayed conversion rates. All financial obligations are denominated in USD regardless of display currency.
@@ -122,7 +122,7 @@ export default function TermsPage() {
                 <tr>
                   <td className="py-2 pr-4">Wallet top-up</td>
                   <td className="py-2 pr-4">No CouthActs&#8482; fee (Stripe processing fees apply)</td>
-                  <td className="py-2">At time of top-up</td>
+                  <td className="py-2">At time of top-up (non-refundable)</td>
                 </tr>
               </tbody>
             </table>

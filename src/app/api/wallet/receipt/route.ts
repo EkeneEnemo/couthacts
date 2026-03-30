@@ -182,8 +182,13 @@ export async function GET(req: NextRequest) {
 <body>
   <div class="receipt">
     <div class="header">
-      <h1>CouthActs&trade;</h1>
-      <p>Transaction Receipt</p>
+      <div style="display:flex;align-items:center;gap:14px">
+        <img src="${process.env.NEXTAUTH_URL || "https://couthacts.com"}/images/logo.jpg" alt="CouthActs logo" style="width:48px;height:48px;border-radius:10px;object-fit:contain;background:white;padding:2px" />
+        <div>
+          <h1>CouthActs&trade;</h1>
+          <p>Transaction Receipt</p>
+        </div>
+      </div>
       <div class="badge">${receiptNumber}</div>
     </div>
 

@@ -29,7 +29,7 @@ const HERO_MOSAIC = [
     alt: "Luxury private charter jet flying above the clouds at sunset",
   },
   {
-    src: "https://images.unsplash.com/photo-1577993625095-9ea75bfc8a44?w=1200&q=90",
+    src: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=1200&q=90",
     alt: "Large cargo container ship sailing through the open ocean",
   },
 ];

@@ -32,8 +32,8 @@ export async function POST(req: NextRequest) {
     // Derive the base URL from the request headers (works on Vercel)
     const headersList = await headers();
     const host = headersList.get("host") || "localhost:3000";
-    const protocol = headersList.get("x-forwarded-proto") || "https";
-    const baseUrl = process.env.NEXTAUTH_URL || `${protocol}://${host}`;
+    const protocol = host.includes("localhost") ? "http" : "https";
+    const baseUrl = `${protocol}://${host}`;
 
     const stripe = getStripe();
     const checkoutSession = await stripe.checkout.sessions.create({

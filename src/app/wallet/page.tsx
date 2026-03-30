@@ -9,7 +9,6 @@ import {
   Wallet,
   ArrowUpRight,
   ArrowDownLeft,
-  Plus,
   CheckCircle,
   XCircle,
 } from "lucide-react";
@@ -200,8 +199,7 @@ function WalletContent() {
                   loading={topupLoading}
                   disabled={!topupAmount || parseFloat(topupAmount) < 5}
                 >
-                  <Plus className="mr-2 h-4 w-4" />
-                  Top up via Stripe
+                  Pay Now
                 </Button>
               </div>
             </div>

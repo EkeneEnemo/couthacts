@@ -60,6 +60,14 @@ export default function LandingPage() {
                   Join as provider
                 </Link>
               </div>
+              <div className="animate-fade-up animation-delay-600 mt-6 flex flex-wrap items-center gap-4 text-xs text-sky-300/60">
+                <span className="flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
+                  Platform live now
+                </span>
+                <span>&middot;</span>
+                <span>iOS &amp; Android app launching soon</span>
+              </div>
             </div>
 
             {/* Hero stats — commanding numbers */}
@@ -69,7 +77,7 @@ export default function LandingPage() {
                   { value: "18", label: "Transport Modes", desc: "Ground · Air · Sea · Rail" },
                   { value: "190+", label: "Countries", desc: "Global coverage" },
                   { value: "100%", label: "Escrow Protected", desc: "Every transaction secured" },
-                  { value: "$0", label: "Platform Fee to Join", desc: "Free for all users" },
+                  { value: "24/7", label: "Live Tracking", desc: "GPS · AIS · Flight" },
                 ].map((s) => (
                   <div key={s.label} className="rounded-2xl border border-white/[0.08] bg-white/[0.04] backdrop-blur-sm p-6">
                     <p className="text-3xl font-display font-bold text-white lg:text-4xl">{s.value}</p>
@@ -241,6 +249,197 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ═══════════════════════ TESTIMONIALS ═══════════════════════ */}
+      <section className="bg-cream-50 border-y border-gray-100">
+        <div className="mx-auto max-w-7xl px-6 py-24">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-sky-600">Trusted Globally</p>
+            <h2 className="mt-3 text-3xl font-display font-bold tracking-tight text-ocean-900 sm:text-4xl">
+              Moving the world, one transaction at a time.
+            </h2>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { quote: "We switched our entire last-mile operation to CouthActs. The escrow system alone saved us from three bad carrier experiences in the first month.", name: "Logistics Director", company: "E-commerce fulfillment company, Lagos", flag: "🇳🇬" },
+              { quote: "Booking a private charter used to take 48 hours of back-and-forth. On CouthActs, I had three verified bids within an hour. The tracking was flawless.", name: "Executive Assistant", company: "Financial services firm, London", flag: "🇬🇧" },
+              { quote: "As a solo courier, CouthActs gave me a professional platform and a CouthActs Score that customers actually trust. My bookings tripled in two months.", name: "Independent Courier", company: "Bike delivery, New York", flag: "🇺🇸" },
+              { quote: "We manage hazmat shipments across state lines. The compliance documentation and insurance verification CouthActs requires from carriers gives us real peace of mind.", name: "Safety Compliance Manager", company: "Chemical distributor, Houston", flag: "🇺🇸" },
+              { quote: "The multi-currency feature is what sold us. Our team in Nairobi posts in KES, our clients in Dubai see AED, and the accounting is always clean in USD.", name: "Operations Lead", company: "Import/export firm, Nairobi", flag: "🇰🇪" },
+              { quote: "We needed armored transport for high-value electronics. Within hours we had two verified, insured providers bidding. The PIN confirmation at delivery was the cherry on top.", name: "Supply Chain Manager", company: "Consumer electronics, Dubai", flag: "🇦🇪" },
+            ].map((t, i) => (
+              <div key={i} className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
+                <p className="text-sm text-gray-600 leading-relaxed italic">&ldquo;{t.quote}&rdquo;</p>
+                <div className="mt-4 flex items-center gap-3">
+                  <span className="text-lg">{t.flag}</span>
+                  <div>
+                    <p className="text-sm font-semibold text-ocean-800">{t.name}</p>
+                    <p className="text-xs text-gray-400">{t.company}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════ PRICING ═══════════════════════ */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-5xl px-6 py-24 lg:py-32">
+          <div className="text-center max-w-2xl mx-auto">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-sky-600">Transparent Pricing</p>
+            <h2 className="mt-3 text-3xl font-display font-bold tracking-tight text-ocean-900 sm:text-4xl">
+              No hidden fees. No surprises.
+            </h2>
+            <p className="mt-3 text-base text-gray-500">
+              Every cost is visible before you commit. The provider is paid only when you confirm delivery.
+            </p>
+          </div>
+
+          <div className="mt-16 rounded-2xl border border-gray-200 overflow-hidden">
+            <table className="w-full text-sm">
+              <thead className="bg-ocean-900 text-white">
+                <tr>
+                  <th className="px-6 py-4 text-left font-semibold">Fee</th>
+                  <th className="px-6 py-4 text-left font-semibold">Rate</th>
+                  <th className="px-6 py-4 text-left font-semibold">When charged</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                <tr>
+                  <td className="px-6 py-4 font-medium text-ocean-800">Posting fee</td>
+                  <td className="px-6 py-4 text-gray-600">$2–$50 base + 0.5% of budget <span className="text-xs text-gray-400">(min $2)</span></td>
+                  <td className="px-6 py-4 text-gray-500">When you post a job <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-semibold text-amber-700 ml-1">Non-refundable</span></td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="px-6 py-4 font-medium text-ocean-800">Budget hold</td>
+                  <td className="px-6 py-4 text-gray-600">100% of your posted budget</td>
+                  <td className="px-6 py-4 text-gray-500">Held at posting <span className="rounded-full bg-green-50 px-2 py-0.5 text-[10px] font-semibold text-green-700 ml-1">Refundable if no match</span></td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 font-medium text-ocean-800">Escrow fee</td>
+                  <td className="px-6 py-4 text-gray-600">3.5% of agreed bid amount</td>
+                  <td className="px-6 py-4 text-gray-500">Deducted from provider payout on completion</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="px-6 py-4 font-medium text-ocean-800">Identity verification</td>
+                  <td className="px-6 py-4 text-gray-600">$20.00 per attempt</td>
+                  <td className="px-6 py-4 text-gray-500">Before accessing platform features <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-semibold text-amber-700 ml-1">Non-refundable</span></td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 font-medium text-ocean-800">Wallet top-up</td>
+                  <td className="px-6 py-4 text-gray-600">No CouthActs&#8482; fee</td>
+                  <td className="px-6 py-4 text-gray-500">Stripe processing fees apply</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="px-6 py-4 font-medium text-ocean-800">Provider withdrawal</td>
+                  <td className="px-6 py-4 text-gray-600">No CouthActs&#8482; fee</td>
+                  <td className="px-6 py-4 text-gray-500">Stripe Connect transfer fees apply</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p className="mt-4 text-center text-xs text-gray-400">
+            Enterprise volume pricing available.{" "}
+            <Link href="/enterprise" className="text-ocean-600 hover:text-ocean-700 font-medium">Contact sales</Link>
+          </p>
+        </div>
+      </section>
+
+      {/* ═══════════════════════ COMPLIANCE ═══════════════════════ */}
+      <section className="bg-cream-50">
+        <div className="mx-auto max-w-7xl px-6 py-24">
+          <div className="text-center max-w-2xl mx-auto">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-sky-600">Compliance &amp; Operations</p>
+            <h2 className="mt-3 text-3xl font-display font-bold tracking-tight text-ocean-900 sm:text-4xl">
+              Built for regulated industries.
+            </h2>
+          </div>
+
+          <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { title: "Persona ID Verification", desc: "Every user passes government-issued photo ID verification powered by Persona before accessing the platform.", badge: "Required" },
+              { title: "KYB Business Verification", desc: "Business providers submit insurance certificates, business licenses, and regulatory registrations for manual review.", badge: "Required" },
+              { title: "Regulatory Compliance", desc: "DOT, MC, FMCSA for trucking. IMO for maritime. FAA for aviation. We verify the registrations that matter for your mode.", badge: "Mode-specific" },
+              { title: "Insurance Verification", desc: "Providers declare coverage tier (Basic, Standard, Premium). Customers can require matching insurance on every posting.", badge: "Tiered" },
+            ].map((c) => (
+              <div key={c.title} className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
+                <span className="rounded-full bg-ocean-50 px-2.5 py-0.5 text-[10px] font-bold text-ocean-700 uppercase tracking-wider">{c.badge}</span>
+                <h3 className="mt-3 text-base font-display font-semibold text-ocean-900">{c.title}</h3>
+                <p className="mt-2 text-sm text-gray-500 leading-relaxed">{c.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 text-center">
+            <p className="text-sm text-gray-500">
+              Dispute resolution SLA: under review within 24 hours. Escrow frozen immediately upon filing.
+              <br />
+              <span className="text-xs text-gray-400">Questions about compliance? <Link href="/enterprise" className="text-ocean-600 hover:text-ocean-700 font-medium">Contact our enterprise team</Link></span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════ PLATFORM PREVIEW ═══════════════════════ */}
+      <section className="bg-ocean-900 overflow-hidden">
+        <div className="mx-auto max-w-7xl px-6 py-24 lg:py-32">
+          <div className="text-center max-w-2xl mx-auto">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-sky-400">The Platform</p>
+            <h2 className="mt-3 text-3xl font-display font-bold tracking-tight text-white sm:text-4xl">
+              See what you&apos;re getting.
+            </h2>
+            <p className="mt-3 text-base text-sky-200/60">
+              Post a need. Get verified bids. Track in real-time. Release payment on completion. All from one dashboard.
+            </p>
+          </div>
+
+          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { title: "Post a Need", desc: "18 mode-specific workflows. Every field tailored to your transport type.", color: "from-sky-500 to-ocean-600" },
+              { title: "Verified Bids", desc: "CouthActs Score, completion rates, on-time stats. Choose with confidence.", color: "from-ocean-600 to-ocean-700" },
+              { title: "Live Tracking", desc: "GPS for ground. Flight tracking for air. AIS for sea. PIN at delivery.", color: "from-ocean-700 to-sky-600" },
+              { title: "Wallet & Escrow", desc: "Top up, hold, release, refund. Full transaction history with PDF receipts.", color: "from-sky-600 to-sky-500" },
+            ].map((s) => (
+              <div key={s.title} className={`rounded-2xl bg-gradient-to-br ${s.color} p-6 text-white`}>
+                <h3 className="text-base font-display font-semibold">{s.title}</h3>
+                <p className="mt-2 text-sm text-white/70 leading-relaxed">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-sm text-sky-200/40">
+              iOS &amp; Android mobile app launching soon. Web platform live at couthacts.com.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════ ENTERPRISE CTA ═══════════════════════ */}
+      <section className="bg-white border-y border-gray-100">
+        <div className="mx-auto max-w-5xl px-6 py-20">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-sky-600">Enterprise</p>
+              <h2 className="mt-2 text-2xl font-display font-bold text-ocean-900 sm:text-3xl">
+                Shipping at scale? Let&apos;s talk.
+              </h2>
+              <p className="mt-2 text-sm text-gray-500 max-w-lg">
+                Volume-based pricing, dedicated account management, custom API integrations, and priority support for organizations moving more than 50 shipments per month.
+              </p>
+            </div>
+            <Link
+              href="/enterprise"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-ocean-900 px-8 py-4 text-sm font-semibold text-white shadow-lg transition-all hover:bg-ocean-800 hover:scale-[1.02] flex-shrink-0"
+            >
+              Contact Enterprise Sales <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ═══════════════════════ TRUST ENGINE ═══════════════════════ */}
       <section className="bg-ocean-900 relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]">
@@ -390,6 +589,7 @@ export default function LandingPage() {
                 <Link href="/marketplace" className="block text-sky-200/50 hover:text-white transition">Marketplace</Link>
                 <Link href="/register" className="block text-sky-200/50 hover:text-white transition">Get Started</Link>
                 <Link href="/register?role=PROVIDER" className="block text-sky-200/50 hover:text-white transition">For Providers</Link>
+                <Link href="/enterprise" className="block text-sky-200/50 hover:text-white transition">Enterprise</Link>
               </div>
               <div className="space-y-3 text-sm">
                 <p className="font-semibold text-sky-300 text-xs uppercase tracking-wider">Account</p>

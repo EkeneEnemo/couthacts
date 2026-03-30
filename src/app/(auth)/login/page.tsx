@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { loginSchema, LoginInput } from "@/lib/validations";
@@ -11,7 +10,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 export default function LoginPage() {
-  const router = useRouter();
   const [serverError, setServerError] = useState("");
   const {
     register,
@@ -33,7 +31,7 @@ export default function LoginPage() {
       setServerError(json.error || "Invalid credentials");
       return;
     }
-    router.push("/dashboard");
+    window.location.href = "/dashboard";
   }
 
   return (

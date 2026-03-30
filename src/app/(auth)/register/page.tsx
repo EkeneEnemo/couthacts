@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { registerSchema, RegisterInput } from "@/lib/validations";
@@ -11,7 +10,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 export default function RegisterPage() {
-  const router = useRouter();
   const [serverError, setServerError] = useState("");
   const {
     register,
@@ -38,9 +36,9 @@ export default function RegisterPage() {
       return;
     }
     if (data.role === "PROVIDER") {
-      router.push("/onboarding");
+      window.location.href = "/onboarding";
     } else {
-      router.push("/dashboard");
+      window.location.href = "/dashboard";
     }
   }
 

@@ -21,7 +21,7 @@ const HERO_MOSAIC = [
     alt: "Woman smiling while riding in a taxi through the city",
   },
   {
-    src: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80",
+    src: "https://images.unsplash.com/photo-1526367790999-0150786686a2?w=800&q=80",
     alt: "Delivery courier on a bicycle riding through the city",
   },
   {
@@ -29,8 +29,8 @@ const HERO_MOSAIC = [
     alt: "Passenger airplane flying through golden clouds",
   },
   {
-    src: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80",
-    alt: "Two people collaborating at a laptop planning a move",
+    src: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
+    alt: "Person using a laptop to plan logistics",
   },
 ];
 
@@ -41,8 +41,8 @@ const USE_CASES = [
   {
     title: "Need a ride across town?",
     description: "Book a verified taxi or limo in minutes. See your driver\u2019s CouthActs\u2122 Score before you step in.",
-    image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0afa?w=900&q=80",
-    alt: "Passenger stepping into a yellow taxi on a city street",
+    image: "https://images.unsplash.com/photo-1511527661048-7fe73d85e9a4?w=900&q=80",
+    alt: "Yellow taxi cab driving through a city street",
     tag: "Rides",
   },
   {

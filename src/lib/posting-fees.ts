@@ -32,9 +32,9 @@ export const MODE_MINIMUMS_USD: Record<string, number> = {
 };
 
 const BASE_FEES: Record<string, number> = {
-  TAXI_RIDE: 1.0,
-  LIMOUSINE: 2.0,
-  COURIER_LAST_MILE: 1.5,
+  TAXI_RIDE: 2.0,
+  LIMOUSINE: 3.0,
+  COURIER_LAST_MILE: 2.0,
   MOVING: 5.0,
   FREIGHT_TRUCKING: 10.0,
   HEAVY_HAUL: 25.0,
@@ -46,7 +46,7 @@ const BASE_FEES: Record<string, number> = {
   AIR_CARGO: 20.0,
   CARGO_SHIP: 30.0,
   YACHT_CHARTER: 40.0,
-  FERRY: 10.0,
+  FERRY: 5.0,
   FREIGHT_RAIL: 15.0,
   HAZMAT: 20.0,
   OVERSIZED_CARGO: 25.0,
@@ -60,8 +60,14 @@ export function getMinimumBudgetUsd(mode: string): number {
 }
 
 /**
+ * Absolute minimum posting fee in USD.
+ * Guarantees profitability after Stripe fees (~$0.45) on every transaction.
+ */
+const MIN_POSTING_FEE_USD = 2.0;
+
+/**
  * Calculate posting fee based on transport mode and budget.
- * Base fee + 0.5% of budget.
+ * Base fee + 0.5% of budget, with a $2 floor.
  */
 export function calculatePostingFee(
   mode: string,
@@ -69,7 +75,8 @@ export function calculatePostingFee(
 ): number {
   const baseFee = BASE_FEES[mode] ?? 5.0;
   const percentFee = budgetUsd * 0.005;
-  return Math.round((baseFee + percentFee) * 100) / 100;
+  const calculated = Math.round((baseFee + percentFee) * 100) / 100;
+  return Math.max(calculated, MIN_POSTING_FEE_USD);
 }
 
 /**

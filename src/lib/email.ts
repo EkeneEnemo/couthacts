@@ -9,7 +9,7 @@ function getResend() {
   return _resend;
 }
 
-const FROM = "CouthActs <noreply@couthacts.com>";
+const FROM = process.env.RESEND_FROM_EMAIL || "CouthActs <onboarding@resend.dev>";
 
 export async function sendWelcomeEmail(email: string, firstName: string) {
   if (!process.env.RESEND_API_KEY) return;

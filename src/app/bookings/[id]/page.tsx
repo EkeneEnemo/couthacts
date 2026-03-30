@@ -10,6 +10,7 @@ import {
   MapPin,
   Shield,
   Clock,
+  Navigation,
   CheckCircle,
   AlertTriangle,
   Copy,
@@ -469,6 +470,15 @@ export default function BookingDetailPage() {
                         </span>
                       )}
                     </div>
+                    <a
+                      href={`/track/${booking.trackingCode}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-2 inline-flex items-center gap-1.5 rounded-lg bg-ocean-600 px-4 py-2 text-xs font-semibold text-white hover:bg-ocean-700 transition"
+                    >
+                      <Navigation className="h-3.5 w-3.5" />
+                      Track This Job
+                    </a>
                   </div>
                 )}
                 {booking.pin && (

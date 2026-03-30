@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Logo } from "@/components/logo";
+import { TrackInput } from "@/components/track-input";
 import {
   ArrowRight,
   Shield,
@@ -411,6 +412,22 @@ export default function LandingPage() {
               CouthActs&#8482; is for all of you.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════ TRACK A JOB ═══════════════════════ */}
+      <section className="bg-white border-y border-gray-100">
+        <div className="mx-auto max-w-2xl px-6 py-16 text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.15em] text-sky-600">
+            Track a job
+          </p>
+          <h2 className="mt-3 text-2xl font-display font-bold tracking-tight text-ocean-900 sm:text-3xl">
+            Have a tracking code?
+          </h2>
+          <p className="mt-2 text-sm text-gray-500">
+            Enter your code to see real-time status, location, and checkpoints. No login required.
+          </p>
+          <TrackInput />
         </div>
       </section>
 

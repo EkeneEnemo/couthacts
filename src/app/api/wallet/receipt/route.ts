@@ -1,6 +1,8 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
+import { readFileSync } from "fs";
+import { join } from "path";
 
 /**
  * GET /api/wallet/receipt?id=xxx — Render a printable HTML receipt.
@@ -59,6 +61,14 @@ export async function GET(req: NextRequest) {
 
   const typeLabel = typeLabels[tx.type] || tx.type;
   const receiptNumber = `CA-${tx.id.slice(0, 8).toUpperCase()}`;
+
+  // Load logo as base64 for reliable rendering
+  let logoBase64 = "";
+  try {
+    const logoPath = join(process.cwd(), "public", "images", "logo.jpg");
+    logoBase64 = readFileSync(logoPath).toString("base64");
+  } catch { /* logo will be hidden if file not found */ }
+  const logoSrc = logoBase64 ? `data:image/jpeg;base64,${logoBase64}` : "";
 
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -183,7 +193,7 @@ export async function GET(req: NextRequest) {
   <div class="receipt">
     <div class="header">
       <div style="display:flex;align-items:center;gap:14px">
-        <img src="${process.env.NEXTAUTH_URL || "https://couthacts.com"}/images/logo.jpg" alt="CouthActs logo" style="width:48px;height:48px;border-radius:10px;object-fit:contain;background:white;padding:2px" />
+        ${logoSrc ? `<img src="${logoSrc}" alt="CouthActs logo" style="width:48px;height:48px;border-radius:10px;object-fit:contain;background:white;padding:2px" />` : ""}
         <div>
           <h1>CouthActs&trade;</h1>
           <p>Transaction Receipt</p>

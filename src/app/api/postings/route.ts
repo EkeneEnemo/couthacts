@@ -41,15 +41,15 @@ export async function POST(req: NextRequest) {
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  if (session.user.role !== "CUSTOMER") {
+  if (session.user.role !== "CUSTOMER" && session.user.role !== "ADMIN") {
     return NextResponse.json(
       { error: "Only customers can create postings" },
       { status: 403 }
     );
   }
 
-  // Verification gate
-  if (session.user.kycStatus !== "APPROVED") {
+  // Verification gate (admins bypass)
+  if (session.user.role !== "ADMIN" && session.user.kycStatus !== "APPROVED") {
     return NextResponse.json(
       { error: "Please verify your identity before posting. Go to Settings → Verify Identity." },
       { status: 403 }

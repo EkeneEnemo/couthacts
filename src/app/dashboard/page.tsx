@@ -40,7 +40,7 @@ export default async function DashboardPage() {
   });
   type PostingRow = Awaited<typeof postingsQuery>[number];
   const postings: PostingRow[] =
-    user.role === "CUSTOMER" ? await postingsQuery : [];
+    (user.role === "CUSTOMER" || user.role === "ADMIN") ? await postingsQuery : [];
 
   const customerBookingsQuery = db.booking.findMany({
     where: { customerId: user.id },
@@ -54,7 +54,7 @@ export default async function DashboardPage() {
   });
   type CustomerBookingRow = Awaited<typeof customerBookingsQuery>[number];
   const customerBookings: CustomerBookingRow[] =
-    user.role === "CUSTOMER" ? await customerBookingsQuery : [];
+    (user.role === "CUSTOMER" || user.role === "ADMIN") ? await customerBookingsQuery : [];
 
   // Provider data
   const provider =
@@ -118,7 +118,7 @@ export default async function DashboardPage() {
       <div className="mx-auto max-w-7xl px-6 py-10">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-display font-bold text-ocean-900">Dashboard</h1>
-          {user.role === "CUSTOMER" && (
+          {(user.role === "CUSTOMER" || user.role === "ADMIN") && (
             <Link
               href="/postings/new"
               className="inline-flex items-center gap-2 rounded-lg bg-ocean-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-ocean-700 transition"
@@ -130,7 +130,7 @@ export default async function DashboardPage() {
         </div>
 
         {/* ── CUSTOMER VIEW ── */}
-        {user.role === "CUSTOMER" && (
+        {(user.role === "CUSTOMER" || user.role === "ADMIN") && (
           <div className="mt-8 space-y-10">
             {/* Postings */}
             <div>

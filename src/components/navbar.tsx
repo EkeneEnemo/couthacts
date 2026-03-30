@@ -114,7 +114,7 @@ export function Navbar() {
                   Marketplace
                 </Link>
               )}
-              {user.role === "CUSTOMER" && (
+              {(user.role === "CUSTOMER" || user.role === "ADMIN") && (
                 <Link href="/postings/new">
                   <Button size="sm" variant="secondary">Post a job</Button>
                 </Link>
@@ -158,7 +158,11 @@ export function Navbar() {
                     </div>
                     <div className="max-h-80 overflow-y-auto">
                       {notifications.length === 0 ? (
-                        <p className="px-4 py-8 text-center text-sm text-gray-400">No notifications</p>
+                        <div className="px-4 py-10 text-center">
+                          <Bell className="mx-auto h-8 w-8 text-gray-300" />
+                          <p className="mt-2 text-sm text-gray-400">No notifications for now</p>
+                          <p className="text-xs text-gray-300 mt-1">We&apos;ll notify you when something happens</p>
+                        </div>
                       ) : (
                         notifications.slice(0, 15).map((n) => {
                           const dest = n.link || "/dashboard";
@@ -267,7 +271,7 @@ export function Navbar() {
                   Marketplace
                 </Link>
               )}
-              {user.role === "CUSTOMER" && (
+              {(user.role === "CUSTOMER" || user.role === "ADMIN") && (
                 <Link href="/postings/new" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-ocean-700 py-2">
                   Post a job
                 </Link>

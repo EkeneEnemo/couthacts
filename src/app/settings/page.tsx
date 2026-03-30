@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { Navbar } from "@/components/navbar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Camera, Shield, AlertTriangle, Clock } from "lucide-react";
+import { CheckCircle, Camera, Shield, AlertTriangle, Clock, Bell, Mail } from "lucide-react";
 
 export default function SettingsPage() {
   const [loading, setLoading] = useState(true);
@@ -15,6 +15,9 @@ export default function SettingsPage() {
   const [kycStatus, setKycStatus] = useState("PENDING");
   const [verifying, setVerifying] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [disabledEmails, setDisabledEmails] = useState<string[]>([]);
+  const [prefsSaving, setPrefsSaving] = useState(false);
+  const [prefsSaved, setPrefsSaved] = useState(false);
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -29,7 +32,8 @@ export default function SettingsPage() {
     Promise.all([
       fetch("/api/settings").then((r) => r.json()),
       fetch("/api/verify").then((r) => r.json()),
-    ]).then(([settingsData, verifyData]) => {
+      fetch("/api/notification-prefs").then((r) => r.json()),
+    ]).then(([settingsData, verifyData, prefsData]) => {
       if (settingsData.user) {
         setForm({
           firstName: settingsData.user.firstName || "",
@@ -43,6 +47,7 @@ export default function SettingsPage() {
       }
       setAvatarUrl(verifyData.avatarUrl || null);
       setKycStatus(verifyData.kycStatus || "PENDING");
+      setDisabledEmails(prefsData.disabled || []);
       setLoading(false);
     });
   }, []);
@@ -318,6 +323,87 @@ export default function SettingsPage() {
               Save changes
             </Button>
             {saved && (
+              <span className="flex items-center gap-1 text-sm text-green-600">
+                <CheckCircle className="h-4 w-4" />
+                Saved
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Notification Preferences */}
+        <div className="mt-4 rounded-2xl bg-white p-8 shadow-sm border border-gray-100">
+          <div className="flex items-center gap-2 mb-4">
+            <Bell className="h-5 w-5 text-ocean-600" />
+            <p className="text-sm font-semibold text-ocean-800">Email Notifications</p>
+          </div>
+          <p className="text-sm text-gray-500 mb-4">
+            Choose which email notifications you want to receive. In-app notifications are always on.
+          </p>
+          <div className="space-y-3">
+            {([
+              { key: "new_bid", label: "New bid on your posting", desc: "When a provider bids on your job" },
+              { key: "bid_accepted", label: "Bid accepted", desc: "When a customer accepts your bid" },
+              { key: "booking_confirmed", label: "Booking confirmed", desc: "When a booking is created" },
+              { key: "booking_started", label: "Job started", desc: "When the provider starts the job" },
+              { key: "booking_completed", label: "Job completed", desc: "When both parties confirm completion" },
+              { key: "escrow_released", label: "Payment released", desc: "When escrow funds are released to your wallet" },
+              { key: "escrow_refunded", label: "Escrow refunded", desc: "When escrow funds are returned to your wallet" },
+              { key: "dispute_filed", label: "Dispute filed", desc: "When a dispute is filed on a booking" },
+              { key: "verification_approved", label: "Identity verified", desc: "When your verification is approved" },
+            ]).map((n) => {
+              const enabled = !disabledEmails.includes(n.key);
+              return (
+                <label
+                  key={n.key}
+                  className="flex items-center justify-between rounded-xl border border-gray-100 p-4 cursor-pointer hover:bg-gray-50 transition"
+                >
+                  <div className="flex items-center gap-3">
+                    <Mail className="h-4 w-4 text-gray-400" />
+                    <div>
+                      <p className="text-sm font-medium text-ocean-800">{n.label}</p>
+                      <p className="text-xs text-gray-400">{n.desc}</p>
+                    </div>
+                  </div>
+                  <div className="relative">
+                    <input
+                      type="checkbox"
+                      checked={enabled}
+                      onChange={() => {
+                        setPrefsSaved(false);
+                        setDisabledEmails((prev) =>
+                          enabled
+                            ? [...prev, n.key]
+                            : prev.filter((k) => k !== n.key)
+                        );
+                      }}
+                      className="sr-only peer"
+                    />
+                    <div className="w-10 h-6 bg-gray-200 rounded-full peer-checked:bg-ocean-600 transition-colors" />
+                    <div className="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform peer-checked:translate-x-4" />
+                  </div>
+                </label>
+              );
+            })}
+          </div>
+          <div className="mt-4 flex items-center gap-3">
+            <Button
+              size="sm"
+              onClick={async () => {
+                setPrefsSaving(true);
+                await fetch("/api/notification-prefs", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ disabled: disabledEmails }),
+                });
+                setPrefsSaving(false);
+                setPrefsSaved(true);
+              }}
+              loading={prefsSaving}
+            >
+              Save preferences
+            </Button>
+            {prefsSaved && (
               <span className="flex items-center gap-1 text-sm text-green-600">
                 <CheckCircle className="h-4 w-4" />
                 Saved

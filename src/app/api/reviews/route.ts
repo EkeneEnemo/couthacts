@@ -54,9 +54,9 @@ export async function POST(req: NextRequest) {
     where: { providerId: booking.providerId },
   });
   const avgRating =
-    allReviews.reduce((sum, r) => sum + r.rating, 0) / allReviews.length;
+    allReviews.reduce((sum: number, r) => sum + r.rating, 0) / allReviews.length;
   const avgOnTime =
-    allReviews.filter((r) => r.onTimeScore).reduce((sum, r) => sum + r.onTimeScore!, 0) /
+    allReviews.filter((r) => r.onTimeScore).reduce((sum: number, r) => sum + r.onTimeScore!, 0) /
     (allReviews.filter((r) => r.onTimeScore).length || 1);
 
   // Map avg rating (1-5) to score (0-100)

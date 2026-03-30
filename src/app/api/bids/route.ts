@@ -25,6 +25,14 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // Verification gate
+  if (!provider.isVerified) {
+    return NextResponse.json(
+      { error: "Please verify your identity before bidding. Go to Settings → Verify Identity." },
+      { status: 403 }
+    );
+  }
+
   const body = await req.json();
 
   const posting = await db.posting.findUnique({

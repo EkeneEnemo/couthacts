@@ -1,15 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Navbar } from "@/components/navbar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Camera, Shield, AlertTriangle, Clock } from "lucide-react";
 
 export default function SettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [avatarUploading, setAvatarUploading] = useState(false);
+  const [kycStatus, setKycStatus] = useState("PENDING");
+  const [verifying, setVerifying] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -21,22 +26,25 @@ export default function SettingsPage() {
   });
 
   useEffect(() => {
-    fetch("/api/settings")
-      .then((r) => r.json())
-      .then((d) => {
-        if (d.user) {
-          setForm({
-            firstName: d.user.firstName || "",
-            lastName: d.user.lastName || "",
-            email: d.user.email || "",
-            phone: d.user.phone || "",
-            city: d.user.city || "",
-            country: d.user.country || "",
-            preferredCurrency: d.user.preferredCurrency || "USD",
-          });
-        }
-        setLoading(false);
-      });
+    Promise.all([
+      fetch("/api/settings").then((r) => r.json()),
+      fetch("/api/verify").then((r) => r.json()),
+    ]).then(([settingsData, verifyData]) => {
+      if (settingsData.user) {
+        setForm({
+          firstName: settingsData.user.firstName || "",
+          lastName: settingsData.user.lastName || "",
+          email: settingsData.user.email || "",
+          phone: settingsData.user.phone || "",
+          city: settingsData.user.city || "",
+          country: settingsData.user.country || "",
+          preferredCurrency: settingsData.user.preferredCurrency || "USD",
+        });
+      }
+      setAvatarUrl(verifyData.avatarUrl || null);
+      setKycStatus(verifyData.kycStatus || "PENDING");
+      setLoading(false);
+    });
   }, []);
 
   function update(patch: Partial<typeof form>) {
@@ -53,6 +61,64 @@ export default function SettingsPage() {
     });
     setSaving(false);
     setSaved(true);
+  }
+
+  async function handleAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      alert("Please select an image file.");
+      return;
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      alert("Image must be under 2MB.");
+      return;
+    }
+
+    setAvatarUploading(true);
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const base64 = reader.result as string;
+      const res = await fetch("/api/upload/avatar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ image: base64 }),
+      });
+      const data = await res.json();
+      if (data.avatarUrl) {
+        setAvatarUrl(data.avatarUrl);
+      } else {
+        alert(data.error || "Upload failed");
+      }
+      setAvatarUploading(false);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  async function startVerification() {
+    setVerifying(true);
+    const res = await fetch("/api/verify", { method: "POST" });
+    const data = await res.json();
+    if (data.error) {
+      alert(data.error);
+      setVerifying(false);
+      return;
+    }
+    setKycStatus(data.status);
+
+    // Poll for approval (auto-approved in ~3s in simulation)
+    const poll = setInterval(async () => {
+      const check = await fetch("/api/verify").then((r) => r.json());
+      if (check.kycStatus === "APPROVED") {
+        setKycStatus("APPROVED");
+        clearInterval(poll);
+        setVerifying(false);
+      }
+    }, 2000);
+
+    // Stop polling after 15s
+    setTimeout(() => { clearInterval(poll); setVerifying(false); }, 15000);
   }
 
   if (loading) {
@@ -74,7 +140,104 @@ export default function SettingsPage() {
           Settings
         </h1>
 
-        <div className="mt-8 rounded-2xl bg-white p-8 shadow-sm border border-gray-100 space-y-5">
+        {/* Profile Photo */}
+        <div className="mt-8 rounded-2xl bg-white p-8 shadow-sm border border-gray-100">
+          <p className="text-sm font-semibold text-ocean-800 mb-4">Profile Photo</p>
+          <div className="flex items-center gap-5">
+            <div className="relative">
+              {avatarUrl ? (
+                <img src={avatarUrl} alt="Profile" className="h-20 w-20 rounded-2xl object-cover" />
+              ) : (
+                <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-gray-100 text-gray-400">
+                  <Camera className="h-8 w-8" />
+                </div>
+              )}
+            </div>
+            <div>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleAvatarChange}
+                className="hidden"
+              />
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => fileInputRef.current?.click()}
+                loading={avatarUploading}
+              >
+                {avatarUrl ? "Change photo" : "Upload photo"}
+              </Button>
+              <p className="mt-1 text-xs text-gray-400">Required for verification. Max 2MB.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Identity Verification */}
+        <div className="mt-4 rounded-2xl bg-white p-8 shadow-sm border border-gray-100">
+          <div className="flex items-center gap-2 mb-4">
+            <Shield className="h-5 w-5 text-ocean-600" />
+            <p className="text-sm font-semibold text-ocean-800">Identity Verification</p>
+          </div>
+
+          {kycStatus === "APPROVED" ? (
+            <div className="flex items-center gap-3 rounded-xl bg-green-50 p-4 border border-green-200">
+              <CheckCircle className="h-5 w-5 text-green-600" />
+              <div>
+                <p className="text-sm font-medium text-green-800">Identity verified</p>
+                <p className="text-xs text-green-600">You can post jobs and place bids.</p>
+              </div>
+            </div>
+          ) : kycStatus === "IN_REVIEW" ? (
+            <div className="flex items-center gap-3 rounded-xl bg-amber-50 p-4 border border-amber-200">
+              <Clock className="h-5 w-5 text-amber-600 animate-spin" />
+              <div>
+                <p className="text-sm font-medium text-amber-800">Verification in progress</p>
+                <p className="text-xs text-amber-600">This usually takes a few moments.</p>
+              </div>
+            </div>
+          ) : kycStatus === "REJECTED" ? (
+            <div className="flex items-center gap-3 rounded-xl bg-red-50 p-4 border border-red-200">
+              <AlertTriangle className="h-5 w-5 text-red-600" />
+              <div>
+                <p className="text-sm font-medium text-red-800">Verification rejected</p>
+                <p className="text-xs text-red-600">Please contact support or try again.</p>
+              </div>
+              <Button size="sm" onClick={startVerification} loading={verifying} className="ml-auto">
+                Retry
+              </Button>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              <p className="text-sm text-gray-600">
+                Verify your identity to start posting transportation needs or bidding on jobs.
+                You must upload a profile photo first.
+              </p>
+              <div className="flex items-center gap-3 rounded-xl bg-amber-50 p-3 border border-amber-100">
+                <AlertTriangle className="h-4 w-4 text-amber-500 flex-shrink-0" />
+                <p className="text-xs text-amber-700">
+                  Unverified accounts cannot post jobs or bid on opportunities.
+                </p>
+              </div>
+              <Button
+                onClick={startVerification}
+                loading={verifying}
+                disabled={!avatarUrl}
+              >
+                <Shield className="mr-2 h-4 w-4" />
+                Verify my identity
+              </Button>
+              {!avatarUrl && (
+                <p className="text-xs text-red-500">Upload a profile photo above first.</p>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Profile details */}
+        <div className="mt-4 rounded-2xl bg-white p-8 shadow-sm border border-gray-100 space-y-5">
+          <p className="text-sm font-semibold text-ocean-800">Profile Details</p>
           <div className="grid grid-cols-2 gap-3">
             <Input
               label="First name"

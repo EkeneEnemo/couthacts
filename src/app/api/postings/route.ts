@@ -48,6 +48,14 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // Verification gate
+  if (session.user.kycStatus !== "APPROVED") {
+    return NextResponse.json(
+      { error: "Please verify your identity before posting. Go to Settings → Verify Identity." },
+      { status: 403 }
+    );
+  }
+
   const body = await req.json();
   const rawBudget = parseFloat(body.budgetUsd);
   const currency = body.currency || session.user.preferredCurrency || "USD";

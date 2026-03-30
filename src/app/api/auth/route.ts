@@ -40,6 +40,7 @@ export async function GET(req: NextRequest) {
         providerId: user.provider?.id ?? null,
         walletBalance: user.wallet ? Number(user.wallet.balanceUsd) : 0,
         preferredCurrency: user.preferredCurrency || "USD",
+        kycStatus: user.kycStatus,
       },
     })
   } catch {

@@ -1,88 +1,110 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
 
-const VIDEOS = [
+/**
+ * Cinematic showcase cards with Ken Burns motion effect.
+ * Each card animates when scrolled into view — slow zoom + pan
+ * gives the feeling of live footage without video hosting.
+ */
+
+const CARDS = [
   {
-    src: "https://videos.pexels.com/video-files/5765290/5765290-sd_640_360_30fps.mp4",
-    poster: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=80",
+      "https://images.unsplash.com/photo-1511527661048-7fe73d85e9a4?w=800&q=80",
+    ],
     label: "Taxi & Rideshare",
+    sub: "City to airport. Door to door.",
   },
   {
-    src: "https://videos.pexels.com/video-files/6868997/6868997-sd_640_360_25fps.mp4",
-    poster: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80",
+      "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80",
+    ],
     label: "Freight & Shipping",
+    sub: "Pallets to full containers.",
   },
   {
-    src: "https://videos.pexels.com/video-files/3945033/3945033-sd_640_360_25fps.mp4",
-    poster: "https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=800&q=80",
+      "https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=800&q=80",
+    ],
     label: "Aviation",
+    sub: "Charter jets to air cargo.",
   },
   {
-    src: "https://videos.pexels.com/video-files/3773486/3773486-sd_640_360_25fps.mp4",
-    poster: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=800&q=80",
+      "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=800&q=80",
+    ],
     label: "Maritime",
+    sub: "Container ships to yacht charters.",
   },
 ];
 
 export function VideoShowcase() {
   return (
     <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-      {VIDEOS.map((v) => (
-        <VideoCard key={v.label} {...v} />
+      {CARDS.map((card) => (
+        <MotionCard key={card.label} {...card} />
       ))}
     </div>
   );
 }
 
-function VideoCard({ src, poster, label }: { src: string; poster: string; label: string }) {
-  const ref = useRef<HTMLVideoElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+function MotionCard({ images, label, sub }: { images: string[]; label: string; sub: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  const [imgIndex, setImgIndex] = useState(0);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-        if (entry.isIntersecting && ref.current) {
-          ref.current.play().catch(() => {});
-        } else if (ref.current) {
-          ref.current.pause();
-        }
-      },
-      { threshold: 0.3 }
+      ([entry]) => setVisible(entry.isIntersecting),
+      { threshold: 0.2 }
     );
-
-    if (containerRef.current) observer.observe(containerRef.current);
+    if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!visible) return;
+    const interval = setInterval(() => {
+      setImgIndex((prev) => (prev + 1) % images.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [visible, images.length]);
+
   return (
-    <div
-      ref={containerRef}
-      className="relative aspect-[4/5] overflow-hidden rounded-2xl group"
-    >
-      <video
-        ref={ref}
-        muted
-        loop
-        playsInline
-        preload="none"
-        poster={poster}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-      >
-        <source src={src} type="video/mp4" />
-      </video>
+    <div ref={ref} className="relative aspect-[3/4] overflow-hidden rounded-2xl group">
+      {images.map((src, i) => (
+        <div
+          key={src}
+          className="absolute inset-0 transition-opacity duration-[1500ms]"
+          style={{ opacity: i === imgIndex ? 1 : 0 }}
+        >
+          <Image
+            src={src}
+            alt={label}
+            fill
+            className={`object-cover ${visible && i === imgIndex ? "animate-ken-burns" : ""}`}
+          />
+        </div>
+      ))}
       <div className="absolute inset-0 bg-gradient-to-t from-ocean-900/80 via-transparent to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 p-4">
         <div className="flex items-center gap-2">
-          {isVisible && (
+          {visible && (
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
             </span>
           )}
-          <p className="text-sm font-semibold text-white">{label}</p>
+          <div>
+            <p className="text-sm font-semibold text-white">{label}</p>
+            <p className="text-[10px] text-sky-200/60">{sub}</p>
+          </div>
         </div>
       </div>
     </div>

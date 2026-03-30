@@ -57,6 +57,16 @@ body {
 .animation-delay-600 { animation-delay: 600ms; }
 .animation-delay-750 { animation-delay: 750ms; }
 
+/* Ken Burns cinematic zoom + pan */
+@keyframes ken-burns {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.15) translate(-2%, -1%); }
+}
+
+.animate-ken-burns {
+  animation: ken-burns 6s ease-in-out both;
+}
+
 /* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;

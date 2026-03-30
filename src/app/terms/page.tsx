@@ -78,7 +78,13 @@ export default function TermsPage() {
               <strong>Re-Verification.</strong> Changing your first or last name on your account will immediately reset your verification status to &quot;Pending&quot; and restrict access to Platform features until re-verification is completed. Re-verification incurs the same $20.00 USD fee. This policy exists to maintain the integrity of identity-verified transactions on the Platform.
             </p>
             <p>
-              <strong>Verification Provider.</strong> Identity verification is processed through our third-party verification partner. By submitting your identification document, you consent to the processing of your personal data by our verification partner in accordance with their privacy policy and our <Link href="/privacy" className="text-ocean-600 underline hover:text-ocean-700">Privacy Policy</Link>.
+              <strong>Verification Provider.</strong> Identity verification is processed through Persona, Inc., our third-party verification partner. By submitting your identification document, you consent to the processing of your personal data by Persona in accordance with their privacy policy and our <Link href="/privacy" className="text-ocean-600 underline hover:text-ocean-700">Privacy Policy</Link>.
+            </p>
+            <p>
+              <strong>Name Matching.</strong> During verification, the first and last name extracted from your government-issued identification document is compared against the name on your CouthActs&#8482; account. If the names do not match, verification will be rejected. You must update your account name to exactly match your government ID before attempting verification again.
+            </p>
+            <p>
+              <strong>Non-Refundable Fee on Rejection.</strong> The $20.00 USD verification fee is non-refundable regardless of the outcome. If verification is rejected due to name mismatch, document quality issues, ID expiration, or any other reason, the fee is not returned. Each subsequent verification attempt incurs an additional $20.00 USD fee. This policy incentivizes Users to ensure their account name is correct before submitting.
             </p>
           </section>
 

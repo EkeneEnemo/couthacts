@@ -107,18 +107,26 @@ export default function SettingsPage() {
     }
     setKycStatus(data.status);
 
-    // Poll for approval (auto-approved in ~3s in simulation)
-    const poll = setInterval(async () => {
-      const check = await fetch("/api/verify").then((r) => r.json());
-      if (check.kycStatus === "APPROVED") {
-        setKycStatus("APPROVED");
-        clearInterval(poll);
-        setVerifying(false);
-      }
-    }, 2000);
-
-    // Stop polling after 15s
-    setTimeout(() => { clearInterval(poll); setVerifying(false); }, 15000);
+    // If Persona returned a URL, redirect user to complete verification
+    if (data.url) {
+      window.open(data.url, "_blank");
+      // Poll for completion while user is on Persona
+      const poll = setInterval(async () => {
+        const check = await fetch("/api/verify").then((r) => r.json());
+        if (check.kycStatus === "APPROVED" || check.kycStatus === "REJECTED") {
+          setKycStatus(check.kycStatus);
+          if (check.rejectionReason) {
+            alert(check.rejectionReason);
+          }
+          clearInterval(poll);
+          setVerifying(false);
+        }
+      }, 3000);
+      // Poll for up to 10 minutes
+      setTimeout(() => { clearInterval(poll); setVerifying(false); }, 600000);
+    } else {
+      setVerifying(false);
+    }
   }
 
   if (loading) {
@@ -202,10 +210,14 @@ export default function SettingsPage() {
               <AlertTriangle className="h-5 w-5 text-red-600" />
               <div>
                 <p className="text-sm font-medium text-red-800">Verification rejected</p>
-                <p className="text-xs text-red-600">Please contact support or try again.</p>
+                <p className="text-xs text-red-600">
+                  Your name on your government ID did not match your account name, or the ID check was declined.
+                  Update your name above to match your ID exactly, then try again.
+                </p>
+                <p className="text-xs text-red-500 font-medium mt-1">The $20 verification fee is non-refundable.</p>
               </div>
-              <Button size="sm" onClick={startVerification} loading={verifying} className="ml-auto">
-                Retry
+              <Button size="sm" onClick={startVerification} loading={verifying} className="ml-auto flex-shrink-0">
+                Retry — $20
               </Button>
             </div>
           ) : (
@@ -220,6 +232,12 @@ export default function SettingsPage() {
                 </p>
                 <p className="text-xs text-ocean-600 mt-1">
                   Update your name above before verifying if it doesn&apos;t match your ID.
+                </p>
+              </div>
+              <div className="rounded-xl bg-red-50 p-3 border border-red-100">
+                <p className="text-xs text-red-700 font-medium">
+                  The $20 verification fee is non-refundable — even if verification is rejected due to name mismatch or any other reason.
+                  Make sure your name is correct before proceeding.
                 </p>
               </div>
               <div className="flex items-center gap-3 rounded-xl bg-amber-50 p-3 border border-amber-100">

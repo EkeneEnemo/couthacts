@@ -28,32 +28,32 @@ export default async function DashboardPage() {
   const user = session.user;
 
   // Customer data
-  const postings =
-    user.role === "CUSTOMER"
-      ? await db.posting.findMany({
-          where: { customerId: user.id },
-          orderBy: { createdAt: "desc" },
-          take: 20,
-          include: {
-            _count: { select: { bids: true } },
-            booking: { select: { id: true, status: true } },
-          },
-        })
-      : [];
+  const postingsQuery = db.posting.findMany({
+    where: { customerId: user.id },
+    orderBy: { createdAt: "desc" },
+    take: 20,
+    include: {
+      _count: { select: { bids: true } },
+      booking: { select: { id: true, status: true } },
+    },
+  });
+  type PostingRow = Awaited<typeof postingsQuery>[number];
+  const postings: PostingRow[] =
+    user.role === "CUSTOMER" ? await postingsQuery : [];
 
-  const customerBookings =
-    user.role === "CUSTOMER"
-      ? await db.booking.findMany({
-          where: { customerId: user.id },
-          orderBy: { createdAt: "desc" },
-          take: 20,
-          include: {
-            posting: { select: { title: true, mode: true } },
-            provider: { select: { businessName: true } },
-            escrow: { select: { status: true } },
-          },
-        })
-      : [];
+  const customerBookingsQuery = db.booking.findMany({
+    where: { customerId: user.id },
+    orderBy: { createdAt: "desc" },
+    take: 20,
+    include: {
+      posting: { select: { title: true, mode: true } },
+      provider: { select: { businessName: true } },
+      escrow: { select: { status: true } },
+    },
+  });
+  type CustomerBookingRow = Awaited<typeof customerBookingsQuery>[number];
+  const customerBookings: CustomerBookingRow[] =
+    user.role === "CUSTOMER" ? await customerBookingsQuery : [];
 
   // Provider data
   const provider =
@@ -63,30 +63,34 @@ export default async function DashboardPage() {
         })
       : null;
 
-  const providerBookings = provider
-    ? await db.booking.findMany({
-        where: { providerId: provider.id },
-        orderBy: { createdAt: "desc" },
-        take: 20,
-        include: {
-          posting: { select: { title: true, mode: true } },
-          customer: { select: { firstName: true, lastName: true } },
-          escrow: { select: { status: true } },
-        },
-      })
+  const providerBookingsQuery = db.booking.findMany({
+    where: { providerId: provider?.id ?? "" },
+    orderBy: { createdAt: "desc" },
+    take: 20,
+    include: {
+      posting: { select: { title: true, mode: true } },
+      customer: { select: { firstName: true, lastName: true } },
+      escrow: { select: { status: true } },
+    },
+  });
+  type ProviderBookingRow = Awaited<typeof providerBookingsQuery>[number];
+  const providerBookings: ProviderBookingRow[] = provider
+    ? await providerBookingsQuery
     : [];
 
-  const providerBids = provider
-    ? await db.bid.findMany({
-        where: { providerId: provider.id },
-        orderBy: { createdAt: "desc" },
-        take: 10,
-        include: {
-          posting: {
-            select: { id: true, title: true, mode: true, status: true, budgetUsd: true },
-          },
-        },
-      })
+  const providerBidsQuery = db.bid.findMany({
+    where: { providerId: provider?.id ?? "" },
+    orderBy: { createdAt: "desc" },
+    take: 10,
+    include: {
+      posting: {
+        select: { id: true, title: true, mode: true, status: true, budgetUsd: true },
+      },
+    },
+  });
+  type ProviderBidRow = Awaited<typeof providerBidsQuery>[number];
+  const providerBids: ProviderBidRow[] = provider
+    ? await providerBidsQuery
     : [];
 
   return (

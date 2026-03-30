@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Navbar } from "@/components/navbar";
 import { Input } from "@/components/ui/input";
@@ -10,13 +9,7 @@ import { TRANSPORT_CATEGORIES } from "@/lib/transport-modes";
 import { calculatePostingFee, getMinimumBudgetUsd } from "@/lib/posting-fees";
 import { ArrowLeft, ArrowRight, AlertTriangle } from "lucide-react";
 
-const STEPS = ["Mode", "Route", "Cargo", "Schedule & Budget", "Options"];
-
-const PAYMENT_TERMS = [
-  { value: "FULL_UPFRONT", label: "Full upfront" },
-  { value: "SPLIT_50_50", label: "50/50 split" },
-  { value: "FULL_ON_COMPLETION", label: "Full on completion" },
-];
+const STEPS = ["Mode", "Route", "Details", "Schedule & Budget", "Options"];
 
 const TRACKING_OPTIONS = [
   { value: "MOBILE_GPS", label: "Mobile GPS", active: true },
@@ -28,8 +21,129 @@ const TRACKING_OPTIONS = [
   { value: "SATELLITE", label: "Satellite", active: false },
 ];
 
+/* ─── Mode-aware config ───────────────────────────────── */
+
+type ModeCategory = "ride" | "courier" | "moving" | "freight" | "air_passenger" | "air_cargo" | "maritime" | "rail" | "specialty";
+
+function getModeCategory(mode: string): ModeCategory {
+  switch (mode) {
+    case "TAXI_RIDE": case "LIMOUSINE": return "ride";
+    case "COURIER_LAST_MILE": return "courier";
+    case "MOVING": return "moving";
+    case "FREIGHT_TRUCKING": case "HEAVY_HAUL": return "freight";
+    case "PRIVATE_JET": case "HELICOPTER": case "COMMERCIAL_AIRLINE": return "air_passenger";
+    case "AIR_CARGO": return "air_cargo";
+    case "CARGO_SHIP": case "YACHT_CHARTER": case "FERRY": return "maritime";
+    case "FREIGHT_RAIL": return "rail";
+    default: return "specialty"; // ARMORED, MEDICAL, HAZMAT, OVERSIZED_CARGO
+  }
+}
+
+function getModeLabels(cat: ModeCategory) {
+  switch (cat) {
+    case "ride":
+      return {
+        title: "Where are you going?",
+        titlePlaceholder: "e.g. Airport ride from Manhattan",
+        descPlaceholder: "Any details about your ride (luggage, stops, etc.)",
+        origin: "Pickup location",
+        destination: "Drop-off location",
+        dateLabel: "Pickup date & time",
+        date2Label: null,
+        showCargo: false, showPassengers: true, showSpecialHandling: false,
+      };
+    case "courier":
+      return {
+        title: "What are you sending?",
+        titlePlaceholder: "e.g. Deliver a package from Brooklyn to Queens",
+        descPlaceholder: "Describe the package — size, contents, fragility",
+        origin: "Pickup address",
+        destination: "Delivery address",
+        dateLabel: "Pickup date & time",
+        date2Label: "Deliver by (optional)",
+        showCargo: true, showPassengers: false, showSpecialHandling: true,
+      };
+    case "moving":
+      return {
+        title: "What are you moving?",
+        titlePlaceholder: "e.g. 2-bedroom apartment move, Brooklyn → NJ",
+        descPlaceholder: "Number of rooms, large items (piano, fridge), elevator access, etc.",
+        origin: "Current address",
+        destination: "New address",
+        dateLabel: "Moving date",
+        date2Label: null,
+        showCargo: false, showPassengers: false, showSpecialHandling: true,
+      };
+    case "freight":
+      return {
+        title: "What are you shipping?",
+        titlePlaceholder: "e.g. Ship 2 pallets NYC → LA",
+        descPlaceholder: "Cargo type, packaging, loading requirements",
+        origin: "Origin warehouse/address",
+        destination: "Destination warehouse/address",
+        dateLabel: "Pickup date",
+        date2Label: "Delivery deadline (optional)",
+        showCargo: true, showPassengers: false, showSpecialHandling: true,
+      };
+    case "air_passenger":
+      return {
+        title: "Where are you flying?",
+        titlePlaceholder: "e.g. Charter flight NYC → Miami for 4 passengers",
+        descPlaceholder: "Travel purpose, luggage needs, preferred aircraft type",
+        origin: "Departure city or airport",
+        destination: "Arrival city or airport",
+        dateLabel: "Departure date & time",
+        date2Label: "Return date (optional)",
+        showCargo: false, showPassengers: true, showSpecialHandling: false,
+      };
+    case "air_cargo":
+      return {
+        title: "What are you air-shipping?",
+        titlePlaceholder: "e.g. 500kg electronics shipment LAX → London",
+        descPlaceholder: "Cargo type, dangerous goods classification, temperature requirements",
+        origin: "Origin airport or city",
+        destination: "Destination airport or city",
+        dateLabel: "Ship by date",
+        date2Label: "Deliver by (optional)",
+        showCargo: true, showPassengers: false, showSpecialHandling: true,
+      };
+    case "maritime":
+      return {
+        title: "What do you need shipped by sea?",
+        titlePlaceholder: "e.g. 20ft container Shanghai → Los Angeles",
+        descPlaceholder: "Container type, commodity, port preferences",
+        origin: "Origin port or city",
+        destination: "Destination port or city",
+        dateLabel: "Sailing date (approx.)",
+        date2Label: "Arrival deadline (optional)",
+        showCargo: true, showPassengers: false, showSpecialHandling: true,
+      };
+    case "rail":
+      return {
+        title: "What are you shipping by rail?",
+        titlePlaceholder: "e.g. Intermodal container Chicago → Houston",
+        descPlaceholder: "Cargo type, car type needed (flatcar, boxcar, tank car)",
+        origin: "Origin rail terminal or city",
+        destination: "Destination rail terminal or city",
+        dateLabel: "Ship by date",
+        date2Label: "Delivery deadline (optional)",
+        showCargo: true, showPassengers: false, showSpecialHandling: true,
+      };
+    case "specialty":
+      return {
+        title: "Describe your transport need",
+        titlePlaceholder: "e.g. Armored transport of valuables, downtown LA",
+        descPlaceholder: "Describe the service needed — security level, medical requirements, hazmat class, special equipment",
+        origin: "Pickup location",
+        destination: "Destination",
+        dateLabel: "Service date",
+        date2Label: "Completion deadline (optional)",
+        showCargo: true, showPassengers: false, showSpecialHandling: true,
+      };
+  }
+}
+
 export default function NewPostingPage() {
-  const router = useRouter();
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -44,7 +158,6 @@ export default function NewPostingPage() {
         if (d.user) {
           setWalletBalance(d.user.walletBalance ?? 0);
           setUserCurrency(d.user.preferredCurrency || "USD");
-          // Fetch exchange rate if not USD
           if (d.user.preferredCurrency && d.user.preferredCurrency !== "USD") {
             fetch(`/api/currency?amount=1&from=USD&to=${d.user.preferredCurrency}`)
               .then((r) => r.json())
@@ -53,6 +166,7 @@ export default function NewPostingPage() {
         }
       });
   }, []);
+
   const [form, setForm] = useState({
     mode: "",
     title: "",
@@ -75,7 +189,6 @@ export default function NewPostingPage() {
     isFlexibleDate: false,
     budgetUsd: "",
     isUrgent: false,
-    paymentTerm: "FULL_UPFRONT",
     isBiddingEnabled: true,
     trackingLayers: [] as string[],
     insuranceTier: "BASIC",
@@ -108,18 +221,11 @@ export default function NewPostingPage() {
       setSubmitting(false);
       return;
     }
-    router.push("/dashboard");
+    window.location.href = "/dashboard";
   }
 
-  const isPassengerMode = [
-    "TAXI_RIDE",
-    "LIMOUSINE",
-    "PRIVATE_JET",
-    "HELICOPTER",
-    "COMMERCIAL_AIRLINE",
-    "YACHT_CHARTER",
-    "FERRY",
-  ].includes(form.mode);
+  const cat = form.mode ? getModeCategory(form.mode) : null;
+  const labels = cat ? getModeLabels(cat) : null;
 
   return (
     <div className="min-h-screen bg-cream-100">
@@ -154,15 +260,15 @@ export default function NewPostingPage() {
           {step === 0 && (
             <div className="space-y-6">
               <p className="text-sm text-gray-600">
-                Select the transport mode you need:
+                What type of transportation do you need?
               </p>
-              {TRANSPORT_CATEGORIES.map((cat) => (
-                <div key={cat.name}>
+              {TRANSPORT_CATEGORIES.map((catGroup) => (
+                <div key={catGroup.name}>
                   <p className="text-xs font-semibold uppercase tracking-wider text-sky-600 mb-2">
-                    {cat.name}
+                    {catGroup.name}
                   </p>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                    {cat.modes.map((m) => (
+                    {catGroup.modes.map((m) => (
                       <button
                         key={m.key}
                         type="button"
@@ -182,12 +288,12 @@ export default function NewPostingPage() {
             </div>
           )}
 
-          {/* Step 1: Route */}
-          {step === 1 && (
+          {/* Step 1: Route — mode-aware labels */}
+          {step === 1 && labels && (
             <div className="space-y-4">
               <Input
-                label="Job title"
-                placeholder="e.g. Ship 2 pallets NYC → LA"
+                label={labels.title}
+                placeholder={labels.titlePlaceholder}
                 value={form.title}
                 onChange={(e) => update({ title: e.target.value })}
               />
@@ -197,75 +303,66 @@ export default function NewPostingPage() {
                 </label>
                 <textarea
                   rows={3}
-                  placeholder="Describe what needs to be transported..."
+                  placeholder={labels.descPlaceholder}
                   className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
                   value={form.description}
                   onChange={(e) => update({ description: e.target.value })}
                 />
               </div>
               <Input
-                label="Pickup address"
-                placeholder="Full address or city"
+                label={labels.origin}
+                placeholder="Full address, city, or port"
                 value={form.originAddress}
                 onChange={(e) => update({ originAddress: e.target.value })}
               />
               <Input
-                label="Destination address"
-                placeholder="Full address or city"
+                label={labels.destination}
+                placeholder="Full address, city, or port"
                 value={form.destinationAddress}
-                onChange={(e) =>
-                  update({ destinationAddress: e.target.value })
-                }
+                onChange={(e) => update({ destinationAddress: e.target.value })}
               />
             </div>
           )}
 
-          {/* Step 2: Cargo */}
-          {step === 2 && (
+          {/* Step 2: Details — mode-aware */}
+          {step === 2 && labels && (
             <div className="space-y-4">
-              {isPassengerMode ? (
+              {labels.showPassengers && (
                 <Input
                   label="Number of passengers"
                   type="number"
+                  placeholder="How many people?"
                   value={form.passengerCount}
-                  onChange={(e) =>
-                    update({ passengerCount: e.target.value })
-                  }
+                  onChange={(e) => update({ passengerCount: e.target.value })}
                 />
-              ) : (
+              )}
+
+              {labels.showCargo && (
                 <>
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     <Input
                       label="Weight (kg)"
                       type="number"
                       value={form.weightKg}
-                      onChange={(e) =>
-                        update({ weightKg: e.target.value })
-                      }
+                      onChange={(e) => update({ weightKg: e.target.value })}
                     />
                     <Input
                       label="Length (cm)"
                       type="number"
                       value={form.lengthCm}
-                      onChange={(e) =>
-                        update({ lengthCm: e.target.value })
-                      }
+                      onChange={(e) => update({ lengthCm: e.target.value })}
                     />
                     <Input
                       label="Width (cm)"
                       type="number"
                       value={form.widthCm}
-                      onChange={(e) =>
-                        update({ widthCm: e.target.value })
-                      }
+                      onChange={(e) => update({ widthCm: e.target.value })}
                     />
                     <Input
                       label="Height (cm)"
                       type="number"
                       value={form.heightCm}
-                      onChange={(e) =>
-                        update({ heightCm: e.target.value })
-                      }
+                      onChange={(e) => update({ heightCm: e.target.value })}
                     />
                   </div>
                   <div>
@@ -277,37 +374,40 @@ export default function NewPostingPage() {
                       placeholder="What are you shipping?"
                       className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
                       value={form.cargoDescription}
-                      onChange={(e) =>
-                        update({ cargoDescription: e.target.value })
-                      }
+                      onChange={(e) => update({ cargoDescription: e.target.value })}
                     />
                   </div>
+                </>
+              )}
+
+              {!labels.showCargo && !labels.showPassengers && (
+                <p className="text-sm text-gray-500">
+                  Describe any special requirements in the instructions below.
+                </p>
+              )}
+
+              {labels.showSpecialHandling && (
+                <>
                   <p className="text-xs font-semibold uppercase tracking-wider text-sky-600">
                     Special handling
                   </p>
                   <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                    {(
-                      [
-                        ["isHazmat", "Hazmat"],
-                        ["isTemperatureControlled", "Temperature controlled"],
-                        ["isFragile", "Fragile"],
-                        ["isOversized", "Oversized"],
-                      ] as const
-                    ).map(([key, label]) => (
+                    {([
+                      ["isHazmat", "Hazmat"],
+                      ["isTemperatureControlled", "Temperature controlled"],
+                      ["isFragile", "Fragile"],
+                      ["isOversized", "Oversized"],
+                    ] as const).map(([key, label]) => (
                       <label
                         key={key}
                         className={`flex items-center gap-2 rounded-lg border-2 p-3 text-sm cursor-pointer transition ${
-                          form[key]
-                            ? "border-ocean-600 bg-ocean-50"
-                            : "border-gray-200"
+                          form[key] ? "border-ocean-600 bg-ocean-50" : "border-gray-200"
                         }`}
                       >
                         <input
                           type="checkbox"
                           checked={form[key]}
-                          onChange={(e) =>
-                            update({ [key]: e.target.checked })
-                          }
+                          onChange={(e) => update({ [key]: e.target.checked })}
                           className="accent-ocean-600"
                         />
                         {label}
@@ -316,6 +416,7 @@ export default function NewPostingPage() {
                   </div>
                 </>
               )}
+
               <div>
                 <label className="block text-sm font-medium text-ocean-800 mb-1">
                   Special instructions
@@ -325,44 +426,41 @@ export default function NewPostingPage() {
                   placeholder="Anything the provider should know..."
                   className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
                   value={form.specialInstructions}
-                  onChange={(e) =>
-                    update({ specialInstructions: e.target.value })
-                  }
+                  onChange={(e) => update({ specialInstructions: e.target.value })}
                 />
               </div>
             </div>
           )}
 
-          {/* Step 3: Schedule & Budget */}
-          {step === 3 && (
+          {/* Step 3: Schedule & Budget — mode-aware date labels, no payment terms */}
+          {step === 3 && labels && (
             <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-3">
+              <div className={`grid gap-3 ${labels.date2Label ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1"}`}>
                 <Input
-                  label="Pickup date"
+                  label={labels.dateLabel}
                   type="datetime-local"
                   value={form.pickupDate}
                   onChange={(e) => update({ pickupDate: e.target.value })}
                 />
-                <Input
-                  label="Delivery date (optional)"
-                  type="datetime-local"
-                  value={form.deliveryDate}
-                  onChange={(e) =>
-                    update({ deliveryDate: e.target.value })
-                  }
-                />
+                {labels.date2Label && (
+                  <Input
+                    label={labels.date2Label}
+                    type="datetime-local"
+                    value={form.deliveryDate}
+                    onChange={(e) => update({ deliveryDate: e.target.value })}
+                  />
+                )}
               </div>
               <label className="flex items-center gap-2 text-sm">
                 <input
                   type="checkbox"
                   checked={form.isFlexibleDate}
-                  onChange={(e) =>
-                    update({ isFlexibleDate: e.target.checked })
-                  }
+                  onChange={(e) => update({ isFlexibleDate: e.target.checked })}
                   className="accent-ocean-600"
                 />
                 Dates are flexible
               </label>
+
               <Input
                 label={`Budget (${userCurrency})`}
                 type="number"
@@ -374,13 +472,10 @@ export default function NewPostingPage() {
                 const minUsd = getMinimumBudgetUsd(form.mode);
                 const enteredLocal = parseFloat(form.budgetUsd) || 0;
                 const enteredUsd = exchangeRate && userCurrency !== "USD"
-                  ? enteredLocal / exchangeRate
-                  : enteredLocal;
+                  ? enteredLocal / exchangeRate : enteredLocal;
                 const belowMin = enteredLocal > 0 && enteredUsd < minUsd;
                 const minLocal = exchangeRate && userCurrency !== "USD"
-                  ? minUsd * exchangeRate
-                  : minUsd;
-
+                  ? minUsd * exchangeRate : minUsd;
                 return (
                   <>
                     {userCurrency !== "USD" && exchangeRate && form.budgetUsd && (
@@ -400,45 +495,26 @@ export default function NewPostingPage() {
                       <p className="text-xs text-gray-400 -mt-2">
                         Minimum: {userCurrency !== "USD" && exchangeRate
                           ? `${minLocal.toLocaleString(undefined, { maximumFractionDigits: 0 })} ${userCurrency} (~$${minUsd} USD)`
-                          : `$${minUsd.toFixed(2)} USD`
-                        }
+                          : `$${minUsd.toFixed(2)} USD`}
                       </p>
                     )}
                   </>
                 );
               })()}
+
               <label className="flex items-center gap-2 text-sm">
                 <input
                   type="checkbox"
                   checked={form.isUrgent}
-                  onChange={(e) =>
-                    update({ isUrgent: e.target.checked })
-                  }
+                  onChange={(e) => update({ isUrgent: e.target.checked })}
                   className="accent-ocean-600"
                 />
                 Mark as urgent
               </label>
-              <div>
-                <p className="text-sm font-medium text-ocean-800 mb-2">
-                  Payment terms
-                </p>
-                <div className="flex gap-2">
-                  {PAYMENT_TERMS.map((pt) => (
-                    <button
-                      key={pt.value}
-                      type="button"
-                      onClick={() => update({ paymentTerm: pt.value })}
-                      className={`flex-1 rounded-lg border-2 p-2.5 text-xs font-medium transition ${
-                        form.paymentTerm === pt.value
-                          ? "border-ocean-600 bg-ocean-50 text-ocean-700"
-                          : "border-gray-200 text-gray-600 hover:border-gray-300"
-                      }`}
-                    >
-                      {pt.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
+
+              <p className="text-xs text-gray-400 mt-2 p-3 rounded-lg bg-gray-50">
+                Payment is released to the provider only when both parties confirm completion. No upfront payment to the provider.
+              </p>
             </div>
           )}
 
@@ -446,11 +522,9 @@ export default function NewPostingPage() {
           {step === 4 && (() => {
             const enteredLocal = parseFloat(form.budgetUsd) || 0;
             const budgetUsdEst = exchangeRate && userCurrency !== "USD"
-              ? enteredLocal / exchangeRate
-              : enteredLocal;
+              ? enteredLocal / exchangeRate : enteredLocal;
             const fee = form.mode && budgetUsdEst > 0
-              ? calculatePostingFee(form.mode, budgetUsdEst)
-              : 0;
+              ? calculatePostingFee(form.mode, budgetUsdEst) : 0;
             const totalDebit = fee + budgetUsdEst;
             const hasEnough = walletBalance !== null && walletBalance >= totalDebit;
 
@@ -514,9 +588,7 @@ export default function NewPostingPage() {
                   <input
                     type="checkbox"
                     checked={form.isBiddingEnabled}
-                    onChange={(e) =>
-                      update({ isBiddingEnabled: e.target.checked })
-                    }
+                    onChange={(e) => update({ isBiddingEnabled: e.target.checked })}
                     className="accent-ocean-600"
                   />
                   Allow providers to bid
@@ -556,21 +628,16 @@ export default function NewPostingPage() {
                       </span>
                     </div>
                     <p className="text-xs text-gray-400">
-                      Budget is held in your wallet until a provider is matched. If a provider bids lower, the difference is refunded. If the posting expires with no bids, the full budget is refunded.
+                      Budget is held in your wallet until a provider is matched. If a provider bids lower, the difference is refunded. Provider is paid only when both parties confirm completion.
                     </p>
-
                     {!hasEnough && (
                       <div className="flex items-start gap-2 rounded-lg bg-red-50 border border-red-200 p-3 mt-1">
                         <AlertTriangle className="h-4 w-4 text-red-500 mt-0.5 flex-shrink-0" />
                         <div>
-                          <p className="text-sm text-red-700 font-medium">
-                            Insufficient balance
-                          </p>
+                          <p className="text-sm text-red-700 font-medium">Insufficient balance</p>
                           <p className="text-xs text-red-600 mt-0.5">
                             You need ${(totalDebit - (walletBalance ?? 0)).toFixed(2)} more.{" "}
-                            <Link href="/wallet" className="underline font-medium">
-                              Top up your wallet
-                            </Link>
+                            <Link href="/wallet" className="underline font-medium">Top up your wallet</Link>
                           </p>
                         </div>
                       </div>
@@ -607,22 +674,16 @@ export default function NewPostingPage() {
             ) : (() => {
               const enteredLocal = parseFloat(form.budgetUsd) || 0;
               const enteredUsd = exchangeRate && userCurrency !== "USD"
-                ? enteredLocal / exchangeRate
-                : enteredLocal;
+                ? enteredLocal / exchangeRate : enteredLocal;
               const fee = form.mode && enteredUsd > 0
-                ? calculatePostingFee(form.mode, enteredUsd)
-                : 0;
+                ? calculatePostingFee(form.mode, enteredUsd) : 0;
               const totalNeeded = fee + enteredUsd;
               const hasEnough = walletBalance !== null && walletBalance >= totalNeeded;
               const minUsd = getMinimumBudgetUsd(form.mode);
               const belowMin = enteredLocal > 0 && enteredUsd < minUsd;
-
               const buttonLabel = belowMin
                 ? "Below minimum budget"
-                : !hasEnough
-                ? "Insufficient balance"
-                : "Post job";
-
+                : !hasEnough ? "Insufficient balance" : "Post job";
               return (
                 <Button
                   onClick={handleSubmit}
@@ -632,8 +693,7 @@ export default function NewPostingPage() {
                   {buttonLabel}
                 </Button>
               );
-            })(
-            )}
+            })()}
           </div>
         </div>
       </div>

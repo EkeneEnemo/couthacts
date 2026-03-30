@@ -1,0 +1,261 @@
+"use client";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState, useEffect, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Wallet, Bell, Menu, X, Settings } from "lucide-react";
+
+interface User {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: string;
+  providerId: string | null;
+  walletBalance: number;
+}
+
+interface Notification {
+  id: string;
+  title: string;
+  body: string;
+  type: string;
+  isRead: boolean;
+  link: string | null;
+  createdAt: string;
+}
+
+export function Navbar() {
+  const router = useRouter();
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [showNotifs, setShowNotifs] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const notifRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    fetch("/api/auth")
+      .then((r) => r.json())
+      .then((d) => {
+        setUser(d.user);
+        if (d.user) {
+          fetch("/api/notifications")
+            .then((r) => r.json())
+            .then((n) => {
+              setNotifications(n.notifications || []);
+              setUnreadCount(n.unreadCount || 0);
+            });
+        }
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (notifRef.current && !notifRef.current.contains(e.target as Node)) {
+        setShowNotifs(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  async function handleLogout() {
+    await fetch("/api/auth", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "logout" }),
+    });
+    setMobileOpen(false);
+    router.push("/");
+    router.refresh();
+  }
+
+  async function markAllRead() {
+    await fetch("/api/notifications", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "mark_all_read" }),
+    });
+    setUnreadCount(0);
+    setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
+  }
+
+  return (
+    <nav className="sticky top-0 z-50 border-b border-gray-200/60 bg-cream-100/80 backdrop-blur-md">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <Link
+          href="/"
+          className="text-2xl font-display font-bold text-ocean-800"
+        >
+          CouthActs
+        </Link>
+
+        {/* Desktop nav */}
+        <div className="hidden md:flex items-center gap-4">
+          {loading ? (
+            <div className="h-9 w-20 animate-pulse rounded-lg bg-gray-200" />
+          ) : user ? (
+            <>
+              <Link href="/dashboard" className="text-sm font-medium text-ocean-700 hover:text-ocean-900">
+                Dashboard
+              </Link>
+              {user.role === "PROVIDER" && (
+                <Link href="/marketplace" className="text-sm font-medium text-ocean-700 hover:text-ocean-900">
+                  Marketplace
+                </Link>
+              )}
+              {user.role === "CUSTOMER" && (
+                <Link href="/postings/new">
+                  <Button size="sm" variant="secondary">Post a job</Button>
+                </Link>
+              )}
+              <Link
+                href="/wallet"
+                className="flex items-center gap-1.5 rounded-lg bg-ocean-50 px-3 py-1.5 text-sm font-semibold text-ocean-700 hover:bg-ocean-100 transition"
+              >
+                <Wallet className="h-3.5 w-3.5" />
+                ${user.walletBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </Link>
+
+              {/* Notifications */}
+              <div className="relative" ref={notifRef}>
+                <button
+                  onClick={() => setShowNotifs(!showNotifs)}
+                  className="relative rounded-lg p-2 text-gray-500 hover:bg-gray-100 transition"
+                >
+                  <Bell className="h-4 w-4" />
+                  {unreadCount > 0 && (
+                    <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
+                      {unreadCount > 9 ? "9+" : unreadCount}
+                    </span>
+                  )}
+                </button>
+                {showNotifs && (
+                  <div className="absolute right-0 mt-2 w-80 rounded-xl bg-white shadow-lg border border-gray-200 z-50 overflow-hidden">
+                    <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+                      <p className="text-sm font-semibold text-ocean-800">Notifications</p>
+                      {unreadCount > 0 && (
+                        <button onClick={markAllRead} className="text-xs text-sky-600 hover:text-sky-700 font-medium">
+                          Mark all read
+                        </button>
+                      )}
+                    </div>
+                    <div className="max-h-80 overflow-y-auto">
+                      {notifications.length === 0 ? (
+                        <p className="px-4 py-8 text-center text-sm text-gray-400">No notifications</p>
+                      ) : (
+                        notifications.slice(0, 15).map((n) => (
+                          <Link
+                            key={n.id}
+                            href={n.link || "/dashboard"}
+                            onClick={() => setShowNotifs(false)}
+                            className={`block px-4 py-3 border-b border-gray-50 hover:bg-gray-50 transition ${!n.isRead ? "bg-sky-50/50" : ""}`}
+                          >
+                            <p className="text-sm font-medium text-ocean-800">{n.title}</p>
+                            <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{n.body}</p>
+                            <p className="text-xs text-gray-400 mt-1">{new Date(n.createdAt).toLocaleDateString()}</p>
+                          </Link>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <Link href="/settings" className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 transition">
+                <Settings className="h-4 w-4" />
+              </Link>
+              <span className="text-sm text-gray-500">{user.firstName}</span>
+              <Button size="sm" variant="ghost" onClick={handleLogout}>Logout</Button>
+            </>
+          ) : (
+            <>
+              <Link href="/login"><Button variant="ghost" size="sm">Sign in</Button></Link>
+              <Link href="/register"><Button size="sm">Get started</Button></Link>
+            </>
+          )}
+        </div>
+
+        {/* Mobile hamburger */}
+        <div className="flex items-center gap-2 md:hidden">
+          {user && (
+            <>
+              <Link
+                href="/wallet"
+                className="flex items-center gap-1 rounded-lg bg-ocean-50 px-2.5 py-1.5 text-xs font-semibold text-ocean-700"
+              >
+                <Wallet className="h-3 w-3" />
+                ${user.walletBalance.toFixed(0)}
+              </Link>
+              <div className="relative" ref={notifRef}>
+                <button
+                  onClick={() => setShowNotifs(!showNotifs)}
+                  className="relative rounded-lg p-2 text-gray-500"
+                >
+                  <Bell className="h-4 w-4" />
+                  {unreadCount > 0 && (
+                    <span className="absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-red-500 text-[9px] font-bold text-white">
+                      {unreadCount}
+                    </span>
+                  )}
+                </button>
+              </div>
+            </>
+          )}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="rounded-lg p-2 text-gray-600 hover:bg-gray-100"
+          >
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div className="md:hidden border-t border-gray-200 bg-cream-100 px-6 py-4 space-y-3">
+          {user ? (
+            <>
+              <Link href="/dashboard" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-ocean-700 py-2">
+                Dashboard
+              </Link>
+              {user.role === "PROVIDER" && (
+                <Link href="/marketplace" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-ocean-700 py-2">
+                  Marketplace
+                </Link>
+              )}
+              {user.role === "CUSTOMER" && (
+                <Link href="/postings/new" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-ocean-700 py-2">
+                  Post a job
+                </Link>
+              )}
+              <Link href="/wallet" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-ocean-700 py-2">
+                Wallet — ${user.walletBalance.toFixed(2)}
+              </Link>
+              <Link href="/settings" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-ocean-700 py-2">
+                Settings
+              </Link>
+              <hr className="border-gray-200" />
+              <button onClick={handleLogout} className="block text-sm font-medium text-red-500 py-2">
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link href="/login" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-ocean-700 py-2">
+                Sign in
+              </Link>
+              <Link href="/register" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-ocean-700 py-2">
+                Get started
+              </Link>
+            </>
+          )}
+        </div>
+      )}
+    </nav>
+  );
+}

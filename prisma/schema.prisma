@@ -1,0 +1,523 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  CUSTOMER
+  PROVIDER
+  ADMIN
+}
+
+enum KycStatus {
+  PENDING
+  IN_REVIEW
+  APPROVED
+  REJECTED
+}
+
+enum TransportMode {
+  TAXI_RIDE
+  LIMOUSINE
+  COURIER_LAST_MILE
+  MOVING
+  FREIGHT_TRUCKING
+  HEAVY_HAUL
+  ARMORED
+  MEDICAL
+  PRIVATE_JET
+  HELICOPTER
+  COMMERCIAL_AIRLINE
+  AIR_CARGO
+  CARGO_SHIP
+  YACHT_CHARTER
+  FERRY
+  FREIGHT_RAIL
+  HAZMAT
+  OVERSIZED_CARGO
+}
+
+enum PostingStatus {
+  OPEN
+  BIDDING
+  MATCHED
+  IN_PROGRESS
+  COMPLETED
+  DISPUTED
+  CANCELLED
+  EXPIRED
+}
+
+enum BookingStatus {
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  DISPUTED
+  CANCELLED
+}
+
+enum EscrowStatus {
+  HOLDING
+  RELEASED
+  REFUNDED
+  DISPUTED
+}
+
+enum PaymentTerm {
+  FULL_UPFRONT
+  SPLIT_50_50
+  FULL_ON_COMPLETION
+}
+
+enum SubscriptionTier {
+  TAXI
+  COURIER
+  MOVING
+  FREIGHT
+  HEAVY_HAUL
+  HELICOPTER
+  AIR_CARGO
+  PRIVATE_JET
+  YACHT_FERRY
+  CARGO_SHIP
+  RAIL
+  ARMORED_MEDICAL_HAZMAT
+  AIRLINE
+  ENTERPRISE
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELLED
+  PAST_DUE
+  TRIALING
+}
+
+enum CouthActsScoreTier {
+  ELITE
+  TRUSTED
+  ESTABLISHED
+  PROBATION
+}
+
+enum DisputeStatus {
+  OPEN
+  UNDER_REVIEW
+  RESOLVED_CUSTOMER
+  RESOLVED_PROVIDER
+  ESCALATED
+}
+
+enum TrackingLayer {
+  MOBILE_GPS
+  AIS_MARITIME
+  FLIGHT_TRACKING
+  ELD_INTEGRATION
+  QR_PIN_CONFIRMATION
+  IOT_DEVICE
+  SATELLITE
+  DOCUMENT_POD_AI
+  BIOMETRIC
+}
+
+model User {
+  id                String    @id @default(cuid())
+  email             String    @unique
+  emailVerified     DateTime?
+  phone             String?   @unique
+  phoneVerified     Boolean   @default(false)
+  passwordHash      String?
+  firstName         String
+  lastName          String
+  avatarUrl         String?
+  role              UserRole  @default(CUSTOMER)
+  kycStatus         KycStatus @default(PENDING)
+  kycPersonaId      String?
+  trustScore        Int       @default(50)
+  isActive          Boolean   @default(true)
+  preferredLanguage String    @default("en")
+  preferredCurrency String    @default("USD")
+  country           String?
+  city              String?
+  addressLine1      String?
+  addressLine2      String?
+  postalCode        String?
+  stripeCustomerId  String?   @unique
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  provider      Provider?
+  postings      Posting[]
+  bookings      Booking[]      @relation("CustomerBookings")
+  reviewsGiven  Review[]       @relation("ReviewsGiven")
+  disputes      Dispute[]      @relation("CustomerDisputes")
+  notifications Notification[]
+  sessions      Session[]
+  wallet        Wallet?
+
+  @@index([email])
+  @@index([role])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Provider {
+  id                   String             @id @default(cuid())
+  userId               String             @unique
+  businessName         String
+  businessRegNumber    String?
+  dotNumber            String?
+  mcNumber             String?
+  fmcsaNumber          String?
+  imoNumber            String?
+  faaNumber            String?
+  modes                TransportMode[]
+  certifications       String[]
+  insuranceCertUrl     String?
+  licenseUrl           String?
+  fleetSize            Int?
+  serviceArea          String[]
+  bio                  String?
+  logoUrl              String?
+  fleetPhotoUrls       String[]
+  videoUrl             String?
+  couthActsScore       Int                @default(50)
+  scoreTier            CouthActsScoreTier @default(ESTABLISHED)
+  completionRate       Float              @default(0)
+  onTimeRate           Float              @default(0)
+  avgResponseTime      Int                @default(0)
+  totalJobs            Int                @default(0)
+  disputeCount         Int                @default(0)
+  kybStatus            KycStatus          @default(PENDING)
+  kybPersonaId         String?
+  checkrReportId       String?
+  isVerified           Boolean            @default(false)
+  isAvailable          Boolean            @default(true)
+  stripeConnectId      String?            @unique
+  stripeOnboardingDone Boolean            @default(false)
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  user         User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subscription Subscription?
+  bids         Bid[]
+  bookings     Booking[]       @relation("ProviderBookings")
+  reviews      Review[]        @relation("ReviewsReceived")
+  tracking     TrackingEvent[]
+  disputes     Dispute[]       @relation("ProviderDisputes")
+
+  @@index([couthActsScore])
+  @@index([isVerified])
+}
+
+model Subscription {
+  id                   String             @id @default(cuid())
+  providerId           String             @unique
+  tier                 SubscriptionTier
+  status               SubscriptionStatus @default(ACTIVE)
+  stripeSubscriptionId String?            @unique
+  stripePriceId        String?
+  currentPeriodStart   DateTime
+  currentPeriodEnd     DateTime
+  cancelAtPeriodEnd    Boolean            @default(false)
+  monthlyPrice         Decimal            @db.Decimal(10, 2)
+  isAnnual             Boolean            @default(false)
+  discountPercent      Int                @default(0)
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  provider Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+}
+
+model Posting {
+  id                      String        @id @default(cuid())
+  customerId              String
+  mode                    TransportMode
+  title                   String
+  description             String
+  status                  PostingStatus @default(OPEN)
+  originAddress           String
+  originLat               Float?
+  originLng               Float?
+  destinationAddress      String
+  destinationLat          Float?
+  destinationLng          Float?
+  additionalStops         Json?
+  weightKg                Float?
+  lengthCm                Float?
+  widthCm                 Float?
+  heightCm                Float?
+  isHazmat                Boolean       @default(false)
+  isTemperatureControlled Boolean       @default(false)
+  isLiveAnimals           Boolean       @default(false)
+  isOversized             Boolean       @default(false)
+  isFragile               Boolean       @default(false)
+  cargoDescription        String?
+  specialInstructions     String?
+  passengerCount          Int?
+  pickupDate              DateTime
+  deliveryDate            DateTime?
+  isFlexibleDate          Boolean       @default(false)
+  budgetUsd               Decimal       @db.Decimal(12, 2)
+  postingFeeUsd           Decimal       @db.Decimal(10, 2)
+  postingFeePaid          Boolean       @default(false)
+  isBiddingEnabled        Boolean       @default(false)
+  paymentTerm             PaymentTerm   @default(FULL_UPFRONT)
+  trackingLayers          TrackingLayer[]
+  iotRental               Boolean       @default(false)
+  satelliteTracking       Boolean       @default(false)
+  biometricConfirm        Boolean       @default(false)
+  insuranceTier           String        @default("BASIC")
+  expiresAt               DateTime
+  autoRenew               Boolean       @default(false)
+  isFeatured              Boolean       @default(false)
+  isUrgent                Boolean       @default(false)
+  createdAt               DateTime      @default(now())
+  updatedAt               DateTime      @updatedAt
+
+  customer User     @relation(fields: [customerId], references: [id])
+  bids     Bid[]
+  booking  Booking?
+  escrow   Escrow?
+
+  @@index([mode])
+  @@index([status])
+  @@index([customerId])
+  @@index([pickupDate])
+}
+
+model Bid {
+  id                String    @id @default(cuid())
+  postingId         String
+  providerId        String
+  amountUsd         Decimal   @db.Decimal(12, 2)
+  message           String?
+  estimatedPickup   DateTime?
+  estimatedDelivery DateTime?
+  isAccepted        Boolean   @default(false)
+  isWithdrawn       Boolean   @default(false)
+  expiresAt         DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  posting  Posting  @relation(fields: [postingId], references: [id], onDelete: Cascade)
+  provider Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@unique([postingId, providerId])
+  @@index([postingId])
+  @@index([providerId])
+}
+
+model Booking {
+  id                  String        @id @default(cuid())
+  postingId           String        @unique
+  customerId          String
+  providerId          String
+  status              BookingStatus @default(CONFIRMED)
+  agreedAmountUsd     Decimal       @db.Decimal(12, 2)
+  paymentTerm         PaymentTerm
+  customerMarkedDone  Boolean       @default(false)
+  providerMarkedDone  Boolean       @default(false)
+  completedAt         DateTime?
+  cancelledAt         DateTime?
+  cancellationReason  String?
+  cancellationBy      String?
+  refundAmountUsd     Decimal?      @db.Decimal(12, 2)
+  providerPenalty     Boolean       @default(false)
+  scheduledPickup     DateTime
+  scheduledDelivery   DateTime?
+  actualPickup        DateTime?
+  actualDelivery      DateTime?
+  currentLat          Float?
+  currentLng          Float?
+  lastLocationUpdate  DateTime?
+  iotDeviceId         String?
+  satelliteDeviceId   String?
+  trackingCode        String?       @unique
+  qrCode              String?
+  pin                 String?
+  podDocumentUrl      String?
+  biometricConfirmed  Boolean       @default(false)
+  insuranceTier       String        @default("BASIC")
+  insurancePremiumUsd Decimal?      @db.Decimal(10, 2)
+  sosTriggerred       Boolean       @default(false)
+  sosTriggeredAt      DateTime?
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+
+  posting  Posting         @relation(fields: [postingId], references: [id])
+  customer User            @relation("CustomerBookings", fields: [customerId], references: [id])
+  provider Provider        @relation("ProviderBookings", fields: [providerId], references: [id])
+  escrow   Escrow?
+  review   Review?
+  dispute  Dispute?
+  tracking TrackingEvent[]
+
+  @@index([customerId])
+  @@index([providerId])
+  @@index([status])
+}
+
+model Escrow {
+  id                     String       @id @default(cuid())
+  postingId              String       @unique
+  bookingId              String?      @unique
+  totalAmountUsd         Decimal      @db.Decimal(12, 2)
+  escrowFeeUsd           Decimal      @db.Decimal(10, 2)
+  escrowFeePercent       Decimal      @db.Decimal(5, 2)
+  providerPayoutUsd      Decimal      @db.Decimal(12, 2)
+  status                 EscrowStatus @default(HOLDING)
+  stripePaymentIntentId  String?      @unique
+  stripeTransferId       String?
+  heldAt                 DateTime     @default(now())
+  releasedAt             DateTime?
+  refundedAt             DateTime?
+  autoReleaseAt          DateTime?
+  firstPaymentUsd        Decimal?     @db.Decimal(12, 2)
+  firstPaymentReleasedAt DateTime?
+  finalPaymentUsd        Decimal?     @db.Decimal(12, 2)
+  finalPaymentReleasedAt DateTime?
+  createdAt              DateTime     @default(now())
+  updatedAt              DateTime     @updatedAt
+
+  posting Posting  @relation(fields: [postingId], references: [id])
+  booking Booking? @relation(fields: [bookingId], references: [id])
+
+  @@index([status])
+}
+
+model TrackingEvent {
+  id         String        @id @default(cuid())
+  bookingId  String
+  providerId String?
+  layer      TrackingLayer
+  lat        Float?
+  lng        Float?
+  altitude   Float?
+  speed      Float?
+  heading    Float?
+  status     String?
+  rawData    Json?
+  note       String?
+  recordedAt DateTime      @default(now())
+
+  booking  Booking   @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  provider Provider? @relation(fields: [providerId], references: [id])
+
+  @@index([bookingId])
+  @@index([recordedAt])
+}
+
+model Review {
+  id             String   @id @default(cuid())
+  bookingId      String   @unique
+  reviewerId     String
+  providerId     String
+  rating         Int
+  comment        String?
+  onTimeScore    Int?
+  commsScore     Int?
+  conditionScore Int?
+  isPublic       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+
+  booking  Booking  @relation(fields: [bookingId], references: [id])
+  reviewer User     @relation("ReviewsGiven", fields: [reviewerId], references: [id])
+  provider Provider @relation("ReviewsReceived", fields: [providerId], references: [id])
+
+  @@index([providerId])
+}
+
+model Dispute {
+  id           String        @id @default(cuid())
+  bookingId    String        @unique
+  customerId   String
+  providerId   String
+  status       DisputeStatus @default(OPEN)
+  reason       String
+  description  String
+  evidenceUrls String[]
+  adminNotes   String?
+  resolvedBy   String?
+  resolvedAt   DateTime?
+  resolution   String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  booking  Booking  @relation(fields: [bookingId], references: [id])
+  customer User     @relation("CustomerDisputes", fields: [customerId], references: [id])
+  provider Provider @relation("ProviderDisputes", fields: [providerId], references: [id])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  body      String
+  type      String
+  isRead    Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead])
+}
+
+model Wallet {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  balanceUsd   Decimal  @db.Decimal(12, 2) @default(0)
+  currency     String   @default("USD")
+  isLocked     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user         User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions WalletTransaction[]
+
+  @@index([userId])
+}
+
+model WalletTransaction {
+  id            String   @id @default(cuid())
+  walletId      String
+  type          WalletTxType
+  amountUsd     Decimal  @db.Decimal(12, 2)
+  balanceBefore Decimal  @db.Decimal(12, 2)
+  balanceAfter  Decimal  @db.Decimal(12, 2)
+  description   String
+  reference     String?
+  postingId     String?
+  bookingId     String?
+  stripeId      String?
+  createdAt     DateTime @default(now())
+
+  wallet Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  @@index([walletId])
+  @@index([createdAt])
+}
+
+enum WalletTxType {
+  TOPUP
+  POSTING_FEE
+  ESCROW_HOLD
+  ESCROW_RELEASE
+  ESCROW_REFUND
+  PAYOUT
+  ADVANCE
+  ADVANCE_REPAYMENT
+  REFUND
+  ADJUSTMENT
+}

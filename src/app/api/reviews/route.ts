@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
+import type { Review } from "@prisma/client";
 
 export async function POST(req: NextRequest) {
   const session = await getSession();
@@ -54,10 +55,11 @@ export async function POST(req: NextRequest) {
     where: { providerId: booking.providerId },
   });
   const avgRating =
-    allReviews.reduce((sum: number, r) => sum + r.rating, 0) / allReviews.length;
+    allReviews.reduce((sum: number, r: Review) => sum + r.rating, 0) / allReviews.length;
+  const reviewsWithOnTime = allReviews.filter((r: Review) => r.onTimeScore !== null);
   const avgOnTime =
-    allReviews.filter((r) => r.onTimeScore).reduce((sum: number, r) => sum + r.onTimeScore!, 0) /
-    (allReviews.filter((r) => r.onTimeScore).length || 1);
+    reviewsWithOnTime.reduce((sum: number, r: Review) => sum + r.onTimeScore!, 0) /
+    (reviewsWithOnTime.length || 1);
 
   // Map avg rating (1-5) to score (0-100)
   const newScore = Math.round(avgRating * 20);

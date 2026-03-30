@@ -104,6 +104,11 @@ export function Navbar() {
               <Link href="/dashboard" className="text-sm font-medium text-ocean-700 hover:text-ocean-900">
                 Dashboard
               </Link>
+              {user.role === "ADMIN" && (
+                <Link href="/admin" className="text-sm font-medium text-purple-600 hover:text-purple-800">
+                  Admin
+                </Link>
+              )}
               {user.role === "PROVIDER" && (
                 <Link href="/marketplace" className="text-sm font-medium text-ocean-700 hover:text-ocean-900">
                   Marketplace
@@ -252,6 +257,11 @@ export function Navbar() {
               <Link href="/dashboard" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-ocean-700 py-2">
                 Dashboard
               </Link>
+              {user.role === "ADMIN" && (
+                <Link href="/admin" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-purple-600 py-2">
+                  Admin Dashboard
+                </Link>
+              )}
               {user.role === "PROVIDER" && (
                 <Link href="/marketplace" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-ocean-700 py-2">
                   Marketplace

@@ -361,6 +361,26 @@ export default async function DashboardPage() {
             )}
           </div>
         )}
+
+        {/* ── ADMIN VIEW ── */}
+        {user.role === "ADMIN" && (
+          <div className="mt-8 space-y-6">
+            <div className="rounded-2xl bg-gradient-to-r from-ocean-700 to-sky-600 p-8 text-center">
+              <p className="text-lg font-display font-semibold text-white">
+                Welcome, Admin
+              </p>
+              <p className="mt-2 text-sm text-sky-100">
+                Manage the platform from the admin dashboard.
+              </p>
+              <Link
+                href="/admin"
+                className="mt-4 inline-flex items-center gap-2 rounded-lg bg-white px-6 py-2.5 text-sm font-medium text-ocean-700 hover:bg-sky-50 transition"
+              >
+                Open Admin Dashboard <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

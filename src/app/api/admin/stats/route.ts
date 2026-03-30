@@ -1,9 +1,12 @@
 import { db } from "@/lib/db";
-import { requireAdmin } from "@/lib/auth";
+import { getSession } from "@/lib/auth";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  await requireAdmin();
+  const session = await getSession();
+  if (!session || session.user.role !== "ADMIN") {
+    return NextResponse.json({ error: "Admin access required" }, { status: 403 });
+  }
 
   const [
     totalUsers,

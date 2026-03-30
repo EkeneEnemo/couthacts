@@ -1,12 +1,20 @@
 import { db } from "@/lib/db";
-import { requireAdmin } from "@/lib/auth";
+import { getSession } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
+
+async function checkAdmin() {
+  const session = await getSession();
+  if (!session || session.user.role !== "ADMIN") return null;
+  return session;
+}
 
 /**
  * GET /api/admin/users — List all users with filters.
  */
 export async function GET(req: NextRequest) {
-  await requireAdmin();
+  if (!(await checkAdmin())) {
+    return NextResponse.json({ error: "Admin access required" }, { status: 403 });
+  }
 
   const { searchParams } = new URL(req.url);
   const role = searchParams.get("role");
@@ -56,7 +64,9 @@ export async function GET(req: NextRequest) {
  * PATCH /api/admin/users — Update user role, status, or verification.
  */
 export async function PATCH(req: NextRequest) {
-  await requireAdmin();
+  if (!(await checkAdmin())) {
+    return NextResponse.json({ error: "Admin access required" }, { status: 403 });
+  }
 
   const { userId, action, role } = await req.json();
 

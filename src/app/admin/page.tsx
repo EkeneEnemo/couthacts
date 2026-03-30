@@ -66,19 +66,28 @@ export default function AdminDashboard() {
   const [roleFilter, setRoleFilter] = useState("");
   const [kycFilter, setKycFilter] = useState("");
   const [actionLoading, setActionLoading] = useState("");
+  const [accessDenied, setAccessDenied] = useState(false);
 
   useEffect(() => {
     loadData();
   }, []);
 
   async function loadData() {
-    const [statsRes, usersRes] = await Promise.all([
-      fetch("/api/admin/stats").then((r) => r.json()),
-      fetch("/api/admin/users").then((r) => r.json()),
-    ]);
-    setStats(statsRes.stats);
-    setRecentBookings(statsRes.recentBookings || []);
-    setUsers(usersRes.users || []);
+    try {
+      const statsRes = await fetch("/api/admin/stats");
+      if (statsRes.status === 403) {
+        setAccessDenied(true);
+        setLoading(false);
+        return;
+      }
+      const statsData = await statsRes.json();
+      const usersData = await fetch("/api/admin/users").then((r) => r.json());
+      setStats(statsData.stats);
+      setRecentBookings(statsData.recentBookings || []);
+      setUsers(usersData.users || []);
+    } catch {
+      setAccessDenied(true);
+    }
     setLoading(false);
   }
 
@@ -106,6 +115,26 @@ export default function AdminDashboard() {
     return (
       <div className="min-h-screen bg-cream-50 flex items-center justify-center">
         <div className="h-8 w-48 animate-pulse rounded bg-gray-200" />
+      </div>
+    );
+  }
+
+  if (accessDenied) {
+    return (
+      <div className="min-h-screen bg-cream-50 flex items-center justify-center px-6">
+        <div className="text-center max-w-md">
+          <Shield className="mx-auto h-12 w-12 text-red-400" />
+          <h1 className="mt-4 text-2xl font-display font-bold text-ocean-900">Access Denied</h1>
+          <p className="mt-2 text-sm text-gray-500">
+            You don&apos;t have admin access. Make sure you&apos;re logged in with an admin account.
+          </p>
+          <a
+            href="/dashboard"
+            className="mt-6 inline-block rounded-lg bg-ocean-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-ocean-700"
+          >
+            Go to Dashboard
+          </a>
+        </div>
       </div>
     );
   }

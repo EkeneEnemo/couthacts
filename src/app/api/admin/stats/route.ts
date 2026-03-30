@@ -9,19 +9,10 @@ export async function GET() {
   }
 
   const [
-    totalUsers,
-    totalProviders,
-    verifiedUsers,
-    verifiedProviders,
-    totalPostings,
-    openPostings,
-    totalBookings,
-    activeBookings,
-    completedBookings,
-    disputedBookings,
-    totalBids,
-    totalReviews,
-    totalDisputes,
+    totalUsers, totalProviders, verifiedUsers, verifiedProviders,
+    totalPostings, openPostings, totalBookings, activeBookings,
+    completedBookings, disputedBookings, pendingBookings, cancelledBookings,
+    totalBids, totalReviews, totalDisputes,
   ] = await Promise.all([
     db.user.count(),
     db.provider.count(),
@@ -33,23 +24,49 @@ export async function GET() {
     db.booking.count({ where: { status: { in: ["CONFIRMED", "IN_PROGRESS"] } } }),
     db.booking.count({ where: { status: "COMPLETED" } }),
     db.booking.count({ where: { status: "DISPUTED" } }),
+    db.booking.count({ where: { status: "CONFIRMED" } }),
+    db.booking.count({ where: { status: "CANCELLED" } }),
     db.bid.count(),
     db.review.count(),
     db.dispute.count(),
   ]);
 
-  // Revenue: sum of all posting fees + escrow fees
-  const escrows = await db.escrow.findMany({
+  // Revenue by status
+  const releasedEscrows = await db.escrow.findMany({
     where: { status: "RELEASED" },
-    select: { escrowFeeUsd: true },
+    select: { escrowFeeUsd: true, postingId: true },
   });
-  const escrowRevenue = escrows.reduce((sum: number, e: { escrowFeeUsd: unknown }) => sum + Number(e.escrowFeeUsd), 0);
+  const holdingEscrows = await db.escrow.findMany({
+    where: { status: "HOLDING" },
+    select: { totalAmountUsd: true, escrowFeeUsd: true },
+  });
+  const escrowRevenue = releasedEscrows.reduce((s: number, e: { escrowFeeUsd: unknown }) => s + Number(e.escrowFeeUsd), 0);
+  const inEscrow = holdingEscrows.reduce((s: number, e: { totalAmountUsd: unknown }) => s + Number(e.totalAmountUsd), 0);
 
-  const postingFees = await db.walletTransaction.findMany({
+  const postingFeeTxs = await db.walletTransaction.findMany({
     where: { type: "POSTING_FEE" },
     select: { amountUsd: true },
   });
-  const postingFeeRevenue = postingFees.reduce((sum: number, t: { amountUsd: unknown }) => sum + Math.abs(Number(t.amountUsd)), 0);
+  const postingFeeRevenue = postingFeeTxs.reduce((s: number, t: { amountUsd: unknown }) => s + Math.abs(Number(t.amountUsd)), 0);
+
+  // Revenue by transport mode
+  const completedBookingsWithMode = await db.booking.findMany({
+    where: { status: "COMPLETED" },
+    include: {
+      posting: { select: { mode: true } },
+      escrow: { select: { escrowFeeUsd: true } },
+    },
+  });
+  const revenueByMode: Record<string, number> = {};
+  for (const b of completedBookingsWithMode) {
+    const mode = b.posting.mode;
+    const fee = b.escrow ? Number(b.escrow.escrowFeeUsd) : 0;
+    revenueByMode[mode] = (revenueByMode[mode] || 0) + fee;
+  }
+
+  // Total wallet balances
+  const wallets = await db.wallet.findMany({ select: { balanceUsd: true } });
+  const totalWalletBalance = wallets.reduce((s: number, w: { balanceUsd: unknown }) => s + Number(w.balanceUsd), 0);
 
   // Recent activity
   const recentBookings = await db.booking.findMany({
@@ -62,40 +79,19 @@ export async function GET() {
     },
   });
 
-  const recentUsers = await db.user.findMany({
-    orderBy: { createdAt: "desc" },
-    take: 10,
-    select: {
-      id: true,
-      firstName: true,
-      lastName: true,
-      email: true,
-      role: true,
-      kycStatus: true,
-      createdAt: true,
-    },
-  });
-
   return NextResponse.json({
     stats: {
-      totalUsers,
-      totalProviders,
-      verifiedUsers,
-      verifiedProviders,
-      totalPostings,
-      openPostings,
-      totalBookings,
-      activeBookings,
-      completedBookings,
-      disputedBookings,
-      totalBids,
-      totalReviews,
-      totalDisputes,
+      totalUsers, totalProviders, verifiedUsers, verifiedProviders,
+      totalPostings, openPostings,
+      totalBookings, activeBookings, completedBookings, disputedBookings, pendingBookings, cancelledBookings,
+      totalBids, totalReviews, totalDisputes,
       escrowRevenue: Math.round(escrowRevenue * 100) / 100,
       postingFeeRevenue: Math.round(postingFeeRevenue * 100) / 100,
       totalRevenue: Math.round((escrowRevenue + postingFeeRevenue) * 100) / 100,
+      inEscrow: Math.round(inEscrow * 100) / 100,
+      totalWalletBalance: Math.round(totalWalletBalance * 100) / 100,
+      revenueByMode,
     },
     recentBookings,
-    recentUsers,
   });
 }

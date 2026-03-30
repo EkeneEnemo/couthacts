@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Wallet, Bell, Menu, X, Settings } from "lucide-react";
@@ -28,7 +27,6 @@ interface Notification {
 }
 
 export function Navbar() {
-  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -69,10 +67,9 @@ export function Navbar() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ action: "logout" }),
+      credentials: "include",
     });
-    setMobileOpen(false);
-    router.push("/");
-    router.refresh();
+    window.location.href = "/";
   }
 
   async function markAllRead() {

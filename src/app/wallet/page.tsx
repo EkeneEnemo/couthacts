@@ -92,6 +92,7 @@ function WalletContent() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amountUsd: amount }),
+        credentials: "include",
       });
       const data = await res.json();
       if (data.url) {

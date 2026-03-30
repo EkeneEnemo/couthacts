@@ -185,10 +185,10 @@ export default function TermsPage() {
           <section>
             <h2 className="text-lg font-display font-semibold text-ocean-800">13. Intellectual Property</h2>
             <p>
-              The Platform, including its design, text, graphics, logos, icons, images, software, and the CouthActs&#8482; name and mark, are the exclusive property of CouthActs&#8482; Incorporated and are protected by copyright, trademark, and other intellectual property laws. You may not reproduce, distribute, modify, create derivative works of, publicly display, or otherwise exploit any Platform content without our prior written consent.
+              The Platform, including its design, text, graphics, logos, icons, images, software, and the CouthActs&#8482; name and mark, are the exclusive property of Enemo Consulting Group, Inc., licensed to CouthActs&#8482; Incorporated, and are protected by copyright, trademark, and other intellectual property laws. You may not reproduce, distribute, modify, create derivative works of, publicly display, or otherwise exploit any Platform content without our prior written consent.
             </p>
             <p>
-              By posting content on the Platform (including postings, reviews, and profile information), you grant CouthActs&#8482; a non-exclusive, worldwide, royalty-free license to use, reproduce, modify, and display such content in connection with operating the Platform.
+              By posting content on the Platform (including postings, reviews, and profile information), you grant Enemo Consulting Group, Inc. and CouthActs&#8482; Incorporated a non-exclusive, worldwide, royalty-free license to use, reproduce, modify, and display such content in connection with operating the Platform.
             </p>
           </section>
 

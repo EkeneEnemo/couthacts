@@ -29,9 +29,25 @@ export async function POST(req: NextRequest) {
   const posting = await db.posting.findUnique({
     where: { id: body.postingId },
   });
-  if (!posting || posting.status !== "OPEN") {
+  if (!posting || (posting.status !== "OPEN" && posting.status !== "BIDDING")) {
     return NextResponse.json(
       { error: "Posting is not open for bids" },
+      { status: 400 }
+    );
+  }
+
+  // Insurance tier check: provider must have matching coverage
+  const TIER_RANK: Record<string, number> = { BASIC: 1, STANDARD: 2, PREMIUM: 3 };
+  const requiredTier = TIER_RANK[posting.insuranceTier] || 1;
+  const providerCerts = provider.certifications.map((c: string) => c.toUpperCase());
+  const providerHasPremium = providerCerts.some((c: string) => c.includes("PREMIUM") || c.includes("FULL COVERAGE"));
+  const providerHasStandard = providerHasPremium || providerCerts.some((c: string) => c.includes("STANDARD") || c.includes("LIABILITY"));
+  const providerTierRank = providerHasPremium ? 3 : providerHasStandard ? 2 : 1;
+
+  if (requiredTier > 1 && providerTierRank < requiredTier) {
+    const tierName = posting.insuranceTier;
+    return NextResponse.json(
+      { error: `This posting requires ${tierName} insurance coverage. Update your certifications to include your insurance tier.` },
       { status: 400 }
     );
   }

@@ -19,13 +19,13 @@ const PAYMENT_TERMS = [
 ];
 
 const TRACKING_OPTIONS = [
-  { value: "MOBILE_GPS", label: "Mobile GPS" },
-  { value: "AIS_MARITIME", label: "Maritime AIS" },
-  { value: "FLIGHT_TRACKING", label: "Flight Tracking" },
-  { value: "ELD_INTEGRATION", label: "ELD (Trucking)" },
-  { value: "QR_PIN_CONFIRMATION", label: "QR/PIN Confirmation" },
-  { value: "IOT_DEVICE", label: "IoT Device" },
-  { value: "SATELLITE", label: "Satellite" },
+  { value: "MOBILE_GPS", label: "Mobile GPS", active: true },
+  { value: "QR_PIN_CONFIRMATION", label: "QR/PIN Confirmation", active: true },
+  { value: "AIS_MARITIME", label: "Maritime AIS", active: false },
+  { value: "FLIGHT_TRACKING", label: "Flight Tracking", active: false },
+  { value: "ELD_INTEGRATION", label: "ELD (Trucking)", active: false },
+  { value: "IOT_DEVICE", label: "IoT Device", active: false },
+  { value: "SATELLITE", label: "Satellite", active: false },
 ];
 
 export default function NewPostingPage() {
@@ -464,19 +464,27 @@ export default function NewPostingPage() {
                     {TRACKING_OPTIONS.map((t) => (
                       <label
                         key={t.value}
-                        className={`flex items-center gap-2 rounded-lg border-2 p-3 text-sm cursor-pointer transition ${
-                          form.trackingLayers.includes(t.value)
-                            ? "border-ocean-600 bg-ocean-50"
-                            : "border-gray-200"
+                        className={`flex items-center gap-2 rounded-lg border-2 p-3 text-sm transition ${
+                          !t.active
+                            ? "border-gray-100 bg-gray-50 text-gray-400 cursor-not-allowed"
+                            : form.trackingLayers.includes(t.value)
+                            ? "border-ocean-600 bg-ocean-50 cursor-pointer"
+                            : "border-gray-200 cursor-pointer"
                         }`}
                       >
                         <input
                           type="checkbox"
                           checked={form.trackingLayers.includes(t.value)}
-                          onChange={() => toggleTracking(t.value)}
+                          onChange={() => t.active && toggleTracking(t.value)}
+                          disabled={!t.active}
                           className="accent-ocean-600"
                         />
-                        {t.label}
+                        <span className="flex-1">{t.label}</span>
+                        {!t.active && (
+                          <span className="rounded-full bg-gray-200 px-2 py-0.5 text-[10px] font-semibold text-gray-500">
+                            Coming Soon
+                          </span>
+                        )}
                       </label>
                     ))}
                   </div>

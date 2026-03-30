@@ -18,8 +18,11 @@ export async function GET(req: NextRequest) {
     expiresAt: { gt: new Date() },
   };
 
+  const insurance = searchParams.get("insurance");
+
   if (mode) where.mode = mode;
   if (urgent === "true") where.isUrgent = true;
+  if (insurance) where.insuranceTier = insurance;
 
   const orderBy: Record<string, string> =
     sort === "budget_high"

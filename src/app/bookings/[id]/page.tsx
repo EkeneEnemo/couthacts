@@ -57,6 +57,9 @@ interface Booking {
   pin: string | null;
   insuranceTier: string;
   sosTriggerred: boolean;
+  currentLat: number | null;
+  currentLng: number | null;
+  lastLocationUpdate: string | null;
   posting: {
     id: string;
     title: string;
@@ -127,6 +130,12 @@ export default function BookingDetailPage() {
   const [disputeDescription, setDisputeDescription] = useState("");
   const [disputeSubmitting, setDisputeSubmitting] = useState(false);
   const [disputeFiled, setDisputeFiled] = useState(false);
+  const [gpsActive, setGpsActive] = useState(false);
+  const [gpsWatchId, setGpsWatchId] = useState<number | null>(null);
+  const [lastGps, setLastGps] = useState<{ lat: number; lng: number } | null>(null);
+  const [pinInput, setPinInput] = useState("");
+  const [pinError, setPinError] = useState("");
+  const [pinSuccess, setPinSuccess] = useState(false);
 
   useEffect(() => {
     fetch(`/api/bookings/${params.id}`)
@@ -134,9 +143,85 @@ export default function BookingDetailPage() {
       .then((data) => {
         setBooking(data.booking);
         setRole(data.role);
+        if (data.booking?.currentLat && data.booking?.currentLng) {
+          setLastGps({ lat: data.booking.currentLat, lng: data.booking.currentLng });
+        }
         setLoading(false);
       });
   }, [params.id]);
+
+  // Poll for location updates (customer side)
+  useEffect(() => {
+    if (!booking || role !== "customer" || booking.status !== "IN_PROGRESS") return;
+    const interval = setInterval(async () => {
+      const res = await fetch(`/api/tracking?bookingId=${params.id}`);
+      const data = await res.json();
+      if (data.currentLat && data.currentLng) {
+        setLastGps({ lat: data.currentLat, lng: data.currentLng });
+      }
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [booking, role, params.id]);
+
+  function startGpsTracking() {
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by your browser.");
+      return;
+    }
+    setGpsActive(true);
+    const id = navigator.geolocation.watchPosition(
+      async (pos) => {
+        const { latitude, longitude, speed, heading } = pos.coords;
+        setLastGps({ lat: latitude, lng: longitude });
+        await fetch("/api/tracking", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            bookingId: params.id,
+            lat: latitude,
+            lng: longitude,
+            speed: speed ?? undefined,
+            heading: heading ?? undefined,
+          }),
+        }).catch(() => {});
+      },
+      () => {
+        alert("Unable to access location. Please enable location services.");
+        setGpsActive(false);
+      },
+      { enableHighAccuracy: true, maximumAge: 5000, timeout: 10000 }
+    );
+    setGpsWatchId(id);
+  }
+
+  function stopGpsTracking() {
+    if (gpsWatchId !== null) {
+      navigator.geolocation.clearWatch(gpsWatchId);
+      setGpsWatchId(null);
+    }
+    setGpsActive(false);
+  }
+
+  async function verifyPin() {
+    setPinError("");
+    if (!booking) return;
+    if (pinInput !== booking.pin) {
+      setPinError("Incorrect PIN. Please try again.");
+      return;
+    }
+    // PIN matches — mark provider as done
+    setActionLoading("pin");
+    await fetch("/api/bookings", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ bookingId: params.id, action: "provider_complete" }),
+    });
+    const data = await fetch(`/api/bookings/${params.id}`).then((r) => r.json());
+    setBooking(data.booking);
+    setPinSuccess(true);
+    setActionLoading("");
+    stopGpsTracking();
+  }
 
   async function startJob() {
     setActionLoading("start");
@@ -483,6 +568,154 @@ export default function BookingDetailPage() {
                   <Truck className="mr-2 h-4 w-4" />
                   Start job
                 </Button>
+              </div>
+            )}
+
+            {/* GPS Live Tracking */}
+            {(booking.status === "IN_PROGRESS" || booking.status === "CONFIRMED") && (
+              <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
+                <h3 className="text-sm font-semibold text-ocean-800 mb-4">
+                  Live GPS Tracking
+                </h3>
+
+                {/* Provider: Share location button */}
+                {role === "provider" && (
+                  <div className="space-y-3">
+                    {!gpsActive ? (
+                      <button
+                        onClick={startGpsTracking}
+                        className="inline-flex items-center gap-2 rounded-lg bg-green-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-green-700 transition"
+                      >
+                        <MapPin className="h-4 w-4" />
+                        Start sharing location
+                      </button>
+                    ) : (
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2">
+                          <span className="relative flex h-3 w-3">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                            <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500" />
+                          </span>
+                          <p className="text-sm text-green-700 font-medium">
+                            Sharing location live
+                          </p>
+                        </div>
+                        {lastGps && (
+                          <p className="text-xs text-gray-500">
+                            {lastGps.lat.toFixed(6)}, {lastGps.lng.toFixed(6)}
+                          </p>
+                        )}
+                        <button
+                          onClick={stopGpsTracking}
+                          className="text-xs text-red-500 hover:text-red-600 font-medium"
+                        >
+                          Stop sharing
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Customer: See live location */}
+                {role === "customer" && (
+                  <div>
+                    {lastGps ? (
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2">
+                          <span className="relative flex h-3 w-3">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75" />
+                            <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500" />
+                          </span>
+                          <p className="text-sm text-sky-700 font-medium">
+                            Provider location is live
+                          </p>
+                        </div>
+                        <div className="rounded-xl bg-ocean-50 p-4">
+                          <p className="text-sm font-mono text-ocean-800">
+                            {lastGps.lat.toFixed(6)}, {lastGps.lng.toFixed(6)}
+                          </p>
+                          <a
+                            href={`https://www.google.com/maps?q=${lastGps.lat},${lastGps.lng}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-2 inline-flex items-center gap-1 text-xs text-ocean-600 hover:text-ocean-700 font-medium"
+                          >
+                            <MapPin className="h-3 w-3" />
+                            Open in Google Maps
+                          </a>
+                        </div>
+                        {booking.lastLocationUpdate && (
+                          <p className="text-xs text-gray-400">
+                            Last updated: {new Date(booking.lastLocationUpdate).toLocaleTimeString()}
+                          </p>
+                        )}
+                      </div>
+                    ) : (
+                      <p className="text-sm text-gray-500">
+                        Waiting for provider to share location...
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* PIN Delivery Confirmation — provider enters customer's PIN */}
+            {role === "provider" && booking.status === "IN_PROGRESS" && !booking.providerMarkedDone && !pinSuccess && (
+              <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
+                <h3 className="text-sm font-semibold text-ocean-800 mb-2">
+                  Delivery Confirmation
+                </h3>
+                <p className="text-sm text-gray-500 mb-4">
+                  Enter the customer&apos;s delivery PIN to confirm handoff.
+                </p>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    maxLength={6}
+                    placeholder="6-digit PIN"
+                    value={pinInput}
+                    onChange={(e) => setPinInput(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                    className="flex-1 rounded-lg border border-gray-300 px-4 py-2.5 text-center text-lg font-mono tracking-widest outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+                  />
+                  <Button
+                    onClick={verifyPin}
+                    loading={actionLoading === "pin"}
+                    disabled={pinInput.length !== 6}
+                  >
+                    Verify
+                  </Button>
+                </div>
+                {pinError && (
+                  <p className="mt-2 text-sm text-red-500">{pinError}</p>
+                )}
+              </div>
+            )}
+
+            {pinSuccess && (
+              <div className="rounded-2xl bg-green-50 p-6 border border-green-200">
+                <div className="flex items-center gap-2 text-green-700">
+                  <CheckCircle className="h-5 w-5" />
+                  <p className="text-sm font-medium">
+                    Delivery confirmed via PIN. Job marked as complete.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Customer: Show your PIN to the provider */}
+            {role === "customer" && booking.status === "IN_PROGRESS" && booking.pin && !booking.providerMarkedDone && (
+              <div className="rounded-2xl bg-ocean-50 p-6 border border-ocean-200">
+                <h3 className="text-sm font-semibold text-ocean-800 mb-2">
+                  Your Delivery PIN
+                </h3>
+                <p className="text-sm text-gray-600 mb-3">
+                  Show this PIN to the provider upon delivery to confirm handoff.
+                </p>
+                <p className="text-4xl font-mono font-bold text-ocean-700 tracking-[0.3em] text-center">
+                  {booking.pin}
+                </p>
               </div>
             )}
 

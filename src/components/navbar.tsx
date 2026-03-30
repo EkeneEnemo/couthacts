@@ -156,27 +156,27 @@ export function Navbar() {
                         <p className="px-4 py-8 text-center text-sm text-gray-400">No notifications</p>
                       ) : (
                         notifications.slice(0, 15).map((n) => (
-                          <a
+                          <button
                             key={n.id}
-                            href={n.link || "/dashboard"}
-                            onClick={async (e) => {
-                              e.preventDefault();
-                              setShowNotifs(false);
+                            type="button"
+                            onClick={async () => {
                               if (!n.isRead) {
-                                // Mark as read
-                                fetch("/api/notifications", {
-                                  method: "PATCH",
-                                  headers: { "Content-Type": "application/json" },
-                                  body: JSON.stringify({ action: "mark_read", notificationId: n.id }),
-                                }).catch(() => {});
                                 setNotifications((prev) =>
                                   prev.map((x) => x.id === n.id ? { ...x, isRead: true } : x)
                                 );
                                 setUnreadCount((c) => Math.max(0, c - 1));
+                                try {
+                                  await fetch("/api/notifications", {
+                                    method: "PATCH",
+                                    headers: { "Content-Type": "application/json" },
+                                    body: JSON.stringify({ action: "mark_read", notificationId: n.id }),
+                                  });
+                                } catch {}
                               }
+                              setShowNotifs(false);
                               window.location.href = n.link || "/dashboard";
                             }}
-                            className={`block px-4 py-3 border-b border-gray-50 hover:bg-gray-50 transition cursor-pointer ${!n.isRead ? "bg-sky-50/50" : ""}`}
+                            className={`block w-full text-left px-4 py-3 border-b border-gray-50 hover:bg-gray-50 transition cursor-pointer ${!n.isRead ? "bg-sky-50/50" : ""}`}
                           >
                             <div className="flex items-start gap-2">
                               {!n.isRead && (
@@ -188,7 +188,7 @@ export function Navbar() {
                                 <p className="text-xs text-gray-400 mt-1">{new Date(n.createdAt).toLocaleDateString()}</p>
                               </div>
                             </div>
-                          </a>
+                          </button>
                         ))
                       )}
                     </div>

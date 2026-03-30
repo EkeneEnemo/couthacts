@@ -2,57 +2,68 @@ import { getSession } from "@/lib/auth";
 import { getStripe } from "@/lib/stripe";
 import { getOrCreateWallet } from "@/lib/wallet";
 import { NextRequest, NextResponse } from "next/server";
+import { headers } from "next/headers";
 
 export async function POST(req: NextRequest) {
-  const session = await getSession();
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  try {
+    const session = await getSession();
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
-  const { amountUsd } = await req.json();
-  const amount = parseFloat(amountUsd);
+    const { amountUsd } = await req.json();
+    const amount = parseFloat(amountUsd);
 
-  if (!amount || amount < 5) {
-    return NextResponse.json(
-      { error: "Minimum top-up is $5.00" },
-      { status: 400 }
-    );
-  }
-  if (amount > 50000) {
-    return NextResponse.json(
-      { error: "Maximum single top-up is $50,000" },
-      { status: 400 }
-    );
-  }
+    if (!amount || amount < 5) {
+      return NextResponse.json(
+        { error: "Minimum top-up is $5.00" },
+        { status: 400 }
+      );
+    }
+    if (amount > 50000) {
+      return NextResponse.json(
+        { error: "Maximum single top-up is $50,000" },
+        { status: 400 }
+      );
+    }
 
-  // Ensure wallet exists
-  const wallet = await getOrCreateWallet(session.user.id);
+    const wallet = await getOrCreateWallet(session.user.id);
 
-  const stripe = getStripe();
-  const checkoutSession = await stripe.checkout.sessions.create({
-    mode: "payment",
-    payment_method_types: ["card"],
-    line_items: [
-      {
-        price_data: {
-          currency: "usd",
-          product_data: {
-            name: "CouthActs Wallet Top-Up",
-            description: `Add $${amount.toFixed(2)} to your wallet`,
+    // Derive the base URL from the request headers (works on Vercel)
+    const headersList = await headers();
+    const host = headersList.get("host") || "localhost:3000";
+    const protocol = headersList.get("x-forwarded-proto") || "https";
+    const baseUrl = process.env.NEXTAUTH_URL || `${protocol}://${host}`;
+
+    const stripe = getStripe();
+    const checkoutSession = await stripe.checkout.sessions.create({
+      mode: "payment",
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: "CouthActs Wallet Top-Up",
+              description: `Add $${amount.toFixed(2)} to your wallet`,
+            },
+            unit_amount: Math.round(amount * 100),
           },
-          unit_amount: Math.round(amount * 100),
+          quantity: 1,
         },
-        quantity: 1,
+      ],
+      metadata: {
+        couthacts_user_id: session.user.id,
+        couthacts_wallet_id: wallet.id,
+        type: "wallet_topup",
       },
-    ],
-    metadata: {
-      couthacts_user_id: session.user.id,
-      couthacts_wallet_id: wallet.id,
-      type: "wallet_topup",
-    },
-    success_url: `${process.env.NEXTAUTH_URL}/wallet?topup=success`,
-    cancel_url: `${process.env.NEXTAUTH_URL}/wallet?topup=cancelled`,
-  });
+      success_url: `${baseUrl}/wallet?topup=success`,
+      cancel_url: `${baseUrl}/wallet?topup=cancelled`,
+    });
 
-  return NextResponse.json({ url: checkoutSession.url });
+    return NextResponse.json({ url: checkoutSession.url });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Top-up failed";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }

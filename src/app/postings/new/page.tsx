@@ -115,7 +115,7 @@ export default function NewPostingPage() {
       <Navbar />
       <div className="mx-auto max-w-3xl px-6 py-10">
         <h1 className="text-2xl font-display font-bold text-ocean-900">
-          Post a Transport Job
+          Post a Transportation Need
         </h1>
 
         {/* Progress bar */}
@@ -199,7 +199,7 @@ export default function NewPostingPage() {
                 onChange={(e) => update({ originAddress: e.target.value })}
               />
               <Input
-                label="Delivery address"
+                label="Destination address"
                 placeholder="Full address or city"
                 value={form.destinationAddress}
                 onChange={(e) =>

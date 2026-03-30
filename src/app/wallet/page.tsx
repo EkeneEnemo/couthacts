@@ -88,14 +88,20 @@ function WalletContent() {
     if (!amount || amount < 5) return;
 
     setTopupLoading(true);
-    const res = await fetch("/api/wallet/topup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amountUsd: amount }),
-    });
-    const data = await res.json();
-    if (data.url) {
-      window.location.href = data.url;
+    try {
+      const res = await fetch("/api/wallet/topup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amountUsd: amount }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+        return; // Don't reset loading — page is navigating away
+      }
+      alert(data.error || "Failed to start top-up. Please try again.");
+    } catch {
+      alert("Something went wrong. Please try again.");
     }
     setTopupLoading(false);
   }

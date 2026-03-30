@@ -223,7 +223,7 @@ export default function NewPostingPage() {
                 />
               ) : (
                 <>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     <Input
                       label="Weight (kg)"
                       type="number"
@@ -274,7 +274,7 @@ export default function NewPostingPage() {
                   <p className="text-xs font-semibold uppercase tracking-wider text-sky-600">
                     Special handling
                   </p>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                     {(
                       [
                         ["isHazmat", "Hazmat"],
@@ -408,7 +408,7 @@ export default function NewPostingPage() {
                   <p className="text-sm font-medium text-ocean-800 mb-2">
                     Tracking layers
                   </p>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                     {TRACKING_OPTIONS.map((t) => (
                       <label
                         key={t.value}

@@ -54,7 +54,7 @@ export default async function ProviderProfilePage({
 
         {/* Header */}
         <div className="rounded-2xl bg-white p-8 shadow-sm border border-gray-100">
-          <div className="flex items-start gap-6">
+          <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-start sm:gap-6 sm:text-left">
             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-ocean-100 text-2xl font-display font-bold text-ocean-700">
               {provider.businessName.charAt(0)}
             </div>
@@ -82,7 +82,7 @@ export default async function ProviderProfilePage({
           </div>
 
           {/* Stats */}
-          <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-5">
+          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
             {[
               { label: "CouthActs Score", value: provider.couthActsScore, icon: Shield },
               { label: "Tier", value: provider.scoreTier, icon: Star },

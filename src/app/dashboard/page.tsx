@@ -245,7 +245,7 @@ export default async function DashboardPage() {
             ) : (
               <>
                 {/* Stats */}
-                <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                   {[
                     { label: "CouthActs Score", value: provider.couthActsScore },
                     { label: "Total Jobs", value: provider.totalJobs },

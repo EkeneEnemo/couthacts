@@ -171,7 +171,7 @@ export default function LandingPage() {
             <p className="animate-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-sky-300">
               The global transportation marketplace
             </p>
-            <h1 className="animate-fade-up animation-delay-150 mt-6 text-5xl font-display font-bold leading-[1.1] tracking-tight text-white sm:text-6xl lg:text-7xl">
+            <h1 className="animate-fade-up animation-delay-150 mt-6 text-3xl font-display font-bold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-7xl">
               Need a ride? Drop off? Flight?
               <br />
               <span className="bg-gradient-to-r from-sky-200 via-sky-300 to-white bg-clip-text text-transparent">
@@ -184,17 +184,17 @@ export default function LandingPage() {
               with verified providers for every kind of transport. Payments
               protected. Every mile tracked.
             </p>
-            <div className="animate-fade-up animation-delay-450 mt-10 flex flex-wrap justify-center gap-4">
+            <div className="animate-fade-up animation-delay-450 mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
               <Link
                 href="/register"
-                className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-ocean-800 shadow-2xl shadow-black/10 transition-all hover:shadow-black/15 hover:scale-[1.02]"
+                className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-ocean-800 shadow-2xl shadow-black/10 transition-all hover:shadow-black/15 hover:scale-[1.02] sm:w-auto"
               >
                 Get started &mdash; it&apos;s free
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
               <Link
                 href="/register?role=PROVIDER"
-                className="inline-flex items-center gap-2 rounded-full border border-white/25 backdrop-blur-sm px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-white/10 hover:border-white/40"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/25 backdrop-blur-sm px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-white/10 hover:border-white/40 sm:w-auto"
               >
                 I&apos;m a provider
               </Link>
@@ -252,7 +252,7 @@ export default function LandingPage() {
             <p className="text-sm font-semibold uppercase tracking-[0.15em] text-sky-600">
               For everyone
             </p>
-            <h2 className="mt-3 text-4xl font-display font-bold tracking-tight text-ocean-900 sm:text-5xl">
+            <h2 className="mt-3 text-2xl font-display font-bold tracking-tight text-ocean-900 sm:text-4xl lg:text-5xl">
               Whatever you&apos;re moving,
               <br />we&apos;ve got you.
             </h2>
@@ -302,7 +302,7 @@ export default function LandingPage() {
             <p className="text-sm font-semibold uppercase tracking-[0.15em] text-sky-600">
               Simple & safe
             </p>
-            <h2 className="mt-3 text-4xl font-display font-bold tracking-tight text-ocean-900 sm:text-5xl">
+            <h2 className="mt-3 text-2xl font-display font-bold tracking-tight text-ocean-900 sm:text-4xl lg:text-5xl">
               Book with confidence
               <br />in four easy steps.
             </h2>
@@ -357,7 +357,7 @@ export default function LandingPage() {
             <p className="text-sm font-semibold uppercase tracking-[0.15em] text-sky-400">
               Your safety matters
             </p>
-            <h2 className="mt-3 text-4xl font-display font-bold tracking-tight text-white sm:text-5xl">
+            <h2 className="mt-3 text-2xl font-display font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
               Every ride, every shipment &mdash;
               <br />protected.
             </h2>
@@ -399,7 +399,7 @@ export default function LandingPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-ocean-900/50 to-ocean-900/70" />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center px-6 max-w-3xl">
-            <h2 className="text-4xl font-display font-bold text-white sm:text-5xl lg:text-6xl tracking-tight leading-tight">
+            <h2 className="text-2xl font-display font-bold text-white sm:text-4xl lg:text-6xl tracking-tight leading-tight">
               Built for people
               <br />
               <span className="bg-gradient-to-r from-sky-200 via-sky-300 to-white bg-clip-text text-transparent">
@@ -420,7 +420,7 @@ export default function LandingPage() {
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-sky-600">
             Join today
           </p>
-          <h2 className="mt-3 text-4xl font-display font-bold tracking-tight text-ocean-900 sm:text-5xl">
+          <h2 className="mt-3 text-2xl font-display font-bold tracking-tight text-ocean-900 sm:text-4xl lg:text-5xl">
             Ready when you are.
           </h2>
           <p className="mt-5 text-lg text-gray-500 mx-auto max-w-xl">
@@ -428,17 +428,17 @@ export default function LandingPage() {
             send a package, schedule a move, or ship freight &mdash; all from
             one place.
           </p>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
+          <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
             <Link
               href="/register"
-              className="group inline-flex items-center gap-2 rounded-full bg-ocean-800 px-10 py-4 text-sm font-semibold text-white shadow-2xl shadow-ocean-900/15 transition-all hover:bg-ocean-700 hover:shadow-ocean-900/20 hover:scale-[1.02]"
+              className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-ocean-800 px-10 py-4 text-sm font-semibold text-white shadow-2xl shadow-ocean-900/15 transition-all hover:bg-ocean-700 hover:shadow-ocean-900/20 hover:scale-[1.02] sm:w-auto"
             >
               Create free account
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
             <Link
               href="/register?role=PROVIDER"
-              className="inline-flex items-center rounded-full border-2 border-ocean-200 px-10 py-4 text-sm font-semibold text-ocean-700 transition-all hover:bg-ocean-50 hover:border-ocean-300"
+              className="inline-flex w-full items-center justify-center rounded-full border-2 border-ocean-200 px-10 py-4 text-sm font-semibold text-ocean-700 transition-all hover:bg-ocean-50 hover:border-ocean-300 sm:w-auto"
             >
               Register as provider
             </Link>
@@ -457,7 +457,7 @@ export default function LandingPage() {
                 Rides, deliveries, moves, flights, and freight &mdash; all protected.
               </p>
             </div>
-            <div className="flex gap-12 text-sm">
+            <div className="flex gap-8 sm:gap-12 text-sm">
               <div className="space-y-3">
                 <p className="font-semibold text-ocean-800">Platform</p>
                 <Link href="/marketplace" className="block text-gray-500 hover:text-ocean-600 transition-colors">Marketplace</Link>

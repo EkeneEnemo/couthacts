@@ -245,7 +245,7 @@ export default function PostingDetailPage() {
 
             {/* Details grid */}
             <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="flex items-start gap-3">
                   <MapPin className="mt-0.5 h-4 w-4 text-sky-500" />
                   <div>

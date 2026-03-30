@@ -332,7 +332,7 @@ export default function BookingDetailPage() {
                 </div>
               </div>
 
-              <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
+              <div className="mt-4 grid grid-cols-1 gap-4 text-sm sm:grid-cols-2">
                 <div>
                   <p className="text-xs text-gray-400">Scheduled pickup</p>
                   <p className="font-medium text-ocean-700">
@@ -359,7 +359,7 @@ export default function BookingDetailPage() {
               <h3 className="text-sm font-semibold text-ocean-800 mb-4">
                 Tracking & Verification
               </h3>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {booking.trackingCode && (
                   <div>
                     <p className="text-xs text-gray-400">Tracking code</p>
@@ -493,7 +493,7 @@ export default function BookingDetailPage() {
                   <h3 className="text-sm font-semibold text-ocean-800 mb-4">
                     Confirm Completion
                   </h3>
-                  <div className="flex items-center gap-4 mb-4">
+                  <div className="flex flex-col gap-2 mb-4 sm:flex-row sm:items-center sm:gap-4">
                     <div
                       className={`flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium ${
                         booking.customerMarkedDone
@@ -603,7 +603,7 @@ export default function BookingDetailPage() {
                   </div>
 
                   {/* Sub-scores */}
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                     {[
                       { label: "On-time", value: reviewOnTime, setter: setReviewOnTime },
                       { label: "Communication", value: reviewComms, setter: setReviewComms },

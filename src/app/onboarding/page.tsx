@@ -161,7 +161,7 @@ export default function OnboardingPage() {
               <p className="text-xs font-semibold uppercase tracking-wider text-sky-600 pt-2">
                 Regulatory IDs (if applicable)
               </p>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <Input
                   label="DOT Number"
                   placeholder="Optional"

@@ -124,6 +124,20 @@ export default function RegisterPage() {
             {...register("confirmPassword")}
           />
 
+          <label className="flex items-start gap-2 text-xs text-gray-500">
+            <input type="checkbox" required className="accent-ocean-600 mt-0.5" />
+            <span>
+              I agree to the{" "}
+              <Link href="/terms" target="_blank" className="text-ocean-600 underline hover:text-ocean-700">
+                Terms of Service
+              </Link>{" "}
+              and{" "}
+              <Link href="/privacy" target="_blank" className="text-ocean-600 underline hover:text-ocean-700">
+                Privacy Policy
+              </Link>
+            </span>
+          </label>
+
           {serverError && (
             <p className="text-sm text-red-500 text-center">{serverError}</p>
           )}

@@ -87,6 +87,12 @@ export default function LoginPage() {
             </Link>
           </p>
         </form>
+
+        <p className="text-center text-xs text-gray-400">
+          <Link href="/terms" className="hover:text-ocean-600">Terms</Link>
+          {" "}&middot;{" "}
+          <Link href="/privacy" className="hover:text-ocean-600">Privacy</Link>
+        </p>
       </div>
     </div>
   );

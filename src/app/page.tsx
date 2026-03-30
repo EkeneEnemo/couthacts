@@ -470,6 +470,11 @@ export default function LandingPage() {
                 <Link href="/wallet" className="block text-gray-500 hover:text-ocean-600 transition-colors">Wallet</Link>
                 <Link href="/settings" className="block text-gray-500 hover:text-ocean-600 transition-colors">Settings</Link>
               </div>
+              <div className="space-y-3">
+                <p className="font-semibold text-ocean-800">Legal</p>
+                <Link href="/terms" className="block text-gray-500 hover:text-ocean-600 transition-colors">Terms of Service</Link>
+                <Link href="/privacy" className="block text-gray-500 hover:text-ocean-600 transition-colors">Privacy Policy</Link>
+              </div>
             </div>
           </div>
           <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-gray-200/80 pt-8 sm:flex-row">

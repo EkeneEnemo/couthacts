@@ -2,122 +2,152 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   ArrowRight,
-  CheckCircle,
   Shield,
   Zap,
   Globe,
   Lock,
   Eye,
+  Heart,
 } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 
-const HERO_IMAGES = [
+/* ────────────────────────────────────────────────────────
+   Hero strip — real people, everyday + premium transport
+   ──────────────────────────────────────────────────────── */
+const HERO_MOSAIC = [
   {
-    src: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80",
-    alt: "Cargo ship loaded with containers at port",
+    src: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=80",
+    alt: "Woman smiling while riding in a taxi through the city",
   },
   {
-    src: "https://images.unsplash.com/photo-1570710891163-6d3b5c47248b?w=800&q=80",
-    alt: "Private jet on runway at sunset",
+    src: "https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=800&q=80",
+    alt: "Bike courier delivering a package through a busy street",
   },
   {
-    src: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80",
-    alt: "Freight truck driver checking cargo",
+    src: "https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=800&q=80",
+    alt: "Passenger airplane flying through golden clouds",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80",
+    alt: "Two people collaborating at a laptop planning a move",
   },
 ];
 
-const TRANSPORT_SHOWCASE = [
+/* ────────────────────────────────────────────────────────
+   Who it's for — warm, inclusive, human-first
+   ──────────────────────────────────────────────────────── */
+const USE_CASES = [
   {
-    title: "Ground",
-    subtitle: "Taxis, freight, heavy haul, moving, couriers, armored & medical",
-    image: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=900&q=80",
-    alt: "Logistics worker loading freight truck",
-    stats: "6 modes",
+    title: "Need a ride across town?",
+    description: "Book a verified taxi or limo in minutes. See your driver\u2019s CouthActs\u2122 Score before you step in.",
+    image: "https://images.unsplash.com/photo-1582650949767-75876fff6738?w=900&q=80",
+    alt: "Smiling passenger getting into a car in a warm city setting",
+    tag: "Rides",
   },
   {
-    title: "Air",
-    subtitle: "Private jets, helicopters, commercial airlines, and air cargo",
-    image: "https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=900&q=80",
-    alt: "Commercial aircraft flying over clouds",
-    stats: "4 modes",
+    title: "Sending a package today?",
+    description: "Courier and last-mile delivery with real-time GPS tracking. From a birthday gift to business documents.",
+    image: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?w=900&q=80",
+    alt: "Delivery person handing a package to a happy customer at their door",
+    tag: "Courier",
   },
   {
-    title: "Maritime",
-    subtitle: "Cargo ships, yacht charters, and ferry services worldwide",
+    title: "Moving to a new home?",
+    description: "Verified movers bid on your job. Escrow protects your payment until every box is inside your new place.",
+    image: "https://images.unsplash.com/photo-1600518464441-9154a4dea21b?w=900&q=80",
+    alt: "Happy couple surrounded by moving boxes in their new apartment",
+    tag: "Moving",
+  },
+  {
+    title: "Flying somewhere special?",
+    description: "Compare commercial flights, charter a helicopter, or book a private jet \u2014 all from one search.",
+    image: "https://images.unsplash.com/photo-1488085061387-422e29b40080?w=900&q=80",
+    alt: "Travelers walking through a bright modern airport terminal",
+    tag: "Flights",
+  },
+  {
+    title: "Shipping freight worldwide?",
+    description: "From a single pallet to full container loads. Trucking, rail, ocean, air cargo \u2014 18 modes, one platform.",
+    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=900&q=80",
+    alt: "Colorful shipping containers stacked at a busy port",
+    tag: "Freight",
+  },
+  {
+    title: "Something out of the ordinary?",
+    description: "Armored transport, medical vehicles, hazmat, oversized cargo, yacht charters \u2014 we\u2019ve got a mode for that.",
     image: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=900&q=80",
-    alt: "Container ship crossing ocean with sunset",
-    stats: "3 modes",
-  },
-  {
-    title: "Rail & Specialty",
-    subtitle: "Freight rail, hazmat, oversized cargo, and more",
-    image: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=900&q=80",
-    alt: "Freight train carrying containers through landscape",
-    stats: "5 modes",
+    alt: "Yacht cruising through clear blue ocean water",
+    tag: "Specialty",
   },
 ];
 
-const PROCESS_STEPS = [
+/* ────────────────────────────────────────────────────────
+   How it works — warm, people-centered steps
+   ──────────────────────────────────────────────────────── */
+const STEPS = [
   {
     num: "01",
-    title: "Post your job",
-    description: "Describe what needs moving. Set your budget, timeline, and preferred tracking layers.",
-    image: "https://images.unsplash.com/photo-1553413077-190dd305871c?w=600&q=80",
-    alt: "Person using laptop to arrange shipping logistics",
+    title: "Tell us what you need",
+    description: "A ride to the airport, a couch to your new apartment, or a container to another continent. Just describe it.",
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80",
+    alt: "Person smiling while using their phone to book a service",
   },
   {
     num: "02",
-    title: "Verified providers bid",
-    description: "Compare CouthActs\u2122 Scores, completion rates, reviews, and pricing from vetted carriers.",
-    image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&q=80",
-    alt: "Professional logistics coordinator reviewing documents",
+    title: "Choose your provider",
+    description: "Verified providers bid with their price and timeline. Compare scores, reviews, and on-time rates before choosing.",
+    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80",
+    alt: "Professional woman reviewing options on a tablet",
   },
   {
     num: "03",
-    title: "Escrow-protected payment",
-    description: "Funds are held in your wallet escrow. The provider gets paid only when you confirm delivery.",
+    title: "Pay with confidence",
+    description: "Your payment is held safely in escrow. The provider only gets paid when you\u2019re happy with the delivery.",
     image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80",
-    alt: "Secure digital payment transaction",
+    alt: "Contactless payment being made securely",
   },
   {
     num: "04",
-    title: "Track every mile",
-    description: "GPS, maritime AIS, flight tracking, IoT sensors, satellite \u2014 real-time visibility from pickup to delivery.",
+    title: "Track and relax",
+    description: "Real-time GPS, flight tracking, maritime AIS \u2014 watch every step from pickup to your front door.",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80",
-    alt: "Real-time tracking dashboard on screen",
+    alt: "Live tracking dashboard showing a route on a map",
   },
 ];
 
+/* ────────────────────────────────────────────────────────
+   Trust features
+   ──────────────────────────────────────────────────────── */
 const TRUST_FEATURES = [
   {
     icon: Shield,
-    title: "KYB-Verified Providers",
-    description: "Every carrier passes identity, business registration, and compliance verification before they can bid.",
+    title: "Verified providers",
+    description: "Every driver, courier, mover, and carrier passes identity and business verification before they can serve you.",
   },
   {
     icon: Lock,
-    title: "Escrow-Protected Funds",
-    description: "Your money is held securely in your CouthActs\u2122 wallet. Providers are paid only after confirmed delivery.",
+    title: "Escrow protection",
+    description: "Your money stays in your wallet until the job is done. No surprises, no chasing refunds.",
   },
   {
     icon: Eye,
-    title: "Multi-Layer Tracking",
-    description: "GPS, AIS maritime, flight tracking, ELD, IoT, satellite, biometric \u2014 every layer, every mode.",
+    title: "Real-time tracking",
+    description: "GPS for your taxi, flight tracking for your cargo, AIS for your shipment at sea \u2014 always know where it is.",
   },
   {
     icon: Zap,
     title: "CouthActs\u2122 Score",
-    description: "Our proprietary trust algorithm rates every provider on reliability, speed, communication, and dispute history.",
+    description: "Our trust score rates every provider on reliability, speed, and communication so you can choose with confidence.",
   },
   {
     icon: Globe,
-    title: "190+ Countries",
-    description: "From Lagos to London, Miami to Mumbai \u2014 verified providers across every continent and shipping lane.",
+    title: "Everywhere you are",
+    description: "From your neighborhood to the other side of the world. 190+ countries, every transport mode imaginable.",
   },
   {
-    icon: CheckCircle,
-    title: "Dispute Resolution",
-    description: "Built-in evidence upload, escrow freeze, and resolution workflow. No shipment falls through the cracks.",
+    icon: Heart,
+    title: "People-first support",
+    description: "Disputes resolved fairly. Evidence upload, escrow freeze, and a real resolution process \u2014 we\u2019ve got your back.",
   },
 ];
 
@@ -127,135 +157,136 @@ export default function LandingPage() {
       <Navbar />
 
       {/* ═══════════════════════ HERO ═══════════════════════ */}
-      <section className="relative overflow-hidden bg-ocean-900">
-        {/* Background image */}
-        <div className="absolute inset-0">
-          <Image
-            src="https://images.unsplash.com/photo-1494412574643-ff11b0a5eb95?w=1920&q=80"
-            alt="Aerial view of cargo port with ships and containers"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-ocean-900/95 via-ocean-900/80 to-ocean-900/40" />
+      <section className="relative overflow-hidden">
+        {/* Warm gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-ocean-800 via-ocean-700 to-sky-500" />
+        <div className="absolute inset-0 opacity-[0.07]">
+          <div className="absolute top-20 left-[10%] h-[500px] w-[500px] rounded-full bg-sky-200 blur-3xl" />
+          <div className="absolute bottom-0 right-[5%] h-[600px] w-[600px] rounded-full bg-ocean-300 blur-3xl" />
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-6 py-32 lg:py-44">
-          <div className="max-w-2xl">
-            <p className="animate-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-sky-400">
-              The global transportation marketplace
+        <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-10 lg:pt-32 lg:pb-16">
+          <div className="text-center max-w-3xl mx-auto">
+            <p className="animate-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-sky-300">
+              For everyone who needs to get somewhere &mdash; or get something there
             </p>
-            <h1 className="animate-fade-up animation-delay-150 mt-6 text-5xl font-display font-bold leading-[1.08] tracking-tight text-white sm:text-6xl lg:text-7xl">
-              Move anything.
+            <h1 className="animate-fade-up animation-delay-150 mt-6 text-5xl font-display font-bold leading-[1.1] tracking-tight text-white sm:text-6xl lg:text-7xl">
+              Your ride. Your move.
               <br />
-              <span className="bg-gradient-to-r from-sky-300 to-sky-500 bg-clip-text text-transparent">
-                Anywhere.
+              <span className="bg-gradient-to-r from-sky-200 via-sky-300 to-white bg-clip-text text-transparent">
+                Your way.
               </span>
             </h1>
-            <p className="animate-fade-up animation-delay-300 mt-6 text-lg leading-relaxed text-sky-100/90 max-w-xl">
-              CouthActs&#8482; connects you with verified providers across 18 transport
-              modes &mdash; ground, air, sea, and rail. Escrow-protected payments.
-              Real-time tracking. One platform.
+            <p className="animate-fade-up animation-delay-300 mt-6 text-lg leading-relaxed text-sky-100/90 max-w-2xl mx-auto">
+              Whether it&apos;s a taxi across town, a courier for your package, movers
+              for your apartment, or a cargo ship across the Atlantic &mdash;
+              CouthActs&#8482; connects you with verified providers for every kind of
+              transport. Payments protected. Every mile tracked.
             </p>
-            <div className="animate-fade-up animation-delay-450 mt-10 flex flex-wrap gap-4">
+            <div className="animate-fade-up animation-delay-450 mt-10 flex flex-wrap justify-center gap-4">
               <Link
                 href="/register"
-                className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-ocean-900 shadow-2xl shadow-sky-500/20 transition-all hover:shadow-sky-500/30 hover:scale-[1.02]"
+                className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-ocean-800 shadow-2xl shadow-black/10 transition-all hover:shadow-black/15 hover:scale-[1.02]"
               >
-                Start shipping free
+                Get started &mdash; it&apos;s free
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
               <Link
                 href="/register?role=PROVIDER"
-                className="inline-flex items-center gap-2 rounded-full border border-white/20 backdrop-blur-sm px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-white/10 hover:border-white/30"
+                className="inline-flex items-center gap-2 rounded-full border border-white/25 backdrop-blur-sm px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-white/10 hover:border-white/40"
               >
-                Become a provider
+                I&apos;m a provider
               </Link>
             </div>
           </div>
 
-          {/* Floating stat cards */}
-          <div className="animate-fade-up animation-delay-600 mt-20 flex flex-wrap gap-6">
+          {/* Stats — warm, human language */}
+          <div className="animate-fade-up animation-delay-600 mt-16 flex flex-wrap justify-center gap-6">
             {[
-              { value: "18", label: "Transport Modes", sublabel: "Ground to sea" },
-              { value: "190+", label: "Countries", sublabel: "Global reach" },
-              { value: "100%", label: "Escrow Protected", sublabel: "Every transaction" },
+              { value: "18", label: "Transport modes", sub: "Rides to cargo ships" },
+              { value: "190+", label: "Countries", sub: "Local & worldwide" },
+              { value: "100%", label: "Payment protected", sub: "Escrow on every job" },
             ].map((s) => (
               <div
                 key={s.label}
-                className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md px-6 py-4"
+                className="rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-md px-6 py-4 text-center"
               >
                 <p className="text-3xl font-display font-bold text-white">{s.value}</p>
-                <p className="text-sm font-medium text-sky-300">{s.label}</p>
-                <p className="text-xs text-sky-400/60">{s.sublabel}</p>
+                <p className="text-sm font-medium text-sky-200">{s.label}</p>
+                <p className="text-xs text-sky-300/50">{s.sub}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Hero image strip */}
-        <div className="relative mx-auto max-w-7xl px-6 pb-16 hidden lg:block">
-          <div className="grid grid-cols-3 gap-4">
-            {HERO_IMAGES.map((img) => (
-              <div key={img.alt} className="animate-scale-in animation-delay-750 relative aspect-[16/9] overflow-hidden rounded-2xl">
+        {/* People-first mosaic — real humans, everyday transport */}
+        <div className="relative mx-auto max-w-7xl px-6 pb-16">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {HERO_MOSAIC.map((img, i) => (
+              <div
+                key={img.alt}
+                className={`animate-scale-in relative overflow-hidden rounded-2xl ${
+                  i === 0 ? "animation-delay-600" :
+                  i === 1 ? "animation-delay-300" :
+                  i === 2 ? "animation-delay-450" : "animation-delay-750"
+                } ${i === 0 ? "aspect-[4/5] sm:aspect-[3/4]" : "aspect-[4/5] sm:aspect-[3/4]"}`}
+              >
                 <Image
                   src={img.src}
                   alt={img.alt}
                   fill
                   className="object-cover transition-transform duration-700 hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-ocean-900/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-ocean-900/30 to-transparent" />
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════ TRANSPORT MODES ═══════════════════════ */}
+      {/* ═══════════════════════ WHO IT'S FOR ═══════════════════════ */}
       <section className="bg-cream-50">
-        <div className="mx-auto max-w-7xl px-6 py-28 lg:py-36">
-          <div className="max-w-xl">
+        <div className="mx-auto max-w-7xl px-6 py-24 lg:py-32">
+          <div className="text-center max-w-2xl mx-auto">
             <p className="text-sm font-semibold uppercase tracking-[0.15em] text-sky-600">
-              Every mode. One platform.
+              For everyone
             </p>
             <h2 className="mt-3 text-4xl font-display font-bold tracking-tight text-ocean-900 sm:text-5xl">
-              18 transport modes,
-              <br />zero runaround.
+              Whatever you&apos;re moving,
+              <br />we&apos;ve got you.
             </h2>
-            <p className="mt-5 text-lg text-gray-500 leading-relaxed">
-              Whether you&apos;re shipping a pallet across town or chartering a yacht
-              across the Mediterranean, CouthActs&#8482; has a verified provider ready.
+            <p className="mt-4 text-lg text-gray-500 leading-relaxed">
+              One platform for rides, deliveries, moves, flights, and freight.
+              Real people. Real providers. Real protection.
             </p>
           </div>
 
-          <div className="mt-16 grid gap-5 sm:grid-cols-2">
-            {TRANSPORT_SHOWCASE.map((mode) => (
+          <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {USE_CASES.map((uc) => (
               <div
-                key={mode.title}
-                className="group relative overflow-hidden rounded-3xl bg-ocean-900 aspect-[4/3] sm:aspect-auto sm:h-80"
+                key={uc.tag}
+                className="group relative overflow-hidden rounded-3xl bg-white shadow-sm border border-gray-100 transition-all hover:shadow-lg hover:-translate-y-1"
               >
-                <Image
-                  src={mode.image}
-                  alt={mode.alt}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-70 group-hover:opacity-80"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-ocean-900/90 via-ocean-900/40 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-7">
-                  <div className="flex items-end justify-between">
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-widest text-sky-400">
-                        {mode.stats}
-                      </p>
-                      <h3 className="mt-1 text-2xl font-display font-bold text-white">
-                        {mode.title}
-                      </h3>
-                      <p className="mt-1 text-sm text-sky-100/80 max-w-xs">
-                        {mode.subtitle}
-                      </p>
-                    </div>
-                    <ArrowRight className="h-5 w-5 text-white/50 transition-all group-hover:text-white group-hover:translate-x-1" />
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <Image
+                    src={uc.image}
+                    alt={uc.alt}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <span className="rounded-full bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-semibold text-ocean-700 shadow-sm">
+                      {uc.tag}
+                    </span>
                   </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-lg font-display font-bold text-ocean-900">
+                    {uc.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-gray-500 leading-relaxed">
+                    {uc.description}
+                  </p>
                 </div>
               </div>
             ))}
@@ -265,32 +296,33 @@ export default function LandingPage() {
 
       {/* ═══════════════════════ HOW IT WORKS ═══════════════════════ */}
       <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-28 lg:py-36">
+        <div className="mx-auto max-w-7xl px-6 py-24 lg:py-32">
           <div className="text-center max-w-2xl mx-auto">
             <p className="text-sm font-semibold uppercase tracking-[0.15em] text-sky-600">
-              How it works
+              Simple & safe
             </p>
             <h2 className="mt-3 text-4xl font-display font-bold tracking-tight text-ocean-900 sm:text-5xl">
-              Four steps. Total control.
+              Book with confidence
+              <br />in four easy steps.
             </h2>
           </div>
 
-          <div className="mt-20 space-y-24">
-            {PROCESS_STEPS.map((step, i) => (
+          <div className="mt-20 space-y-20 lg:space-y-28">
+            {STEPS.map((step, i) => (
               <div
                 key={step.num}
-                className={`flex flex-col gap-12 lg:flex-row lg:items-center ${
+                className={`flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-16 ${
                   i % 2 === 1 ? "lg:flex-row-reverse" : ""
                 }`}
               >
                 <div className="flex-1">
                   <div className="inline-flex items-center gap-3">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-ocean-900 text-sm font-bold text-white">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-ocean-600 text-sm font-bold text-white shadow-lg shadow-sky-500/25">
                       {step.num}
                     </span>
-                    <div className="h-px w-12 bg-sky-300" />
+                    <div className="h-px w-10 bg-gradient-to-r from-sky-300 to-transparent" />
                   </div>
-                  <h3 className="mt-6 text-3xl font-display font-bold text-ocean-900">
+                  <h3 className="mt-5 text-3xl font-display font-bold text-ocean-900">
                     {step.title}
                   </h3>
                   <p className="mt-4 text-lg text-gray-500 leading-relaxed max-w-md">
@@ -298,7 +330,7 @@ export default function LandingPage() {
                   </p>
                 </div>
                 <div className="flex-1">
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-3xl">
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-xl shadow-ocean-900/5">
                     <Image
                       src={step.image}
                       alt={step.alt}
@@ -314,33 +346,39 @@ export default function LandingPage() {
       </section>
 
       {/* ═══════════════════════ TRUST & SAFETY ═══════════════════════ */}
-      <section className="bg-ocean-900">
-        <div className="mx-auto max-w-7xl px-6 py-28 lg:py-36">
+      <section className="bg-ocean-900 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.04]">
+          <div className="absolute top-0 right-0 h-[600px] w-[600px] rounded-full bg-sky-300 blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-[500px] w-[500px] rounded-full bg-ocean-400 blur-3xl" />
+        </div>
+        <div className="relative mx-auto max-w-7xl px-6 py-24 lg:py-32">
           <div className="text-center max-w-2xl mx-auto">
             <p className="text-sm font-semibold uppercase tracking-[0.15em] text-sky-400">
-              Trust &amp; Safety
+              Your safety matters
             </p>
             <h2 className="mt-3 text-4xl font-display font-bold tracking-tight text-white sm:text-5xl">
-              Built for trust
-              <br />at every layer.
+              Every ride, every shipment &mdash;
+              <br />protected.
             </h2>
             <p className="mt-5 text-lg text-sky-200/70 leading-relaxed">
-              CouthActs&#8482; isn&apos;t just a marketplace &mdash; it&apos;s a trust engine.
-              Every feature is designed so you never have to take a leap of faith.
+              We built CouthActs&#8482; so you never have to worry. Verified people,
+              protected payments, and real-time visibility on everything.
             </p>
           </div>
 
-          <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {TRUST_FEATURES.map((feat) => (
               <div
                 key={feat.title}
-                className="group rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-7 transition-all hover:bg-white/10 hover:border-white/20"
+                className="group rounded-2xl border border-white/[0.08] bg-white/[0.04] backdrop-blur-sm p-7 transition-all hover:bg-white/[0.08] hover:border-white/15"
               >
-                <feat.icon className="h-6 w-6 text-sky-400" />
-                <h3 className="mt-4 text-lg font-display font-semibold text-white">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10">
+                  <feat.icon className="h-5 w-5 text-sky-400" />
+                </div>
+                <h3 className="mt-4 text-base font-display font-semibold text-white">
                   {feat.title}
                 </h3>
-                <p className="mt-2 text-sm text-sky-200/60 leading-relaxed">
+                <p className="mt-2 text-sm text-sky-200/50 leading-relaxed">
                   {feat.description}
                 </p>
               </div>
@@ -349,45 +387,50 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ═══════════════════════ FULL-WIDTH IMAGE BREAK ═══════════════════════ */}
+      {/* ═══════════════════════ HUMAN IMAGE BREAK ═══════════════════════ */}
       <section className="relative h-[50vh] min-h-[400px]">
         <Image
-          src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1920&q=80"
-          alt="Aerial view of busy shipping port with containers and cranes"
+          src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1920&q=80"
+          alt="Diverse group of people smiling and collaborating together"
           fill
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-ocean-900/60 to-ocean-900/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ocean-900/50 to-ocean-900/70" />
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center px-6">
-            <h2 className="text-4xl font-display font-bold text-white sm:text-5xl lg:text-6xl tracking-tight">
-              The world moves.
+          <div className="text-center px-6 max-w-3xl">
+            <h2 className="text-4xl font-display font-bold text-white sm:text-5xl lg:text-6xl tracking-tight leading-tight">
+              Built for people
               <br />
-              <span className="bg-gradient-to-r from-sky-300 to-sky-500 bg-clip-text text-transparent">
-                We move it better.
+              <span className="bg-gradient-to-r from-sky-200 via-sky-300 to-white bg-clip-text text-transparent">
+                who move the world.
               </span>
             </h2>
+            <p className="mt-4 text-lg text-sky-100/80 max-w-xl mx-auto">
+              Riders, shippers, couriers, movers, pilots, captains &mdash;
+              CouthActs&#8482; is for all of you.
+            </p>
           </div>
         </div>
       </section>
 
       {/* ═══════════════════════ CTA ═══════════════════════ */}
       <section className="bg-cream-50">
-        <div className="mx-auto max-w-4xl px-6 py-28 lg:py-36 text-center">
+        <div className="mx-auto max-w-4xl px-6 py-24 lg:py-32 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-sky-600">
-            Get started today
+            Join today
           </p>
           <h2 className="mt-3 text-4xl font-display font-bold tracking-tight text-ocean-900 sm:text-5xl">
-            Ready to move the world?
+            Ready when you are.
           </h2>
           <p className="mt-5 text-lg text-gray-500 mx-auto max-w-xl">
-            Join CouthActs&#8482; &mdash; post your first job or register as a provider
-            in under 5 minutes. No commitment, no hidden fees.
+            Create your free CouthActs&#8482; account in under a minute. Book a ride,
+            send a package, schedule a move, or ship freight &mdash; all from
+            one place.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Link
               href="/register"
-              className="group inline-flex items-center gap-2 rounded-full bg-ocean-900 px-10 py-4 text-sm font-semibold text-white shadow-2xl shadow-ocean-900/20 transition-all hover:bg-ocean-800 hover:shadow-ocean-900/30 hover:scale-[1.02]"
+              className="group inline-flex items-center gap-2 rounded-full bg-ocean-800 px-10 py-4 text-sm font-semibold text-white shadow-2xl shadow-ocean-900/15 transition-all hover:bg-ocean-700 hover:shadow-ocean-900/20 hover:scale-[1.02]"
             >
               Create free account
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -410,8 +453,9 @@ export default function LandingPage() {
               <p className="text-2xl font-display font-bold text-ocean-900">
                 CouthActs&#8482;
               </p>
-              <p className="mt-2 text-sm text-gray-400 max-w-xs">
-                The global multimodal transportation marketplace. 18 modes. 190+ countries. Every shipment protected.
+              <p className="mt-2 text-sm text-gray-400 max-w-xs leading-relaxed">
+                The global transportation marketplace for everyone.
+                Rides, deliveries, moves, flights, and freight &mdash; all protected.
               </p>
             </div>
             <div className="flex gap-12 text-sm">
@@ -434,7 +478,7 @@ export default function LandingPage() {
               &copy; {new Date().getFullYear()} CouthActs&#8482; Incorporated. All rights reserved.
             </p>
             <p className="text-xs text-gray-400">
-              Escrow-protected &middot; KYB-verified &middot; Real-time tracked
+              Escrow-protected &middot; Verified providers &middot; Real-time tracked
             </p>
           </div>
         </div>

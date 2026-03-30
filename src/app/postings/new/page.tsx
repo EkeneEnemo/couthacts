@@ -21,126 +21,215 @@ const TRACKING_OPTIONS = [
   { value: "SATELLITE", label: "Satellite", active: false },
 ];
 
-/* ─── Mode-aware config ───────────────────────────────── */
+/* ─── Per-mode config — every mode gets its own unique wording ─── */
 
-type ModeCategory = "ride" | "courier" | "moving" | "freight" | "air_passenger" | "air_cargo" | "maritime" | "rail" | "specialty";
-
-function getModeCategory(mode: string): ModeCategory {
-  switch (mode) {
-    case "TAXI_RIDE": case "LIMOUSINE": return "ride";
-    case "COURIER_LAST_MILE": return "courier";
-    case "MOVING": return "moving";
-    case "FREIGHT_TRUCKING": case "HEAVY_HAUL": return "freight";
-    case "PRIVATE_JET": case "HELICOPTER": case "COMMERCIAL_AIRLINE": return "air_passenger";
-    case "AIR_CARGO": return "air_cargo";
-    case "CARGO_SHIP": case "YACHT_CHARTER": case "FERRY": return "maritime";
-    case "FREIGHT_RAIL": return "rail";
-    default: return "specialty"; // ARMORED, MEDICAL, HAZMAT, OVERSIZED_CARGO
-  }
+interface ModeLabels {
+  title: string;
+  titlePlaceholder: string;
+  descPlaceholder: string;
+  origin: string;
+  destination: string;
+  dateLabel: string;
+  date2Label: string | null;
+  showCargo: boolean;
+  showPassengers: boolean;
+  showSpecialHandling: boolean;
 }
 
-function getModeLabels(cat: ModeCategory) {
-  switch (cat) {
-    case "ride":
-      return {
-        title: "Where are you going?",
-        titlePlaceholder: "e.g. Airport ride from Manhattan",
-        descPlaceholder: "Any details about your ride (luggage, stops, etc.)",
-        origin: "Pickup location",
-        destination: "Drop-off location",
-        dateLabel: "Pickup date & time",
-        date2Label: null,
-        showCargo: false, showPassengers: true, showSpecialHandling: false,
-      };
-    case "courier":
-      return {
-        title: "What are you sending?",
-        titlePlaceholder: "e.g. Deliver a package from Brooklyn to Queens",
-        descPlaceholder: "Describe the package — size, contents, fragility",
-        origin: "Pickup address",
-        destination: "Delivery address",
-        dateLabel: "Pickup date & time",
-        date2Label: "Deliver by (optional)",
-        showCargo: true, showPassengers: false, showSpecialHandling: true,
-      };
-    case "moving":
-      return {
-        title: "What are you moving?",
-        titlePlaceholder: "e.g. 2-bedroom apartment move, Brooklyn → NJ",
-        descPlaceholder: "Number of rooms, large items (piano, fridge), elevator access, etc.",
-        origin: "Current address",
-        destination: "New address",
-        dateLabel: "Moving date",
-        date2Label: null,
-        showCargo: false, showPassengers: false, showSpecialHandling: true,
-      };
-    case "freight":
-      return {
-        title: "What are you shipping?",
-        titlePlaceholder: "e.g. Ship 2 pallets NYC → LA",
-        descPlaceholder: "Cargo type, packaging, loading requirements",
-        origin: "Origin warehouse/address",
-        destination: "Destination warehouse/address",
-        dateLabel: "Pickup date",
-        date2Label: "Delivery deadline (optional)",
-        showCargo: true, showPassengers: false, showSpecialHandling: true,
-      };
-    case "air_passenger":
-      return {
-        title: "Where are you flying?",
-        titlePlaceholder: "e.g. Charter flight NYC → Miami for 4 passengers",
-        descPlaceholder: "Travel purpose, luggage needs, preferred aircraft type",
-        origin: "Departure city or airport",
-        destination: "Arrival city or airport",
-        dateLabel: "Departure date & time",
-        date2Label: "Return date (optional)",
-        showCargo: false, showPassengers: true, showSpecialHandling: false,
-      };
-    case "air_cargo":
-      return {
-        title: "What are you air-shipping?",
-        titlePlaceholder: "e.g. 500kg electronics shipment LAX → London",
-        descPlaceholder: "Cargo type, dangerous goods classification, temperature requirements",
-        origin: "Origin airport or city",
-        destination: "Destination airport or city",
-        dateLabel: "Ship by date",
-        date2Label: "Deliver by (optional)",
-        showCargo: true, showPassengers: false, showSpecialHandling: true,
-      };
-    case "maritime":
-      return {
-        title: "What do you need shipped by sea?",
-        titlePlaceholder: "e.g. 20ft container Shanghai → Los Angeles",
-        descPlaceholder: "Container type, commodity, port preferences",
-        origin: "Origin port or city",
-        destination: "Destination port or city",
-        dateLabel: "Sailing date (approx.)",
-        date2Label: "Arrival deadline (optional)",
-        showCargo: true, showPassengers: false, showSpecialHandling: true,
-      };
-    case "rail":
-      return {
-        title: "What are you shipping by rail?",
-        titlePlaceholder: "e.g. Intermodal container Chicago → Houston",
-        descPlaceholder: "Cargo type, car type needed (flatcar, boxcar, tank car)",
-        origin: "Origin rail terminal or city",
-        destination: "Destination rail terminal or city",
-        dateLabel: "Ship by date",
-        date2Label: "Delivery deadline (optional)",
-        showCargo: true, showPassengers: false, showSpecialHandling: true,
-      };
-    case "specialty":
-      return {
-        title: "Describe your transport need",
-        titlePlaceholder: "e.g. Armored transport of valuables, downtown LA",
-        descPlaceholder: "Describe the service needed — security level, medical requirements, hazmat class, special equipment",
-        origin: "Pickup location",
-        destination: "Destination",
-        dateLabel: "Service date",
-        date2Label: "Completion deadline (optional)",
-        showCargo: true, showPassengers: false, showSpecialHandling: true,
-      };
-  }
+const MODE_LABELS: Record<string, ModeLabels> = {
+  TAXI_RIDE: {
+    title: "Where do you need a ride?",
+    titlePlaceholder: "e.g. Ride to JFK Airport from downtown Manhattan",
+    descPlaceholder: "Any stops along the way? Luggage? Child seat needed?",
+    origin: "Pickup location",
+    destination: "Drop-off location",
+    dateLabel: "Pickup date & time",
+    date2Label: null,
+    showCargo: false, showPassengers: true, showSpecialHandling: false,
+  },
+  LIMOUSINE: {
+    title: "Where would you like to be chauffeured?",
+    titlePlaceholder: "e.g. Limo for wedding, Brooklyn → The Plaza Hotel",
+    descPlaceholder: "Occasion, vehicle preference (SUV, stretch, sedan), any amenities needed",
+    origin: "Pickup address",
+    destination: "Destination address",
+    dateLabel: "Pickup date & time",
+    date2Label: "Return pickup (optional)",
+    showCargo: false, showPassengers: true, showSpecialHandling: false,
+  },
+  COURIER_LAST_MILE: {
+    title: "What are you sending?",
+    titlePlaceholder: "e.g. Deliver a birthday gift from Brooklyn to Queens",
+    descPlaceholder: "Package contents, size, fragility — anything the courier should know",
+    origin: "Pickup address",
+    destination: "Delivery address",
+    dateLabel: "Pickup date & time",
+    date2Label: "Deliver by (optional)",
+    showCargo: true, showPassengers: false, showSpecialHandling: true,
+  },
+  MOVING: {
+    title: "Tell us about your move",
+    titlePlaceholder: "e.g. 2-bedroom apartment move, Brooklyn → New Jersey",
+    descPlaceholder: "Number of rooms, heavy items (piano, fridge, washer), stairs or elevator, parking situation",
+    origin: "Current address",
+    destination: "New address",
+    dateLabel: "Moving date",
+    date2Label: null,
+    showCargo: false, showPassengers: false, showSpecialHandling: true,
+  },
+  FREIGHT_TRUCKING: {
+    title: "What freight do you need shipped?",
+    titlePlaceholder: "e.g. 2 pallets of electronics, NYC → Los Angeles",
+    descPlaceholder: "Cargo type, packaging, loading dock availability, any stacking restrictions",
+    origin: "Origin warehouse or address",
+    destination: "Destination warehouse or address",
+    dateLabel: "Pickup date",
+    date2Label: "Delivery deadline (optional)",
+    showCargo: true, showPassengers: false, showSpecialHandling: true,
+  },
+  HEAVY_HAUL: {
+    title: "Describe your heavy haul requirement",
+    titlePlaceholder: "e.g. 80,000 lb transformer from Houston to Dallas",
+    descPlaceholder: "Equipment type, exact weight, dimensions, permit requirements, escort needs",
+    origin: "Loading site address",
+    destination: "Delivery site address",
+    dateLabel: "Planned load date",
+    date2Label: "Required delivery date (optional)",
+    showCargo: true, showPassengers: false, showSpecialHandling: true,
+  },
+  ARMORED: {
+    title: "What needs secure transport?",
+    titlePlaceholder: "e.g. Secure transport of valuables from vault to bank",
+    descPlaceholder: "Type of valuables, estimated value, security clearance level, armed escort preference",
+    origin: "Secure pickup location",
+    destination: "Secure delivery location",
+    dateLabel: "Transport date & time",
+    date2Label: null,
+    showCargo: true, showPassengers: false, showSpecialHandling: false,
+  },
+  MEDICAL: {
+    title: "Tell us about the medical transport needed",
+    titlePlaceholder: "e.g. Non-emergency patient transport to Mount Sinai Hospital",
+    descPlaceholder: "Patient mobility (wheelchair, stretcher, ambulatory), medical equipment needed, oxygen, attendant required",
+    origin: "Pickup location",
+    destination: "Medical facility or address",
+    dateLabel: "Transport date & time",
+    date2Label: "Return transport (optional)",
+    showCargo: false, showPassengers: true, showSpecialHandling: false,
+  },
+  PRIVATE_JET: {
+    title: "Plan your private flight",
+    titlePlaceholder: "e.g. Private jet from Teterboro to Miami for 6 guests",
+    descPlaceholder: "Preferred aircraft (light jet, midsize, heavy), catering requests, pet on board, luggage volume",
+    origin: "Departure airport or city",
+    destination: "Arrival airport or city",
+    dateLabel: "Departure date & time",
+    date2Label: "Return flight date (optional)",
+    showCargo: false, showPassengers: true, showSpecialHandling: false,
+  },
+  HELICOPTER: {
+    title: "Where do you need helicopter service?",
+    titlePlaceholder: "e.g. Helicopter transfer from Manhattan heliport to JFK",
+    descPlaceholder: "Purpose (transfer, aerial tour, medevac), landing zone details, weight of passengers + luggage",
+    origin: "Departure heliport or location",
+    destination: "Landing zone or destination",
+    dateLabel: "Flight date & time",
+    date2Label: "Return flight (optional)",
+    showCargo: false, showPassengers: true, showSpecialHandling: false,
+  },
+  COMMERCIAL_AIRLINE: {
+    title: "Book your commercial flight",
+    titlePlaceholder: "e.g. Round-trip flights for 3 from NYC to London",
+    descPlaceholder: "Class preference (economy, business, first), airline preference, flexible dates, special assistance needed",
+    origin: "Departure city or airport",
+    destination: "Arrival city or airport",
+    dateLabel: "Departure date",
+    date2Label: "Return date (optional)",
+    showCargo: false, showPassengers: true, showSpecialHandling: false,
+  },
+  AIR_CARGO: {
+    title: "What cargo needs to fly?",
+    titlePlaceholder: "e.g. 500kg medical supplies LAX → London Heathrow",
+    descPlaceholder: "Commodity type, dangerous goods class (if any), temperature requirements, customs documentation status",
+    origin: "Origin airport or city",
+    destination: "Destination airport or city",
+    dateLabel: "Ship by date",
+    date2Label: "Must arrive by (optional)",
+    showCargo: true, showPassengers: false, showSpecialHandling: true,
+  },
+  CARGO_SHIP: {
+    title: "What are you shipping by sea?",
+    titlePlaceholder: "e.g. 20ft container of textiles, Shanghai → Los Angeles",
+    descPlaceholder: "Container type (20ft, 40ft, reefer), commodity, port preferences, Incoterms",
+    origin: "Origin port or city",
+    destination: "Destination port or city",
+    dateLabel: "Target sailing date",
+    date2Label: "Must arrive by (optional)",
+    showCargo: true, showPassengers: false, showSpecialHandling: true,
+  },
+  YACHT_CHARTER: {
+    title: "Plan your yacht experience",
+    titlePlaceholder: "e.g. Weekend yacht charter for 8 guests, Miami to Bahamas",
+    descPlaceholder: "Occasion, number of guests, preferred yacht size, crew needs, catering, water toys, itinerary preferences",
+    origin: "Departure marina or port",
+    destination: "Destination or cruising area",
+    dateLabel: "Charter start date",
+    date2Label: "Charter end date (optional)",
+    showCargo: false, showPassengers: true, showSpecialHandling: false,
+  },
+  FERRY: {
+    title: "Book your ferry crossing",
+    titlePlaceholder: "e.g. Car + 4 passengers, Dover to Calais",
+    descPlaceholder: "Vehicle type (car, van, truck, foot passenger), number of passengers, cabin preference, pet on board",
+    origin: "Departure port or terminal",
+    destination: "Arrival port or terminal",
+    dateLabel: "Departure date & time",
+    date2Label: "Return crossing (optional)",
+    showCargo: false, showPassengers: true, showSpecialHandling: false,
+  },
+  FREIGHT_RAIL: {
+    title: "What needs to move by rail?",
+    titlePlaceholder: "e.g. Intermodal container, Chicago → Houston",
+    descPlaceholder: "Cargo type, railcar type needed (flatcar, boxcar, tank car, intermodal), siding access at origin/destination",
+    origin: "Origin rail terminal or siding",
+    destination: "Destination rail terminal or siding",
+    dateLabel: "Ship by date",
+    date2Label: "Delivery deadline (optional)",
+    showCargo: true, showPassengers: false, showSpecialHandling: true,
+  },
+  HAZMAT: {
+    title: "Describe your hazardous materials transport",
+    titlePlaceholder: "e.g. Class 3 flammable liquids, 2 drums, Houston → Chicago",
+    descPlaceholder: "UN number, hazard class, packing group, quantity, SDS available, placarding requirements",
+    origin: "Origin facility address",
+    destination: "Destination facility address",
+    dateLabel: "Ship date",
+    date2Label: "Must arrive by (optional)",
+    showCargo: true, showPassengers: false, showSpecialHandling: true,
+  },
+  OVERSIZED_CARGO: {
+    title: "Tell us about your oversized load",
+    titlePlaceholder: "e.g. Wind turbine blade, 160ft, Port of Houston → wind farm in Oklahoma",
+    descPlaceholder: "Exact dimensions (L×W×H), weight, permit status, escort requirements, route survey needed",
+    origin: "Loading site address",
+    destination: "Delivery site address",
+    dateLabel: "Planned load date",
+    date2Label: "Required delivery date (optional)",
+    showCargo: true, showPassengers: false, showSpecialHandling: true,
+  },
+};
+
+function getModeLabels(mode: string): ModeLabels {
+  return MODE_LABELS[mode] || {
+    title: "Describe your transport need",
+    titlePlaceholder: "e.g. What do you need transported?",
+    descPlaceholder: "Provide all relevant details",
+    origin: "Pickup location",
+    destination: "Destination",
+    dateLabel: "Service date",
+    date2Label: null,
+    showCargo: true, showPassengers: false, showSpecialHandling: true,
+  };
 }
 
 export default function NewPostingPage() {
@@ -224,8 +313,7 @@ export default function NewPostingPage() {
     window.location.href = "/dashboard";
   }
 
-  const cat = form.mode ? getModeCategory(form.mode) : null;
-  const labels = cat ? getModeLabels(cat) : null;
+  const labels = form.mode ? getModeLabels(form.mode) : null;
 
   return (
     <div className="min-h-screen bg-cream-100">

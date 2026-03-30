@@ -74,24 +74,72 @@ function WalletContent() {
 
   const topupStatus = searchParams.get("topup");
 
+  // Fetch wallet + auth data, then handle post-topup confirmation
   useEffect(() => {
-    Promise.all([
-      fetch("/api/wallet").then((r) => r.json()),
-      fetch("/api/auth").then((r) => r.json()),
-    ]).then(([walletData, authData]) => {
+    async function loadData() {
+      const [walletData, authData] = await Promise.all([
+        fetch("/api/wallet").then((r) => r.json()),
+        fetch("/api/auth").then((r) => r.json()),
+      ]);
+
       setWallet(walletData.wallet);
       setTransactions(walletData.transactions || []);
       const currency = authData.user?.preferredCurrency || "USD";
       setUserCurrency(currency);
-      // Fetch local balance display
+
       if (currency !== "USD" && walletData.wallet) {
         fetch(`/api/currency?amount=${walletData.wallet.balanceUsd}&from=USD&to=${currency}`)
           .then((r) => r.json())
           .then((c) => setLocalBalanceStr(c.formatted || null));
       }
+
       setLoading(false);
-    });
-  }, []);
+
+      // If returning from Stripe success, confirm the payment and credit wallet
+      if (topupStatus === "success") {
+        const storedSessionId = sessionStorage.getItem("couthacts_topup_session");
+        if (storedSessionId) {
+          sessionStorage.removeItem("couthacts_topup_session");
+          try {
+            const confirmRes = await fetch("/api/wallet/confirm", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ sessionId: storedSessionId }),
+            });
+            const confirmData = await confirmRes.json();
+            if (confirmData.success) {
+              // Immediately update the displayed balance
+              setWallet((prev) =>
+                prev ? { ...prev, balanceUsd: confirmData.balance } : prev
+              );
+              return;
+            }
+          } catch {
+            // Fall through to polling
+          }
+        }
+
+        // Fallback: poll for balance update (webhook may credit it)
+        let attempts = 0;
+        const initialBalance = walletData.wallet?.balanceUsd || 0;
+        const poll = setInterval(async () => {
+          attempts++;
+          if (attempts > 5) {
+            clearInterval(poll);
+            return;
+          }
+          const fresh = await fetch("/api/wallet").then((r) => r.json());
+          if (fresh.wallet && fresh.wallet.balanceUsd > initialBalance) {
+            setWallet(fresh.wallet);
+            setTransactions(fresh.transactions || []);
+            clearInterval(poll);
+          }
+        }, 2000);
+      }
+    }
+
+    loadData();
+  }, [topupStatus]);
 
   async function handleTopup() {
     const amount = parseFloat(topupAmount);
@@ -107,6 +155,10 @@ function WalletContent() {
       });
       const data = await res.json();
       if (data.url) {
+        // Store session ID for post-checkout confirmation
+        if (data.sessionId) {
+          sessionStorage.setItem("couthacts_topup_session", data.sessionId);
+        }
         window.location.href = data.url;
         return; // Don't reset loading — page is navigating away
       }

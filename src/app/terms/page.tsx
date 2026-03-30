@@ -69,20 +69,63 @@ export default function TermsPage() {
               The CouthActs&#8482; Wallet is a stored-value system used to facilitate transactions on the Platform. The Wallet is not a bank account, deposit account, or any form of financial institution product. Wallet balances do not earn interest.
             </p>
             <p>
-              <strong>Top-Ups.</strong> You may add funds to your Wallet via credit/debit card through our payment processor, Stripe, Inc. All top-ups are processed in United States Dollars (USD). Top-ups are non-refundable except as required by applicable law or as described in these Terms.
+              <strong>Top-Ups.</strong> You may add funds to your Wallet via credit/debit card through our payment processor, Stripe, Inc. All top-ups are processed in United States Dollars (USD). The minimum top-up is $5.00 USD and the maximum single top-up is $50,000 USD. Top-ups are non-refundable except as required by applicable law or as described in these Terms.
             </p>
             <p>
-              <strong>Posting Fees.</strong> Customers are charged a non-refundable posting fee when creating a transportation posting. The fee is calculated based on the transport mode and posted budget and is deducted from the Customer&apos;s Wallet at the time of posting. Posting fees are not refundable if the posting expires, is cancelled, or receives no bids.
+              <strong>Multi-Currency Display.</strong> Users may select a preferred display currency in their account settings. All prices, balances, and fees are displayed in the user&apos;s preferred currency alongside the USD equivalent. The internal ledger is maintained exclusively in USD. Exchange rates are provided for informational purposes and are updated periodically; the Company does not guarantee the accuracy of displayed conversion rates. All financial obligations are denominated in USD regardless of display currency.
             </p>
             <p>
-              <strong>Escrow.</strong> When a Customer accepts a Provider&apos;s bid, the agreed amount is debited from the Customer&apos;s Wallet and held in escrow. Escrow funds are released to the Provider&apos;s Wallet only upon mutual confirmation of delivery, or automatically seventy-two (72) hours after both parties confirm completion if escrow has not been manually released. A platform fee of 3.5% is deducted from the escrow amount before release to the Provider.
+              <strong>Posting Fees.</strong> When a Customer creates a transportation posting, two charges are deducted from their Wallet: (a) a non-refundable posting fee, and (b) the full posted budget amount as an escrow hold. The posting fee consists of a base fee determined by transport mode (ranging from $2.00 to $50.00 USD) plus 0.5% of the posted budget, with an absolute minimum of $2.00 USD. Posting fees are non-refundable under any circumstance, including expiration, cancellation, or failure to receive bids.
             </p>
             <p>
-              <strong>Refunds.</strong> If a booking is cancelled before the Provider begins transit, the full escrow amount is refunded to the Customer&apos;s Wallet. If a dispute is filed, escrow funds are frozen until resolution. The Company determines refund eligibility at its sole discretion during dispute resolution.
+              <strong>Minimum Budgets.</strong> Each transport mode has a minimum budget requirement in USD to ensure service quality and platform viability. Minimum budgets range from $5.00 USD (Taxi, Courier) to $1,000.00 USD (Private Jet). Postings below the applicable minimum will be rejected. When posting in a non-USD currency, the equivalent USD amount at the current exchange rate must meet or exceed the minimum.
             </p>
             <p>
-              <strong>Provider Payouts.</strong> Providers may withdraw Wallet funds to their bank account via Stripe Connect. Withdrawal processing times are subject to Stripe&apos;s policies and are not controlled by CouthActs&#8482;.
+              <strong>Budget Hold and Escrow.</strong> The full posted budget is held in the Customer&apos;s Wallet at the time of posting. When a Customer accepts a Provider&apos;s bid: (a) if the bid amount is less than the posted budget, the difference is immediately refunded to the Customer&apos;s Wallet; (b) an escrow record is created for the agreed bid amount. Escrow funds are released to the Provider&apos;s Wallet only upon mutual confirmation of delivery by both Customer and Provider. A platform escrow fee of 3.5% is deducted from the escrow amount before release to the Provider.
             </p>
+            <p>
+              <strong>Posting Expiration.</strong> Postings expire fourteen (14) days after creation if no bid has been accepted. Upon expiration, the budget hold is automatically refunded in full to the Customer&apos;s Wallet. The posting fee is not refunded.
+            </p>
+            <p>
+              <strong>Refunds.</strong> If a booking is cancelled by the Customer before the Provider begins transit, the full escrow amount is refunded to the Customer&apos;s Wallet. If a dispute is filed, escrow funds are frozen until resolution. The Company determines refund eligibility at its sole discretion during dispute resolution. Budget surplus refunds (when accepted bid is less than posted budget) are processed immediately and automatically.
+            </p>
+            <p>
+              <strong>Provider Payouts.</strong> Providers may withdraw Wallet funds to their bank account via Stripe Connect. Withdrawal processing times are subject to Stripe&apos;s policies and are not controlled by CouthActs&#8482;. Payout amounts reflect the agreed bid amount minus the 3.5% platform escrow fee.
+            </p>
+            <p>
+              <strong>Fee Schedule Summary.</strong>
+            </p>
+            <table className="w-full text-sm border-collapse mt-2 mb-2">
+              <thead>
+                <tr className="border-b border-gray-200 text-left">
+                  <th className="py-2 pr-4 font-semibold">Fee</th>
+                  <th className="py-2 pr-4 font-semibold">Rate</th>
+                  <th className="py-2 font-semibold">When Charged</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                <tr>
+                  <td className="py-2 pr-4">Posting fee</td>
+                  <td className="py-2 pr-4">$2–$50 base + 0.5% of budget (min $2)</td>
+                  <td className="py-2">At posting creation (non-refundable)</td>
+                </tr>
+                <tr>
+                  <td className="py-2 pr-4">Budget hold</td>
+                  <td className="py-2 pr-4">100% of posted budget</td>
+                  <td className="py-2">At posting creation (refundable if no match)</td>
+                </tr>
+                <tr>
+                  <td className="py-2 pr-4">Escrow fee</td>
+                  <td className="py-2 pr-4">3.5% of agreed bid amount</td>
+                  <td className="py-2">Deducted from provider payout on completion</td>
+                </tr>
+                <tr>
+                  <td className="py-2 pr-4">Wallet top-up</td>
+                  <td className="py-2 pr-4">No CouthActs&#8482; fee (Stripe processing fees apply)</td>
+                  <td className="py-2">At time of top-up</td>
+                </tr>
+              </tbody>
+            </table>
           </section>
 
           {/* 6 */}

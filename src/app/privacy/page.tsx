@@ -39,7 +39,7 @@ export default function PrivacyPage() {
               <li><strong>Profile data:</strong> city, country, preferred language, preferred currency, avatar.</li>
               <li><strong>Provider data:</strong> business name, registration number, regulatory IDs (DOT, MC, FMCSA, IMO, FAA), certifications, fleet size, service areas, insurance documentation, Stripe Connect account information.</li>
               <li><strong>Posting data:</strong> origin and destination addresses, cargo description, dimensions, weight, special handling requirements, budget, dates, tracking preferences.</li>
-              <li><strong>Financial data:</strong> Wallet transaction history, payment amounts. Credit card numbers are processed exclusively by Stripe and are never stored on our servers.</li>
+              <li><strong>Financial data:</strong> Wallet transaction history (top-ups, posting fees, budget holds, escrow holds, payouts, refunds), payment amounts, preferred display currency, exchange rate lookups. Credit card numbers are processed exclusively by Stripe and are never stored on our servers.</li>
               <li><strong>Communications:</strong> messages exchanged through the Platform, bid messages, review text, dispute descriptions and evidence.</li>
             </ul>
 
@@ -73,6 +73,7 @@ export default function PrivacyPage() {
               <li>Resolve disputes and enforce our Terms of Service.</li>
               <li>Detect and prevent fraud, abuse, and unauthorized access.</li>
               <li>Comply with legal obligations and respond to lawful requests from public authorities.</li>
+              <li>Convert and display prices in your preferred currency using third-party exchange rates.</li>
               <li>Improve the Platform through aggregated, anonymized analytics.</li>
             </ul>
           </section>
@@ -114,6 +115,11 @@ export default function PrivacyPage() {
                   <td className="py-2 pr-4">Pusher</td>
                   <td className="py-2 pr-4">Real-time notifications</td>
                   <td className="py-2">User ID, notification content</td>
+                </tr>
+                <tr>
+                  <td className="py-2 pr-4">ExchangeRate-API</td>
+                  <td className="py-2 pr-4">Currency exchange rates</td>
+                  <td className="py-2">No personal data shared (anonymous rate lookups)</td>
                 </tr>
               </tbody>
             </table>

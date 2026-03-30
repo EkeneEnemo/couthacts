@@ -25,12 +25,12 @@ const HERO_MOSAIC = [
     alt: "Delivery courier on a bicycle riding through the city",
   },
   {
-    src: "https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=800&q=80",
-    alt: "Passenger airplane flying through golden clouds",
+    src: "https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=1200&q=90",
+    alt: "Luxury private charter jet flying above the clouds at sunset",
   },
   {
-    src: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
-    alt: "Person using a laptop to plan logistics",
+    src: "https://images.unsplash.com/photo-1494412574643-ff11b0a5eb95?w=1200&q=90",
+    alt: "Large cargo container ship sailing through the open ocean",
   },
 ];
 

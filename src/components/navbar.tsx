@@ -14,6 +14,7 @@ interface User {
   role: string;
   providerId: string | null;
   walletBalance: number;
+  preferredCurrency: string;
 }
 
 interface Notification {
@@ -33,6 +34,7 @@ export function Navbar() {
   const [unreadCount, setUnreadCount] = useState(0);
   const [showNotifs, setShowNotifs] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [localBalance, setLocalBalance] = useState<string | null>(null);
   const notifRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -47,6 +49,12 @@ export function Navbar() {
               setNotifications(n.notifications || []);
               setUnreadCount(n.unreadCount || 0);
             });
+          // Fetch local currency balance
+          if (d.user.preferredCurrency && d.user.preferredCurrency !== "USD") {
+            fetch(`/api/currency?amount=${d.user.walletBalance}&from=USD&to=${d.user.preferredCurrency}`)
+              .then((r) => r.json())
+              .then((c) => setLocalBalance(c.formatted || null));
+          }
         }
       })
       .finally(() => setLoading(false));
@@ -109,9 +117,15 @@ export function Navbar() {
               <Link
                 href="/wallet"
                 className="flex items-center gap-1.5 rounded-lg bg-ocean-50 px-3 py-1.5 text-sm font-semibold text-ocean-700 hover:bg-ocean-100 transition"
+                title={localBalance ? `≈ ${localBalance}` : undefined}
               >
                 <Wallet className="h-3.5 w-3.5" />
-                ${user.walletBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                <span className="hidden sm:inline">
+                  ${user.walletBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  {localBalance && (
+                    <span className="text-xs text-ocean-500 ml-1">≈{localBalance}</span>
+                  )}
+                </span>
               </Link>
 
               {/* Notifications */}

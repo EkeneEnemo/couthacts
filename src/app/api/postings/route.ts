@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { debitWallet, getOrCreateWallet } from "@/lib/wallet";
 import { calculatePostingFee } from "@/lib/posting-fees";
+import { localToUsd } from "@/lib/currency";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -48,7 +49,14 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json();
-  const budgetUsd = parseFloat(body.budgetUsd);
+  const rawBudget = parseFloat(body.budgetUsd);
+  const currency = body.currency || session.user.preferredCurrency || "USD";
+
+  // Convert local currency to USD if needed
+  const budgetUsd = currency !== "USD"
+    ? await localToUsd(rawBudget, currency)
+    : rawBudget;
+
   const postingFeeUsd = calculatePostingFee(body.mode, budgetUsd);
 
   // Ensure wallet exists

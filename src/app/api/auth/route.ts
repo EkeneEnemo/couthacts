@@ -39,6 +39,7 @@ export async function GET(req: NextRequest) {
         avatarUrl: user.avatarUrl,
         providerId: user.provider?.id ?? null,
         walletBalance: user.wallet ? Number(user.wallet.balanceUsd) : 0,
+        preferredCurrency: user.preferredCurrency || "USD",
       },
     })
   } catch {

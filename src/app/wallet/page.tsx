@@ -69,17 +69,28 @@ function WalletContent() {
   const [loading, setLoading] = useState(true);
   const [topupAmount, setTopupAmount] = useState("");
   const [topupLoading, setTopupLoading] = useState(false);
+  const [userCurrency, setUserCurrency] = useState("USD");
+  const [localBalanceStr, setLocalBalanceStr] = useState<string | null>(null);
 
   const topupStatus = searchParams.get("topup");
 
   useEffect(() => {
-    fetch("/api/wallet")
-      .then((r) => r.json())
-      .then((data) => {
-        setWallet(data.wallet);
-        setTransactions(data.transactions || []);
-        setLoading(false);
-      });
+    Promise.all([
+      fetch("/api/wallet").then((r) => r.json()),
+      fetch("/api/auth").then((r) => r.json()),
+    ]).then(([walletData, authData]) => {
+      setWallet(walletData.wallet);
+      setTransactions(walletData.transactions || []);
+      const currency = authData.user?.preferredCurrency || "USD";
+      setUserCurrency(currency);
+      // Fetch local balance display
+      if (currency !== "USD" && walletData.wallet) {
+        fetch(`/api/currency?amount=${walletData.wallet.balanceUsd}&from=USD&to=${currency}`)
+          .then((r) => r.json())
+          .then((c) => setLocalBalanceStr(c.formatted || null));
+      }
+      setLoading(false);
+    });
   }, []);
 
   async function handleTopup() {
@@ -155,8 +166,13 @@ function WalletContent() {
                   maximumFractionDigits: 2,
                 })}
               </p>
-              <p className="mt-1 text-sm text-sky-200">
-                {wallet?.currency || "USD"}
+              {localBalanceStr && (
+                <p className="mt-1 text-lg text-sky-200/80 font-medium">
+                  ≈ {localBalanceStr}
+                </p>
+              )}
+              <p className="mt-1 text-sm text-sky-200/60">
+                USD {userCurrency !== "USD" && `· ${userCurrency}`}
               </p>
               {wallet?.isLocked && (
                 <p className="mt-2 text-xs text-amber-300 font-medium">

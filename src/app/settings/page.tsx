@@ -121,12 +121,22 @@ export default function SettingsPage() {
               onChange={(e) => update({ preferredCurrency: e.target.value })}
               className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
             >
-              <option value="USD">USD</option>
-              <option value="EUR">EUR</option>
-              <option value="GBP">GBP</option>
-              <option value="NGN">NGN</option>
-              <option value="CAD">CAD</option>
-              <option value="AUD">AUD</option>
+              <option value="USD">USD — US Dollar</option>
+              <option value="EUR">EUR — Euro</option>
+              <option value="GBP">GBP — British Pound</option>
+              <option value="NGN">NGN — Nigerian Naira</option>
+              <option value="CAD">CAD — Canadian Dollar</option>
+              <option value="AUD">AUD — Australian Dollar</option>
+              <option value="INR">INR — Indian Rupee</option>
+              <option value="KES">KES — Kenyan Shilling</option>
+              <option value="GHS">GHS — Ghanaian Cedi</option>
+              <option value="ZAR">ZAR — South African Rand</option>
+              <option value="BRL">BRL — Brazilian Real</option>
+              <option value="MXN">MXN — Mexican Peso</option>
+              <option value="JPY">JPY — Japanese Yen</option>
+              <option value="CNY">CNY — Chinese Yuan</option>
+              <option value="AED">AED — UAE Dirham</option>
+              <option value="SAR">SAR — Saudi Riyal</option>
             </select>
           </div>
 

@@ -34,12 +34,23 @@ export default function NewPostingPage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [walletBalance, setWalletBalance] = useState<number | null>(null);
+  const [userCurrency, setUserCurrency] = useState("USD");
+  const [exchangeRate, setExchangeRate] = useState<number | null>(null);
 
   useEffect(() => {
     fetch("/api/auth")
       .then((r) => r.json())
       .then((d) => {
-        if (d.user) setWalletBalance(d.user.walletBalance ?? 0);
+        if (d.user) {
+          setWalletBalance(d.user.walletBalance ?? 0);
+          setUserCurrency(d.user.preferredCurrency || "USD");
+          // Fetch exchange rate if not USD
+          if (d.user.preferredCurrency && d.user.preferredCurrency !== "USD") {
+            fetch(`/api/currency?amount=1&from=USD&to=${d.user.preferredCurrency}`)
+              .then((r) => r.json())
+              .then((c) => setExchangeRate(c.rate || null));
+          }
+        }
       });
   }, []);
   const [form, setForm] = useState({
@@ -89,7 +100,7 @@ export default function NewPostingPage() {
     const res = await fetch("/api/postings", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify({ ...form, currency: userCurrency }),
     });
     if (!res.ok) {
       const json = await res.json();
@@ -353,12 +364,17 @@ export default function NewPostingPage() {
                 Dates are flexible
               </label>
               <Input
-                label="Budget (USD)"
+                label={`Budget (${userCurrency})`}
                 type="number"
-                placeholder="Your max budget"
+                placeholder={`Your max budget in ${userCurrency}`}
                 value={form.budgetUsd}
                 onChange={(e) => update({ budgetUsd: e.target.value })}
               />
+              {userCurrency !== "USD" && exchangeRate && form.budgetUsd && (
+                <p className="text-xs text-gray-500 -mt-2">
+                  ≈ ${(parseFloat(form.budgetUsd) / exchangeRate).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD at current rate (1 USD = {exchangeRate.toLocaleString()} {userCurrency})
+                </p>
+              )}
               <label className="flex items-center gap-2 text-sm">
                 <input
                   type="checkbox"

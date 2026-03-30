@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Wallet, Bell, Menu, X, Settings } from "lucide-react";
+import { Logo } from "@/components/logo";
 
 interface User {
   id: string;
@@ -87,12 +88,7 @@ export function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b border-gray-200/60 bg-cream-100/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <Link
-          href="/"
-          className="text-2xl font-display font-bold text-ocean-800"
-        >
-          CouthActs&#8482;
-        </Link>
+        <Logo size="sm" />
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-4">

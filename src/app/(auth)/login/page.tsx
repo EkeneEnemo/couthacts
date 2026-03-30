@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { Logo } from "@/components/logo";
 import { loginSchema, LoginInput } from "@/lib/validations";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -39,9 +40,9 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-cream-100 px-4">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
-          <Link href="/" className="text-3xl font-display font-bold text-ocean-800">
-            CouthActs
-          </Link>
+          <div className="flex justify-center">
+            <Logo size="lg" />
+          </div>
           <h1 className="mt-4 text-2xl font-display font-semibold text-ocean-900">
             Welcome back
           </h1>

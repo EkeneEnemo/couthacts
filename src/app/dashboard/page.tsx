@@ -2,6 +2,7 @@ import { requireAuth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import Link from "next/link";
 import { format } from "date-fns";
+import { Logo } from "@/components/logo";
 import {
   Package,
   Clock,
@@ -97,9 +98,7 @@ export default async function DashboardPage() {
     <div className="min-h-screen bg-cream-100">
       <nav className="sticky top-0 z-50 border-b border-gray-200/60 bg-cream-100/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-2xl font-display font-bold text-ocean-800">
-            CouthActs
-          </Link>
+          <Logo size="sm" />
           <div className="flex items-center gap-4">
             {user.role === "PROVIDER" && (
               <Link href="/marketplace" className="text-sm font-medium text-ocean-700 hover:text-ocean-900">

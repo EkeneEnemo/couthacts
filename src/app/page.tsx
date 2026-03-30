@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Logo } from "@/components/logo";
 import {
   ArrowRight,
   Shield,
@@ -450,10 +451,8 @@ export default function LandingPage() {
         <div className="mx-auto max-w-7xl px-6 py-14">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
             <div>
-              <p className="text-2xl font-display font-bold text-ocean-900">
-                CouthActs&#8482;
-              </p>
-              <p className="mt-2 text-sm text-gray-400 max-w-xs leading-relaxed">
+              <Logo size="md" href="/" />
+              <p className="mt-3 text-sm text-gray-400 max-w-xs leading-relaxed">
                 The global transportation marketplace for everyone.
                 Rides, deliveries, moves, flights, and freight &mdash; all protected.
               </p>

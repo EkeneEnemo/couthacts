@@ -71,11 +71,6 @@ export default function SettingsPage() {
       alert("Please select an image file.");
       return;
     }
-    if (file.size > 2 * 1024 * 1024) {
-      alert("Image must be under 2MB.");
-      return;
-    }
-
     setAvatarUploading(true);
     const reader = new FileReader();
     reader.onload = async () => {
@@ -169,7 +164,7 @@ export default function SettingsPage() {
               >
                 {avatarUrl ? "Change photo" : "Upload photo"}
               </Button>
-              <p className="mt-1 text-xs text-gray-400">Required for verification. Max 2MB.</p>
+              <p className="mt-1 text-xs text-gray-400">Required for verification.</p>
             </div>
           </div>
         </div>
@@ -214,6 +209,14 @@ export default function SettingsPage() {
                 Verify your identity to start posting transportation needs or bidding on jobs.
                 You must upload a profile photo first.
               </p>
+              <div className="rounded-xl bg-ocean-50 p-3 border border-ocean-100">
+                <p className="text-xs text-ocean-800 font-medium">
+                  Your first and last name must match exactly what appears on your government-issued ID.
+                </p>
+                <p className="text-xs text-ocean-600 mt-1">
+                  Update your name above before verifying if it doesn&apos;t match your ID.
+                </p>
+              </div>
               <div className="flex items-center gap-3 rounded-xl bg-amber-50 p-3 border border-amber-100">
                 <AlertTriangle className="h-4 w-4 text-amber-500 flex-shrink-0" />
                 <p className="text-xs text-amber-700">

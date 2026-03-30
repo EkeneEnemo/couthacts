@@ -33,7 +33,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-lg font-display font-semibold text-ocean-800">2. Eligibility</h2>
             <p>
-              You must be at least eighteen (18) years of age, or the age of legal majority in your jurisdiction, to create an account. By registering, you represent and warrant that: (a) you are of legal age; (b) you have the legal capacity to enter into these Terms; (c) all information you provide is truthful, accurate, and complete; and (d) your use of the Platform does not violate any applicable law or regulation.
+              You must be at least eighteen (18) years of age, or the age of legal majority in your jurisdiction, to create an account. By registering, you represent and warrant that: (a) you are of legal age; (b) you have the legal capacity to enter into these Terms; (c) all information you provide is truthful, accurate, and complete; (d) the first and last name on your account matches exactly the name on your government-issued identification document; and (e) your use of the Platform does not violate any applicable law or regulation.
             </p>
             <p>
               Business entities must be duly organized and in good standing under the laws of their jurisdiction. The individual accepting these Terms on behalf of an entity represents they have the authority to bind that entity.

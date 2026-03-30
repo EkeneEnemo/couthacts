@@ -19,10 +19,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid image data" }, { status: 400 });
   }
 
-  // Check size — limit to 2MB base64 (~1.5MB actual)
-  if (image.length > 2_800_000) {
-    return NextResponse.json({ error: "Image too large. Max 2MB." }, { status: 400 });
-  }
+  // No size limit — accept any image
 
   await db.user.update({
     where: { id: session.user.id },

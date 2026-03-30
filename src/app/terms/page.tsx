@@ -62,6 +62,26 @@ export default function TermsPage() {
             </p>
           </section>
 
+          {/* 4b */}
+          <section>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">4b. Identity Verification</h2>
+            <p>
+              <strong>Requirement.</strong> All Users must complete identity verification before accessing core Platform features. Unverified Customers cannot post transportation needs. Unverified Providers cannot bid on opportunities. Identity verification requires submission of a valid government-issued photo identification document.
+            </p>
+            <p>
+              <strong>Name Match.</strong> The first and last name on your CouthActs&#8482; account must match exactly the name on your government-issued identification document. Any discrepancy will result in verification failure.
+            </p>
+            <p>
+              <strong>Verification Fee.</strong> Identity verification incurs a non-refundable fee of $20.00 USD, deducted from your CouthActs&#8482; Wallet at the time of submission. You must have sufficient Wallet balance before initiating verification. The verification fee is non-refundable regardless of the verification outcome (approved, rejected, or pending).
+            </p>
+            <p>
+              <strong>Re-Verification.</strong> Changing your first or last name on your account will immediately reset your verification status to &quot;Pending&quot; and restrict access to Platform features until re-verification is completed. Re-verification incurs the same $20.00 USD fee. This policy exists to maintain the integrity of identity-verified transactions on the Platform.
+            </p>
+            <p>
+              <strong>Verification Provider.</strong> Identity verification is processed through our third-party verification partner. By submitting your identification document, you consent to the processing of your personal data by our verification partner in accordance with their privacy policy and our <Link href="/privacy" className="text-ocean-600 underline hover:text-ocean-700">Privacy Policy</Link>.
+            </p>
+          </section>
+
           {/* 5 */}
           <section>
             <h2 className="text-lg font-display font-semibold text-ocean-800">5. Wallet and Payments</h2>

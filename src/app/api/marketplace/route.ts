@@ -20,7 +20,28 @@ export async function GET(req: NextRequest) {
 
   const insurance = searchParams.get("insurance");
 
-  if (mode) where.mode = mode;
+  // Providers only see postings matching their registered transport modes
+  if (session.user.role === "PROVIDER") {
+    const provider = await db.provider.findUnique({
+      where: { userId: session.user.id },
+      select: { modes: true },
+    });
+    if (provider && provider.modes.length > 0) {
+      // If a specific mode filter is applied, verify provider offers it
+      if (mode) {
+        if (!provider.modes.includes(mode as never)) {
+          return NextResponse.json({ postings: [] }); // Not their mode
+        }
+        where.mode = mode;
+      } else {
+        // Show only postings matching provider's registered modes
+        where.mode = { in: provider.modes };
+      }
+    }
+  } else {
+    if (mode) where.mode = mode;
+  }
+
   if (urgent === "true") where.isUrgent = true;
   if (insurance) where.insuranceTier = insurance;
 

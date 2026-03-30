@@ -72,6 +72,9 @@ function WalletContent() {
   const [topupLoading, setTopupLoading] = useState(false);
   const [userCurrency, setUserCurrency] = useState("USD");
   const [localBalanceStr, setLocalBalanceStr] = useState<string | null>(null);
+  const [userRole, setUserRole] = useState("CUSTOMER");
+  const [withdrawAmount, setWithdrawAmount] = useState("");
+  const [withdrawLoading, setWithdrawLoading] = useState(false);
 
   const topupStatus = searchParams.get("topup");
 
@@ -87,6 +90,7 @@ function WalletContent() {
       setTransactions(walletData.transactions || []);
       const currency = authData.user?.preferredCurrency || "USD";
       setUserCurrency(currency);
+      setUserRole(authData.user?.role || "CUSTOMER");
 
       if (currency !== "USD" && walletData.wallet) {
         fetch(`/api/currency?amount=${walletData.wallet.balanceUsd}&from=USD&to=${currency}`)
@@ -168,6 +172,33 @@ function WalletContent() {
       alert("Something went wrong. Please try again.");
     }
     setTopupLoading(false);
+  }
+
+  async function handleWithdraw() {
+    const amount = parseFloat(withdrawAmount);
+    if (!amount || amount < 1) return;
+    setWithdrawLoading(true);
+    try {
+      const res = await fetch("/api/wallet/withdraw", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amountUsd: amount }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert(`$${amount.toFixed(2)} withdrawn to your bank account.`);
+        setWithdrawAmount("");
+        // Refresh wallet
+        const fresh = await fetch("/api/wallet").then((r) => r.json());
+        setWallet(fresh.wallet);
+        setTransactions(fresh.transactions || []);
+      } else {
+        alert(data.error || "Withdrawal failed.");
+      }
+    } catch {
+      alert("Something went wrong. Please try again.");
+    }
+    setWithdrawLoading(false);
   }
 
   if (loading) {
@@ -273,6 +304,36 @@ function WalletContent() {
                 </Button>
               </div>
             </div>
+
+            {/* Withdrawal — providers only */}
+            {userRole === "PROVIDER" && (
+              <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
+                <h3 className="text-sm font-semibold text-ocean-800 mb-3">
+                  Withdraw to Bank
+                </h3>
+                <div className="space-y-3">
+                  <Input
+                    label="Amount (USD)"
+                    type="number"
+                    placeholder="Min $1.00"
+                    value={withdrawAmount}
+                    onChange={(e) => setWithdrawAmount(e.target.value)}
+                  />
+                  <Button
+                    className="w-full"
+                    variant="outline"
+                    onClick={handleWithdraw}
+                    loading={withdrawLoading}
+                    disabled={!withdrawAmount || parseFloat(withdrawAmount) < 1}
+                  >
+                    Withdraw to Stripe
+                  </Button>
+                  <p className="text-xs text-gray-400">
+                    Funds are transferred to your connected Stripe bank account.
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Transaction history */}

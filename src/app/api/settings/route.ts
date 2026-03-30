@@ -34,16 +34,35 @@ export async function PATCH(req: NextRequest) {
 
   const body = await req.json();
 
+  // Check if name is changing — triggers re-verification
+  const currentUser = session.user;
+  const nameChanged =
+    (body.firstName && body.firstName !== currentUser.firstName) ||
+    (body.lastName && body.lastName !== currentUser.lastName);
+
+  const updateData: Record<string, unknown> = {
+    firstName: body.firstName,
+    lastName: body.lastName,
+    phone: body.phone || null,
+    city: body.city || null,
+    country: body.country || null,
+    preferredCurrency: body.preferredCurrency || "USD",
+  };
+
+  // Reset verification if name changed
+  if (nameChanged && currentUser.kycStatus === "APPROVED") {
+    updateData.kycStatus = "PENDING";
+    updateData.kycPersonaId = null;
+    // Also reset provider verification
+    await db.provider.updateMany({
+      where: { userId: session.user.id },
+      data: { isVerified: false, kybStatus: "PENDING" },
+    });
+  }
+
   const user = await db.user.update({
     where: { id: session.user.id },
-    data: {
-      firstName: body.firstName,
-      lastName: body.lastName,
-      phone: body.phone || null,
-      city: body.city || null,
-      country: body.country || null,
-      preferredCurrency: body.preferredCurrency || "USD",
-    },
+    data: updateData,
   });
 
   return NextResponse.json({ user });

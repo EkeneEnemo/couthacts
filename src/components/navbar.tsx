@@ -155,41 +155,40 @@ export function Navbar() {
                       {notifications.length === 0 ? (
                         <p className="px-4 py-8 text-center text-sm text-gray-400">No notifications</p>
                       ) : (
-                        notifications.slice(0, 15).map((n) => (
-                          <button
-                            key={n.id}
-                            type="button"
-                            onClick={async () => {
-                              if (!n.isRead) {
-                                setNotifications((prev) =>
-                                  prev.map((x) => x.id === n.id ? { ...x, isRead: true } : x)
-                                );
-                                setUnreadCount((c) => Math.max(0, c - 1));
-                                try {
-                                  await fetch("/api/notifications", {
+                        notifications.slice(0, 15).map((n) => {
+                          const dest = n.link || "/dashboard";
+                          return (
+                            <div
+                              key={n.id}
+                              role="button"
+                              tabIndex={0}
+                              onMouseDown={() => {
+                                // Fire-and-forget mark as read — don't await
+                                if (!n.isRead) {
+                                  fetch("/api/notifications", {
                                     method: "PATCH",
                                     headers: { "Content-Type": "application/json" },
                                     body: JSON.stringify({ action: "mark_read", notificationId: n.id }),
-                                  });
-                                } catch {}
-                              }
-                              setShowNotifs(false);
-                              window.location.href = n.link || "/dashboard";
-                            }}
-                            className={`block w-full text-left px-4 py-3 border-b border-gray-50 hover:bg-gray-50 transition cursor-pointer ${!n.isRead ? "bg-sky-50/50" : ""}`}
-                          >
-                            <div className="flex items-start gap-2">
-                              {!n.isRead && (
-                                <span className="mt-1.5 flex-shrink-0 h-2 w-2 rounded-full bg-sky-500" />
-                              )}
-                              <div className={!n.isRead ? "" : "ml-4"}>
-                                <p className="text-sm font-medium text-ocean-800">{n.title}</p>
-                                <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{n.body}</p>
-                                <p className="text-xs text-gray-400 mt-1">{new Date(n.createdAt).toLocaleDateString()}</p>
+                                  }).catch(() => {});
+                                }
+                                // Navigate immediately
+                                window.location.href = dest;
+                              }}
+                              className={`block w-full text-left px-4 py-3 border-b border-gray-50 hover:bg-gray-50 transition cursor-pointer select-none ${!n.isRead ? "bg-sky-50/50" : ""}`}
+                            >
+                              <div className="flex items-start gap-2">
+                                {!n.isRead && (
+                                  <span className="mt-1.5 flex-shrink-0 h-2 w-2 rounded-full bg-sky-500" />
+                                )}
+                                <div className={!n.isRead ? "" : "ml-4"}>
+                                  <p className="text-sm font-medium text-ocean-800">{n.title}</p>
+                                  <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{n.body}</p>
+                                  <p className="text-xs text-gray-400 mt-1">{new Date(n.createdAt).toLocaleDateString()}</p>
+                                </div>
                               </div>
                             </div>
-                          </button>
-                        ))
+                          );
+                        })
                       )}
                     </div>
                   </div>

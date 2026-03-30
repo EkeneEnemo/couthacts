@@ -1,12 +1,14 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
+import { debitWallet, getOrCreateWallet } from "@/lib/wallet";
 import { NextResponse } from "next/server";
+
+const VERIFICATION_FEE_USD = 20;
 
 /**
  * POST /api/verify — Start identity verification.
- * In production, this would create a Persona inquiry and return the
- * inquiry URL. For now, we simulate the flow with a self-verification
- * that sets status to IN_REVIEW, then auto-approves after a check.
+ * Charges $20 from wallet. In production, creates a Persona inquiry.
+ * For now, simulates with auto-approval after 3 seconds.
  */
 export async function POST() {
   const session = await getSession();
@@ -16,7 +18,6 @@ export async function POST() {
 
   const user = session.user;
 
-  // Require avatar before verification
   if (!user.avatarUrl) {
     return NextResponse.json(
       { error: "Please upload a profile photo before verifying your identity" },
@@ -28,10 +29,23 @@ export async function POST() {
     return NextResponse.json({ status: "APPROVED", message: "Already verified" });
   }
 
-  // In production: create Persona inquiry here
-  // const inquiry = await persona.createInquiry({ ... });
-  // For now: move to IN_REVIEW and auto-approve
-  // This simulates the webhook callback from Persona
+  // Ensure wallet exists and charge $20 verification fee
+  await getOrCreateWallet(user.id);
+
+  try {
+    await debitWallet({
+      userId: user.id,
+      amountUsd: VERIFICATION_FEE_USD,
+      type: "POSTING_FEE", // Using POSTING_FEE as closest transaction type
+      description: `Identity verification fee ($${VERIFICATION_FEE_USD})`,
+    });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Insufficient wallet balance";
+    return NextResponse.json(
+      { error: `$${VERIFICATION_FEE_USD} verification fee required. ${message}` },
+      { status: 400 }
+    );
+  }
 
   const personaId = `sim_${Date.now()}_${user.id.slice(0, 8)}`;
 
@@ -43,28 +57,25 @@ export async function POST() {
     },
   });
 
-  // Auto-approve after a brief delay (simulates Persona webhook)
-  // In production, this would be handled by a Persona webhook
+  // Auto-approve after brief delay (simulates Persona webhook)
   setTimeout(async () => {
     try {
       await db.user.update({
         where: { id: user.id },
         data: { kycStatus: "APPROVED" },
       });
-      // If provider, also mark as verified
       await db.provider.updateMany({
         where: { userId: user.id },
         data: { isVerified: true, kybStatus: "APPROVED" },
       });
-    } catch {
-      // ignore
-    }
+    } catch {}
   }, 3000);
 
   return NextResponse.json({
     status: "IN_REVIEW",
-    message: "Verification submitted. You will be verified shortly.",
+    message: "Verification submitted. $20 fee charged. You will be verified shortly.",
     personaId,
+    feeCharged: VERIFICATION_FEE_USD,
   });
 }
 
@@ -86,5 +97,6 @@ export async function GET() {
     kycPersonaId: user.kycPersonaId,
     avatarUrl: user.avatarUrl,
     isVerified: user.kycStatus === "APPROVED",
+    verificationFee: VERIFICATION_FEE_USD,
   });
 }

@@ -35,7 +35,8 @@ export default function PrivacyPage() {
 
             <h3 className="text-base font-semibold text-ocean-700 mt-4">2.1 Information You Provide</h3>
             <ul className="list-disc pl-5 space-y-1">
-              <li><strong>Account data:</strong> name, email address, phone number, password (stored as a cryptographic hash, never in plaintext), role (Customer or Provider).</li>
+              <li><strong>Account data:</strong> name, email address, phone number, password (stored as a cryptographic hash, never in plaintext), role (Customer or Provider), profile photo.</li>
+              <li><strong>Identity verification data:</strong> government-issued photo ID (processed by our third-party verification partner; not stored on CouthActs&#8482; servers after verification), verification status, verification reference ID. A $20.00 USD non-refundable fee is charged per verification attempt.</li>
               <li><strong>Profile data:</strong> city, country, preferred language, preferred currency, avatar.</li>
               <li><strong>Provider data:</strong> business name, registration number, regulatory IDs (DOT, MC, FMCSA, IMO, FAA), certifications, fleet size, service areas, insurance documentation, Stripe Connect account information.</li>
               <li><strong>Posting data:</strong> origin and destination addresses, cargo description, dimensions, weight, special handling requirements, budget, dates, tracking preferences.</li>

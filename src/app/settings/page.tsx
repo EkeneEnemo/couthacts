@@ -229,7 +229,7 @@ export default function SettingsPage() {
                 disabled={!avatarUrl}
               >
                 <Shield className="mr-2 h-4 w-4" />
-                Verify my identity
+                Verify my identity — $20
               </Button>
               {!avatarUrl && (
                 <p className="text-xs text-red-500">Upload a profile photo above first.</p>
@@ -241,6 +241,13 @@ export default function SettingsPage() {
         {/* Profile details */}
         <div className="mt-4 rounded-2xl bg-white p-8 shadow-sm border border-gray-100 space-y-5">
           <p className="text-sm font-semibold text-ocean-800">Profile Details</p>
+          {kycStatus === "APPROVED" && (
+            <div className="rounded-xl bg-amber-50 p-3 border border-amber-100">
+              <p className="text-xs text-amber-800 font-medium">
+                Changing your name will reset your verification status and require re-verification ($20).
+              </p>
+            </div>
+          )}
           <div className="grid grid-cols-2 gap-3">
             <Input
               label="First name"

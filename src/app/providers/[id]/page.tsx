@@ -35,8 +35,9 @@ export default async function ProviderProfilePage({
 
   if (!provider) notFound();
 
+  type ProviderReview = (typeof provider.reviews)[number];
   const avgRating = provider.reviews.length > 0
-    ? provider.reviews.reduce((s, r) => s + r.rating, 0) / provider.reviews.length
+    ? provider.reviews.reduce((s: number, r: ProviderReview) => s + r.rating, 0) / provider.reviews.length
     : 0;
 
   return (

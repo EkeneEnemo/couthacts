@@ -19,7 +19,7 @@ export async function GET() {
       currency: wallet.currency,
       isLocked: wallet.isLocked,
     },
-    transactions: transactions.map((t) => ({
+    transactions: transactions.map((t: (typeof transactions)[number]) => ({
       id: t.id,
       type: t.type,
       amountUsd: Number(t.amountUsd),

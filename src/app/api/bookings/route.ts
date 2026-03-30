@@ -209,10 +209,16 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ booking: updated });
   }
 
-  // Cancel — refund escrow to customer wallet
+  // Cancel — only customer can cancel, refund escrow
   if (action === "cancel") {
+    if (booking.customerId !== session.user.id && session.user.role !== "ADMIN") {
+      return NextResponse.json({ error: "Only the customer or admin can cancel" }, { status: 403 });
+    }
     if (booking.status === "COMPLETED") {
       return NextResponse.json({ error: "Cannot cancel a completed booking" }, { status: 400 });
+    }
+    if (booking.status === "CANCELLED") {
+      return NextResponse.json({ error: "Booking is already cancelled" }, { status: 400 });
     }
 
     await db.booking.update({
@@ -228,7 +234,7 @@ export async function PATCH(req: NextRequest) {
       data: { status: "CANCELLED" },
     });
 
-    // Refund escrow
+    // Refund escrow (atomic — won't double-refund)
     if (booking.escrow && booking.escrow.status === "HOLDING") {
       await refundEscrow(booking.escrow.id);
     }

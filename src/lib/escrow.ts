@@ -6,9 +6,9 @@ const ESCROW_FEE_PERCENT = 3.5;
 
 /**
  * Create an escrow:
- * 1. Debit customer wallet for the full amount (ESCROW_HOLD)
- * 2. Record escrow row linked to posting + booking
- * 3. Optionally create a Stripe PaymentIntent for external payment tracking
+ * 1. Debit customer wallet (atomic via $transaction in debitWallet)
+ * 2. Create escrow record
+ * 3. Optionally create Stripe PaymentIntent (supplementary)
  */
 export async function createEscrow({
   postingId,
@@ -23,28 +23,31 @@ export async function createEscrow({
   customerId: string;
   paymentTerm: "FULL_UPFRONT" | "SPLIT_50_50" | "FULL_ON_COMPLETION";
 }) {
-  const escrowFeeUsd = (totalAmountUsd * ESCROW_FEE_PERCENT) / 100;
-  const providerPayoutUsd = totalAmountUsd - escrowFeeUsd;
+  if (!Number.isFinite(totalAmountUsd) || totalAmountUsd <= 0) {
+    throw new Error("Invalid escrow amount");
+  }
 
-  // Debit customer wallet for the full escrow amount
+  const escrowFeeUsd = Math.round(totalAmountUsd * ESCROW_FEE_PERCENT) / 100;
+  const providerPayoutUsd = Math.round((totalAmountUsd - escrowFeeUsd) * 100) / 100;
+
+  // Debit customer wallet (already atomic internally)
   await debitWallet({
     userId: customerId,
     amountUsd: totalAmountUsd,
     type: "ESCROW_HOLD",
-    description: `Escrow hold for booking`,
+    description: "Escrow hold for booking",
     bookingId,
     postingId,
   });
 
-  // For SPLIT_50_50, calculate first and final payments
   let firstPaymentUsd: number | null = null;
   let finalPaymentUsd: number | null = null;
   if (paymentTerm === "SPLIT_50_50") {
-    firstPaymentUsd = totalAmountUsd / 2;
-    finalPaymentUsd = totalAmountUsd / 2;
+    firstPaymentUsd = Math.round((totalAmountUsd / 2) * 100) / 100;
+    finalPaymentUsd = totalAmountUsd - firstPaymentUsd;
   }
 
-  // Create Stripe PaymentIntent for external tracking / card charge
+  // Create Stripe PaymentIntent (supplementary — wallet is authoritative)
   let stripePaymentIntentId: string | null = null;
   let clientSecret: string | null = null;
   try {
@@ -67,17 +70,20 @@ export async function createEscrow({
     }
 
     const chargeAmountCents = Math.round(totalAmountUsd * 100);
-    const paymentIntent = await getStripe().paymentIntents.create({
-      amount: chargeAmountCents,
-      currency: "usd",
-      customer: stripeCustomerId,
-      capture_method: "manual",
-      metadata: {
-        couthacts_posting_id: postingId,
-        couthacts_booking_id: bookingId,
-        payment_term: paymentTerm,
+    const paymentIntent = await getStripe().paymentIntents.create(
+      {
+        amount: chargeAmountCents,
+        currency: "usd",
+        customer: stripeCustomerId,
+        capture_method: "manual",
+        metadata: {
+          couthacts_posting_id: postingId,
+          couthacts_booking_id: bookingId,
+          payment_term: paymentTerm,
+        },
       },
-    });
+      { idempotencyKey: `escrow-create-${bookingId}` }
+    );
     stripePaymentIntentId = paymentIntent.id;
     clientSecret = paymentIntent.client_secret;
   } catch {
@@ -107,9 +113,20 @@ export async function createEscrow({
 
 /**
  * Release escrow funds to the provider's wallet.
- * Also transfers via Stripe Connect if the provider has it set up.
+ * Uses a DB status check to prevent double-release.
  */
 export async function releaseEscrow(escrowId: string) {
+  // Atomic status check + update to prevent race conditions
+  const updated = await db.escrow.updateMany({
+    where: { id: escrowId, status: "HOLDING" },
+    data: { status: "RELEASED", releasedAt: new Date() },
+  });
+
+  // If no rows updated, escrow was already released/refunded/disputed
+  if (updated.count === 0) {
+    return { alreadyProcessed: true };
+  }
+
   const escrow = await db.escrow.findUniqueOrThrow({
     where: { id: escrowId },
     include: {
@@ -117,66 +134,63 @@ export async function releaseEscrow(escrowId: string) {
     },
   });
 
-  if (escrow.status !== "HOLDING") {
-    throw new Error(`Escrow is ${escrow.status}, cannot release`);
-  }
-
   const provider = escrow.booking?.provider;
   if (!provider) {
     throw new Error("No provider linked to this escrow");
   }
 
-  const payoutAmount = Number(escrow.providerPayoutUsd);
+  const payoutAmount = Math.round(Number(escrow.providerPayoutUsd) * 100) / 100;
 
   // Credit provider's wallet
   await creditWallet({
     userId: provider.userId,
     amountUsd: payoutAmount,
     type: "PAYOUT",
-    description: `Payout for completed booking`,
+    description: "Payout for completed booking",
     bookingId: escrow.bookingId || undefined,
     postingId: escrow.postingId,
   });
 
-  // Capture Stripe PaymentIntent if exists
+  // Capture Stripe PaymentIntent if exists (supplementary)
   if (escrow.stripePaymentIntentId) {
     try {
       await getStripe().paymentIntents.capture(escrow.stripePaymentIntentId);
     } catch {
-      // Stripe capture is supplementary
+      // supplementary
     }
   }
 
-  // Transfer via Stripe Connect if provider has it
+  // Transfer via Stripe Connect if provider has it (supplementary)
   let stripeTransferId: string | null = null;
   if (provider.stripeConnectId) {
     try {
       const payoutCents = Math.round(payoutAmount * 100);
-      const transfer = await getStripe().transfers.create({
-        amount: payoutCents,
-        currency: "usd",
-        destination: provider.stripeConnectId,
-        metadata: {
-          couthacts_escrow_id: escrow.id,
-          couthacts_booking_id: escrow.bookingId || "",
+      const transfer = await getStripe().transfers.create(
+        {
+          amount: payoutCents,
+          currency: "usd",
+          destination: provider.stripeConnectId,
+          metadata: {
+            couthacts_escrow_id: escrow.id,
+            couthacts_booking_id: escrow.bookingId || "",
+          },
         },
-      });
+        { idempotencyKey: `escrow-release-${escrowId}` }
+      );
       stripeTransferId = transfer.id;
     } catch {
-      // Stripe transfer is supplementary; wallet credit is authoritative
+      // Wallet credit is authoritative
     }
   }
 
-  await db.escrow.update({
-    where: { id: escrowId },
-    data: {
-      status: "RELEASED",
-      stripeTransferId,
-      releasedAt: new Date(),
-    },
-  });
+  if (stripeTransferId) {
+    await db.escrow.update({
+      where: { id: escrowId },
+      data: { stripeTransferId },
+    });
+  }
 
-  return { payoutAmount, stripeTransferId };
+  return { payoutAmount, stripeTransferId, alreadyProcessed: false };
 }
 
 /**
@@ -190,7 +204,7 @@ export async function releaseFirstPayment(escrowId: string) {
     },
   });
 
-  if (escrow.status !== "HOLDING" || !escrow.firstPaymentUsd) {
+  if (escrow.status !== "HOLDING" || !escrow.firstPaymentUsd || escrow.firstPaymentReleasedAt) {
     throw new Error("Cannot release first payment");
   }
 
@@ -199,32 +213,30 @@ export async function releaseFirstPayment(escrowId: string) {
     throw new Error("No provider linked to this escrow");
   }
 
-  const feeOnFirst =
-    (Number(escrow.firstPaymentUsd) * Number(escrow.escrowFeePercent)) / 100;
-  const firstPayout = Number(escrow.firstPaymentUsd) - feeOnFirst;
+  const firstAmount = Number(escrow.firstPaymentUsd);
+  const feeOnFirst = Math.round(firstAmount * Number(escrow.escrowFeePercent)) / 100;
+  const firstPayout = Math.round((firstAmount - feeOnFirst) * 100) / 100;
 
-  // Credit provider's wallet with first half
   await creditWallet({
     userId: provider.userId,
     amountUsd: firstPayout,
     type: "PAYOUT",
-    description: `First payment (50%) for booking`,
+    description: "First payment (50%) for booking",
     bookingId: escrow.bookingId || undefined,
     postingId: escrow.postingId,
   });
 
-  // Stripe Connect transfer if available
   if (provider.stripeConnectId) {
     try {
-      await getStripe().transfers.create({
-        amount: Math.round(firstPayout * 100),
-        currency: "usd",
-        destination: provider.stripeConnectId,
-        metadata: {
-          couthacts_escrow_id: escrow.id,
-          payment_type: "first_half",
+      await getStripe().transfers.create(
+        {
+          amount: Math.round(firstPayout * 100),
+          currency: "usd",
+          destination: provider.stripeConnectId,
+          metadata: { couthacts_escrow_id: escrow.id, payment_type: "first_half" },
         },
-      });
+        { idempotencyKey: `escrow-first-${escrowId}` }
+      );
     } catch {
       // supplementary
     }
@@ -240,8 +252,18 @@ export async function releaseFirstPayment(escrowId: string) {
 
 /**
  * Refund escrow to the customer's wallet.
+ * Uses atomic status check to prevent double-refund.
  */
 export async function refundEscrow(escrowId: string) {
+  const updated = await db.escrow.updateMany({
+    where: { id: escrowId, status: "HOLDING" },
+    data: { status: "REFUNDED", refundedAt: new Date() },
+  });
+
+  if (updated.count === 0) {
+    return; // Already refunded/released/disputed
+  }
+
   const escrow = await db.escrow.findUniqueOrThrow({
     where: { id: escrowId },
     include: {
@@ -250,24 +272,17 @@ export async function refundEscrow(escrowId: string) {
     },
   });
 
-  if (escrow.status !== "HOLDING") {
-    throw new Error(`Escrow is ${escrow.status}, cannot refund`);
-  }
+  const customerId = escrow.booking?.customerId || escrow.posting.customerId;
 
-  const customerId =
-    escrow.booking?.customerId || escrow.posting.customerId;
-
-  // Credit the full amount back to customer wallet
   await creditWallet({
     userId: customerId,
     amountUsd: Number(escrow.totalAmountUsd),
     type: "ESCROW_REFUND",
-    description: `Escrow refund for cancelled booking`,
+    description: "Escrow refund for cancelled booking",
     bookingId: escrow.bookingId || undefined,
     postingId: escrow.postingId,
   });
 
-  // Cancel Stripe PaymentIntent if exists
   if (escrow.stripePaymentIntentId) {
     try {
       await getStripe().paymentIntents.cancel(escrow.stripePaymentIntentId);
@@ -275,22 +290,14 @@ export async function refundEscrow(escrowId: string) {
       // supplementary
     }
   }
-
-  await db.escrow.update({
-    where: { id: escrowId },
-    data: {
-      status: "REFUNDED",
-      refundedAt: new Date(),
-    },
-  });
 }
 
 /**
- * Mark escrow as disputed — freezes the funds until resolution.
+ * Mark escrow as disputed — freezes funds until resolution.
  */
 export async function disputeEscrow(escrowId: string) {
-  await db.escrow.update({
-    where: { id: escrowId },
+  await db.escrow.updateMany({
+    where: { id: escrowId, status: "HOLDING" },
     data: { status: "DISPUTED" },
   });
 }

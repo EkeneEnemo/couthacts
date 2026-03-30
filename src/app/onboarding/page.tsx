@@ -100,14 +100,18 @@ export default function OnboardingPage() {
 
   async function startStripeConnect() {
     setStripeLoading(true);
-    const res = await fetch("/api/providers/stripe-connect", { method: "POST" });
-    const json = await res.json();
-    if (json.url) {
-      window.location.href = json.url;
-    } else {
+    try {
+      const res = await fetch("/api/providers/stripe-connect", { method: "POST" });
+      const json = await res.json();
+      if (json.url) {
+        window.location.href = json.url;
+        return;
+      }
       setError(json.error || "Failed to start Stripe onboarding");
-      setStripeLoading(false);
+    } catch {
+      setError("Network error. Please try again.");
     }
+    setStripeLoading(false);
   }
 
   return (

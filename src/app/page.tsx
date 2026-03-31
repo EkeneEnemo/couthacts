@@ -5,7 +5,6 @@ import { TrackInput } from "@/components/track-input";
 import { VideoHero } from "@/components/video-hero";
 import { VideoShowcase } from "@/components/video-showcase";
 import { AnimatedCounter } from "@/components/animated-counter";
-import { LiveStats } from "@/components/live-stats";
 import { ArrowRight, Shield, Zap, Globe, Lock, Eye, Heart, ChevronRight } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 
@@ -97,13 +96,6 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════ LIVE STATS BAR ═══════════════════════ */}
-      <section className="bg-ocean-800 border-y border-white/5">
-        <div className="mx-auto max-w-7xl px-6 py-4">
-          <LiveStats />
         </div>
       </section>
 
@@ -597,10 +589,10 @@ export default function LandingPage() {
           </div>
           <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
             <p className="text-xs text-sky-200/30">
-              &copy; {new Date().getFullYear()} CouthActs&#8482; Incorporated. Founded November 27, 2021. All rights reserved.
+              &copy; {new Date().getFullYear()} CouthActs&#8482;. Founded November 27, 2021. Operated by CouthActs, Inc. Intellectual property of Enemo Consulting Group, Inc. All rights reserved.
             </p>
             <p className="text-xs text-sky-200/30">
-              Intellectual property of Enemo Consulting Group, Inc. &middot; The Adolphus Tower, Dallas, TX
+              The Adolphus Tower, Dallas, TX &middot; legal@couthacts.com
             </p>
           </div>
         </div>

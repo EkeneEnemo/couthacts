@@ -22,10 +22,10 @@ export default function TermsPage() {
           <section>
             <h2 className="text-lg font-display font-semibold text-ocean-800">1. Agreement to Terms</h2>
             <p>
-              By accessing or using the CouthActs&#8482; platform (&quot;Platform&quot;), operated by CouthActs&#8482; Incorporated (&quot;Company,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), you (&quot;User,&quot; &quot;you,&quot; or &quot;your&quot;) agree to be bound by these Terms of Service (&quot;Terms&quot;). If you do not agree to all of these Terms, you must not access or use the Platform.
+              By accessing or using the CouthActs&#8482; platform (&quot;Platform&quot;), operated by CouthActs, Inc. (&quot;Company,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), you (&quot;User,&quot; &quot;you,&quot; or &quot;your&quot;) agree to be bound by these Terms of Service (&quot;Terms&quot;). If you do not agree to all of these Terms, you must not access or use the Platform.
             </p>
             <p>
-              These Terms constitute a legally binding agreement between you and CouthActs&#8482; Incorporated. We reserve the right to modify these Terms at any time. Material changes will be communicated via email or Platform notification at least thirty (30) days before they take effect. Your continued use of the Platform after such notice constitutes acceptance of the modified Terms.
+              These Terms constitute a legally binding agreement between you and CouthActs, Inc. (&quot;CouthActs,&quot; &quot;we,&quot; &quot;us,&quot; &quot;our&quot;), the operator of the CouthActs platform. The CouthActs platform and all related intellectual property are owned by Enemo Consulting Group, Inc. and licensed to CouthActs, Inc. We reserve the right to modify these Terms at any time. Material changes will be communicated via email or Platform notification at least thirty (30) days before they take effect. Your continued use of the Platform after such notice constitutes acceptance of the modified Terms.
             </p>
           </section>
 
@@ -246,7 +246,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-lg font-display font-semibold text-ocean-800">12. Indemnification</h2>
             <p>
-              You agree to indemnify, defend, and hold harmless CouthActs&#8482; Incorporated and its officers, directors, employees, agents, and affiliates from and against any and all claims, damages, obligations, losses, liabilities, costs, and expenses (including reasonable attorney&apos;s fees) arising from: (a) your use of the Platform; (b) your violation of these Terms; (c) your violation of any third-party right, including intellectual property, property, or privacy rights; or (d) any claim that your content or conduct caused damage to a third party.
+              You agree to indemnify, defend, and hold harmless CouthActs, Inc. and its officers, directors, employees, agents, and affiliates from and against any and all claims, damages, obligations, losses, liabilities, costs, and expenses (including reasonable attorney&apos;s fees) arising from: (a) your use of the Platform; (b) your violation of these Terms; (c) your violation of any third-party right, including intellectual property, property, or privacy rights; or (d) any claim that your content or conduct caused damage to a third party.
             </p>
           </section>
 
@@ -254,10 +254,10 @@ export default function TermsPage() {
           <section>
             <h2 className="text-lg font-display font-semibold text-ocean-800">13. Intellectual Property</h2>
             <p>
-              The Platform, including its design, text, graphics, logos, icons, images, software, and the CouthActs&#8482; name and mark, are the exclusive property of Enemo Consulting Group, Inc., licensed to CouthActs&#8482; Incorporated, and are protected by copyright, trademark, and other intellectual property laws. You may not reproduce, distribute, modify, create derivative works of, publicly display, or otherwise exploit any Platform content without our prior written consent.
+              The Platform, including its design, text, graphics, logos, icons, images, software, and the CouthActs&#8482; name and mark, are the exclusive property of Enemo Consulting Group, Inc., licensed to CouthActs, Inc., and are protected by copyright, trademark, and other intellectual property laws. You may not reproduce, distribute, modify, create derivative works of, publicly display, or otherwise exploit any Platform content without our prior written consent.
             </p>
             <p>
-              By posting content on the Platform (including postings, reviews, and profile information), you grant Enemo Consulting Group, Inc. and CouthActs&#8482; Incorporated a non-exclusive, worldwide, royalty-free license to use, reproduce, modify, and display such content in connection with operating the Platform.
+              By posting content on the Platform (including postings, reviews, and profile information), you grant Enemo Consulting Group, Inc. and CouthActs, Inc. a non-exclusive, worldwide, royalty-free license to use, reproduce, modify, and display such content in connection with operating the Platform.
             </p>
           </section>
 
@@ -303,7 +303,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-lg font-display font-semibold text-ocean-800">18. Entire Agreement</h2>
             <p>
-              These Terms, together with the <Link href="/privacy" className="text-ocean-600 underline hover:text-ocean-700">Privacy Policy</Link>, constitute the entire agreement between you and CouthActs&#8482; Incorporated regarding your use of the Platform and supersede all prior agreements and understandings.
+              These Terms, together with the <Link href="/privacy" className="text-ocean-600 underline hover:text-ocean-700">Privacy Policy</Link>, constitute the entire agreement between you and CouthActs, Inc. regarding your use of the Platform and supersede all prior agreements and understandings.
             </p>
           </section>
 
@@ -312,7 +312,7 @@ export default function TermsPage() {
             <h2 className="text-lg font-display font-semibold text-ocean-800">19. Contact</h2>
             <p>
               For questions about these Terms, contact us at:<br />
-              <strong>CouthActs&#8482; Incorporated</strong><br />
+              <strong>CouthActs, Inc.</strong><br />
               Email: legal@couthacts.com<br />
             </p>
           </section>

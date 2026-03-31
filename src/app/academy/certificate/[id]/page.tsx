@@ -59,7 +59,7 @@ export default async function CertificatePage({
           {/* Footer */}
           <div className="border-t border-gray-100 px-10 py-6 text-center">
             <p className="text-xs text-gray-400">
-              This certificate is issued by CouthActs Academy, a division of Enemo Consulting Group, Inc.
+              This certificate is issued by CouthActs Academy, operated by CouthActs, Inc. Intellectual property of Enemo Consulting Group, Inc.
               <br />
               Founded November 27, 2021 &middot; The Adolphus Tower, Dallas, TX
             </p>

@@ -143,12 +143,13 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Parent company & contact */}
+        {/* Corporate identity & contact */}
         <section className="mt-12 rounded-xl border border-ocean-100 bg-white p-6 shadow-sm">
           <h2 className="text-xl font-display font-semibold text-ocean-800">Corporate Information</h2>
           <div className="mt-4 space-y-2 text-gray-700 text-sm leading-relaxed">
             <p>
-              <strong>Parent company:</strong> Enemo Consulting Group Inc.
+              <strong>Operated by:</strong> CouthActs, Inc.<br />
+              <strong>Intellectual property:</strong> Enemo Consulting Group, Inc.
             </p>
             <p>
               <strong>Headquarters:</strong> The Adolphus Tower, Dallas, Texas

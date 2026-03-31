@@ -8,7 +8,8 @@ export const metadata = {
 const facts = [
   { label: "Founded", value: "November 27, 2021" },
   { label: "Headquarters", value: "The Adolphus Tower, Dallas, TX" },
-  { label: "Parent Company", value: "Enemo Consulting Group Inc." },
+  { label: "Operator", value: "CouthActs, Inc." },
+  { label: "IP Owner", value: "Enemo Consulting Group, Inc." },
   { label: "Transport Modes", value: "18" },
   { label: "Countries Served", value: "190+" },
   { label: "Categories", value: "Ground, Air, Maritime, Rail" },
@@ -66,7 +67,7 @@ export default function PressPage() {
             customers with verified service providers across 18 transport modes in more than
             190 countries. The platform supports ground, air, maritime, and rail
             transportation with built-in escrow payments, real-time tracking, provider
-            verification, and dispute resolution. CouthActs is a subsidiary of Enemo
+            verification, and dispute resolution. CouthActs is operated by CouthActs, Inc. IP owned by Enemo
             Consulting Group Inc. and is headquartered at The Adolphus Tower in Dallas, Texas.
           </p>
         </section>
@@ -104,7 +105,8 @@ export default function PressPage() {
             </li>
             <li>
               When referencing our parent company, use{" "}
-              <strong>Enemo Consulting Group Inc.</strong>
+              <strong>CouthActs, Inc.</strong> (Operated by)
+              <br /><strong>Enemo Consulting Group, Inc.</strong> (IP Owner)
             </li>
             <li>
               For logo usage, please use the assets provided in the press kit. Do not

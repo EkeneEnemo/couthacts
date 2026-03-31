@@ -22,7 +22,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-lg font-display font-semibold text-ocean-800">1. Introduction</h2>
             <p>
-              CouthActs&#8482; Incorporated (&quot;Company,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use the CouthActs&#8482; platform (&quot;Platform&quot;), including our website, mobile applications, and APIs.
+              CouthActs, Inc. (&quot;Company,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use the CouthActs&#8482; platform (&quot;Platform&quot;), including our website, mobile applications, and APIs.
             </p>
             <p>
               By using the Platform, you consent to the data practices described in this Policy. If you do not agree, you must not use the Platform. This Policy should be read alongside our <Link href="/terms" className="text-ocean-600 underline hover:text-ocean-700">Terms of Service</Link>.
@@ -234,7 +234,7 @@ export default function PrivacyPage() {
             <h2 className="text-lg font-display font-semibold text-ocean-800">12. Contact</h2>
             <p>
               For privacy-related questions, data requests, or complaints, contact:<br />
-              <strong>CouthActs&#8482; Incorporated — Privacy</strong><br />
+              <strong>CouthActs, Inc. — Privacy</strong><br />
               Email: privacy@couthacts.com<br />
             </p>
           </section>

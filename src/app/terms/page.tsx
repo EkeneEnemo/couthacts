@@ -44,10 +44,10 @@ export default function TermsPage() {
           <section>
             <h2 className="text-lg font-display font-semibold text-ocean-800">3. The Platform</h2>
             <p>
-              CouthActs&#8482; is a multimodal transportation marketplace that connects customers who need transportation services (&quot;Customers&quot;) with verified transportation service providers (&quot;Providers&quot;). The Platform supports eighteen (18) transport modes spanning ground, air, maritime, and rail categories.
+              CouthActs&#8482; is a multimodal transportation infrastructure platform that connects customers who need transportation services (&quot;Customers&quot;) with verified transportation service providers (&quot;Providers&quot;). The Platform supports eighteen (18) transport modes spanning ground, air, maritime, and rail categories.
             </p>
             <p>
-              <strong>CouthActs&#8482; is a marketplace, not a carrier.</strong> We do not own, operate, or control any vehicles, vessels, aircraft, or equipment. We do not employ drivers, pilots, captains, or any transportation personnel. We are not a party to the transportation contract between Customer and Provider. We provide the technology platform that facilitates the connection, payment, and tracking of transportation services.
+              <strong>CouthActs&#8482; is a platform, not a carrier.</strong> We do not own, operate, or control any vehicles, vessels, aircraft, or equipment. We do not employ drivers, pilots, captains, or any transportation personnel. We are not a party to the transportation contract between Customer and Provider. We provide the technology infrastructure that facilitates the connection, payment, and tracking of transportation services.
             </p>
           </section>
 

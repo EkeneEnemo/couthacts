@@ -65,7 +65,7 @@ export default function PrivacyPage() {
             <p>We use your information to:</p>
             <ul className="list-disc pl-5 space-y-1">
               <li>Create, maintain, and secure your account.</li>
-              <li>Facilitate transportation marketplace transactions, including postings, bids, bookings, escrow, and payouts.</li>
+              <li>Facilitate transportation platform transactions, including postings, bids, bookings, escrow, and payouts.</li>
               <li>Calculate and display CouthActs&#8482; Scores for Providers.</li>
               <li>Process payments and Wallet transactions through Stripe.</li>
               <li>Provide real-time tracking of shipments and transport.</li>

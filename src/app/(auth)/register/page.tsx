@@ -53,7 +53,7 @@ export default function RegisterPage() {
             Create your account
           </h1>
           <p className="mt-1 text-sm text-gray-500">
-            Join the global transportation marketplace
+            Join the global transportation platform
           </p>
         </div>
 

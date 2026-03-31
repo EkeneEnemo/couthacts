@@ -110,8 +110,8 @@ export function Navbar() {
                 </Link>
               )}
               {user.role === "PROVIDER" && (
-                <Link href="/marketplace" className="text-sm font-medium text-ocean-700 hover:text-ocean-900">
-                  Marketplace
+                <Link href="/browse" className="text-sm font-medium text-ocean-700 hover:text-ocean-900">
+                  Browse Jobs
                 </Link>
               )}
               {(user.role === "CUSTOMER" || user.role === "ADMIN") && (
@@ -267,8 +267,8 @@ export function Navbar() {
                 </Link>
               )}
               {user.role === "PROVIDER" && (
-                <Link href="/marketplace" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-ocean-700 py-2">
-                  Marketplace
+                <Link href="/browse" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-ocean-700 py-2">
+                  Browse Jobs
                 </Link>
               )}
               {(user.role === "CUSTOMER" || user.role === "ADMIN") && (

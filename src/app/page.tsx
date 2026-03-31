@@ -501,7 +501,7 @@ export default function LandingPage() {
             Fill your fleet. Grow your business.
           </h2>
           <p className="mt-4 text-lg text-sky-100/70 max-w-xl mx-auto">
-            Join the CouthActs&#8482; marketplace. Get matched with customers who need exactly what you offer. Escrow-protected payments. Transparent fees. Your CouthActs Score builds your reputation.
+            Join the CouthActs&#8482; platform. Get matched with customers who need exactly what you offer. Escrow-protected payments. Transparent fees. Your CouthActs Score builds your reputation.
           </p>
           <Link
             href="/register?role=PROVIDER"
@@ -562,14 +562,14 @@ export default function LandingPage() {
             <div className="lg:col-span-1">
               <Logo size="md" variant="white" href="/" />
               <p className="mt-4 text-sm text-sky-200/50 leading-relaxed max-w-xs">
-                The global multimodal transportation marketplace.
+                The global transportation infrastructure platform.
                 18 modes. 190+ countries. Every transaction protected.
               </p>
             </div>
             <div className="grid grid-cols-3 gap-8 lg:col-span-3">
               <div className="space-y-3 text-sm">
                 <p className="font-semibold text-sky-300 text-xs uppercase tracking-wider">Platform</p>
-                <Link href="/marketplace" className="block text-sky-200/50 hover:text-white transition">Marketplace</Link>
+                <Link href="/browse" className="block text-sky-200/50 hover:text-white transition">Browse Jobs</Link>
                 <Link href="/register" className="block text-sky-200/50 hover:text-white transition">Get Started</Link>
                 <Link href="/register?role=PROVIDER" className="block text-sky-200/50 hover:text-white transition">For Providers</Link>
                 <Link href="/enterprise" className="block text-sky-200/50 hover:text-white transition">Enterprise</Link>

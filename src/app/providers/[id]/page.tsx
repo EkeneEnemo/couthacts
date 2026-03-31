@@ -45,11 +45,11 @@ export default async function ProviderProfilePage({
       <Navbar />
       <div className="mx-auto max-w-4xl px-6 py-10">
         <Link
-          href="/marketplace"
+          href="/browse"
           className="inline-flex items-center gap-1 text-sm text-ocean-600 hover:text-ocean-700 mb-6"
         >
           <ArrowLeft className="h-4 w-4" />
-          Back to marketplace
+          Back to jobs
         </Link>
 
         {/* Header */}

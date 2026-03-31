@@ -15,7 +15,7 @@ const figtree = Figtree({
 });
 
 export const metadata: Metadata = {
-  title: "CouthActs — Global Multimodal Transportation Marketplace",
+  title: "CouthActs™ — Global Transportation Infrastructure Platform",
   description:
     "Book any transport mode worldwide — from taxis to cargo ships, private jets to freight rail. Verified providers, escrow-protected payments, real-time tracking.",
 };

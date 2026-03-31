@@ -77,7 +77,7 @@ function btn(href: string, text: string): string {
 export async function sendWelcomeEmail(email: string, firstName: string) {
   await send(email, "Welcome to CouthActs!", wrap(`
     <h1 style="color: #1E3A5F;">Welcome to CouthActs, ${firstName}!</h1>
-    <p style="color: #444; line-height: 1.6;">You've joined the global multimodal transportation marketplace. Whether you're shipping cargo across the ocean or booking a ride across town, CouthActs connects you with verified providers across 18 transport modes.</p>
+    <p style="color: #444; line-height: 1.6;">You've joined the global transportation platform. Whether you're shipping cargo across the ocean or booking a ride across town, CouthActs connects you with verified providers across 18 transport modes.</p>
     <p style="color: #444;"><strong>Next steps:</strong></p>
     <ul style="color: #444; line-height: 1.8;">
       <li>Top up your wallet to start posting jobs</li>

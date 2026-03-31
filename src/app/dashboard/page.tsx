@@ -101,8 +101,8 @@ export default async function DashboardPage() {
           <Logo size="sm" />
           <div className="flex items-center gap-4">
             {user.role === "PROVIDER" && (
-              <Link href="/marketplace" className="text-sm font-medium text-ocean-700 hover:text-ocean-900">
-                Marketplace
+              <Link href="/browse" className="text-sm font-medium text-ocean-700 hover:text-ocean-900">
+                Browse Jobs
               </Link>
             )}
             <span className="text-sm text-gray-500">
@@ -348,13 +348,13 @@ export default async function DashboardPage() {
                 {/* Browse CTA */}
                 <div className="rounded-2xl bg-gradient-to-r from-ocean-600 to-sky-500 p-8 text-center">
                   <p className="text-lg font-display font-semibold text-white">
-                    Find more jobs on the marketplace
+                    Find more open jobs
                   </p>
                   <Link
-                    href="/marketplace"
+                    href="/browse"
                     className="mt-4 inline-flex items-center gap-2 rounded-lg bg-white px-6 py-2.5 text-sm font-medium text-ocean-700 hover:bg-sky-50 transition"
                   >
-                    Browse marketplace <ArrowRight className="h-4 w-4" />
+                    Browse open jobs <ArrowRight className="h-4 w-4" />
                   </Link>
                 </div>
               </>

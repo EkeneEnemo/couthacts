@@ -46,7 +46,7 @@ const SORT_OPTIONS = [
 
 const ALL_MODES = TRANSPORT_CATEGORIES.flatMap((c) => c.modes);
 
-export default function MarketplacePage() {
+export default function BrowsePage() {
   const [postings, setPostings] = useState<Posting[]>([]);
   const [loading, setLoading] = useState(true);
   const [mode, setMode] = useState("");
@@ -61,7 +61,7 @@ export default function MarketplacePage() {
     if (sort) params.set("sort", sort);
     if (urgentOnly) params.set("urgent", "true");
 
-    fetch(`/api/marketplace?${params}`)
+    fetch(`/api/browse?${params}`)
       .then((r) => r.json())
       .then((data) => {
         setPostings(data.postings || []);
@@ -76,10 +76,10 @@ export default function MarketplacePage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-display font-bold text-ocean-900">
-              Marketplace
+              Browse Jobs
             </h1>
             <p className="mt-1 text-sm text-gray-500">
-              Browse open transport jobs and place bids
+              Find open transportation jobs and place bids
             </p>
           </div>
           <button

@@ -213,11 +213,25 @@ model Provider {
   bids         Bid[]
   bookings     Booking[]       @relation("ProviderBookings")
   reviews      Review[]        @relation("ReviewsReceived")
-  tracking     TrackingEvent[]
-  disputes     Dispute[]       @relation("ProviderDisputes")
+  tracking      TrackingEvent[]
+  disputes      Dispute[]       @relation("ProviderDisputes")
+  availability  ProviderAvailability[]
 
   @@index([couthActsScore])
   @@index([isVerified])
+}
+
+model ProviderAvailability {
+  id          String   @id @default(cuid())
+  providerId  String
+  date        DateTime @db.Date
+  isAvailable Boolean  @default(true)
+  maxJobs     Int      @default(1)
+  notes       String?
+  createdAt   DateTime @default(now())
+  provider    Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  @@unique([providerId, date])
+  @@index([providerId, date])
 }
 
 model Subscription {

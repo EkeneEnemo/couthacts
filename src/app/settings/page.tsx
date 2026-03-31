@@ -17,6 +17,9 @@ export default function SettingsPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [disabledEmails, setDisabledEmails] = useState<string[]>([]);
   const [prefsSaving, setPrefsSaving] = useState(false);
+  const [userRole, setUserRole] = useState("");
+  const [stripeConnected, setStripeConnected] = useState(false);
+  const [stripeLoading, setStripeLoading] = useState(false);
   const [prefsSaved, setPrefsSaved] = useState(false);
   const [form, setForm] = useState({
     firstName: "",
@@ -48,6 +51,15 @@ export default function SettingsPage() {
       setAvatarUrl(verifyData.avatarUrl || null);
       setKycStatus(verifyData.kycStatus || "PENDING");
       setDisabledEmails(prefsData.disabled || []);
+      // Load role and Stripe status
+      fetch("/api/auth").then((r) => r.json()).then((a) => {
+        setUserRole(a.user?.role || "");
+        if (a.user?.role === "PROVIDER") {
+          fetch("/api/providers/stripe-connect").then((r) => r.json()).then((s) => {
+            setStripeConnected(s.onboardingComplete || false);
+          }).catch(() => {});
+        }
+      }).catch(() => {});
       setLoading(false);
     });
   }, []);
@@ -348,6 +360,52 @@ export default function SettingsPage() {
             )}
           </div>
         </div>
+
+        {/* Stripe Connect — providers only */}
+        {userRole === "PROVIDER" && (
+          <div className="mt-4 rounded-2xl bg-white p-8 shadow-sm border border-gray-100">
+            <div className="flex items-center gap-2 mb-4">
+              <Shield className="h-5 w-5 text-ocean-600" />
+              <p className="text-sm font-semibold text-ocean-800">Payout Account (Stripe Connect)</p>
+            </div>
+            {stripeConnected ? (
+              <div className="flex items-center gap-3 rounded-xl bg-green-50 p-4 border border-green-200">
+                <CheckCircle className="h-5 w-5 text-green-600" />
+                <div>
+                  <p className="text-sm font-medium text-green-800">Bank account connected</p>
+                  <p className="text-xs text-green-600">Your earnings can be withdrawn from your <a href="/provider/wallet" className="underline font-medium">Provider Wallet</a>.</p>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                <p className="text-sm text-gray-600">
+                  Connect your bank account via Stripe to receive payouts from completed jobs.
+                  This is required before you can withdraw any earnings.
+                </p>
+                <Button
+                  onClick={async () => {
+                    setStripeLoading(true);
+                    try {
+                      const res = await fetch("/api/providers/stripe-connect", { method: "POST" });
+                      const data = await res.json();
+                      if (data.url) window.location.href = data.url;
+                      else alert(data.error || "Failed to start Stripe setup");
+                    } catch { alert("Something went wrong"); }
+                    setStripeLoading(false);
+                  }}
+                  loading={stripeLoading}
+                >
+                  <Shield className="mr-2 h-4 w-4" />
+                  Set Up Payout Account
+                </Button>
+                <p className="text-xs text-gray-400">
+                  You&apos;ll be redirected to Stripe to securely connect your bank account.
+                  CouthActs never sees your bank details.
+                </p>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Notification Preferences */}
         <div className="mt-4 rounded-2xl bg-white p-8 shadow-sm border border-gray-100">

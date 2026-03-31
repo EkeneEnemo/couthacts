@@ -1,15 +1,27 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import { Navbar } from "@/components/navbar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Wallet, ArrowUpRight, ArrowDownLeft, Zap } from "lucide-react";
+import { Wallet, ArrowUpRight, ArrowDownLeft, Zap, CheckCircle } from "lucide-react";
 
 interface WalletData { balanceUsd: number; currency: string }
 interface Transaction { id: string; type: string; amountUsd: number; description: string; createdAt: string }
 
 export default function ProviderWalletPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-cream-50"><Navbar /><div className="mx-auto max-w-2xl px-6 py-20 text-center"><div className="h-8 w-48 mx-auto animate-pulse rounded bg-gray-200" /></div></div>}>
+      <WalletContent />
+    </Suspense>
+  );
+}
+
+function WalletContent() {
+  const searchParams = useSearchParams();
+  const stripeReturn = searchParams.get("stripe");
   const [wallet, setWallet] = useState<WalletData | null>(null);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
@@ -85,6 +97,26 @@ export default function ProviderWalletPage() {
           <p className="text-sm text-sky-200">Available Balance</p>
           <p className="mt-2 text-4xl font-display font-bold">${bal.toFixed(2)}</p>
         </div>
+
+        {/* Stripe return success */}
+        {stripeReturn === "complete" && (
+          <div className="mt-4 flex items-center gap-3 rounded-xl bg-green-50 border border-green-200 p-4">
+            <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
+            <div>
+              <p className="text-sm font-medium text-green-800">Stripe Connect setup complete!</p>
+              <p className="text-xs text-green-600">Your bank account is now connected. You can withdraw your earnings below.</p>
+            </div>
+          </div>
+        )}
+        {stripeReturn === "refresh" && (
+          <div className="mt-4 flex items-center gap-3 rounded-xl bg-amber-50 border border-amber-200 p-4">
+            <Zap className="h-5 w-5 text-amber-500 flex-shrink-0" />
+            <div>
+              <p className="text-sm font-medium text-amber-800">Stripe setup needs to be completed</p>
+              <p className="text-xs text-amber-600">Click &quot;Set Up Payouts&quot; below to continue where you left off.</p>
+            </div>
+          </div>
+        )}
 
         {/* Stripe Connect setup */}
         {!stripeReady && (

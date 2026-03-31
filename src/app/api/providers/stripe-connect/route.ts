@@ -54,8 +54,8 @@ export async function POST() {
 
     const accountLink = await getStripe().accountLinks.create({
       account: accountId,
-      refresh_url: `${baseUrl}/onboarding?step=stripe&refresh=true`,
-      return_url: `${baseUrl}/onboarding?step=stripe&complete=true`,
+      refresh_url: `${baseUrl}/provider/wallet?stripe=refresh`,
+      return_url: `${baseUrl}/provider/wallet?stripe=complete`,
       type: "account_onboarding",
     });
 

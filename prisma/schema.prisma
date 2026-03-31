@@ -157,9 +157,31 @@ model User {
   notifications Notification[]
   sessions      Session[]
   wallet        Wallet?
+  apiKeys       ApiKey[]
 
   @@index([email])
   @@index([role])
+}
+
+model ApiKey {
+  id           String    @id @default(cuid())
+  userId       String
+  key          String    @unique
+  name         String
+  isActive     Boolean   @default(true)
+  lastUsedAt   DateTime?
+  requestCount Int       @default(0)
+  monthlyLimit Int       @default(1000)
+  plan         ApiPlan   @default(STARTER)
+  createdAt    DateTime  @default(now())
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([key])
+}
+
+enum ApiPlan {
+  STARTER
+  GROWTH
+  ENTERPRISE
 }
 
 model Session {

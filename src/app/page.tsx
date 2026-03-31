@@ -5,6 +5,7 @@ import { TrackInput } from "@/components/track-input";
 import { VideoHero } from "@/components/video-hero";
 import { VideoShowcase } from "@/components/video-showcase";
 import { AnimatedCounter } from "@/components/animated-counter";
+import { LiveStats } from "@/components/live-stats";
 import { ArrowRight, Shield, Zap, Globe, Lock, Eye, Heart, ChevronRight } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 
@@ -96,6 +97,13 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════ LIVE STATS BAR ═══════════════════════ */}
+      <section className="bg-ocean-800 border-y border-white/5">
+        <div className="mx-auto max-w-7xl px-6 py-4">
+          <LiveStats />
         </div>
       </section>
 

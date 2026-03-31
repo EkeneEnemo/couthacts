@@ -101,7 +101,7 @@ const sections: FAQSection[] = [
       {
         question: "What insurance protections are available?",
         answer:
-          "CouthActs offers tiered insurance coverage depending on the transport mode and cargo value. Basic coverage is included with every booking. Enhanced and premium tiers are available for high-value or specialized shipments. Details are displayed during the posting and bidding process.",
+          "CouthActs offers tiered protection coverage depending on the transport mode and cargo value. Basic coverage is included with every booking. Enhanced and premium tiers are available for high-value or specialized shipments. Details are displayed during the posting and bidding process.",
       },
       {
         question: "How do I report a safety concern?",

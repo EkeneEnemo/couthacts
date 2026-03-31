@@ -59,7 +59,7 @@ export default function AcceptableUsePage() {
             <p>You may not:</p>
             <ul className="list-disc pl-5 space-y-1 mt-2">
               <li>Create accounts using false identities, stolen credentials, or fabricated business registrations.</li>
-              <li>Submit forged or altered verification documents (government ID, DOT numbers, insurance certificates, business licenses).</li>
+              <li>Submit forged or altered verification documents (government ID, DOT numbers, protection certificates, business licenses).</li>
               <li>Misrepresent the nature, weight, dimensions, or value of cargo.</li>
               <li>Inflate bids, create shill postings, or engage in bid manipulation.</li>
               <li>Operate as a provider without the required licenses, permits, and insurance for the transportation mode.</li>

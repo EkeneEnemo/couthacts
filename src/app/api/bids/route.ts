@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
   if (requiredTier > 1 && providerTierRank < requiredTier) {
     const tierName = posting.insuranceTier;
     return NextResponse.json(
-      { error: `This posting requires ${tierName} insurance coverage. Update your certifications to include your insurance tier.` },
+      { error: `This posting requires ${tierName} protection coverage. Update your certifications to include your protection tier.` },
       { status: 400 }
     );
   }

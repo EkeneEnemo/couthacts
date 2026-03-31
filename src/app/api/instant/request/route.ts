@@ -8,7 +8,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 /**
  * POST /api/instant/request — Create an instant job request.
- * Charges posting fee + insurance fee + holds budget immediately.
+ * Charges posting fee + protection fee + holds budget immediately.
  * Broadcasts to providers in the area.
  * 90-second timeout — if no accept, auto-cancels and refunds budget.
  */
@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
         });
       } catch (err: unknown) {
         const { creditWallet } = await import("@/lib/wallet");
-        await creditWallet({ userId: session.user.id, amountUsd: postingFee + budget, type: "REFUND", description: "Refund — insurance fee failed" });
+        await creditWallet({ userId: session.user.id, amountUsd: postingFee + budget, type: "REFUND", description: "Refund — protection fee failed" });
         return NextResponse.json({ error: err instanceof Error ? err.message : "Insufficient balance for insurance" }, { status: 400 });
       }
     }
@@ -106,7 +106,7 @@ export async function POST(req: NextRequest) {
         const p = await db.posting.findUnique({ where: { id: posting.id } });
         if (p && p.status === "OPEN") {
           await db.posting.update({ where: { id: posting.id }, data: { status: "EXPIRED" } });
-          // Refund budget (posting fee + insurance fee kept)
+          // Refund budget (posting fee + protection fee kept)
           const { creditWallet } = await import("@/lib/wallet");
           await creditWallet({ userId: session.user.id, amountUsd: budget, type: "ESCROW_REFUND", description: "Instant job expired — budget refunded", postingId: posting.id });
         }

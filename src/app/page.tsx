@@ -343,7 +343,7 @@ export default function LandingPage() {
           <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { title: "Persona ID Verification", desc: "Every user passes government-issued photo ID verification powered by Persona before accessing the platform.", badge: "Required" },
-              { title: "KYB Business Verification", desc: "Business providers submit insurance certificates, business licenses, and regulatory registrations for manual review.", badge: "Required" },
+              { title: "KYB Business Verification", desc: "Business providers submit protection certificates, business licenses, and regulatory registrations for manual review.", badge: "Required" },
               { title: "Regulatory Compliance", desc: "DOT, MC, FMCSA for trucking. IMO for maritime. FAA for aviation. We verify the registrations that matter for your mode.", badge: "Mode-specific" },
               { title: "Insurance Verification", desc: "Providers declare coverage tier (Basic, Standard, Premium). Customers can require matching insurance on every posting.", badge: "Tiered" },
             ].map((c) => (

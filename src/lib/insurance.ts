@@ -7,7 +7,7 @@ export const INSURANCE_TIERS = [
     key: "NONE",
     label: "No Coverage",
     fee: () => 0,
-    description: "I accept full risk. No insurance coverage provided.",
+    description: "I accept full risk. No protection coverage provided.",
     coverage: "$0",
   },
   {

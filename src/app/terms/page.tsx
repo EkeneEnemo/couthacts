@@ -177,7 +177,7 @@ export default function TermsPage() {
               <li>Hold all licenses, permits, insurance, and certifications required by applicable law for the transport modes they offer, including but not limited to DOT, MC, FMCSA, IMO, and FAA registrations where applicable.</li>
               <li>Bid only on jobs they have the capacity, equipment, and legal authorization to fulfill.</li>
               <li>Honor accepted bids and complete bookings on time and in accordance with the agreed terms.</li>
-              <li>Maintain adequate insurance coverage for all transportation services provided through the Platform.</li>
+              <li>Maintain adequate protection coverage for all transportation services provided through the Platform.</li>
               <li>Report delivery status accurately and promptly through the Platform&apos;s tracking system.</li>
               <li>Connect a valid Stripe Connect account for receiving payouts.</li>
             </ul>

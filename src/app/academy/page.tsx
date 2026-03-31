@@ -57,6 +57,9 @@ export default function AcademyPage() {
             Professional education built for the transportation industry.
             Real-world curriculum. Pass the exam. Earn your certificate.
           </p>
+          <p className="mt-2 text-xs text-gray-400 max-w-lg mx-auto">
+            CouthActs Academy courses are professional development programs offered by CouthActs, Inc. Course completion certificates are CouthActs credentials and do not constitute government-issued licenses, certifications, or regulatory approvals.
+          </p>
           <div className="mt-4 flex items-center justify-center gap-4 text-sm text-gray-400">
             <span className="flex items-center gap-1"><BookOpen className="h-4 w-4" /> {courses.length} courses</span>
             <span className="flex items-center gap-1"><Clock className="h-4 w-4" /> Self-paced</span>

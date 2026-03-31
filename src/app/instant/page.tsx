@@ -153,11 +153,11 @@ export default function InstantPage() {
               <textarea rows={2} placeholder="Luggage, stops, special requests..." className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200" value={note} onChange={(e) => setNote(e.target.value)} />
             </div>
 
-            {/* Insurance */}
+            {/* Protection */}
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <Shield className="h-4 w-4 text-ocean-600" />
-                <p className="text-sm font-medium text-ocean-800">Insurance</p>
+                <p className="text-sm font-medium text-ocean-800">Protection</p>
               </div>
               <div className="space-y-2">
                 {getAvailableTiers(mode).map((t) => (

@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
 
   if (!insuranceCertUrl && !licenseUrl) {
     return NextResponse.json(
-      { error: "Please upload at least one document (insurance certificate or business license)" },
+      { error: "Please upload at least one document (protection certificate or business license)" },
       { status: 400 }
     );
   }

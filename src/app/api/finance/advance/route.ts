@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
   // Credit provider wallet
   await creditWallet({
     userId: provider.userId, amountUsd: advanceAmount,
-    type: "ADVANCE", description: `Finance advance — 70% of $${escrowAmount.toFixed(2)} escrow`,
+    type: "ADVANCE", description: `Advance — 70% of $${escrowAmount.toFixed(2)} escrow`,
     bookingId,
   });
 

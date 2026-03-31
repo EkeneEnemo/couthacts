@@ -121,7 +121,7 @@ export default function AboutPage() {
               },
               {
                 name: "Protection",
-                desc: "Escrow holds, insurance tiers, SOS features, and a dedicated dispute resolution process ensure that both sides of every transaction are safeguarded.",
+                desc: "Escrow holds, protection tiers, SOS features, and a dedicated dispute resolution process ensure that both sides of every transaction are safeguarded.",
               },
               {
                 name: "Excellence",

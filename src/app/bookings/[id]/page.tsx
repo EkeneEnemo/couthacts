@@ -1028,10 +1028,10 @@ export default function BookingDetailPage() {
               </div>
             )}
 
-            {/* Payment & Insurance */}
+            {/* Payment & Protection */}
             <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
               <h3 className="text-sm font-semibold text-ocean-800 mb-3">
-                Payment & Insurance
+                Payment & Protection
               </h3>
               <dl className="space-y-2 text-sm">
                 <div className="flex justify-between">
@@ -1047,7 +1047,7 @@ export default function BookingDetailPage() {
                   </dd>
                 </div>
                 <div className="flex justify-between">
-                  <dt className="text-gray-500">Insurance</dt>
+                  <dt className="text-gray-500">Protection</dt>
                   <dd className="flex items-center gap-1 text-ocean-700">
                     <Shield className="h-3.5 w-3.5" />
                     {booking.insuranceTier}

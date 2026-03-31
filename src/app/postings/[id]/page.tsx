@@ -296,7 +296,7 @@ export default function PostingDetailPage() {
                 <div className="flex items-start gap-3">
                   <Shield className="mt-0.5 h-4 w-4 text-ocean-500" />
                   <div>
-                    <p className="text-xs text-gray-400">Insurance</p>
+                    <p className="text-xs text-gray-400">Protection</p>
                     <p className="text-sm font-medium text-ocean-800">
                       {posting.insuranceTier}
                     </p>

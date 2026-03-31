@@ -112,7 +112,7 @@ export default function NewPostingPage() {
     }));
   }
 
-  // Set minimum insurance tier when mode changes
+  // Set minimum protection tier when mode changes
   useEffect(() => {
     if (form.mode) {
       const min = getMinimumInsuranceTier(form.mode);
@@ -248,7 +248,7 @@ export default function NewPostingPage() {
       <div className="space-y-3">
         <div className="flex items-center gap-2">
           <Shield className="h-4 w-4 text-ocean-600" />
-          <p className="text-sm font-semibold text-ocean-800">Insurance Coverage</p>
+          <p className="text-sm font-semibold text-ocean-800">Protection Coverage</p>
         </div>
         {isEliteRequired && (
           <p className="text-xs text-amber-700 bg-amber-50 rounded-lg p-2 border border-amber-100">
@@ -291,7 +291,7 @@ export default function NewPostingPage() {
         <div className="flex justify-between text-sm"><span className="text-gray-600 font-semibold">Total from wallet</span><span className="font-bold text-ocean-700">${totalDebit.toFixed(2)}</span></div>
         <div className="flex justify-between text-sm"><span className="text-gray-600">Wallet balance</span><span className={`font-semibold ${hasEnough ? "text-green-600" : "text-red-500"}`}>${walletBalance?.toFixed(2) ?? "—"}</span></div>
         <div className="flex justify-between text-sm"><span className="text-gray-600">Escrow fee on completion</span><span className="text-gray-500">${escrowFee.toFixed(2)} ({budgetUsd < 500 ? "8" : budgetUsd < 5000 ? "6" : budgetUsd < 50000 ? "4" : budgetUsd < 500000 ? "2" : "1"}%)</span></div>
-        <p className="text-xs text-gray-400">Budget is held until a provider is matched. Provider is paid only when both parties confirm completion. Posting fee and insurance fee are non-refundable.</p>
+        <p className="text-xs text-gray-400">Budget is held until a provider is matched. Provider is paid only when both parties confirm completion. Posting fee and protection fee are non-refundable.</p>
         {!hasEnough && (
           <div className="flex items-start gap-2 rounded-lg bg-red-50 border border-red-200 p-3 mt-1">
             <AlertTriangle className="h-4 w-4 text-red-500 mt-0.5 flex-shrink-0" />

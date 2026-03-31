@@ -112,7 +112,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: message }, { status: 400 });
   }
 
-  // Charge insurance fee if applicable
+  // Charge protection fee if applicable
   const insuranceTier = body.insuranceTier || getMinimumInsuranceTier(body.mode);
   const insuranceFeeUsd = getInsuranceFee(insuranceTier, budgetUsd);
 
@@ -130,9 +130,9 @@ export async function POST(req: NextRequest) {
         userId: session.user.id,
         amountUsd: postingFeeUsd + budgetUsd,
         type: "REFUND",
-        description: "Refund — insufficient balance for insurance fee",
+        description: "Refund — insufficient balance for protection fee",
       });
-      const message = err instanceof Error ? err.message : "Insufficient balance for insurance fee";
+      const message = err instanceof Error ? err.message : "Insufficient balance for protection fee";
       return NextResponse.json({ error: message }, { status: 400 });
     }
   }

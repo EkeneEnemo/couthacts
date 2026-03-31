@@ -53,13 +53,13 @@ export default function SafetyPage() {
           </div>
         </section>
 
-        {/* Insurance Tiers */}
+        {/* Protection Tiers */}
         <section className="mt-12">
           <h2 className="text-2xl font-display font-semibold text-ocean-800">
-            Insurance Tiers
+            Protection Tiers
           </h2>
           <p className="mt-4 text-gray-700 leading-relaxed">
-            CouthActs provides tiered insurance coverage to protect your cargo and
+            CouthActs provides tiered protection coverage to protect your cargo and
             transactions. The appropriate tier is determined by transport mode and
             declared cargo value.
           </p>
@@ -119,7 +119,7 @@ export default function SafetyPage() {
               },
               {
                 step: "Insurance Documentation",
-                desc: "Active insurance certificates are reviewed for coverage type, limits, and validity period. Expired or insufficient coverage results in verification denial.",
+                desc: "Active protection certificates are reviewed for coverage type, limits, and validity period. Expired or insufficient coverage results in verification denial.",
               },
               {
                 step: "Ongoing Monitoring",

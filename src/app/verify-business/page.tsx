@@ -111,7 +111,7 @@ export default function VerifyBusinessPage() {
                 </p>
                 <p className="text-sm text-gray-600 mb-4">
                   Upload copies of your transportation licenses, business registration,
-                  and insurance certificate. Accepted formats: PDF, JPG, PNG.
+                  and protection certificate. Accepted formats: PDF, JPG, PNG.
                 </p>
               </div>
 
@@ -134,7 +134,7 @@ export default function VerifyBusinessPage() {
                 ) : (
                   <label className="flex items-center justify-center gap-2 rounded-xl border-2 border-dashed border-gray-300 p-6 cursor-pointer hover:border-sky-400 hover:bg-sky-50/50 transition">
                     <Upload className="h-5 w-5 text-gray-400" />
-                    <span className="text-sm text-gray-500">Upload insurance certificate</span>
+                    <span className="text-sm text-gray-500">Upload protection certificate</span>
                     <input
                       type="file"
                       accept="image/*,.pdf"

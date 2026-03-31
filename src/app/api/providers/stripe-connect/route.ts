@@ -2,7 +2,6 @@ import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
-import { headers } from "next/headers";
 
 /**
  * POST /api/providers/stripe-connect
@@ -31,65 +30,28 @@ export async function POST() {
 
     // Step 1: Create Express connected account if none exists
     if (!accountId) {
-      try {
-        const account = await stripe.accounts.create(
-          {
-            type: "express",
-            country: "US",
-            email: session.user.email,
-            capabilities: {
-              card_payments: { requested: true },
-              transfers: { requested: true },
-            },
-            business_type: "individual",
-            business_profile: {
-              name: provider.businessName,
-              mcc: "4789", // Transportation services
-            },
-            metadata: {
-              couthacts_provider_id: provider.id,
-              couthacts_user_id: session.user.id,
-            },
-          },
-          { idempotencyKey: `connect-create-${provider.id}` }
-        );
-        accountId = account.id;
+      const account = await stripe.accounts.create({
+        type: "express",
+        country: "US",
+        capabilities: {
+          transfers: { requested: true },
+        },
+      });
 
-        await db.provider.update({
-          where: { id: provider.id },
-          data: { stripeConnectId: accountId },
-        });
-      } catch (err: unknown) {
-        const stripeErr = err as { type?: string; message?: string; code?: string };
+      accountId = account.id;
 
-        // Handle the specific "Connect not enabled" error
-        if (
-          stripeErr.message?.includes("signed up for Connect") ||
-          stripeErr.code === "account_invalid" ||
-          stripeErr.message?.includes("connect")
-        ) {
-          return NextResponse.json(
-            {
-              error:
-                "Stripe Connect is being activated for CouthActs. Payout setup will be available shortly. Please try again later.",
-              stripeError: stripeErr.message,
-            },
-            { status: 503 }
-          );
-        }
-        throw err;
-      }
+      await db.provider.update({
+        where: { id: provider.id },
+        data: { stripeConnectId: accountId },
+      });
     }
 
     // Step 2: Generate the hosted onboarding link
-    const headersList = await headers();
-    const host = headersList.get("host") || "couthacts.com";
-    const protocol = host.includes("localhost") ? "http" : "https";
-    const baseUrl = `${protocol}://${host}`;
+    const baseUrl = process.env.NEXTAUTH_URL || "https://www.couthacts.com";
 
     const accountLink = await stripe.accountLinks.create({
       account: accountId,
-      refresh_url: `${baseUrl}/provider/wallet?stripe=refresh`,
+      refresh_url: `${baseUrl}/provider/wallet`,
       return_url: `${baseUrl}/provider/wallet?stripe=complete`,
       type: "account_onboarding",
     });

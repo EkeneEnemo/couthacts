@@ -143,6 +143,24 @@ export async function sendBookingStartedEmail(
   `));
 }
 
+export async function sendSosAlertEmail(
+  bookingId: string, mode: string, origin: string,
+  customer: { firstName: string; lastName: string; email: string; phone: string | null },
+  providerName: string, lat: number | null, lng: number | null,
+) {
+  const mapsLink = lat && lng ? `https://www.google.com/maps?q=${lat},${lng}` : "Location unavailable";
+  await send("safety@couthacts.com", `🚨 SOS ALERT — ${bookingId} — ${mode}`, wrap(`
+    <h1 style="color: #B91C1C;">🚨 SOS EMERGENCY ALERT</h1>
+    <p><strong>Booking:</strong> ${bookingId}</p>
+    <p><strong>Mode:</strong> ${mode}</p>
+    <p><strong>Origin:</strong> ${origin}</p>
+    <p><strong>Customer:</strong> ${customer.firstName} ${customer.lastName} (${customer.email}, ${customer.phone || "no phone"})</p>
+    <p><strong>Provider:</strong> ${providerName}</p>
+    <p><strong>GPS:</strong> <a href="${mapsLink}">${lat}, ${lng}</a></p>
+    <p><strong>Time:</strong> ${new Date().toISOString()}</p>
+  `));
+}
+
 export async function sendBookingCompletedEmail(
   email: string, firstName: string, postingTitle: string,
   bookingId: string, userId?: string

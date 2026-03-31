@@ -57,5 +57,5 @@ export async function GET(
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  return NextResponse.json({ booking, role: isCustomer ? "customer" : "provider" });
+  return NextResponse.json({ booking, role: isCustomer ? "customer" : "provider", userId: session.user.id });
 }

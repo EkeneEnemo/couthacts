@@ -160,6 +160,7 @@ model User {
   wallet        Wallet?
   apiKeys       ApiKey[]
   enrollments   Enrollment[]
+  messages      Message[]
 
   @@index([email])
   @@index([role])
@@ -405,10 +406,24 @@ model Booking {
   advance  FinanceAdvance?
   dispute  Dispute?
   tracking TrackingEvent[]
+  messages Message[]
 
   @@index([customerId])
   @@index([providerId])
   @@index([status])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  bookingId String
+  senderId  String
+  body      String
+  createdAt DateTime @default(now())
+
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  sender  User    @relation(fields: [senderId], references: [id])
+
+  @@index([bookingId, createdAt])
 }
 
 model Escrow {

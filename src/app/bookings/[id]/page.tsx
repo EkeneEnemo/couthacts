@@ -17,6 +17,7 @@ import {
   DollarSign,
   Truck,
 } from "lucide-react";
+import { BookingChat } from "@/components/booking-chat";
 
 interface Escrow {
   id: string;
@@ -116,6 +117,7 @@ export default function BookingDetailPage() {
   const params = useParams();
   const [booking, setBooking] = useState<Booking | null>(null);
   const [role, setRole] = useState<"customer" | "provider">("customer");
+  const [userId, setUserId] = useState("");
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState("");
   const [copied, setCopied] = useState("");
@@ -144,6 +146,7 @@ export default function BookingDetailPage() {
       .then((data) => {
         setBooking(data.booking);
         setRole(data.role);
+        setUserId(data.userId || "");
         if (data.booking?.currentLat && data.booking?.currentLng) {
           setLastGps({ lat: data.booking.currentLat, lng: data.booking.currentLng });
         }
@@ -934,6 +937,11 @@ export default function BookingDetailPage() {
                 </div>
               )}
             </div>
+
+            {/* Chat */}
+            {userId && (
+              <BookingChat bookingId={booking.id} currentUserId={userId} />
+            )}
 
             {/* Escrow */}
             {booking.escrow && (

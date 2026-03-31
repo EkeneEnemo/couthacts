@@ -256,25 +256,41 @@ export default function NewPostingPage() {
           </p>
         )}
         <div className="space-y-2">
-          {tiers.map((t) => (
-            <label key={t.key} className={`block rounded-xl border-2 p-4 cursor-pointer transition ${form.insuranceTier === t.key ? "border-ocean-600 bg-ocean-50" : "border-gray-200 hover:border-gray-300"}`}>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <input type="radio" name="insurance" value={t.key} checked={form.insuranceTier === t.key} onChange={() => update({ insuranceTier: t.key })} className="accent-ocean-600" />
-                  <div>
-                    <p className="text-sm font-medium text-ocean-800">{t.label}</p>
-                    <p className="text-xs text-gray-500">{t.description}</p>
+          {tiers.map((t) => {
+            const isSelected = form.insuranceTier === t.key;
+            return (
+              <label key={t.key} className={`block rounded-xl border-2 p-4 cursor-pointer transition ${isSelected ? "border-ocean-600 bg-ocean-50" : "border-gray-200 hover:border-gray-300"}`}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <input type="radio" name="insurance" value={t.key} checked={isSelected} onChange={() => update({ insuranceTier: t.key })} className="accent-ocean-600" />
+                    <div>
+                      <p className="text-sm font-medium text-ocean-800">{t.label}</p>
+                      <p className="text-xs text-gray-500">{t.description}</p>
+                    </div>
+                  </div>
+                  <div className="text-right flex-shrink-0 ml-4">
+                    <p className="text-sm font-semibold text-ocean-700">
+                      {t.key === "NONE" ? "Free" : `$${t.fee(budgetUsd).toFixed(2)}`}
+                    </p>
+                    <p className="text-[10px] text-gray-400">{t.coverage}</p>
                   </div>
                 </div>
-                <div className="text-right flex-shrink-0 ml-4">
-                  <p className="text-sm font-semibold text-ocean-700">
-                    {t.key === "NONE" ? "Free" : `$${t.fee(budgetUsd).toFixed(2)}`}
-                  </p>
-                  <p className="text-[10px] text-gray-400">{t.coverage}</p>
-                </div>
-              </div>
-            </label>
-          ))}
+                {isSelected && t.features && t.features.length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-ocean-200/50">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-ocean-600 mb-2">What&apos;s included</p>
+                    <ul className="space-y-1.5">
+                      {t.features.map((f: string) => (
+                        <li key={f} className="flex items-start gap-2 text-xs text-ocean-700">
+                          <span className="mt-1 h-1.5 w-1.5 rounded-full bg-ocean-500 flex-shrink-0" />
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </label>
+            );
+          })}
         </div>
       </div>
     );

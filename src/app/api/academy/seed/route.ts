@@ -11,9 +11,15 @@ export async function POST() {
     return NextResponse.json({ error: "Admin only" }, { status: 403 });
   }
 
-  // Check if already seeded
+  // Clear existing courses to allow re-seed
   const existing = await db.course.count();
-  if (existing > 0) return NextResponse.json({ message: `${existing} courses already exist. Delete first to re-seed.` });
+  if (existing > 0) {
+    await db.lessonProgress.deleteMany({});
+    await db.enrollment.deleteMany({});
+    await db.examQuestion.deleteMany({});
+    await db.lesson.deleteMany({});
+    await db.course.deleteMany({});
+  }
 
   const courses = [
     /* ═══════════════════ COURSE 1: Getting Started ═══════════════════ */

@@ -4,6 +4,7 @@ import { createEscrow, releaseEscrow, refundEscrow } from "@/lib/escrow";
 import { creditWallet } from "@/lib/wallet";
 import { notifyBidAccepted, notifyBookingComplete, notifyEscrowReleased } from "@/lib/notifications";
 import { sendBookingConfirmationEmail, sendBidAcceptedEmail, sendBookingStartedEmail, sendBookingCompletedEmail } from "@/lib/email";
+import { recalculateCouthActsScore } from "@/lib/scores";
 import { NextRequest, NextResponse } from "next/server";
 import { randomBytes } from "crypto";
 
@@ -200,9 +201,10 @@ export async function PATCH(req: NextRequest) {
         );
       }
       await notifyBookingComplete(completedBooking.provider.userId, completedBooking.posting.title, bookingId);
-      // Email both parties
       const provUser = await db.user.findUnique({ where: { id: completedBooking.provider.userId } });
       if (provUser) sendBookingCompletedEmail(provUser.email, provUser.firstName, completedBooking.posting.title, bookingId, provUser.id).catch(() => {});
+      // Recalculate CouthActs Score
+      recalculateCouthActsScore(completedBooking.providerId).catch(() => {});
     }
 
     const updated = await db.booking.findUniqueOrThrow({ where: { id: bookingId } });
@@ -242,9 +244,9 @@ export async function PATCH(req: NextRequest) {
         );
       }
       await notifyBookingComplete(booking.customerId, completedBooking.posting.title, bookingId);
-      // Email customer
       const custUser = await db.user.findUnique({ where: { id: booking.customerId } });
       if (custUser) sendBookingCompletedEmail(custUser.email, custUser.firstName, completedBooking.posting.title, bookingId, custUser.id).catch(() => {});
+      recalculateCouthActsScore(completedBooking.providerId).catch(() => {});
     }
 
     const updated = await db.booking.findUniqueOrThrow({ where: { id: bookingId } });

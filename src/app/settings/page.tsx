@@ -20,6 +20,7 @@ export default function SettingsPage() {
   const [userRole, setUserRole] = useState("");
   const [stripeConnected, setStripeConnected] = useState(false);
   const [stripeLoading, setStripeLoading] = useState(false);
+  const [stripeError, setStripeError] = useState("");
   const [prefsSaved, setPrefsSaved] = useState(false);
   const [form, setForm] = useState({
     firstName: "",
@@ -382,15 +383,26 @@ export default function SettingsPage() {
                   Connect your bank account via Stripe to receive payouts from completed jobs.
                   This is required before you can withdraw any earnings.
                 </p>
+                {stripeError && (
+                  <div className="rounded-xl bg-red-50 p-4 border border-red-200">
+                    <p className="text-sm text-red-700">{stripeError}</p>
+                  </div>
+                )}
                 <Button
                   onClick={async () => {
                     setStripeLoading(true);
+                    setStripeError("");
                     try {
                       const res = await fetch("/api/providers/stripe-connect", { method: "POST" });
                       const data = await res.json();
-                      if (data.url) window.location.href = data.url;
-                      else alert(data.error || "Failed to start Stripe setup");
-                    } catch { alert("Something went wrong"); }
+                      if (data.url) {
+                        window.location.href = data.url;
+                      } else {
+                        setStripeError(data.error || "Failed to start Stripe setup. Please try again.");
+                      }
+                    } catch {
+                      setStripeError("Network error. Please check your connection and try again.");
+                    }
                     setStripeLoading(false);
                   }}
                   loading={stripeLoading}

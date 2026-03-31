@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { TRANSPORT_CATEGORIES } from "@/lib/transport-modes";
 import { calculatePostingFee, getMinimumBudgetUsd } from "@/lib/posting-fees";
-import { calculateEscrowFee } from "@/lib/escrow";
+import { calculateEscrowFee } from "@/lib/escrow-fees";
 import { getAvailableTiers, getInsuranceFee, getMinimumInsuranceTier, ELITE_REQUIRED_MODES } from "@/lib/insurance";
 import { ArrowLeft, ArrowRight, AlertTriangle, Shield } from "lucide-react";
 

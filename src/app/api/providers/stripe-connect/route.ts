@@ -4,6 +4,11 @@ import { NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
 import { headers } from "next/headers";
 
+/**
+ * POST /api/providers/stripe-connect
+ * Creates a Stripe Connect Express account (or retrieves existing)
+ * and returns the hosted onboarding URL.
+ */
 export async function POST() {
   try {
     const session = await getSession();
@@ -21,38 +26,68 @@ export async function POST() {
       );
     }
 
+    const stripe = getStripe();
     let accountId = provider.stripeConnectId;
 
+    // Step 1: Create Express connected account if none exists
     if (!accountId) {
-      const account = await getStripe().accounts.create(
-        {
-          type: "express",
-          email: session.user.email,
-          capabilities: {
-            card_payments: { requested: true },
-            transfers: { requested: true },
+      try {
+        const account = await stripe.accounts.create(
+          {
+            type: "express",
+            country: "US",
+            email: session.user.email,
+            capabilities: {
+              card_payments: { requested: true },
+              transfers: { requested: true },
+            },
+            business_type: "individual",
+            business_profile: {
+              name: provider.businessName,
+              mcc: "4789", // Transportation services
+            },
+            metadata: {
+              couthacts_provider_id: provider.id,
+              couthacts_user_id: session.user.id,
+            },
           },
-          business_profile: {
-            name: provider.businessName,
-          },
-        },
-        { idempotencyKey: `connect-create-${provider.id}` }
-      );
-      accountId = account.id;
+          { idempotencyKey: `connect-create-${provider.id}` }
+        );
+        accountId = account.id;
 
-      await db.provider.update({
-        where: { id: provider.id },
-        data: { stripeConnectId: accountId },
-      });
+        await db.provider.update({
+          where: { id: provider.id },
+          data: { stripeConnectId: accountId },
+        });
+      } catch (err: unknown) {
+        const stripeErr = err as { type?: string; message?: string; code?: string };
+
+        // Handle the specific "Connect not enabled" error
+        if (
+          stripeErr.message?.includes("signed up for Connect") ||
+          stripeErr.code === "account_invalid" ||
+          stripeErr.message?.includes("connect")
+        ) {
+          return NextResponse.json(
+            {
+              error:
+                "Stripe Connect is being activated for CouthActs. Payout setup will be available shortly. Please try again later.",
+              stripeError: stripeErr.message,
+            },
+            { status: 503 }
+          );
+        }
+        throw err;
+      }
     }
 
-    // Derive base URL from request headers
+    // Step 2: Generate the hosted onboarding link
     const headersList = await headers();
     const host = headersList.get("host") || "couthacts.com";
     const protocol = host.includes("localhost") ? "http" : "https";
     const baseUrl = `${protocol}://${host}`;
 
-    const accountLink = await getStripe().accountLinks.create({
+    const accountLink = await stripe.accountLinks.create({
       account: accountId,
       refresh_url: `${baseUrl}/provider/wallet?stripe=refresh`,
       return_url: `${baseUrl}/provider/wallet?stripe=complete`,
@@ -61,11 +96,17 @@ export async function POST() {
 
     return NextResponse.json({ url: accountLink.url });
   } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : "Failed to set up Stripe Connect";
+    const message =
+      err instanceof Error ? err.message : "Failed to set up Stripe Connect";
+    console.error("[stripe-connect] POST error:", message);
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
+/**
+ * GET /api/providers/stripe-connect
+ * Check Stripe Connect onboarding status.
+ */
 export async function GET() {
   try {
     const session = await getSession();
@@ -80,8 +121,11 @@ export async function GET() {
       return NextResponse.json({ connected: false });
     }
 
-    const account = await getStripe().accounts.retrieve(provider.stripeConnectId);
-    const isComplete = account.charges_enabled && account.payouts_enabled;
+    const account = await getStripe().accounts.retrieve(
+      provider.stripeConnectId
+    );
+    const isComplete =
+      account.charges_enabled === true && account.payouts_enabled === true;
 
     if (isComplete && !provider.stripeOnboardingDone) {
       await db.provider.update({
@@ -97,7 +141,10 @@ export async function GET() {
       onboardingComplete: isComplete,
     });
   } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : "Failed to check Stripe status";
+    const message =
+      err instanceof Error
+        ? err.message
+        : "Failed to check Stripe status";
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

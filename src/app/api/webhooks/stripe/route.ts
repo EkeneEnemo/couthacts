@@ -135,6 +135,25 @@ export async function POST(req: NextRequest) {
         break;
       }
 
+      case "transfer.failed": {
+        // Payout failed — restore wallet balance
+        const transfer = event.data.object;
+        const meta = transfer.metadata;
+        if (meta?.couthacts_user_id) {
+          const amountUsd = (transfer.amount || 0) / 100;
+          if (amountUsd > 0) {
+            await creditWallet({
+              userId: meta.couthacts_user_id,
+              amountUsd,
+              type: "PAYOUT_REVERSAL",
+              description: `Payout failed — $${amountUsd.toFixed(2)} returned to wallet`,
+              stripeId: transfer.id,
+            });
+          }
+        }
+        break;
+      }
+
       default:
         break;
     }

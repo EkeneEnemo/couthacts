@@ -41,6 +41,7 @@ export async function GET(req: NextRequest) {
         walletBalance: user.wallet ? Number(user.wallet.balanceUsd) : 0,
         preferredCurrency: user.preferredCurrency || "USD",
         kycStatus: user.kycStatus,
+        profileComplete: user.profileComplete,
       },
     })
   } catch {

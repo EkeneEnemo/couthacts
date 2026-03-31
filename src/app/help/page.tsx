@@ -1,41 +1,152 @@
 "use client";
+
+import Link from "next/link";
 import { useState } from "react";
 import { Navbar } from "@/components/navbar";
-import { ChevronDown } from "lucide-react";
 
-const FAQS = [
-  { cat: "Customers", items: [
-    { q: "How do I post a transportation need?", a: "Go to Dashboard → Post a Job. Select your transport mode, enter route details, budget, and insurance preference. Your posting fee and budget will be held from your CouthActs Wallet." },
-    { q: "How is my payment protected?", a: "Your budget is held in escrow from the moment you post. The provider is paid only when both you and the provider confirm the job is complete." },
-    { q: "What if the provider doesn't deliver?", a: "File a dispute from the booking page. Escrow funds freeze immediately. Our team reviews within 24 hours." },
-    { q: "Can I track my job in real-time?", a: "Yes. Every booking has a tracking code. Visit /track/[code] — no login required — for live GPS, checkpoint timeline, and status updates." },
-  ]},
-  { cat: "Providers", items: [
-    { q: "How do I start receiving jobs?", a: "Register as a provider, complete identity verification ($20), set up your profile with modes and service areas, and start browsing open jobs or go online for Instant Jobs." },
-    { q: "When do I get paid?", a: "After both parties confirm job completion, escrow releases to your CouthActs Wallet minus the platform fee. You can withdraw to your bank via Stripe Connect." },
-    { q: "What is the CouthActs Score?", a: "A 0-100 trust rating based on completion rate, on-time delivery, reviews, response time, disputes, account age, and verification status. Higher scores win more bids." },
-  ]},
-  { cat: "Payments", items: [
-    { q: "What are the platform fees?", a: "Posting fee: $2-$50 by mode + 0.5% of budget. Escrow fee: sliding scale from 8% (under $500) to 1% (above $500K, capped at $10K). Identity verification: $20 per attempt." },
-    { q: "Are top-ups refundable?", a: "No. All wallet top-ups are final and non-refundable." },
-    { q: "How do withdrawals work?", a: "Providers can withdraw wallet balance to their bank via Stripe Connect. Standard (free, 2-5 days) or instant (1.5% fee, 30 minutes)." },
-  ]},
-  { cat: "Safety", items: [
-    { q: "What is the SOS feature?", a: "For passenger modes (taxi, limo, medical, armored), there's an SOS button during active rides. It alerts our safety team with your GPS location immediately." },
-    { q: "How are providers verified?", a: "Every provider completes Persona government ID verification. Business providers also submit insurance and license documentation for manual review." },
-  ]},
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface FAQSection {
+  title: string;
+  items: FAQItem[];
+}
+
+const sections: FAQSection[] = [
+  {
+    title: "For Customers",
+    items: [
+      {
+        question: "How do I post a transportation job?",
+        answer:
+          "Sign up for a CouthActs account, verify your identity, top up your wallet, and click \"Post a job.\" You will select a transport mode, enter origin and destination details, describe your cargo, set a budget, and choose your preferred dates. Verified providers will then bid on your posting.",
+      },
+      {
+        question: "How does the bidding process work?",
+        answer:
+          "Once your job is posted, verified providers can submit bids with their proposed price, estimated timeline, and a message. You can review each provider\u2019s ratings, verification status, and bid details before accepting. You are never obligated to accept any bid.",
+      },
+      {
+        question: "Can I track my shipment in real time?",
+        answer:
+          "Yes. CouthActs supports real-time tracking across all 18 transport modes. Depending on the mode, tracking data comes from GPS, AIS (maritime), flight transponders, ELD telemetry, IoT sensors, or satellite positioning. You will see live updates on a map within your booking details.",
+      },
+      {
+        question: "What if I need to cancel a booking?",
+        answer:
+          "Cancellation policies depend on the stage of the booking. Before a provider begins the job, you can cancel with a full refund of escrowed funds. Once work has started, partial refunds may apply. Check the booking details page for the specific cancellation terms.",
+      },
+    ],
+  },
+  {
+    title: "For Providers",
+    items: [
+      {
+        question: "How do I become a verified provider?",
+        answer:
+          "Create a provider account, submit your government-issued ID for verification ($20 non-refundable fee), provide your business registration details, regulatory credentials (DOT, MC, FMCSA, IMO, FAA as applicable), and insurance documentation. Our team reviews submissions and grants verification upon approval.",
+      },
+      {
+        question: "How do I find jobs to bid on?",
+        answer:
+          "Once verified, go to \"Browse Jobs\" to see available postings filtered by transport mode, origin, destination, and budget range. You can also set up the Instant Jobs feature to receive real-time notifications when new jobs match your service areas and modes.",
+      },
+      {
+        question: "When do I get paid?",
+        answer:
+          "Payment is held in escrow when the customer accepts your bid. Once you complete the job and the customer confirms delivery (or the confirmation window expires without dispute), funds are released to your wallet. You can then withdraw to your connected Stripe account.",
+      },
+    ],
+  },
+  {
+    title: "Payments",
+    items: [
+      {
+        question: "How does the escrow system work?",
+        answer:
+          "When a customer accepts a bid, the agreed amount is moved from their wallet into escrow. The funds are held securely until the job is completed and confirmed. This protects customers from paying for undelivered services and protects providers by guaranteeing payment upon completion.",
+      },
+      {
+        question: "What currencies are supported?",
+        answer:
+          "CouthActs wallets are denominated in USD. However, you can view your balance in your preferred local currency, and we support top-ups and withdrawals through Stripe in multiple currencies. Exchange rates are displayed at the time of conversion.",
+      },
+      {
+        question: "Are there any platform fees?",
+        answer:
+          "CouthActs charges a transparent platform fee on completed transactions. The fee percentage is displayed before you accept a bid or post a job. There are no hidden charges, subscription fees, or monthly minimums.",
+      },
+      {
+        question: "How do refunds work?",
+        answer:
+          "If a job is cancelled before work begins, escrowed funds are returned to the customer\u2019s wallet in full. For disputes after work has started, our resolution team reviews evidence from both parties and determines a fair outcome, which may include full or partial refunds.",
+      },
+    ],
+  },
+  {
+    title: "Safety",
+    items: [
+      {
+        question: "How are providers verified?",
+        answer:
+          "Every provider undergoes identity verification, business registration checks, regulatory credential validation, and insurance documentation review. Only providers who pass all checks can bid on jobs and receive payments through CouthActs.",
+      },
+      {
+        question: "What is the SOS feature?",
+        answer:
+          "The SOS feature allows customers and providers to flag an emergency during an active booking. When triggered, the CouthActs safety team is immediately notified and can coordinate with local authorities if needed. The feature is accessible from any active booking page.",
+      },
+      {
+        question: "What insurance protections are available?",
+        answer:
+          "CouthActs offers tiered insurance coverage depending on the transport mode and cargo value. Basic coverage is included with every booking. Enhanced and premium tiers are available for high-value or specialized shipments. Details are displayed during the posting and bidding process.",
+      },
+      {
+        question: "How do I report a safety concern?",
+        answer:
+          "Contact our safety team directly at safety@couthacts.com or use the \"Report\" button on any booking, provider profile, or review. All reports are investigated by our dedicated safety and trust team.",
+      },
+    ],
+  },
 ];
 
-function FAQ({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false);
+function FAQAccordion({ section }: { section: FAQSection }) {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
   return (
-    <button onClick={() => setOpen(!open)} className="w-full text-left border-b border-gray-100 py-4">
-      <div className="flex items-center justify-between">
-        <p className="text-sm font-medium text-ocean-800 pr-4">{q}</p>
-        <ChevronDown className={`h-4 w-4 text-gray-400 flex-shrink-0 transition-transform ${open ? "rotate-180" : ""}`} />
+    <div>
+      <h2 className="text-xl font-display font-semibold text-ocean-800">{section.title}</h2>
+      <div className="mt-4 space-y-2">
+        {section.items.map((item, i) => {
+          const isOpen = openIndex === i;
+          return (
+            <div
+              key={i}
+              className="rounded-xl border border-ocean-100 bg-white shadow-sm overflow-hidden"
+            >
+              <button
+                onClick={() => setOpenIndex(isOpen ? null : i)}
+                className="flex w-full items-center justify-between px-5 py-4 text-left"
+              >
+                <span className="text-sm font-medium text-ocean-800 pr-4">
+                  {item.question}
+                </span>
+                <span className="shrink-0 text-ocean-400 text-lg leading-none">
+                  {isOpen ? "\u2212" : "+"}
+                </span>
+              </button>
+              {isOpen && (
+                <div className="px-5 pb-4">
+                  <p className="text-sm text-gray-600 leading-relaxed">{item.answer}</p>
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
-      {open && <p className="mt-2 text-sm text-gray-600 leading-relaxed">{a}</p>}
-    </button>
+    </div>
   );
 }
 
@@ -44,17 +155,40 @@ export default function HelpPage() {
     <div className="min-h-screen bg-cream-50">
       <Navbar />
       <div className="mx-auto max-w-3xl px-6 py-16">
-        <h1 className="text-3xl font-display font-bold text-ocean-900">Help Center</h1>
-        <p className="mt-2 text-sm text-gray-500">Find answers to common questions. For direct support: <a href="mailto:support@couthacts.com" className="text-ocean-600 font-medium">support@couthacts.com</a></p>
-        <div className="mt-10 space-y-8">
-          {FAQS.map((section) => (
-            <div key={section.cat}>
-              <h2 className="text-lg font-display font-semibold text-ocean-800 mb-2">{section.cat}</h2>
-              <div className="rounded-xl bg-white shadow-sm border border-gray-100 px-5">
-                {section.items.map((faq) => <FAQ key={faq.q} {...faq} />)}
-              </div>
-            </div>
+        <h1 className="text-3xl font-display font-bold text-ocean-900 sm:text-4xl">
+          Help Center
+        </h1>
+        <p className="mt-3 text-lg text-gray-600">
+          Find answers to common questions about using the CouthActs platform.
+        </p>
+
+        <div className="mt-12 space-y-10">
+          {sections.map((section) => (
+            <FAQAccordion key={section.title} section={section} />
           ))}
+        </div>
+
+        {/* Contact support */}
+        <section className="mt-12 rounded-xl border border-ocean-100 bg-white p-6 shadow-sm text-center">
+          <h2 className="text-xl font-display font-semibold text-ocean-800">
+            Still need help?
+          </h2>
+          <p className="mt-2 text-sm text-gray-600">
+            Our support team is available to assist you with any questions or issues.
+          </p>
+          <a
+            href="mailto:support@couthacts.com"
+            className="mt-4 inline-block rounded-lg bg-ocean-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-ocean-700 transition"
+          >
+            support@couthacts.com
+          </a>
+        </section>
+
+        <div className="mt-16 flex flex-wrap gap-4 text-sm text-ocean-600">
+          <Link href="/terms" className="underline hover:text-ocean-700">Terms of Service</Link>
+          <Link href="/privacy" className="underline hover:text-ocean-700">Privacy Policy</Link>
+          <Link href="/safety" className="underline hover:text-ocean-700">Safety Center</Link>
+          <Link href="/about" className="underline hover:text-ocean-700">About</Link>
         </div>
       </div>
     </div>

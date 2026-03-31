@@ -138,6 +138,7 @@ model User {
   kycPersonaId      String?
   trustScore        Int       @default(50)
   isActive          Boolean   @default(true)
+  profileComplete   Boolean   @default(false)
   preferredLanguage String    @default("en")
   preferredCurrency String    @default("USD")
   country           String?
@@ -564,6 +565,8 @@ enum WalletTxType {
   REFUND
   ADJUSTMENT
   API_OVERAGE
+  INSTANT_PAYOUT_FEE
+  PAYOUT_REVERSAL
 }
 
 model ProviderApiKey {

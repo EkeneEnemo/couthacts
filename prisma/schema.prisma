@@ -277,7 +277,8 @@ model Posting {
   iotRental               Boolean       @default(false)
   satelliteTracking       Boolean       @default(false)
   biometricConfirm        Boolean       @default(false)
-  insuranceTier           String        @default("BASIC")
+  insuranceTier           String        @default("NONE")
+  insuranceFeeUsd         Decimal?      @db.Decimal(10, 2)
   expiresAt               DateTime
   autoRenew               Boolean       @default(false)
   isFeatured              Boolean       @default(false)
@@ -512,6 +513,7 @@ model WalletTransaction {
 enum WalletTxType {
   TOPUP
   POSTING_FEE
+  INSURANCE_FEE
   ESCROW_HOLD
   ESCROW_RELEASE
   ESCROW_REFUND

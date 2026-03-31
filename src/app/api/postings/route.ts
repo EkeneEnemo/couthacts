@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { debitWallet, creditWallet, getOrCreateWallet } from "@/lib/wallet";
 import { calculatePostingFee, validateBudget } from "@/lib/posting-fees";
+import { getInsuranceFee, getMinimumInsuranceTier } from "@/lib/insurance";
 import { localToUsd } from "@/lib/currency";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -111,6 +112,31 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: message }, { status: 400 });
   }
 
+  // Charge insurance fee if applicable
+  const insuranceTier = body.insuranceTier || getMinimumInsuranceTier(body.mode);
+  const insuranceFeeUsd = getInsuranceFee(insuranceTier, budgetUsd);
+
+  if (insuranceFeeUsd > 0) {
+    try {
+      await debitWallet({
+        userId: session.user.id,
+        amountUsd: insuranceFeeUsd,
+        type: "INSURANCE_FEE",
+        description: `Insurance (${insuranceTier}) for ${body.mode.replace(/_/g, " ")} job — $${insuranceFeeUsd.toFixed(2)}`,
+      });
+    } catch (err: unknown) {
+      // Refund posting fee + budget hold
+      await creditWallet({
+        userId: session.user.id,
+        amountUsd: postingFeeUsd + budgetUsd,
+        type: "REFUND",
+        description: "Refund — insufficient balance for insurance fee",
+      });
+      const message = err instanceof Error ? err.message : "Insufficient balance for insurance fee";
+      return NextResponse.json({ error: message }, { status: 400 });
+    }
+  }
+
   const posting = await db.posting.create({
     data: {
       customerId: session.user.id,
@@ -150,7 +176,8 @@ export async function POST(req: NextRequest) {
       isBiddingEnabled: body.isBiddingEnabled ?? true,
       paymentTerm: body.paymentTerm || "FULL_UPFRONT",
       trackingLayers: body.trackingLayers || [],
-      insuranceTier: body.insuranceTier || "BASIC",
+      insuranceTier,
+      insuranceFeeUsd: insuranceFeeUsd || null,
       isUrgent: body.isUrgent || false,
       expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 14),
     },

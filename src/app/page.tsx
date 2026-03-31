@@ -941,6 +941,12 @@ export default function LandingPage() {
                   Resources
                 </p>
                 <Link
+                  href="/about"
+                  className="block text-sky-200/50 hover:text-white transition"
+                >
+                  About
+                </Link>
+                <Link
                   href="/academy"
                   className="block text-sky-200/50 hover:text-white transition"
                 >

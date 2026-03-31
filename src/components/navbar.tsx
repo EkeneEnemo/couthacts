@@ -222,6 +222,7 @@ export function Navbar() {
             </>
           ) : (
             <>
+              <Link href="/about" className="text-sm font-medium text-ocean-700 hover:text-ocean-900">About</Link>
               <Link href="/login"><Button variant="ghost" size="sm">Sign in</Button></Link>
               <Link href="/register"><Button size="sm">Get started</Button></Link>
             </>
@@ -299,6 +300,9 @@ export function Navbar() {
             </>
           ) : (
             <>
+              <Link href="/about" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-ocean-700 py-2">
+                About
+              </Link>
               <Link href="/login" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-ocean-700 py-2">
                 Sign in
               </Link>

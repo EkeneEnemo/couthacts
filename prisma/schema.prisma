@@ -216,6 +216,7 @@ model Provider {
   tracking      TrackingEvent[]
   disputes      Dispute[]       @relation("ProviderDisputes")
   availability  ProviderAvailability[]
+  apiKeys       ProviderApiKey[]
 
   @@index([couthActsScore])
   @@index([isVerified])
@@ -536,4 +537,27 @@ enum WalletTxType {
   ADVANCE_REPAYMENT
   REFUND
   ADJUSTMENT
+}
+
+model ProviderApiKey {
+  id            String          @id @default(cuid())
+  providerId    String
+  key           String          @unique
+  name          String
+  isActive      Boolean         @default(true)
+  lastUsedAt    DateTime?
+  requestCount  Int             @default(0)
+  monthlyLimit  Int             @default(500)
+  plan          ProviderApiPlan @default(BASIC)
+  webhookUrl    String?
+  webhookSecret String?
+  createdAt     DateTime        @default(now())
+  provider      Provider        @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  @@index([key])
+}
+
+enum ProviderApiPlan {
+  BASIC
+  PROFESSIONAL
+  ENTERPRISE
 }

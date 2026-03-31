@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Navbar } from "@/components/navbar";
-import { GraduationCap, Clock, BookOpen, Award, ChevronRight } from "lucide-react";
+import { GraduationCap, Clock, BookOpen, Award, ChevronRight, User } from "lucide-react";
 
 interface Course {
   id: string; title: string; slug: string; description: string;
@@ -33,6 +33,7 @@ export default function AcademyPage() {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState("");
+  const [tab, setTab] = useState<"all" | "enrolled" | "completed">("all");
 
   useEffect(() => {
     fetch("/api/academy/courses").then((r) => r.json()).then((d) => {
@@ -41,7 +42,14 @@ export default function AcademyPage() {
     });
   }, []);
 
-  const filtered = category ? courses.filter((c) => c.category === category) : courses;
+  const enrolled = courses.filter((c) => c.enrollment && !c.enrollment.examPassed);
+  const completed = courses.filter((c) => c.enrollment?.examPassed);
+
+  let displayCourses = courses;
+  if (tab === "enrolled") displayCourses = enrolled;
+  else if (tab === "completed") displayCourses = completed;
+
+  const filtered = category ? displayCourses.filter((c) => c.category === category) : displayCourses;
 
   return (
     <div className="min-h-screen bg-cream-50">
@@ -65,6 +73,26 @@ export default function AcademyPage() {
             <span className="flex items-center gap-1"><Clock className="h-4 w-4" /> Self-paced</span>
             <span className="flex items-center gap-1"><Award className="h-4 w-4" /> Certificates</span>
           </div>
+        </div>
+
+        {/* View tabs — All / My Courses / Completed */}
+        <div className="flex items-center justify-center gap-1 mb-6 rounded-xl bg-gray-100 p-1 max-w-md mx-auto">
+          {[
+            { key: "all" as const, label: "All Courses", icon: BookOpen },
+            { key: "enrolled" as const, label: `Enrolled (${enrolled.length})`, icon: User },
+            { key: "completed" as const, label: `Completed (${completed.length})`, icon: Award },
+          ].map((t) => (
+            <button
+              key={t.key}
+              onClick={() => setTab(t.key)}
+              className={`flex-1 flex items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold transition ${
+                tab === t.key ? "bg-white text-ocean-700 shadow-sm" : "text-gray-500 hover:text-gray-700"
+              }`}
+            >
+              <t.icon className="h-3.5 w-3.5" />
+              {t.label}
+            </button>
+          ))}
         </div>
 
         {/* Category tabs */}

@@ -10,7 +10,7 @@ export const COURSE_2 = [
     durationMins: 20,
     content: `## Why Safety Culture Defines Your Transportation Career
 
-![Professional safety standards in commercial transportation](https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80)
+![Professional safety standards in commercial transportation](https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=1200&q=80)
 
 The transportation industry moves the global economy — but it comes at a staggering human cost when safety is treated as an afterthought. According to the Bureau of Labor Statistics, transportation and material moving occupations consistently rank among the deadliest in the United States, accounting for over **1,900 fatal work injuries annually**. The National Highway Traffic Safety Administration (NHTSA) reports that large truck crashes alone cause approximately **5,000 fatalities per year**.
 
@@ -195,7 +195,7 @@ These are the rules for **property-carrying** drivers (freight, cargo, etc.). Pa
 
 ## ELD Integration on CouthActs
 
-![Electronic logging and compliance monitoring dashboard](https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80)
+![Electronic logging and compliance monitoring dashboard](https://images.unsplash.com/photo-1563986768609-322da13575f2?w=1200&q=80)
 
 Electronic Logging Devices (ELDs) are **mandatory** for most CMV operators under the ELD Mandate (49 CFR Part 395.8). CouthActs integrates with ELD data through the **ELD_INTEGRATION** tracking layer.
 
@@ -238,7 +238,7 @@ On CouthActs, if you need to stop because you're fatigued or approaching HOS lim
     durationMins: 20,
     content: `## Securing Your Cargo, Protecting Your Career
 
-![Cargo securement and freight loading procedures](https://images.unsplash.com/photo-1553413077-190dd305871c?w=1200&q=80)
+![Cargo securement and freight loading procedures](https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=1200&q=80)
 
 Improperly secured cargo kills approximately **50 people per year** in the US and injures over **15,000**. FMCSA 393.100 establishes the minimum standards for securing cargo on commercial motor vehicles. Compliance is not optional — violations result in fines, out-of-service orders, and liability for any resulting damage or injury.
 
@@ -401,7 +401,7 @@ Defensive driving is not about being slow or timid. It's about being **aware, pr
     durationMins: 20,
     content: `## When Things Go Wrong — The First 5 Minutes
 
-![Emergency response and incident management protocols](https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80)
+![Emergency response and incident management protocols](https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=1200&q=80)
 
 When an incident occurs, your response in the first 5 minutes determines the outcome — for safety, for liability, and for your CouthActs career. Every provider should have an emergency response plan memorized.
 
@@ -748,7 +748,7 @@ Transporting hazardous materials requires additional training, equipment, and do
 - **IoT tracking** — IOT_DEVICE layer for temperature and condition monitoring
 - **Full chain-of-custody documentation** via tracking layers
 
-![Safety equipment and hazardous materials handling procedures](https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80)
+![Safety equipment and hazardous materials handling procedures](https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=1200&q=80)
 
 ---
 
@@ -812,7 +812,7 @@ Documentation is the proof that you follow safety protocols. Without records, co
 
 On CouthActs, **tracking events serve as digital documentation**. Every event is timestamped, geotagged, and permanently stored:
 
-![Digital tracking and audit trail on the CouthActs platform](https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80)
+![Digital tracking and audit trail on the CouthActs platform](https://images.unsplash.com/photo-1563986768609-322da13575f2?w=1200&q=80)
 
 ### Best Practice: Create a Tracking Event at Each Major Milestone
 1. **Pre-trip inspection** — Upload photos via DOCUMENT_POD_AI

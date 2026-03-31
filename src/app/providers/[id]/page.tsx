@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Navbar } from "@/components/navbar";
 import { ScoreGauge } from "@/components/score-gauge";
 import { ScoreBars } from "@/components/score-bars";
-import { CheckCircle, ArrowLeft, Star } from "lucide-react";
+import { CheckCircle, ArrowLeft, Star, Award } from "lucide-react";
 
 export default async function ProviderProfilePage({
   params,
@@ -28,6 +28,13 @@ export default async function ProviderProfilePage({
   });
 
   if (!provider) notFound();
+
+  // Academy certifications
+  const academyCerts = await db.enrollment.findMany({
+    where: { userId: provider.userId, examPassed: true },
+    include: { course: { select: { title: true, category: true, level: true, slug: true } } },
+    orderBy: { completedAt: "desc" },
+  });
 
   type ProviderReview = (typeof provider.reviews)[number];
   const avgRating = provider.reviews.length > 0
@@ -149,6 +156,34 @@ export default async function ProviderProfilePage({
                 <div className="flex flex-wrap gap-2">
                   {provider.certifications.map((c: string) => (
                     <span key={c} className="rounded-full bg-green-50 px-3 py-1 text-xs text-green-700">{c}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Academy Certifications */}
+            {academyCerts.length > 0 && (
+              <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
+                <p className="text-xs font-semibold uppercase tracking-wider text-sky-600 mb-3">Academy Certifications</p>
+                <div className="space-y-3">
+                  {academyCerts.map((cert) => (
+                    <div key={cert.id} className="flex items-center gap-3 rounded-xl bg-gradient-to-r from-ocean-50 to-sky-50 p-4 border border-ocean-100">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-ocean-600 text-white flex-shrink-0">
+                        <Award className="h-5 w-5" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-ocean-900 truncate">{cert.course.title}</p>
+                        <p className="text-xs text-gray-500">
+                          {cert.course.category.replace(/_/g, " ")} &middot; Score: {cert.examScore}%
+                          {cert.completedAt && ` &middot; ${new Date(cert.completedAt).toLocaleDateString("en-US", { month: "short", year: "numeric" })}`}
+                        </p>
+                      </div>
+                      {cert.certificateId && (
+                        <a href={`/academy/certificate/${cert.certificateId}`} className="text-xs font-semibold text-ocean-600 hover:text-ocean-700 flex-shrink-0">
+                          View
+                        </a>
+                      )}
+                    </div>
                   ))}
                 </div>
               </div>

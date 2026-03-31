@@ -76,6 +76,12 @@ export default function ExamPage() {
                 <h1 className="mt-4 text-2xl font-display font-bold text-red-800">Not quite</h1>
                 <p className="mt-2 text-lg text-gray-600">You scored {score}% — 70% required to pass.</p>
                 <p className="mt-1 text-sm text-gray-400">Review the explanations below and try again.</p>
+                <button
+                  onClick={() => { setResults(null); setCurrent(0); setAnswers({}); }}
+                  className="mt-4 inline-flex items-center gap-2 rounded-lg bg-ocean-600 px-6 py-3 text-sm font-medium text-white hover:bg-ocean-700 transition"
+                >
+                  Retake Exam
+                </button>
               </>
             )}
           </div>

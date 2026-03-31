@@ -10,7 +10,7 @@ export const COURSE_1 = [
     durationMins: 15,
     content: `## The Global Transportation Infrastructure
 
-![CouthActs connects providers across every transport mode worldwide](https://images.unsplash.com/photo-1494412574643-ff11b0a5eb95?w=1200&q=80)
+![CouthActs connects providers across every transport mode worldwide](https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1200&q=80)
 
 CouthActs is not a freight broker. It is not a ride-hailing app. It is a **global transportation infrastructure platform** that connects customers who need to move people or goods with verified transportation providers — across **18 distinct transport modes** spanning ground, air, maritime, and rail.
 
@@ -95,7 +95,7 @@ CouthActs charges transparent, sliding-scale fees:
 - **Identity verification** — $20 per KYC attempt (non-refundable)
 - **No bid fees** — It costs you nothing to bid on a job
 
-![Professional transportation dashboard for managing operations](https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80)
+![Professional transportation dashboard for managing operations](https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80)
 
 The escrow fee is deducted from your payout on completion — you never pay it upfront. Your earnings go directly to your CouthActs Wallet, and you can withdraw to your bank account via Stripe Connect at any time.`,
   },
@@ -276,7 +276,7 @@ Verification is your first investment in your CouthActs career. The $20 KYC fee 
     durationMins: 15,
     content: `## The Most Important Number on Your Profile
 
-![Performance analytics and scoring dashboard](https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80)
+![Performance analytics and scoring dashboard](https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80)
 
 Your **CouthActs Score** is a 0-100 rating that determines your tier, affects how customers perceive your bids, and gates access to premium features like CouthActs Advance. It is recalculated after every completed booking. Understanding how it works is essential to building a successful provider career.
 
@@ -545,7 +545,7 @@ To receive Instant requests:
 - If you're 30 minutes from the pickup location, don't accept
 - If you're on another job, don't accept
 
-![Real-time dispatch for on-demand transportation services](https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80)
+![Real-time dispatch for on-demand transportation services](https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80)
 
 ---
 
@@ -621,7 +621,7 @@ Your wallet is your central financial hub on CouthActs:
 - **Transaction history** shows every credit, debit, and escrow event
 - **PDF receipts** are available for every transaction
 
-![Digital wallet and financial management dashboard](https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80)
+![Digital wallet and financial management dashboard](https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80)
 
 ---
 

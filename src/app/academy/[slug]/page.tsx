@@ -246,13 +246,25 @@ export default function CourseDetailPage() {
                     lessons completed
                   </p>
                   {canTakeExam && (
-                    <Link
-                      href={`/academy/${course.slug}/exam`}
-                      className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-ocean-600 px-4 py-3 text-sm font-semibold text-white hover:bg-ocean-700 transition"
-                    >
-                      <Award className="h-4 w-4" />
-                      Take Final Exam
-                    </Link>
+                    <div className="mt-3">
+                      <Link
+                        href={`/academy/${course.slug}/exam`}
+                        className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-ocean-600 px-4 py-3 text-sm font-semibold text-white hover:bg-ocean-700 transition"
+                      >
+                        <Award className="h-4 w-4" />
+                        {enrollment.examAttempts > 0
+                          ? "Retake Exam"
+                          : "Take Final Exam"}
+                      </Link>
+                      {enrollment.examAttempts > 0 &&
+                        enrollment.examScore !== null && (
+                          <p className="mt-1.5 text-xs text-gray-400 text-center">
+                            Last attempt: {enrollment.examScore}% (70%
+                            required) &middot; Attempt{" "}
+                            {enrollment.examAttempts}
+                          </p>
+                        )}
+                    </div>
                   )}
                 </div>
               )}

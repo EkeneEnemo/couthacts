@@ -156,7 +156,7 @@ export default function ApiDocsPage() {
                   "Community support",
                 ],
                 cta: "Get started",
-                href: "/register",
+                href: "/settings",
                 style: "border-gray-200 bg-cream-50",
               },
               {
@@ -172,7 +172,7 @@ export default function ApiDocsPage() {
                   "Sandbox environment",
                 ],
                 cta: "Start building",
-                href: "/register",
+                href: "/settings",
                 style:
                   "border-ocean-200 bg-ocean-50 ring-2 ring-ocean-200",
               },

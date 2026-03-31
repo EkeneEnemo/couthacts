@@ -107,7 +107,7 @@ export default function TermsPage() {
               <strong>Minimum Budgets.</strong> Each transport mode has a minimum budget requirement in USD to ensure service quality and platform viability. Minimum budgets range from $5.00 USD (Taxi, Courier) to $1,000.00 USD (Private Jet). Postings below the applicable minimum will be rejected. When posting in a non-USD currency, the equivalent USD amount at the current exchange rate must meet or exceed the minimum.
             </p>
             <p>
-              <strong>Budget Hold and Escrow.</strong> The full posted budget is held in the Customer&apos;s Wallet at the time of posting. When a Customer accepts a Provider&apos;s bid: (a) if the bid amount is less than the posted budget, the difference is immediately refunded to the Customer&apos;s Wallet; (b) an escrow record is created for the agreed bid amount. Escrow funds are released to the Provider&apos;s Wallet only upon mutual confirmation of delivery by both Customer and Provider. A platform escrow fee of 3.5% is deducted from the escrow amount before release to the Provider.
+              <strong>Budget Hold and Escrow.</strong> The full posted budget is held in the Customer&apos;s Wallet at the time of posting. When a Customer accepts a Provider&apos;s bid: (a) if the bid amount is less than the posted budget, the difference is immediately refunded to the Customer&apos;s Wallet; (b) an escrow record is created for the agreed bid amount. Escrow funds are released to the Provider&apos;s Wallet only upon mutual confirmation of delivery by both Customer and Provider. A platform escrow fee is deducted from the escrow amount before release to the Provider, calculated on a sliding scale: 8% for amounts under $500, 6% for $500–$5,000, 4% for $5,000–$50,000, 2% for $50,000–$500,000, and 1% for amounts above $500,000 (capped at $10,000).
             </p>
             <p>
               <strong>Posting Expiration.</strong> Postings expire fourteen (14) days after creation if no bid has been accepted. Upon expiration, the budget hold is automatically refunded in full to the Customer&apos;s Wallet. The posting fee is not refunded.
@@ -116,7 +116,7 @@ export default function TermsPage() {
               <strong>Refunds.</strong> If a booking is cancelled by the Customer before the Provider begins transit, the full escrow amount is refunded to the Customer&apos;s Wallet. If a dispute is filed, escrow funds are frozen until resolution. The Company determines refund eligibility at its sole discretion during dispute resolution. Budget surplus refunds (when accepted bid is less than posted budget) are processed immediately and automatically.
             </p>
             <p>
-              <strong>Provider Payouts.</strong> Providers may withdraw Wallet funds to their bank account via Stripe Connect. Withdrawal processing times are subject to Stripe&apos;s policies and are not controlled by CouthActs&#8482;. Payout amounts reflect the agreed bid amount minus the 3.5% platform escrow fee.
+              <strong>Provider Payouts.</strong> Providers may withdraw Wallet funds to their bank account via Stripe Connect. Withdrawal processing times are subject to Stripe&apos;s policies and are not controlled by CouthActs&#8482;. Payout amounts reflect the agreed bid amount minus the applicable platform escrow fee (sliding scale based on transaction amount).
             </p>
             <p>
               <strong>Fee Schedule Summary.</strong>
@@ -142,7 +142,7 @@ export default function TermsPage() {
                 </tr>
                 <tr>
                   <td className="py-2 pr-4">Escrow fee</td>
-                  <td className="py-2 pr-4">3.5% of agreed bid amount</td>
+                  <td className="py-2 pr-4">Sliding scale: 8% under $500, 6% $500–$5K, 4% $5K–$50K, 2% $50K–$500K, 1% above $500K (capped at $10,000)</td>
                   <td className="py-2">Deducted from provider payout on completion</td>
                 </tr>
                 <tr>

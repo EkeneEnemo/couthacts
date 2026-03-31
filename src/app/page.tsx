@@ -199,9 +199,9 @@ export default function LandingPage() {
               <p className="text-xs text-gray-400">True global reach</p>
             </div>
             <div className="text-center">
-              <p className="text-4xl font-display font-bold text-ocean-900 sm:text-5xl"><AnimatedCounter end={3.5} suffix="%" decimals={1} /></p>
-              <p className="mt-2 text-sm font-semibold text-ocean-600">Platform fee</p>
-              <p className="text-xs text-gray-400">Transparent pricing</p>
+              <p className="text-4xl font-display font-bold text-ocean-900 sm:text-5xl"><AnimatedCounter end={1} suffix="–8%" /></p>
+              <p className="mt-2 text-sm font-semibold text-ocean-600">Escrow fee</p>
+              <p className="text-xs text-gray-400">Sliding scale by volume</p>
             </div>
             <div className="text-center">
               <p className="text-4xl font-display font-bold text-ocean-900 sm:text-5xl">24/7</p>
@@ -309,7 +309,7 @@ export default function LandingPage() {
                 </tr>
                 <tr>
                   <td className="px-6 py-4 font-medium text-ocean-800">Escrow fee</td>
-                  <td className="px-6 py-4 text-gray-600">3.5% of agreed bid amount</td>
+                  <td className="px-6 py-4 text-gray-600">Sliding scale: 8% under $500, 6% $500–$5K, 4% $5K–$50K, 2% $50K–$500K, 1% above $500K <span className="text-xs text-gray-400">(capped at $10K)</span></td>
                   <td className="px-6 py-4 text-gray-500">Deducted from provider payout on completion</td>
                 </tr>
                 <tr className="bg-gray-50">
@@ -418,7 +418,7 @@ export default function LandingPage() {
                 Shipping at scale? Let&apos;s talk.
               </h2>
               <p className="mt-2 text-sm text-gray-500 max-w-lg">
-                Volume-based pricing, dedicated account management, custom API integrations, and priority support for organizations moving more than 50 shipments per month.
+                Volume-based pricing, dedicated account management, custom API integrations, and priority support for organizations moving more than 50 jobs per month.
               </p>
             </div>
             <Link
@@ -480,7 +480,7 @@ export default function LandingPage() {
               { num: "01", title: "Post your need", desc: "Describe what needs moving. Every mode has its own tailored workflow — from a taxi ride to a container ship." },
               { num: "02", title: "Verified providers bid", desc: "Identity-verified, score-rated providers compete for your job. Compare prices, reviews, and on-time rates." },
               { num: "03", title: "Funds held in escrow", desc: "Your budget is secured the moment you post. Provider is paid only when you confirm delivery. No risk." },
-              { num: "04", title: "Track in real-time", desc: "Live GPS, QR/PIN delivery confirmation, and a full checkpoint timeline. Know exactly where your shipment is." },
+              { num: "04", title: "Track in real-time", desc: "Live GPS, QR/PIN delivery confirmation, and a full checkpoint timeline. Know exactly where your job is." },
             ].map((s) => (
               <div key={s.num}>
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-ocean-900 text-sm font-bold text-white">{s.num}</span>
@@ -597,10 +597,10 @@ export default function LandingPage() {
           </div>
           <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
             <p className="text-xs text-sky-200/30">
-              &copy; {new Date().getFullYear()} CouthActs&#8482; Incorporated. All rights reserved.
+              &copy; {new Date().getFullYear()} CouthActs&#8482; Incorporated. Founded November 27, 2021. All rights reserved.
             </p>
             <p className="text-xs text-sky-200/30">
-              Intellectual property of Enemo Consulting Group, Inc.
+              Intellectual property of Enemo Consulting Group, Inc. &middot; The Adolphus Tower, Dallas, TX
             </p>
           </div>
         </div>

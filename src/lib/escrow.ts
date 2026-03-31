@@ -2,7 +2,31 @@ import { db } from "@/lib/db";
 import { getStripe } from "@/lib/stripe";
 import { creditWallet } from "@/lib/wallet";
 
-const ESCROW_FEE_PERCENT = 3.5;
+/**
+ * Sliding escrow fee scale:
+ * Under $500: 8%
+ * $500–$5,000: 6%
+ * $5,000–$50,000: 4%
+ * $50,000–$500,000: 2%
+ * Above $500,000: 1% capped at $10,000
+ */
+function getEscrowFeePercent(amountUsd: number): number {
+  if (amountUsd < 500) return 8;
+  if (amountUsd < 5000) return 6;
+  if (amountUsd < 50000) return 4;
+  if (amountUsd < 500000) return 2;
+  return 1;
+}
+
+function calculateEscrowFee(amountUsd: number): number {
+  const percent = getEscrowFeePercent(amountUsd);
+  const fee = Math.round(amountUsd * percent) / 100;
+  // Cap at $10,000 for amounts above $500k
+  if (amountUsd >= 500000) return Math.min(fee, 10000);
+  return fee;
+}
+
+export { getEscrowFeePercent, calculateEscrowFee };
 
 /**
  * Create an escrow:
@@ -27,7 +51,8 @@ export async function createEscrow({
     throw new Error("Invalid escrow amount");
   }
 
-  const escrowFeeUsd = Math.round(totalAmountUsd * ESCROW_FEE_PERCENT) / 100;
+  const escrowFeePercent = getEscrowFeePercent(totalAmountUsd);
+  const escrowFeeUsd = calculateEscrowFee(totalAmountUsd);
   const providerPayoutUsd = Math.round((totalAmountUsd - escrowFeeUsd) * 100) / 100;
 
   // NOTE: Budget is already held in wallet at posting time.
@@ -91,7 +116,7 @@ export async function createEscrow({
       bookingId,
       totalAmountUsd,
       escrowFeeUsd,
-      escrowFeePercent: ESCROW_FEE_PERCENT,
+      escrowFeePercent: escrowFeePercent,
       providerPayoutUsd,
       status: "HOLDING",
       stripePaymentIntentId,

@@ -51,7 +51,7 @@ export default function EnterprisePage() {
             <div className="mt-10 space-y-6">
               {[
                 { icon: Building2, title: "Dedicated Account Manager", desc: "A single point of contact who understands your logistics operation." },
-                { icon: Globe, title: "Volume-Based Pricing", desc: "Custom escrow fee rates for organizations with consistent high-volume shipments." },
+                { icon: Globe, title: "Volume-Based Pricing", desc: "Custom escrow fee rates for organizations with consistent high-volume jobs." },
                 { icon: Shield, title: "Priority Dispute Resolution", desc: "4-hour SLA on dispute review. Dedicated compliance team for regulatory requirements." },
                 { icon: Truck, title: "API & Integration", desc: "Connect CouthActs directly to your ERP, WMS, or TMS. Webhook-driven automation." },
               ].map((f) => (
@@ -91,10 +91,10 @@ export default function EnterprisePage() {
                   <label className="block text-sm font-medium text-ocean-800 mb-1">Monthly shipping volume</label>
                   <select name="volume" className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-sky-500">
                     <option value="">Select volume</option>
-                    <option value="<50">Less than 50 shipments</option>
-                    <option value="50-200">50–200 shipments</option>
-                    <option value="200-1000">200–1,000 shipments</option>
-                    <option value="1000+">1,000+ shipments</option>
+                    <option value="<50">Less than 50 jobs</option>
+                    <option value="50-200">50–200 jobs</option>
+                    <option value="200-1000">200–1,000 jobs</option>
+                    <option value="1000+">1,000+ jobs</option>
                   </select>
                 </div>
                 <div>

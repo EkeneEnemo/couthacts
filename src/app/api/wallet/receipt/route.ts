@@ -274,6 +274,7 @@ export async function GET(req: NextRequest) {
       <strong>CouthActs&trade; Incorporated</strong><br>
       All top-ups are final and non-refundable. All amounts in USD.<br>
       Intellectual property of Enemo Consulting Group, Inc.<br>
+      Founded November 27, 2021 &middot; The Adolphus Tower, Dallas, TX<br>
       https://couthacts.com
     </div>
   </div>

@@ -68,7 +68,7 @@ export default function PrivacyPage() {
               <li>Facilitate transportation platform transactions, including postings, bids, bookings, escrow, and payouts.</li>
               <li>Calculate and display CouthActs&#8482; Scores for Providers.</li>
               <li>Process payments and Wallet transactions through Stripe.</li>
-              <li>Provide real-time tracking of shipments and transport.</li>
+              <li>Provide real-time tracking of jobs and transport.</li>
               <li>Send transactional emails (welcome, booking confirmation, escrow release, dispute notification) via Resend.</li>
               <li>Deliver in-app notifications about bids, bookings, and account activity via Pusher.</li>
               <li>Resolve disputes and enforce our Terms of Service.</li>

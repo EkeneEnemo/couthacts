@@ -16,6 +16,7 @@ import {
   ArrowLeft,
   ArrowRight,
 } from "lucide-react";
+import { LessonContent } from "@/components/lesson-content";
 
 interface Lesson {
   id: string;
@@ -364,13 +365,7 @@ export default function CourseDetailPage() {
 
                 {/* Lesson content */}
                 <div className="px-8 py-6">
-                  <div className="prose prose-sm prose-gray max-w-none text-gray-700 leading-[1.8]">
-                    {activeLesson.content.split("\n\n").map((para, i) => (
-                      <p key={i} className="mb-4 last:mb-0">
-                        {para}
-                      </p>
-                    ))}
-                  </div>
+                  <LessonContent content={activeLesson.content} />
                 </div>
 
                 {/* Lesson footer — navigation + mark complete */}

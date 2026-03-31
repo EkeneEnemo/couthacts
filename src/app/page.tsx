@@ -609,7 +609,7 @@ export default function LandingPage() {
         <div className="mx-auto max-w-7xl px-6 py-24 lg:py-32">
           <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-sky-600">
+              <p className="text-xl font-display font-bold tracking-tight text-sky-600 sm:text-2xl">
                 CouthActs Academy
               </p>
               <h2 className="mt-3 text-3xl font-display font-bold tracking-tight text-ocean-900 sm:text-4xl">

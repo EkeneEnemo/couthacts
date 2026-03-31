@@ -19,11 +19,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Only providers can send tracking" }, { status: 403 });
   }
 
-  const { bookingId, lat, lng, speed, heading, note } = await req.json();
+  const { bookingId, lat, lng, speed, heading, note, layer, status } = await req.json();
 
   if (!bookingId || !Number.isFinite(lat) || !Number.isFinite(lng)) {
     return NextResponse.json({ error: "bookingId, lat, and lng are required" }, { status: 400 });
   }
+
+  const VALID_LAYERS = [
+    "MOBILE_GPS", "AIS_MARITIME", "FLIGHT_TRACKING", "ELD_INTEGRATION",
+    "QR_PIN_CONFIRMATION", "IOT_DEVICE", "SATELLITE", "DOCUMENT_POD_AI", "BIOMETRIC",
+  ];
+  const trackingLayer = layer && VALID_LAYERS.includes(layer) ? layer : "MOBILE_GPS";
 
   const booking = await db.booking.findUnique({ where: { id: bookingId } });
   if (!booking || booking.providerId !== provider.id) {
@@ -38,11 +44,12 @@ export async function POST(req: NextRequest) {
     data: {
       bookingId,
       providerId: provider.id,
-      layer: "MOBILE_GPS",
+      layer: trackingLayer,
       lat,
       lng,
       speed: speed ?? null,
       heading: heading ?? null,
+      status: status ?? null,
       note: note ?? null,
     },
   });

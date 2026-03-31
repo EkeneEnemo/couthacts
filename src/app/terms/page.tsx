@@ -1,321 +1,127 @@
-import Link from "next/link";
 import { Navbar } from "@/components/navbar";
 
-export const metadata = {
-  title: "Terms of Service — CouthActs™",
-};
+export const metadata = { title: "Terms of Service — CouthActs™" };
 
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-cream-50">
       <Navbar />
       <div className="mx-auto max-w-3xl px-6 py-16">
-        <h1 className="text-3xl font-display font-bold text-ocean-900 sm:text-4xl">
-          Terms of Service
-        </h1>
-        <p className="mt-2 text-sm text-gray-400">
-          Last updated: March 30, 2026 &middot; Effective immediately
-        </p>
+        <h1 className="text-3xl font-display font-bold text-ocean-900 sm:text-4xl">Terms of Service</h1>
+        <div className="mt-2 space-y-1">
+          <p className="text-sm text-gray-500">CouthActs, Inc.</p>
+          <p className="text-sm text-gray-500">The Adolphus Tower, Dallas, Texas</p>
+          <p className="text-sm text-gray-400">Effective Date: November 27, 2021 &middot; Last Updated: March 30, 2026</p>
+        </div>
 
         <div className="mt-10 prose prose-sm prose-gray max-w-none space-y-8 text-gray-700 leading-relaxed">
-          {/* 1 */}
+
           <section>
-            <h2 className="text-lg font-display font-semibold text-ocean-800">1. Agreement to Terms</h2>
-            <p>
-              By accessing or using the CouthActs&#8482; platform (&quot;Platform&quot;), operated by CouthActs, Inc. (&quot;Company,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), you (&quot;User,&quot; &quot;you,&quot; or &quot;your&quot;) agree to be bound by these Terms of Service (&quot;Terms&quot;). If you do not agree to all of these Terms, you must not access or use the Platform.
-            </p>
-            <p>
-              These Terms constitute a legally binding agreement between you and CouthActs, Inc. (&quot;CouthActs,&quot; &quot;we,&quot; &quot;us,&quot; &quot;our&quot;), the operator of the CouthActs platform. The CouthActs platform and all related intellectual property are owned by Enemo Consulting Group, Inc. and licensed to CouthActs, Inc. We reserve the right to modify these Terms at any time. Material changes will be communicated via email or Platform notification at least thirty (30) days before they take effect. Your continued use of the Platform after such notice constitutes acceptance of the modified Terms.
-            </p>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">1. Acceptance of Terms</h2>
+            <p>These Terms of Service (&quot;Terms&quot;) constitute a legally binding agreement between you (&quot;User,&quot; &quot;you,&quot; or &quot;your&quot;) and CouthActs, Inc. (&quot;CouthActs,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), the operator of the CouthActs platform. The CouthActs platform and all related intellectual property are owned by Enemo Consulting Group, Inc. and licensed to CouthActs, Inc. By accessing or using the platform, you agree to these Terms in full. If you do not agree, you must not access or use the platform.</p>
+            <p>We reserve the right to modify these Terms at any time. Material changes will be communicated via email or platform notification at least thirty (30) days before they take effect. Your continued use of the platform after such notice constitutes acceptance of the modified Terms.</p>
           </section>
 
-          {/* 2 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-ocean-800">2. Eligibility</h2>
-            <p>
-              You must be at least eighteen (18) years of age, or the age of legal majority in your jurisdiction, to create an account. By registering, you represent and warrant that: (a) you are of legal age; (b) you have the legal capacity to enter into these Terms; (c) all information you provide is truthful, accurate, and complete; (d) the first and last name on your account matches exactly the name on your government-issued identification document; and (e) your use of the Platform does not violate any applicable law or regulation.
-            </p>
-            <p>
-              Business entities must be duly organized and in good standing under the laws of their jurisdiction. The individual accepting these Terms on behalf of an entity represents they have the authority to bind that entity.
-            </p>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">2. Platform Description</h2>
+            <p>CouthActs is a technology platform that connects customers seeking transportation services with independent verified providers across eighteen (18) modes of transportation in 190+ countries. CouthActs is not a transportation carrier, freight broker, insurance company, lending institution, or logistics provider. CouthActs provides technology infrastructure, escrow services, identity verification coordination, and platform management services only.</p>
           </section>
 
-          {/* 3 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-ocean-800">3. The Platform</h2>
-            <p>
-              CouthActs&#8482; is a multimodal transportation infrastructure platform that connects customers who need transportation services (&quot;Customers&quot;) with verified transportation service providers (&quot;Providers&quot;). The Platform supports eighteen (18) transport modes spanning ground, air, maritime, and rail categories.
-            </p>
-            <p>
-              <strong>CouthActs&#8482; is a platform, not a carrier.</strong> We do not own, operate, or control any vehicles, vessels, aircraft, or equipment. We do not employ drivers, pilots, captains, or any transportation personnel. We are not a party to the transportation contract between Customer and Provider. We provide the technology infrastructure that facilitates the connection, payment, and tracking of transportation services.
-            </p>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">3. Eligibility and Registration</h2>
+            <p>You must be at least eighteen (18) years of age. By registering, you represent that: (a) you are of legal age; (b) all information you provide is truthful, accurate, and complete; (c) the first and last name on your account matches exactly the name on your government-issued identification document; and (d) your use of the platform does not violate any applicable law or regulation. Each User may maintain only one (1) account.</p>
           </section>
 
-          {/* 4 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-ocean-800">4. Accounts and Security</h2>
-            <p>
-              You are responsible for maintaining the confidentiality of your account credentials and for all activity that occurs under your account. You must immediately notify us of any unauthorized access or use of your account.
-            </p>
-            <p>
-              Each User may maintain only one (1) account. Creating multiple accounts, impersonating another person, or providing false identity information is grounds for immediate termination. We reserve the right to require identity verification (KYC/KYB) at any time and to suspend accounts pending verification.
-            </p>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">4. Identity Verification</h2>
+            <p>All Users must complete identity verification via Persona before accessing core platform features. Verification incurs a non-refundable fee of $20.00 USD per attempt. The fee is non-refundable regardless of outcome. Changing your name resets verification and requires re-verification ($20.00 again). CouthActs does not store government ID documents. Providers must additionally complete KYB verification.</p>
           </section>
 
-          {/* 4b */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-ocean-800">4b. Identity Verification</h2>
-            <p>
-              <strong>Requirement.</strong> All Users must complete identity verification before accessing core Platform features. Unverified Customers cannot post transportation needs. Unverified Providers cannot bid on opportunities. Identity verification requires submission of a valid government-issued photo identification document.
-            </p>
-            <p>
-              <strong>Name Match.</strong> The first and last name on your CouthActs&#8482; account must match exactly the name on your government-issued identification document. Any discrepancy will result in verification failure.
-            </p>
-            <p>
-              <strong>Verification Fee.</strong> Identity verification incurs a non-refundable fee of $20.00 USD, deducted from your CouthActs&#8482; Wallet at the time of submission. You must have sufficient Wallet balance before initiating verification. The verification fee is non-refundable regardless of the verification outcome (approved, rejected, or pending).
-            </p>
-            <p>
-              <strong>Re-Verification.</strong> Changing your first or last name on your account will immediately reset your verification status to &quot;Pending&quot; and restrict access to Platform features until re-verification is completed. Re-verification incurs the same $20.00 USD fee. This policy exists to maintain the integrity of identity-verified transactions on the Platform.
-            </p>
-            <p>
-              <strong>Verification Provider.</strong> Identity verification is processed through Persona, Inc., our third-party verification partner. By submitting your identification document, you consent to the processing of your personal data by Persona in accordance with their privacy policy and our <Link href="/privacy" className="text-ocean-600 underline hover:text-ocean-700">Privacy Policy</Link>.
-            </p>
-            <p>
-              <strong>Name Matching.</strong> During verification, the first and last name extracted from your government-issued identification document is compared against the name on your CouthActs&#8482; account. If the names do not match, verification will be rejected. You must update your account name to exactly match your government ID before attempting verification again.
-            </p>
-            <p>
-              <strong>Non-Refundable Fee on Rejection.</strong> The $20.00 USD verification fee is non-refundable regardless of the outcome. If verification is rejected due to name mismatch, document quality issues, ID expiration, or any other reason, the fee is not returned. Each subsequent verification attempt incurs an additional $20.00 USD fee. This policy incentivizes Users to ensure their account name is correct before submitting.
-            </p>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">5. The Escrow Service</h2>
+            <p>CouthActs holds customer funds in escrow pending job completion. Escrow fees are deducted from Provider payouts on a sliding scale: 8% under $500; 6% $500–$5,000; 4% $5,000–$50,000; 2% $50,000–$500,000; 1% above $500,000 (capped at $10,000). CouthActs escrow is not a banking product. Funds are not FDIC insured. CouthActs reserves the right to freeze escrow pending dispute resolution.</p>
           </section>
 
-          {/* 5 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-ocean-800">5. Wallet and Payments</h2>
-            <p>
-              The CouthActs&#8482; Wallet is a stored-value system used to facilitate transactions on the Platform. The Wallet is not a bank account, deposit account, or any form of financial institution product. Wallet balances do not earn interest.
-            </p>
-            <p>
-              <strong>Top-Ups.</strong> You may add funds to your Wallet via credit/debit card through our payment processor, Stripe, Inc. All top-ups are processed in United States Dollars (USD). The minimum top-up is $5.00 USD and the maximum single top-up is $50,000 USD. All top-ups are final and non-refundable.
-            </p>
-            <p>
-              <strong>Multi-Currency Display.</strong> Users may select a preferred display currency in their account settings. All prices, balances, and fees are displayed in the user&apos;s preferred currency alongside the USD equivalent. The internal ledger is maintained exclusively in USD. Exchange rates are provided for informational purposes and are updated periodically; the Company does not guarantee the accuracy of displayed conversion rates. All financial obligations are denominated in USD regardless of display currency.
-            </p>
-            <p>
-              <strong>Posting Fees.</strong> When a Customer creates a transportation posting, two charges are deducted from their Wallet: (a) a non-refundable posting fee, and (b) the full posted budget amount as an escrow hold. The posting fee consists of a base fee determined by transport mode (ranging from $2.00 to $50.00 USD) plus 0.5% of the posted budget, with an absolute minimum of $2.00 USD. Posting fees are non-refundable under any circumstance, including expiration, cancellation, or failure to receive bids.
-            </p>
-            <p>
-              <strong>Minimum Budgets.</strong> Each transport mode has a minimum budget requirement in USD to ensure service quality and platform viability. Minimum budgets range from $5.00 USD (Taxi, Courier) to $1,000.00 USD (Private Jet). Postings below the applicable minimum will be rejected. When posting in a non-USD currency, the equivalent USD amount at the current exchange rate must meet or exceed the minimum.
-            </p>
-            <p>
-              <strong>Budget Hold and Escrow.</strong> The full posted budget is held in the Customer&apos;s Wallet at the time of posting. When a Customer accepts a Provider&apos;s bid: (a) if the bid amount is less than the posted budget, the difference is immediately refunded to the Customer&apos;s Wallet; (b) an escrow record is created for the agreed bid amount. Escrow funds are released to the Provider&apos;s Wallet only upon mutual confirmation of delivery by both Customer and Provider. A platform escrow fee is deducted from the escrow amount before release to the Provider, calculated on a sliding scale: 8% for amounts under $500, 6% for $500–$5,000, 4% for $5,000–$50,000, 2% for $50,000–$500,000, and 1% for amounts above $500,000 (capped at $10,000).
-            </p>
-            <p>
-              <strong>Posting Expiration.</strong> Postings expire fourteen (14) days after creation if no bid has been accepted. Upon expiration, the budget hold is automatically refunded in full to the Customer&apos;s Wallet. The posting fee is not refunded.
-            </p>
-            <p>
-              <strong>Refunds.</strong> If a booking is cancelled by the Customer before the Provider begins transit, the full escrow amount is refunded to the Customer&apos;s Wallet. If a dispute is filed, escrow funds are frozen until resolution. The Company determines refund eligibility at its sole discretion during dispute resolution. Budget surplus refunds (when accepted bid is less than posted budget) are processed immediately and automatically.
-            </p>
-            <p>
-              <strong>Provider Payouts.</strong> Providers may withdraw Wallet funds to their bank account via Stripe Connect. Withdrawal processing times are subject to Stripe&apos;s policies and are not controlled by CouthActs&#8482;. Payout amounts reflect the agreed bid amount minus the applicable platform escrow fee (sliding scale based on transaction amount).
-            </p>
-            <p>
-              <strong>Fee Schedule Summary.</strong>
-            </p>
-            <table className="w-full text-sm border-collapse mt-2 mb-2">
-              <thead>
-                <tr className="border-b border-gray-200 text-left">
-                  <th className="py-2 pr-4 font-semibold">Fee</th>
-                  <th className="py-2 pr-4 font-semibold">Rate</th>
-                  <th className="py-2 font-semibold">When Charged</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                <tr>
-                  <td className="py-2 pr-4">Posting fee</td>
-                  <td className="py-2 pr-4">$2–$50 base + 0.5% of budget (min $2)</td>
-                  <td className="py-2">At posting creation (non-refundable)</td>
-                </tr>
-                <tr>
-                  <td className="py-2 pr-4">Budget hold</td>
-                  <td className="py-2 pr-4">100% of posted budget</td>
-                  <td className="py-2">At posting creation (refundable if no match)</td>
-                </tr>
-                <tr>
-                  <td className="py-2 pr-4">Escrow fee</td>
-                  <td className="py-2 pr-4">Sliding scale: 8% under $500, 6% $500–$5K, 4% $5K–$50K, 2% $50K–$500K, 1% above $500K (capped at $10,000)</td>
-                  <td className="py-2">Deducted from provider payout on completion</td>
-                </tr>
-                <tr>
-                  <td className="py-2 pr-4">Wallet top-up</td>
-                  <td className="py-2 pr-4">No CouthActs&#8482; fee (Stripe processing fees apply)</td>
-                  <td className="py-2">At time of top-up (non-refundable)</td>
-                </tr>
-              </tbody>
-            </table>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">6. Posting Fees</h2>
+            <p>Posting fees are charged at posting and are non-refundable under all circumstances. Fees consist of a base fee by mode ($2–$50) plus 0.5% of budget, minimum $2.00. The full budget is held in the Customer&apos;s Wallet at posting. If no match within 14 days, the budget is refunded but the posting fee is not.</p>
           </section>
 
-          {/* 6 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-ocean-800">6. Customer Obligations</h2>
-            <p>Customers agree to:</p>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>Provide accurate and complete information in all postings, including origin, destination, cargo description, dimensions, weight, and any hazardous or special-handling requirements.</li>
-              <li>Maintain sufficient Wallet balance to cover posting fees and escrow holds.</li>
-              <li>Respond promptly to bids and booking communications.</li>
-              <li>Confirm delivery accurately and in good faith upon receipt of goods or completion of transport.</li>
-              <li>Not misuse the escrow system by falsely denying delivery or filing fraudulent disputes.</li>
-              <li>Comply with all applicable laws regarding the goods or persons being transported, including export controls, sanctions, and customs regulations.</li>
-            </ul>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">7. CouthActs Protection</h2>
+            <p>CouthActs Protection is a contractual platform guarantee offered by CouthActs, Inc. It is not an insurance product and CouthActs is not acting as an insurance carrier, broker, or agent. Protection tiers: No Coverage ($0), Basic ($15, up to $500), Standard ($35, up to $2,500), Premium ($75, up to $10,000), Elite (1.5% of budget, min $150, full declared value). Elite is mandatory for hazmat, oversized, heavy haul, armored, medical, private jet, and yacht charter. Fees are non-refundable. CouthActs Protection does not replace commercial insurance.</p>
           </section>
 
-          {/* 7 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-ocean-800">7. Provider Obligations</h2>
-            <p>Providers agree to:</p>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>Complete Know Your Business (KYB) verification and maintain accurate business information.</li>
-              <li>Hold all licenses, permits, insurance, and certifications required by applicable law for the transport modes they offer, including but not limited to DOT, MC, FMCSA, IMO, and FAA registrations where applicable.</li>
-              <li>Bid only on jobs they have the capacity, equipment, and legal authorization to fulfill.</li>
-              <li>Honor accepted bids and complete bookings on time and in accordance with the agreed terms.</li>
-              <li>Maintain adequate protection coverage for all transportation services provided through the Platform.</li>
-              <li>Report delivery status accurately and promptly through the Platform&apos;s tracking system.</li>
-              <li>Connect a valid Stripe Connect account for receiving payouts.</li>
-            </ul>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">8. CouthActs Advance</h2>
+            <p>CouthActs Advance is a receivables purchase program for eligible Elite Providers. CouthActs purchases 70% of a confirmed future escrow receivable at a 2.5% discount. This is not a loan or credit product. No interest is charged. Eligibility: Score 90+, 50+ jobs, no open disputes, active Stripe Connect. Repayment is automatic at escrow release. Providers who cancel after receiving an advance must repay immediately.</p>
           </section>
 
-          {/* 8 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-ocean-800">8. CouthActs&#8482; Score</h2>
-            <p>
-              The CouthActs&#8482; Score is a proprietary trust metric assigned to Providers based on factors including but not limited to: completion rate, on-time delivery rate, customer ratings, communication responsiveness, and dispute history. The Score is updated algorithmically and is provided for informational purposes to help Customers make informed decisions.
-            </p>
-            <p>
-              CouthActs&#8482; does not guarantee the accuracy, reliability, or predictive value of the Score. The Score does not constitute an endorsement, certification, or warranty of any Provider&apos;s services. Customers are solely responsible for evaluating Providers before accepting bids.
-            </p>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">9. CouthActs Academy</h2>
+            <p>CouthActs Academy provides professional development courses. Certificates are CouthActs credentials issued by CouthActs, Inc. — they do not constitute government-issued licenses or regulatory certifications. Course fees are non-refundable after content is accessed. Exam passing score is 70%. Retakes unlimited with 24-hour lockout after attempt 2.</p>
           </section>
 
-          {/* 9 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-ocean-800">9. Disputes</h2>
-            <p>
-              Either party to a booking may file a dispute through the Platform. Upon filing, escrow funds are immediately frozen. The Company will review disputes and may request evidence from both parties. Dispute resolution is at the Company&apos;s sole discretion, and may result in full or partial release of funds to either party.
-            </p>
-            <p>
-              You agree to cooperate with the dispute resolution process and to provide truthful information and evidence. Filing false or fraudulent disputes is grounds for immediate account termination and forfeiture of Wallet balance.
-            </p>
-            <p>
-              The Company&apos;s dispute resolution does not constitute arbitration or mediation under any applicable law. Either party retains the right to pursue legal remedies in a court of competent jurisdiction.
-            </p>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">10. APIs</h2>
+            <p>Provider API: BASIC 500 calls/mo, PROFESSIONAL 5,000 calls/mo, ENTERPRISE unlimited. Customer API: STARTER 1,000 calls/mo (hard limit), GROWTH 5,000 calls/mo ($0.20/call overage), ENTERPRISE unlimited. CouthActs does not guarantee API uptime but targets 99.9%. Webhook delivery is best-effort.</p>
           </section>
 
-          {/* 10 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-ocean-800">10. Prohibited Conduct</h2>
-            <p>You agree not to:</p>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>Use the Platform for any unlawful purpose, including transporting illegal goods, controlled substances, or sanctioned materials.</li>
-              <li>Circumvent, disable, or interfere with any security feature of the Platform.</li>
-              <li>Scrape, crawl, or use automated tools to access the Platform without written permission.</li>
-              <li>Manipulate the bidding system, CouthActs&#8482; Score, or review system through fraudulent activity, fake accounts, or coordinated behavior.</li>
-              <li>Conduct transactions outside the Platform to avoid escrow protections or platform fees.</li>
-              <li>Harass, threaten, or abuse other Users.</li>
-              <li>Upload false documentation, forged certifications, or misleading business information.</li>
-              <li>Use the Platform to launder money or finance terrorism.</li>
-            </ul>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">11. The CouthActs Wallet</h2>
+            <p>All top-ups are final and non-refundable. Min $5, max $50,000. Provider withdrawals: standard (free, 2-5 days) or instant (1.5% fee, 30 min). Min withdrawal $10. CouthActs is not a bank or money services business. Wallet balances are not FDIC insured.</p>
           </section>
 
-          {/* 11 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-ocean-800">11. Limitation of Liability</h2>
-            <p>
-              TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, COUTHACTS&#8482; INCORPORATED, ITS OFFICERS, DIRECTORS, EMPLOYEES, AGENTS, AND AFFILIATES SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING WITHOUT LIMITATION LOSS OF PROFITS, DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, RESULTING FROM:
-            </p>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>YOUR ACCESS TO, USE OF, OR INABILITY TO ACCESS OR USE THE PLATFORM;</li>
-              <li>ANY CONDUCT OR CONTENT OF ANY THIRD PARTY ON THE PLATFORM, INCLUDING WITHOUT LIMITATION ANY DEFAMATORY, OFFENSIVE, OR ILLEGAL CONDUCT OF OTHER USERS OR PROVIDERS;</li>
-              <li>ANY CONTENT OBTAINED FROM THE PLATFORM;</li>
-              <li>LOSS OF, DAMAGE TO, OR DELAY OF ANY GOODS OR PERSONS DURING TRANSPORT;</li>
-              <li>UNAUTHORIZED ACCESS, USE, OR ALTERATION OF YOUR TRANSMISSIONS OR CONTENT.</li>
-            </ul>
-            <p>
-              IN NO EVENT SHALL OUR TOTAL LIABILITY TO YOU EXCEED THE AMOUNTS PAID BY YOU TO COUTHACTS&#8482; IN PLATFORM FEES DURING THE TWELVE (12) MONTHS PRECEDING THE CLAIM.
-            </p>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">12. CouthActs Score</h2>
+            <p>Proprietary 0-100 rating based on completion rate, on-time performance, reviews, response time, disputes, account age, and verification. Updated after every completed job. CouthActs reserves the right to modify the algorithm. Decisions on scores are final.</p>
           </section>
 
-          {/* 12 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-ocean-800">12. Indemnification</h2>
-            <p>
-              You agree to indemnify, defend, and hold harmless CouthActs, Inc. and its officers, directors, employees, agents, and affiliates from and against any and all claims, damages, obligations, losses, liabilities, costs, and expenses (including reasonable attorney&apos;s fees) arising from: (a) your use of the Platform; (b) your violation of these Terms; (c) your violation of any third-party right, including intellectual property, property, or privacy rights; or (d) any claim that your content or conduct caused damage to a third party.
-            </p>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">13. Provider Obligations</h2>
+            <p>Providers warrant: valid credentials and licenses; regulatory compliance; adequate insurance; professional service; accurate representation of capabilities; and compliance with all applicable laws for their operating mode and jurisdiction.</p>
           </section>
 
-          {/* 13 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-ocean-800">13. Intellectual Property</h2>
-            <p>
-              The Platform, including its design, text, graphics, logos, icons, images, software, and the CouthActs&#8482; name and mark, are the exclusive property of Enemo Consulting Group, Inc., licensed to CouthActs, Inc., and are protected by copyright, trademark, and other intellectual property laws. You may not reproduce, distribute, modify, create derivative works of, publicly display, or otherwise exploit any Platform content without our prior written consent.
-            </p>
-            <p>
-              By posting content on the Platform (including postings, reviews, and profile information), you grant Enemo Consulting Group, Inc. and CouthActs, Inc. a non-exclusive, worldwide, royalty-free license to use, reproduce, modify, and display such content in connection with operating the Platform.
-            </p>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">14. Cancellation Policy</h2>
+            <p>Customer cancellation before transit: full budget refund, posting and protection fees kept. Provider cancellation: full refund to customer, Score penalty. No refunds on posting fees, protection fees, or verification fees under any circumstances.</p>
           </section>
 
-          {/* 14 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-ocean-800">14. Termination</h2>
-            <p>
-              We may suspend or terminate your account at any time, with or without cause and with or without notice, including for violation of these Terms. Upon termination: (a) your right to access the Platform ceases immediately; (b) any pending escrow will be resolved per our dispute resolution process; (c) remaining Wallet balance, less any amounts owed to the Company, will be available for withdrawal for thirty (30) days, after which unclaimed funds may be forfeited to the extent permitted by law.
-            </p>
-            <p>
-              You may delete your account at any time through the Platform settings. Account deletion does not relieve you of any obligations incurred prior to deletion.
-            </p>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">15. Dispute Resolution</h2>
+            <p>Escrow frozen immediately upon filing. CouthActs reviews evidence from both parties. Decisions are final. CouthActs is not liable for losses exceeding the escrow amount. Either party retains the right to pursue legal remedies.</p>
           </section>
 
-          {/* 15 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-ocean-800">15. Disclaimers</h2>
-            <p>
-              THE PLATFORM IS PROVIDED &quot;AS IS&quot; AND &quot;AS AVAILABLE&quot; WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
-            </p>
-            <p>
-              WE DO NOT WARRANT THAT: (A) THE PLATFORM WILL MEET YOUR REQUIREMENTS; (B) THE PLATFORM WILL BE UNINTERRUPTED, TIMELY, SECURE, OR ERROR-FREE; (C) THE RESULTS OBTAINED FROM THE PLATFORM WILL BE ACCURATE OR RELIABLE; OR (D) ANY ERRORS WILL BE CORRECTED.
-            </p>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">16. Prohibited Uses</h2>
+            <p>Transportation of illegal goods; human trafficking; money laundering; circumventing verification; multiple accounts; manipulating scores or reviews; unauthorized scraping; off-platform payments to avoid escrow; harassment; false documentation; any violation of applicable law.</p>
           </section>
 
-          {/* 16 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-ocean-800">16. Governing Law and Jurisdiction</h2>
-            <p>
-              These Terms shall be governed by and construed in accordance with the laws of the State of Delaware, United States of America, without regard to its conflict of law provisions. Any legal action or proceeding arising out of or relating to these Terms shall be brought exclusively in the federal or state courts located in the State of Delaware, and you consent to the personal jurisdiction of such courts.
-            </p>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">17. Limitation of Liability</h2>
+            <p>THE PLATFORM IS PROVIDED &quot;AS IS.&quot; COUTHACTS TOTAL LIABILITY SHALL NOT EXCEED FEES PAID IN THE 12 MONTHS PRECEDING THE CLAIM. COUTHACTS IS NOT LIABLE FOR LOST PROFITS, CONSEQUENTIAL, OR INDIRECT DAMAGES.</p>
           </section>
 
-          {/* 17 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-ocean-800">17. Severability</h2>
-            <p>
-              If any provision of these Terms is held to be invalid or unenforceable, such provision shall be struck and the remaining provisions shall be enforced to the fullest extent under law.
-            </p>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">18. Indemnification</h2>
+            <p>Users agree to indemnify CouthActs, Inc., Enemo Consulting Group, Inc., and their officers, directors, employees, and agents from any claims arising from platform use, violation of these Terms, or transport operations.</p>
           </section>
 
-          {/* 18 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-ocean-800">18. Entire Agreement</h2>
-            <p>
-              These Terms, together with the <Link href="/privacy" className="text-ocean-600 underline hover:text-ocean-700">Privacy Policy</Link>, constitute the entire agreement between you and CouthActs, Inc. regarding your use of the Platform and supersede all prior agreements and understandings.
-            </p>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">19. Intellectual Property</h2>
+            <p>All intellectual property is owned exclusively by Enemo Consulting Group, Inc. and licensed to CouthActs, Inc. Founded November 27, 2021. Unauthorized reproduction is prohibited.</p>
           </section>
 
-          {/* 19 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-ocean-800">19. Contact</h2>
-            <p>
-              For questions about these Terms, contact us at:<br />
-              <strong>CouthActs, Inc.</strong><br />
-              Email: legal@couthacts.com<br />
-            </p>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">20. Governing Law</h2>
+            <p>These Terms are governed by the laws of the State of Texas. Disputes shall be resolved in the courts of Dallas County, Texas, or through binding arbitration at CouthActs&apos; election.</p>
           </section>
+
+          <section>
+            <h2 className="text-lg font-display font-semibold text-ocean-800">21. Contact</h2>
+            <p>Legal: legal@couthacts.com &middot; Support: support@couthacts.com<br /><strong>CouthActs, Inc.</strong> &middot; The Adolphus Tower, Dallas, Texas</p>
+          </section>
+
         </div>
       </div>
     </div>

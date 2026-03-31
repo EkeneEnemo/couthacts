@@ -115,8 +115,18 @@ export function Navbar() {
                 </Link>
               )}
               {(user.role === "CUSTOMER" || user.role === "ADMIN") && (
-                <Link href="/postings/new">
-                  <Button size="sm" variant="secondary">Post a job</Button>
+                <>
+                  <Link href="/instant" className="text-sm font-medium text-sky-600 hover:text-sky-700">
+                    Instant
+                  </Link>
+                  <Link href="/postings/new">
+                    <Button size="sm" variant="secondary">Post a job</Button>
+                  </Link>
+                </>
+              )}
+              {user.role === "PROVIDER" && (
+                <Link href="/instant/provider" className="text-sm font-medium text-sky-600 hover:text-sky-700">
+                  Instant Jobs
                 </Link>
               )}
               <Link

@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 import { Navbar } from "@/components/navbar";
 import { Award, CheckCircle } from "lucide-react";
+import { PrintButton } from "@/components/print-button";
 
 export default async function CertificatePage({
   params,
@@ -68,9 +69,7 @@ export default async function CertificatePage({
         </div>
 
         <div className="mt-6 text-center">
-          <button onClick={() => window.print()} className="text-sm text-ocean-600 hover:text-ocean-700 font-medium">
-            Print / Save as PDF
-          </button>
+          <PrintButton />
         </div>
       </div>
     </div>

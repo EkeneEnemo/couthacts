@@ -48,7 +48,7 @@ CouthActs covers the full spectrum of transportation needs:
 - **Hazmat** — Hazardous materials (Class 1-9)
 - **Oversized Cargo** — Permit-required loads
 
-![Modern fleet of commercial vehicles ready for dispatch](https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1200&q=80)
+![Modern fleet of commercial vehicles ready for dispatch](https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=1200&q=80)
 
 ---
 
@@ -95,7 +95,7 @@ CouthActs charges transparent, sliding-scale fees:
 - **Identity verification** — $20 per KYC attempt (non-refundable)
 - **No bid fees** — It costs you nothing to bid on a job
 
-![Professional transportation dashboard for managing operations](https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80)
+![Professional transportation dashboard for managing operations](https://images.unsplash.com/photo-1562920618-5d03a67a0dfc?w=1200&q=80)
 
 The escrow fee is deducted from your payout on completion — you never pay it upfront. Your earnings go directly to your CouthActs Wallet, and you can withdraw to your bank account via Stripe Connect at any time.`,
   },
@@ -105,7 +105,7 @@ The escrow fee is deducted from your payout on completion — you never pay it u
     durationMins: 15,
     content: `## Your Profile Is Your Storefront
 
-![Professional business presentation and brand identity](https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1200&q=80)
+![Professional business presentation and brand identity](https://images.unsplash.com/photo-1557862921-37829c790f19?w=1200&q=80)
 
 On CouthActs, customers see your profile before they accept your bid. A complete, professional profile can increase your bid acceptance rate by **3-5x** compared to an incomplete one. Think of your profile as your storefront — it needs to immediately communicate competence, reliability, and professionalism.
 
@@ -155,7 +155,7 @@ Bad example: "We are the best trucking company in Texas! Call us for all your ne
 Good example: "Licensed FMCSA carrier (MC-123456) with 12 years of cross-country freight experience. 48-foot flatbed fleet specializing in construction materials and heavy equipment. 98% on-time rate across 2,000+ deliveries. Hazmat endorsed. 24/7 dispatch."
 :::
 
-![Fleet of trucks ready for dispatch from the warehouse](https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1200&q=80)
+![Fleet of trucks ready for dispatch from the warehouse](https://images.unsplash.com/photo-1586191583817-a53cfc1cce9c?w=1200&q=80)
 
 ---
 
@@ -198,7 +198,7 @@ A fully completed profile with photos, certifications, and a professional bio si
     durationMins: 15,
     content: `## Identity Verification Is Non-Negotiable
 
-![Secure identity verification process](https://images.unsplash.com/photo-1553413077-190dd305871c?w=1200&q=80)
+![Secure identity verification process](https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=1200&q=80)
 
 CouthActs requires every user — customer and provider — to verify their identity before accessing platform features. You **cannot bid on any job** until your identity is verified. This is not optional, and there are no exceptions.
 
@@ -248,7 +248,7 @@ KYB is required for **non-solopreneur providers** — anyone operating under a b
 - **Hazmat**: CDL with HAZMAT endorsement, TSA background check clearance
 - **Armored**: State-issued security transport license
 
-![Global shipping infrastructure and documentation](https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&q=80)
+![Global shipping infrastructure and documentation](https://images.unsplash.com/photo-1616432043562-3671ea2e5242?w=1200&q=80)
 
 ### Review Process
 - The CouthActs compliance team **manually reviews** all business documents
@@ -276,7 +276,7 @@ Verification is your first investment in your CouthActs career. The $20 KYC fee 
     durationMins: 15,
     content: `## The Most Important Number on Your Profile
 
-![Performance analytics and scoring dashboard](https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80)
+![Performance analytics and scoring dashboard](https://images.unsplash.com/photo-1530685932526-5b62f9de90f6?w=1200&q=80)
 
 Your **CouthActs Score** is a 0-100 rating that determines your tier, affects how customers perceive your bids, and gates access to premium features like CouthActs Advance. It is recalculated after every completed booking. Understanding how it works is essential to building a successful provider career.
 
@@ -332,7 +332,7 @@ Each dispute filed against you in the last 12 months costs **5 points**. Maximum
 ### 7. Verification Bonus — 15 Points
 Full verification (KYC + KYB approved) = 15 bonus points. This is the fastest way to boost your score on Day 1.
 
-![Building a five-star reputation through consistent service](https://images.unsplash.com/photo-1533750516457-a7f992034fec?w=1200&q=80)
+![Building a five-star reputation through consistent service](https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1200&q=80)
 
 ---
 
@@ -372,7 +372,7 @@ A brand-new provider who gets verified on Day 1 starts at approximately **25-30 
     durationMins: 15,
     content: `## Finding the Right Jobs
 
-![Browse available transport jobs on the CouthActs platform](https://images.unsplash.com/photo-1553413077-190dd305871c?w=1200&q=80)
+![Browse available transport jobs on the CouthActs platform](https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=1200&q=80)
 
 Jobs on CouthActs come to you through two primary channels: the **Browse Jobs** page (all modes) and the **Load Board** (freight and cargo modes). Understanding how to find, evaluate, and bid on the right jobs is the difference between a struggling provider and a thriving one.
 
@@ -425,7 +425,7 @@ Before you bid, click into the job details to evaluate:
 5. **Protection tier** — Do you meet the required protection level?
 6. **Tracking layers** — What tracking is the customer expecting?
 
-![Logistics professionals reviewing cargo specifications](https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&q=80)
+![Logistics professionals reviewing cargo specifications](https://images.unsplash.com/photo-1524522173746-f628baad3644?w=1200&q=80)
 
 :::warning
 Never bid on a job you can't fulfill. Winning a job you can't complete damages your CouthActs Score far more than not bidding at all. A declined bid has zero impact — a cancelled booking deducts from your completion rate.
@@ -468,7 +468,7 @@ Example of a winning bid message: "Licensed FMCSA carrier with 8 years on the DF
 - Respond quickly if the customer asks follow-up questions — response time affects your score
 - If you're outbid, don't lower your price recklessly. Quality providers win on trust, not price
 
-![Professional fleet operations and dispatch management](https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1200&q=80)
+![Professional fleet operations and dispatch management](https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1200&q=80)
 
 :::key
 The best providers on CouthActs win 30-40% of the jobs they bid on. They achieve this not by being the cheapest, but by having high scores, professional profiles, and bid messages that demonstrate specific expertise for that exact job.
@@ -480,7 +480,7 @@ The best providers on CouthActs win 30-40% of the jobs they bid on. They achieve
     durationMins: 15,
     content: `## Real-Time Matching for Immediate Needs
 
-![Instant transportation matching for on-demand rides and deliveries](https://images.unsplash.com/photo-1511527661048-7fe73d85e9a4?w=1200&q=80)
+![Instant transportation matching for on-demand rides and deliveries](https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=1200&q=80)
 
 **CouthActs Instant** is the platform's real-time matching system for transportation needs that can't wait for the standard bidding process. When a customer needs a taxi now, a courier in the next hour, or a limo for tonight — they use Instant.
 
@@ -545,7 +545,7 @@ To receive Instant requests:
 - If you're 30 minutes from the pickup location, don't accept
 - If you're on another job, don't accept
 
-![Real-time dispatch for on-demand transportation services](https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80)
+![Real-time dispatch for on-demand transportation services](https://images.unsplash.com/photo-1548266652-99cf27701ced?w=1200&q=80)
 
 ---
 
@@ -581,7 +581,7 @@ Think of Instant Jobs as your accelerator. Standard postings pay more per job, b
     durationMins: 15,
     content: `## Understanding How Money Flows on CouthActs
 
-![Secure financial transactions and payment processing](https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80)
+![Secure financial transactions and payment processing](https://images.unsplash.com/photo-1536697246787-1f7ae568d89a?w=1200&q=80)
 
 The financial infrastructure of CouthActs is designed around one principle: **neither party takes on unnecessary risk**. The customer's money is secured before any provider touches the cargo. The provider is guaranteed payment upon confirmed completion. Understanding this flow is critical for your business.
 
@@ -621,7 +621,7 @@ Your wallet is your central financial hub on CouthActs:
 - **Transaction history** shows every credit, debit, and escrow event
 - **PDF receipts** are available for every transaction
 
-![Digital wallet and financial management dashboard](https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80)
+![Digital wallet and financial management dashboard](https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?w=1200&q=80)
 
 ---
 
@@ -683,7 +683,7 @@ This is a powerful cash-flow tool for providers who need capital to fund operati
     durationMins: 15,
     content: `## The 30-Day Playbook
 
-![Professional driver building a successful transportation career](https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1200&q=80)
+![Professional driver building a successful transportation career](https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=1200&q=80)
 
 Your first 30 days on CouthActs set the trajectory for your entire provider career. The providers who reach Trusted tier (75+) within their first 60 days are the ones who follow a disciplined approach. Here's the exact playbook.
 
@@ -727,7 +727,7 @@ At this stage, establish your communication rhythm:
 6. **At delivery** — QR/PIN confirmation + delivery photo
 7. **After completion** — Thank you + review request
 
-![Building customer relationships through professional communication](https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1200&q=80)
+![Building customer relationships through professional communication](https://images.unsplash.com/photo-1529074163764-98f8cbaa37b6?w=1200&q=80)
 
 :::tip
 After every successful delivery, send this message: "Thank you for choosing CouthActs. If you were satisfied with the service, I'd really appreciate a review — it helps me serve more customers like you." Most satisfied customers will leave a review if asked directly.
@@ -766,7 +766,7 @@ By now you should have 8-12 completed jobs. Check your CouthActs Score and ident
 - Mention your availability for future jobs
 - Be consistent on pricing — repeat customers value predictability
 
-![Successful fleet operation and business growth on CouthActs](https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1200&q=80)
+![Successful fleet operation and business growth on CouthActs](https://images.unsplash.com/photo-1583168813785-73428817ebb1?w=1200&q=80)
 
 ---
 

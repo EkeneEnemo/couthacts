@@ -10,7 +10,7 @@ const COURSE_3 = [
     durationMins: 20,
     content: `## Understanding Hazardous Materials Classification
 
-![Hazardous materials storage and handling](https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&q=80)
+![Hazardous materials storage and handling](https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&q=80)
 
 The United Nations classifies hazardous materials into **9 classes** based on their primary hazard characteristics. Every HAZMAT professional must know these classes cold — they dictate packaging, labeling, placarding, segregation, and emergency response. Misclassification is not a paperwork error; it is a safety failure that can result in catastrophic incidents, criminal liability, and fines exceeding $500,000.
 
@@ -69,7 +69,7 @@ Hazards not fitting other classes: lithium batteries (UN3480/UN3481), magnetized
 
 ## CouthActs HAZMAT Posting Requirements
 
-![Warehouse with organized cargo storage](https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=1200&q=80)
+![Warehouse with organized cargo storage](https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=1200&q=80)
 
 On CouthActs, every HAZMAT posting requires the customer to specify:
 1. **Hazard class and division** (e.g., Class 3, or Class 2, Division 2.1)
@@ -91,7 +91,7 @@ Understanding these 9 classes is not optional knowledge. It is the foundation up
     durationMins: 20,
     content: `## Packaging: The First Line of Defense
 
-![Organized warehouse with packaged materials](https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=1200&q=80)
+![Organized warehouse with packaged materials](https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80)
 
 Proper packaging is what stands between a routine shipment and a catastrophic release. Title 49 CFR Part 173 establishes the federal requirements for packaging hazardous materials in the United States. Every container, drum, box, cylinder, and intermediate bulk container used for HAZMAT transport must meet these standards.
 
@@ -161,7 +161,7 @@ Breaking this down:
 - **6HA1** — Composite packaging (plastic inner, steel outer)
 - **3H1/3H2** — Plastic jerricans
 
-![Safety equipment and compliance materials](https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200&q=80)
+![Safety equipment and compliance materials](https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80)
 
 ---
 
@@ -191,7 +191,7 @@ Failure to properly package HAZMAT materials can result in civil penalties excee
     durationMins: 20,
     content: `## The Paper Trail That Saves Lives
 
-![Safety documentation and compliance](https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200&q=80)
+![Safety documentation and compliance](https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80)
 
 Shipping papers are the critical communication link between shippers, carriers, and emergency responders. In a HAZMAT incident, the first thing a hazmat team looks for — after placards — is the shipping papers. They tell responders exactly what materials are involved, how much is present, and who to call for technical guidance.
 
@@ -243,7 +243,7 @@ When a shipment contains both hazardous and non-hazardous items, the HAZMAT entr
 - Highlighting or printing them in a **different color**
 - Placing an **"X"** in a column titled "HM" before each hazardous entry
 
-![Hazardous materials transport documentation](https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&q=80)
+![Hazardous materials transport documentation](https://images.unsplash.com/photo-1484399172022-72a90b12e3c1?w=1200&q=80)
 
 ---
 
@@ -283,7 +283,7 @@ Proper documentation is not bureaucracy — it is the information that saves liv
     durationMins: 20,
     content: `## The Visual Language of Hazard Communication
 
-![Safety signage and compliance](https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200&q=80)
+![Safety signage and compliance](https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80)
 
 Placards are the diamond-shaped signs displayed on transport vehicles carrying hazardous materials. They are the first — and sometimes only — information available to emergency responders approaching an incident scene. A firefighter arriving at a highway accident needs to know within seconds whether to approach with water, foam, or not at all. Placards provide that answer.
 
@@ -339,7 +339,7 @@ The 1,001-pound threshold for Table 2 materials is **aggregate** — meaning the
 
 ## The DANGEROUS Placard
 
-![Warehouse logistics and cargo management](https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=1200&q=80)
+![Warehouse logistics and cargo management](https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&q=80)
 
 When transporting a mixed load of **two or more Table 2 materials** that require placarding, you have two options:
 
@@ -402,7 +402,7 @@ Improper loading of incompatible hazardous materials has caused some of the wors
 
 **49 CFR 177.848** establishes the Segregation and Separation Chart — the definitive reference for which hazard classes can share the same vehicle and which must be kept apart.
 
-![Warehouse and cargo management](https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=1200&q=80)
+![Warehouse and cargo management](https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=1200&q=80)
 
 ---
 
@@ -452,7 +452,7 @@ Oxidizers provide oxygen to fires. Mixing them with anything flammable creates c
 
 ## Loading Procedures for HAZMAT
 
-![Safety compliance in transportation](https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200&q=80)
+![Safety compliance in transportation](https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&q=80)
 
 Follow these procedures for every HAZMAT loading operation:
 
@@ -500,7 +500,7 @@ On CouthActs, your loading and unloading documentation via the tracking system i
     durationMins: 20,
     content: `## Your First 30 Minutes: The ERG
 
-![Safety and emergency preparedness](https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200&q=80)
+![Safety and emergency preparedness](https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=1200&q=80)
 
 The **Emergency Response Guidebook (ERG)** is published jointly by the U.S. Department of Transportation (DOT), Transport Canada, and Mexico's Secretariat of Communications and Transport (SCT). It is updated every four years, with the current edition being the 2024 ERG.
 
@@ -543,7 +543,7 @@ The ERG is organized into four color-coded sections. Each section serves a speci
 
 ## How to Use the ERG: Step-by-Step
 
-![Hazardous materials identification](https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&q=80)
+![Hazardous materials identification](https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=1200&q=80)
 
 ### Step 1: Identify the Material
 - **Best source**: Shipping papers (accessible in the cab or on the driver's door)
@@ -603,7 +603,7 @@ If you encounter a HAZMAT emergency during a CouthActs job:
     durationMins: 20,
     content: `## Six Layers of HAZMAT Visibility
 
-![Dashboard and technology monitoring](https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&q=80)
+![Dashboard and technology monitoring](https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1200&q=80)
 
 CouthActs provides a multi-layered tracking system designed specifically for the heightened requirements of hazardous materials transport. While standard freight may use one or two tracking layers, HAZMAT transport activates up to **six simultaneous layers** — creating a comprehensive surveillance envelope around your shipment from origin to destination.
 
@@ -647,7 +647,7 @@ When an IoT sensor detects a reading outside the acceptable range, CouthActs gen
 
 ## Layer 3: GEOFENCE — Zone-Based Alerts
 
-![Highway and route monitoring](https://images.unsplash.com/photo-1494412574643-ff11b0a5eb95?w=1200&q=80)
+![Highway and route monitoring](https://images.unsplash.com/photo-1531266752426-aad472b7bbf4?w=1200&q=80)
 
 Geofences are virtual boundaries that trigger automated notifications when the HAZMAT shipment enters or exits a defined zone. CouthActs configures geofences for HAZMAT transport at three levels:
 
@@ -715,7 +715,7 @@ All six layers working together provide complete visibility over your HAZMAT shi
     durationMins: 20,
     content: `## Earning Your CouthActs HAZMAT Badge
 
-![Fleet of trucks and professional transport](https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1200&q=80)
+![Fleet of trucks and professional transport](https://images.unsplash.com/photo-1548345680-f5475ea5b093?w=1200&q=80)
 
 Completing the Hazardous Materials Handling course and passing the certification exam is a milestone in your CouthActs provider career. This certification unlocks an entire category of high-value jobs that most providers cannot access — giving you a significant competitive advantage.
 
@@ -768,7 +768,7 @@ The CouthActs HAZMAT certification is a platform qualification. You MUST also ho
 
 ## CouthActs HAZMAT Job Requirements
 
-![Dashboard monitoring and compliance tools](https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&q=80)
+![Dashboard monitoring and compliance tools](https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?w=1200&q=80)
 
 On the CouthActs platform, HAZMAT jobs have specific requirements that the system enforces automatically:
 
@@ -834,7 +834,7 @@ const COURSE_4 = [
     durationMins: 20,
     content: `## The Economics of Reputation
 
-![Five-star customer reviews](https://images.unsplash.com/photo-1533750516457-a7f992034fec?w=1200&q=80)
+![Five-star customer reviews](https://images.unsplash.com/photo-1515622097508-5f0a3e3d3be4?w=1200&q=80)
 
 Your CouthActs Score is a 100-point rating that directly determines your earning potential. Of those 100 points, **Review Average contributes 20 points** — the same weight as On-Time Rate, and nearly as much as Completion Rate (25 points). This means customer satisfaction is not a soft skill; it is a hard metric with measurable financial impact.
 
@@ -860,7 +860,7 @@ On CouthActs, trust is worth a 10-20% price premium. Every 5-star review you ear
 
 ## The Repeat Customer Multiplier
 
-![Professional customer communication](https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&q=80)
+![Professional customer communication](https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&q=80)
 
 Acquiring a new customer on CouthActs requires browsing jobs, writing compelling bids, and competing against other providers. Retaining an existing customer requires only doing excellent work.
 
@@ -893,7 +893,7 @@ Customer excellence is not about being "nice." It is about being professional, p
     durationMins: 20,
     content: `## The 7-Phase Communication Framework
 
-![Professional communication in transit](https://images.unsplash.com/photo-1511527661048-7fe73d85e9a4?w=1200&q=80)
+![Professional communication in transit](https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&q=80)
 
 Every CouthActs job follows a predictable lifecycle. Top-rated providers have a communication protocol for each phase — they never leave a customer wondering what is happening. The customer should feel informed at every step without having to ask.
 
@@ -943,7 +943,7 @@ At pickup, execute the full documentation protocol:
 2. Photograph the cargo loaded and secured — upload via DOCUMENT_POD_AI
 3. Send a departure message: "Cargo loaded and secured at [time]. All [X] pieces accounted for. Departing now. ETA to destination: [time] on [date]."
 
-![Cargo loading and inspection](https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=1200&q=80)
+![Cargo loading and inspection](https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200&q=80)
 
 :::important
 The pickup phase is where damage claims originate. If you photograph the cargo in good condition at loading, you have evidence that any damage occurred before your custody. If you do not photograph it, you have no defense against a post-delivery damage claim. Always photograph. No exceptions.
@@ -991,7 +991,7 @@ The 7-phase communication framework takes less than 15 minutes of total effort p
     durationMins: 20,
     content: `## Tracking as a Communication Channel
 
-![Technology dashboard for monitoring](https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&q=80)
+![Technology dashboard for monitoring](https://images.unsplash.com/photo-1517245386747-bb6e05f89c3a?w=1200&q=80)
 
 Most CouthActs providers treat the tracking system as a passive tool — it sends GPS pings, the customer sees a dot on a map, end of story. Top-rated providers treat the tracking system as an **active communication channel** that tells a story the customer can follow in real time.
 
@@ -1042,7 +1042,7 @@ The DOCUMENT_POD_AI tracking layer accepts photo uploads with notes at any time 
 - Photo of delivery location (dock number, building sign)
 - Photo of signed delivery receipt (if applicable)
 
-![Customer engagement and delivery](https://images.unsplash.com/photo-1511527661048-7fe73d85e9a4?w=1200&q=80)
+![Customer engagement and delivery](https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&q=80)
 
 ---
 
@@ -1091,7 +1091,7 @@ The tracking system is free. The effort is minimal. The return is enormous.`
     durationMins: 20,
     content: `## When Things Go Wrong
 
-![Professional problem resolution](https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&q=80)
+![Professional problem resolution](https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&q=80)
 
 Transportation is inherently unpredictable. Weather delays, mechanical failures, cargo damage, scheduling conflicts, and miscommunications are not exceptions — they are inevitable parts of the business. The question is not whether things will go wrong, but how you respond when they do.
 
@@ -1148,7 +1148,7 @@ This reframes the complaint as useful feedback rather than an attack. It closes 
 
 ## Dispute Prevention: Documentation Is Your Shield
 
-![Documentation and evidence management](https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80)
+![Documentation and evidence management](https://images.unsplash.com/photo-1527482797697-8795b05a13fe?w=1200&q=80)
 
 Most CouthActs disputes are about one of three things:
 1. **Cargo damage** — "The cargo arrived damaged."
@@ -1193,7 +1193,7 @@ If a customer files a formal dispute despite your best resolution efforts:
     durationMins: 20,
     content: `## The Lifetime Value of One Excellent Relationship
 
-![Five-star reputation building](https://images.unsplash.com/photo-1533750516457-a7f992034fec?w=1200&q=80)
+![Five-star reputation building](https://images.unsplash.com/photo-1541002037-f66d10fd093c?w=1200&q=80)
 
 In transportation, the most successful providers are not the ones who bid on the most jobs. They are the ones who turn first-time customers into repeat customers. A repeat customer is the most efficient revenue source in your business: zero acquisition cost, higher trust, less price sensitivity, and predictable scheduling.
 
@@ -1230,7 +1230,7 @@ Response time is worth 10 points on your CouthActs Score, but for repeat custome
 
 ### Strategy 4: Price Fairly and Consistently
 
-![Financial planning and fair pricing](https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80)
+![Financial planning and fair pricing](https://images.unsplash.com/photo-1501299716263-0d946e851f46?w=1200&q=80)
 
 Repeat customers value **price consistency** above all else. A customer who paid $2,500 for the same route three times does not want to see a $3,200 bid on the fourth run without explanation.
 
@@ -1285,7 +1285,7 @@ Building a repeat customer base is a long-term strategy. It compounds over time 
     durationMins: 20,
     content: `## The 20-Point Metric You Control
 
-![Highway and route planning](https://images.unsplash.com/photo-1494412574643-ff11b0a5eb95?w=1200&q=80)
+![Highway and route planning](https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?w=1200&q=80)
 
 On-Time Rate contributes **20 points** to your CouthActs Score — tied with Review Average as the second-highest weighted factor after Completion Rate (25 points). A provider with 100% on-time delivery earns all 20 points. A provider at 80% on-time earns 16 points. At 60%, just 12 points.
 
@@ -1327,7 +1327,7 @@ Your ETA calculation must include:
 - **Weather delays** (check the forecast for every region on your route)
 - **Construction zones** (check DOT websites for active construction)
 
-![Professional driver managing time](https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1200&q=80)
+![Professional driver managing time](https://images.unsplash.com/photo-1527766833261-b09c3163a791?w=1200&q=80)
 
 ### 3. Communicate ETA Changes Immediately
 
@@ -1382,7 +1382,7 @@ const COURSE_5 = [
     durationMins: 20,
     content: `## Recognizing When You Are Ready to Scale
 
-![Fleet of professional transport trucks](https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1200&q=80)
+![Fleet of professional transport trucks](https://images.unsplash.com/photo-1553413077-190dd305871c?w=1200&q=80)
 
 Most CouthActs providers start as single operators — one person, one vehicle, one transport mode. You drive, you manage, you communicate, you invoice. The transition from single operator to fleet owner is one of the most significant business decisions in your career, and the providers who get it right build generational wealth. The providers who get it wrong lose everything.
 
@@ -1410,7 +1410,7 @@ The most common scaling failure: adding vehicles before adding systems. A second
 
 ## The 5-Stage Growth Path on CouthActs
 
-![Dashboard and business analytics](https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&q=80)
+![Dashboard and business analytics](https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&q=80)
 
 ### Stage 1: Single Operator (1 vehicle)
 - You do everything: drive, bid, communicate, document, manage finances
@@ -1454,7 +1454,7 @@ The critical principle at every stage: **systems before vehicles.** Build the pr
     durationMins: 20,
     content: `## Maintenance: Your Largest Controllable Cost
 
-![Fleet trucks requiring maintenance](https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1200&q=80)
+![Fleet trucks requiring maintenance](https://images.unsplash.com/photo-1533413077-190dd305871c?w=1200&q=80)
 
 Vehicle maintenance is your single largest operational cost after fuel. For a commercial truck fleet, maintenance costs typically range from **$0.15 to $0.20 per mile** — meaning a truck running 100,000 miles per year costs $15,000-$20,000 annually in maintenance alone.
 
@@ -1508,7 +1508,7 @@ Require every driver to upload a DOCUMENT_POD_AI photo of their pre-trip inspect
 - Insurance policy review
 - Fire extinguisher inspection and certification
 
-![Dashboard for fleet management and monitoring](https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&q=80)
+![Dashboard for fleet management and monitoring](https://images.unsplash.com/photo-1581668854178-b58c74a7b0f7?w=1200&q=80)
 
 ---
 
@@ -1555,7 +1555,7 @@ Catching these issues through fuel efficiency monitoring often identifies mainte
     durationMins: 20,
     content: `## Your Drivers Are Your Business
 
-![Professional driver operating vehicle](https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1200&q=80)
+![Professional driver operating vehicle](https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1200&q=80)
 
 On CouthActs, your CouthActs Score is a single number attached to your provider account. Every driver operating under your account directly impacts that score — their on-time rate, their communication quality, their customer reviews, their incident record. One excellent driver can build your reputation. One poor driver can destroy it.
 
@@ -1596,7 +1596,7 @@ Before giving a new driver full access to your CouthActs bookings:
 
 ## Performance Management Standards
 
-![Meeting and team management](https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&q=80)
+![Meeting and team management](https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80)
 
 ### Setting Clear Standards
 Every driver should receive a written performance guide covering:
@@ -1643,7 +1643,7 @@ The CouthActs Score represents your entire fleet. Protecting it means holding ev
     durationMins: 20,
     content: `## Turning Miles Into Margin
 
-![Highway route optimization](https://images.unsplash.com/photo-1494412574643-ff11b0a5eb95?w=1200&q=80)
+![Highway route optimization](https://images.unsplash.com/photo-1517245386747-bb6e05f89c3a?w=1200&q=80)
 
 Fuel is typically **30-40% of a fleet's total operating cost**. For a truck burning 6 MPG at $4.00/gallon, that is $0.67 per mile in fuel alone. On a 1,000-mile run, fuel costs $670. Over 100,000 miles per year per truck, that is $67,000 annually — per vehicle.
 
@@ -1683,7 +1683,7 @@ Google Maps provides basic routing, but professional fleet operations require **
 - HAZMAT routing restrictions (if applicable)
 - Weigh station locations and PrePass eligibility
 
-![Fleet management dashboard](https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&q=80)
+![Fleet management dashboard](https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&q=80)
 
 Dedicated fleet routing solutions (Samsara, KeepTruckin/Motive, CoPilot Truck, Trucker Path) provide this truck-specific routing. The investment ($20-50/month per vehicle) pays for itself the first time a driver avoids a low bridge that Google Maps did not flag.
 
@@ -1744,7 +1744,7 @@ Fuel efficiency and route optimization are not one-time decisions. They are dail
     durationMins: 20,
     content: `## The Numbers That Matter
 
-![Financial planning and business analysis](https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80)
+![Financial planning and business analysis](https://images.unsplash.com/photo-1533750516457-a7f992034fec?w=1200&q=80)
 
 Most transportation businesses fail not because they cannot find jobs — but because they cannot manage cash flow. Revenue does not equal profit. A fleet doing $500,000 per year in revenue with $480,000 in costs is a $20,000 business that cannot survive one bad month.
 
@@ -1792,7 +1792,7 @@ Percentage of available hours that your vehicles are generating revenue.
 - **Long-haul target**: 80%+ utilization
 - **Local/regional target**: 60%+ utilization
 
-![Dashboard with fleet financial metrics](https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&q=80)
+![Dashboard with fleet financial metrics](https://images.unsplash.com/photo-1504805572947-34fad45aed93?w=1200&q=80)
 
 ---
 
@@ -1867,7 +1867,7 @@ Consult a transportation-specialized CPA. The depreciation strategies alone can 
     durationMins: 20,
     content: `## Automating Your Fleet Operations
 
-![Technology dashboard for fleet management](https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&q=80)
+![Technology dashboard for fleet management](https://images.unsplash.com/photo-1485217988980-11786ced9454?w=1200&q=80)
 
 As your fleet grows beyond 5 vehicles, manual management of CouthActs bookings becomes a bottleneck. You cannot have a dispatcher manually checking the Load Board, updating tracking for 10 vehicles, monitoring wallet balances, and managing booking status — all from a web browser. You need automation.
 
@@ -1927,7 +1927,7 @@ Key response fields:
 ### Tracking Automation
 **POST /api/provider/v1/tracking** — Push GPS coordinates and tracking events programmatically.
 
-![Highway fleet monitoring](https://images.unsplash.com/photo-1494412574643-ff11b0a5eb95?w=1200&q=80)
+![Highway fleet monitoring](https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200&q=80)
 
 Request body:
 - \`booking_id\`: The CouthActs booking ID
@@ -1992,7 +1992,7 @@ Webhooks enable **real-time reactive automation** — your systems respond to ev
     durationMins: 20,
     content: `## Growing Beyond Your First Mode
 
-![Multiple transport modes including rail](https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=1200&q=80)
+![Multiple transport modes including rail](https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1200&q=80)
 
 Once your fleet is running efficiently in one transport mode, CouthActs offers a unique opportunity: expansion into **adjacent modes** that leverage your existing expertise, infrastructure, and customer relationships. The platform supports 18 transport modes, and each one represents a new revenue stream that your competitors in single-mode operations cannot access.
 
@@ -2037,7 +2037,7 @@ Before adding a new mode to your CouthActs profile, complete this checklist:
 - If you need specialized operators (pilots, captains, heavy equipment operators), what is the hiring timeline and cost?
 - Can existing dispatch and administrative staff manage the new mode, or do you need additional support?
 
-![Cargo ship for multi-mode expansion](https://images.unsplash.com/photo-1605745341112-85968b19335b?w=1200&q=80)
+![Cargo ship for multi-mode expansion](https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=1200&q=80)
 
 ### 4. Insurance and Protection
 - What protection coverage does the new mode require?
@@ -2077,7 +2077,7 @@ The most successful fleet operators on CouthActs view multi-mode expansion not a
     durationMins: 20,
     content: `## The Enterprise Tier: CouthActs as Core Infrastructure
 
-![Fleet operations at enterprise scale](https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1200&q=80)
+![Fleet operations at enterprise scale](https://images.unsplash.com/photo-1605745341112-85968b19335b?w=1200&q=80)
 
 When your fleet reaches **15+ vehicles** or you are completing **50+ jobs per month**, you have outgrown the standard CouthActs experience. At this scale, the platform is no longer just a job board where you find occasional work — it is the operating system for your transportation business. The CouthActs Enterprise tier is designed for providers who operate at this level.
 
@@ -2109,7 +2109,7 @@ A single point of contact at CouthActs who:
 - **Response time SLA**: Under 1 hour for critical issues, under 4 hours for standard inquiries
 - **Escalation path**: Issues that affect active shipments are escalated immediately to the operations team
 
-![Business meeting and enterprise partnership](https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&q=80)
+![Business meeting and enterprise partnership](https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=1200&q=80)
 
 ---
 

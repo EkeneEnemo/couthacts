@@ -12,6 +12,8 @@ import {
   Plus,
   Truck,
 } from "lucide-react";
+import { ScoreWidget } from "@/components/score-gauge";
+import { ScoreBars } from "@/components/score-bars";
 
 const STATUS_STYLES: Record<string, { icon: typeof Clock; color: string }> = {
   OPEN: { icon: Clock, color: "text-sky-600 bg-sky-50" },
@@ -61,8 +63,13 @@ export default async function DashboardPage() {
     user.role === "PROVIDER"
       ? await db.provider.findUnique({
           where: { userId: user.id },
+          include: { reviews: { select: { rating: true } } },
         })
       : null;
+
+  const providerAvgRating = provider?.reviews?.length
+    ? provider.reviews.reduce((s: number, r: { rating: number }) => s + r.rating, 0) / provider.reviews.length
+    : 0;
 
   const providerBookingsQuery = db.booking.findMany({
     where: { providerId: provider?.id ?? "" },
@@ -244,19 +251,46 @@ export default async function DashboardPage() {
               </div>
             ) : (
               <>
-                {/* Stats */}
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                  {[
-                    { label: "CouthActs Score", value: provider.couthActsScore },
-                    { label: "Total Jobs", value: provider.totalJobs },
-                    { label: "On-Time Rate", value: `${(provider.onTimeRate * 100).toFixed(0)}%` },
-                    { label: "Score Tier", value: provider.scoreTier },
-                  ].map((stat) => (
-                    <div key={stat.label} className="rounded-xl bg-white p-5 shadow-sm border border-gray-100 text-center">
-                      <p className="text-2xl font-display font-bold text-ocean-700">{stat.value}</p>
-                      <p className="mt-1 text-xs text-gray-500">{stat.label}</p>
+                {/* CouthActs Score Widget */}
+                <div className="grid gap-6 lg:grid-cols-2">
+                  <ScoreWidget
+                    score={provider.couthActsScore}
+                    tier={provider.scoreTier}
+                    completionRate={provider.completionRate}
+                    onTimeRate={provider.onTimeRate}
+                    avgRating={providerAvgRating}
+                    avgResponseTime={provider.avgResponseTime}
+                    disputeCount={provider.disputeCount}
+                    isVerified={provider.isVerified}
+                  />
+                  <div className="space-y-4">
+                    {/* Quick stats */}
+                    <div className="grid grid-cols-2 gap-3">
+                      {[
+                        { label: "Total Jobs", value: provider.totalJobs },
+                        { label: "On-Time Rate", value: `${(provider.onTimeRate * 100).toFixed(0)}%` },
+                        { label: "Completion", value: `${(provider.completionRate * 100).toFixed(0)}%` },
+                        { label: "Reviews", value: provider.reviews.length },
+                      ].map((stat) => (
+                        <div key={stat.label} className="rounded-xl bg-white p-4 shadow-sm border border-gray-100 text-center">
+                          <p className="text-xl font-display font-bold text-ocean-700">{stat.value}</p>
+                          <p className="mt-0.5 text-[10px] text-gray-500 uppercase tracking-wider">{stat.label}</p>
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                    {/* Performance breakdown */}
+                    <div className="rounded-xl bg-white p-5 shadow-sm border border-gray-100">
+                      <p className="text-xs font-bold text-ocean-800 uppercase tracking-wider mb-3">Performance Breakdown</p>
+                      <ScoreBars
+                        completionRate={provider.completionRate}
+                        onTimeRate={provider.onTimeRate}
+                        avgRating={providerAvgRating}
+                        avgResponseTime={provider.avgResponseTime}
+                        disputeCount={provider.disputeCount}
+                        isVerified={provider.isVerified}
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 {/* Business verification banner */}

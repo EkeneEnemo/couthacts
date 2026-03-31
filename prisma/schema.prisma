@@ -172,9 +172,10 @@ model ApiKey {
   lastUsedAt   DateTime?
   requestCount Int       @default(0)
   monthlyLimit Int       @default(1000)
-  plan         ApiPlan   @default(STARTER)
-  createdAt    DateTime  @default(now())
-  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan                  ApiPlan   @default(STARTER)
+  overageCallsThisMonth Int       @default(0)
+  createdAt             DateTime  @default(now())
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@index([key])
 }
 
@@ -239,6 +240,7 @@ model Provider {
   disputes      Dispute[]       @relation("ProviderDisputes")
   availability  ProviderAvailability[]
   apiKeys       ProviderApiKey[]
+  advances      FinanceAdvance[]
 
   @@index([couthActsScore])
   @@index([isVerified])
@@ -398,6 +400,7 @@ model Booking {
   provider Provider        @relation("ProviderBookings", fields: [providerId], references: [id])
   escrow   Escrow?
   review   Review?
+  advance  FinanceAdvance?
   dispute  Dispute?
   tracking TrackingEvent[]
 
@@ -559,6 +562,7 @@ enum WalletTxType {
   ADVANCE_REPAYMENT
   REFUND
   ADJUSTMENT
+  API_OVERAGE
 }
 
 model ProviderApiKey {
@@ -582,4 +586,28 @@ enum ProviderApiPlan {
   BASIC
   PROFESSIONAL
   ENTERPRISE
+}
+
+model FinanceAdvance {
+  id            String        @id @default(cuid())
+  providerId    String
+  bookingId     String        @unique
+  escrowAmount  Decimal       @db.Decimal(12,2)
+  advanceAmount Decimal       @db.Decimal(12,2)
+  advanceFeeUsd Decimal       @db.Decimal(10,2)
+  feePercent    Decimal       @db.Decimal(5,2) @default(2.5)
+  status        FinanceStatus @default(PENDING)
+  requestedAt   DateTime      @default(now())
+  disbursedAt   DateTime?
+  repaidAt      DateTime?
+  provider      Provider      @relation(fields: [providerId], references: [id])
+  booking       Booking       @relation(fields: [bookingId], references: [id])
+}
+
+enum FinanceStatus {
+  PENDING
+  APPROVED
+  DISBURSED
+  REPAID
+  DEFAULTED
 }

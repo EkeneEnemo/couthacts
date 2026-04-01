@@ -205,7 +205,10 @@ function WalletContent() {
                       </div>
                       <div>
                         <p className="text-[14px] text-[#1D1D1F]">{t.description}</p>
-                        <p className="text-[11px] text-[#86868B]">{new Date(t.createdAt).toLocaleDateString()}</p>
+                        <p className="text-[11px] text-[#86868B]">
+                          {new Date(t.createdAt).toLocaleDateString()}{" "}
+                          {new Date(t.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", timeZoneName: "short" })}
+                        </p>
                       </div>
                     </div>
                     <p className={`text-[14px] font-semibold ${isCredit ? "text-[#34C759]" : "text-[#FF3B30]"}`}>

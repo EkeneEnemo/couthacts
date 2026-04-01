@@ -659,7 +659,7 @@ export default function BookingDetailPage() {
                         </div>
                         {booking.lastLocationUpdate && (
                           <p className="text-[11px] text-[#86868B]">
-                            Last updated: {new Date(booking.lastLocationUpdate).toLocaleTimeString()}
+                            Last updated: {new Date(booking.lastLocationUpdate).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", timeZoneName: "short" })}
                           </p>
                         )}
                       </div>

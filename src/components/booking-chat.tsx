@@ -167,6 +167,7 @@ export function BookingChat({ bookingId, currentUserId }: BookingChatProps) {
                       {new Date(msg.createdAt).toLocaleTimeString([], {
                         hour: "2-digit",
                         minute: "2-digit",
+                        timeZoneName: "short",
                       })}
                     </p>
                   </div>

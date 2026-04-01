@@ -349,7 +349,7 @@ export default function PublicTrackingPage() {
               </div>
               {data.lastLocationUpdate && (
                 <p className="px-4 py-2 text-[11px] text-[#86868B]">
-                  Last updated: {new Date(data.lastLocationUpdate).toLocaleTimeString()}
+                  Last updated: {new Date(data.lastLocationUpdate).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", timeZoneName: "short" })}
                 </p>
               )}
             </div>

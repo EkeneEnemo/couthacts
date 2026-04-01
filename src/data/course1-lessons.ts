@@ -7,7 +7,7 @@ export const course1Lessons = [
 
 ![A fleet of modern trucks ready for dispatch on a global transportation network](https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1200&q=80)
 
-CouthActs is a **global transportation infrastructure platform** that connects customers who need to move people or goods with verified, professional transportation providers. Unlike traditional freight brokers, ride-hailing apps, or one-dimensional logistics marketplaces, CouthActs operates across **18 distinct transport modes** — making it the most versatile transportation marketplace on the planet.
+CouthActs is a **global transportation infrastructure platform** that connects customers who need to move people or goods with verified, professional transportation providers. Unlike traditional freight brokers, ride-hailing apps, or one-dimensional logistics platforms, CouthActs operates across **18 distinct transport modes** — making it the most versatile transportation platform on the planet.
 
 ### The 18 Transport Modes
 
@@ -166,7 +166,7 @@ Your profile is a living document. Update it as you add vehicles, earn certifica
 
 ![A professional reviewing identification documents and business credentials](https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1200&q=80)
 
-Identity verification is **mandatory** on CouthActs. You cannot bid on any job, accept any Instant request, or receive any payment until your identity is verified. This is not bureaucratic overhead — it is the foundation of trust that makes the entire marketplace function.
+Identity verification is **mandatory** on CouthActs. You cannot bid on any job, accept any Instant request, or receive any payment until your identity is verified. This is not bureaucratic overhead — it is the foundation of trust that makes the entire platform function.
 
 Customers entrust providers with their cargo, their passengers, and their money. Providers commit time, fuel, and resources to jobs based on the promise of escrow-protected payment. Verification ensures that every participant on the platform is who they claim to be.
 
@@ -251,7 +251,7 @@ The name on your KYC verification (your personal identity) must match an authori
 **Pro tip for new providers:** Complete KYC on Day 1. Submit KYB documents on Day 2. While KYB is under review (1-3 days), you can still bid on jobs with your KYC verification — but having both badges will dramatically improve your win rate once KYB is approved.
 :::
 
-Verification is not a one-time hurdle — it is the credential that unlocks the full CouthActs marketplace. Treat it as your first professional investment on the platform.`
+Verification is not a one-time hurdle — it is the credential that unlocks the full CouthActs platform. Treat it as your first professional investment on the platform.`
   },
   {
     title: "Understanding the CouthActs Score",
@@ -359,8 +359,8 @@ Your score determines your tier, which is displayed as a badge on your profile:
 | Tier | Score Range | Badge Color | Perks |
 |------|------------|-------------|-------|
 | **Elite** | 90-100 | Gold | CouthActs Advance, priority support, featured placement |
-| **Trusted** | 75-89 | Silver | Standard marketplace access, review highlights |
-| **Established** | 60-74 | Gray | Full marketplace access |
+| **Trusted** | 75-89 | Silver | Standard platform access, review highlights |
+| **Established** | 60-74 | Gray | Full platform access |
 | **Probation** | Below 60 | Red | Limited bid volume, no Advance access |
 
 ![A modern highway at sunset representing the journey of building a professional reputation](https://images.unsplash.com/photo-1494412574643-ff11b0a5eb95?w=1200&q=80)

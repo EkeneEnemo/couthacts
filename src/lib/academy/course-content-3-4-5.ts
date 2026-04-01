@@ -2198,7 +2198,7 @@ Before reaching out to the enterprise team, prepare your data:
 The more data you bring to the conversation, the better the enterprise team can structure a pricing package that rewards your volume and supports your growth.
 :::
 
-The CouthActs Enterprise tier is designed for providers who have built successful fleet operations and are ready to scale with platform support. It transforms CouthActs from a marketplace into a strategic infrastructure partner for your transportation business.`
+The CouthActs Enterprise tier is designed for providers who have built successful fleet operations and are ready to scale with platform support. It transforms CouthActs from a platform into a strategic infrastructure partner for your transportation business.`
   }
 ];
 

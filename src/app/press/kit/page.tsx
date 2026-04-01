@@ -163,7 +163,7 @@ export default function PressKitPage() {
             <div className="mt-6 space-y-6">
               {[
                 {
-                  name: "CouthActs Marketplace",
+                  name: "CouthActs Platform",
                   desc: "The core platform. Customers post transportation needs across 18 modes. Verified providers bid. Funds are escrowed. Jobs are tracked in real-time. Both sides confirm completion before payment releases.",
                 },
                 {

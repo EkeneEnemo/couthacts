@@ -1243,7 +1243,7 @@ Upon passing the Certified Transport Safety exam, you earn the **Safety Certifie
 - You are committed to continuous safety improvement
 
 :::key
-The Safety Certified badge is visible on your profile, in search results, and on every bid you submit. In CouthActs marketplace testing, **bids from Safety Certified providers were accepted 28% more often** than equivalent bids from non-certified providers at the same price point. Customers actively seek out and prefer safety-certified transportation partners.
+The Safety Certified badge is visible on your profile, in search results, and on every bid you submit. In CouthActs platform analysis, **bids from Safety Certified providers were accepted 28% more often** than equivalent bids from non-certified providers at the same price point. Customers actively seek out and prefer safety-certified transportation partners.
 :::
 
 ## How Safety Impacts Every CouthActs Score Component

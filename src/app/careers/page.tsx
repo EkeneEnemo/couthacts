@@ -8,6 +8,7 @@ export const metadata = {
 const roles = [
   {
     title: "Senior Full Stack Engineer",
+    slug: "senior-full-stack-engineer",
     location: "Remote (US / EMEA)",
     type: "Full-time",
     description:
@@ -15,6 +16,7 @@ const roles = [
   },
   {
     title: "Growth Lead",
+    slug: "growth-lead",
     location: "Dallas, TX or Remote",
     type: "Full-time",
     description:
@@ -22,6 +24,7 @@ const roles = [
   },
   {
     title: "Enterprise Sales Manager",
+    slug: "enterprise-sales-manager",
     location: "Dallas, TX",
     type: "Full-time",
     description:
@@ -29,6 +32,7 @@ const roles = [
   },
   {
     title: "Operations Manager",
+    slug: "operations-manager",
     location: "Dallas, TX",
     type: "Full-time",
     description:
@@ -102,12 +106,12 @@ export default function CareersPage() {
                 <p className="mt-3 text-[13px] text-[#6E6E73] leading-relaxed">
                   {role.description}
                 </p>
-                <a
-                  href={`mailto:careers@couthacts.com?subject=Application: ${role.title}`}
-                  className="mt-4 inline-block rounded-full bg-[#007AFF] px-5 py-2.5 text-[13px] font-semibold text-white hover:bg-[#0055D4] transition"
+                <Link
+                  href={`/careers/apply?role=${role.slug}`}
+                  className="mt-4 inline-flex items-center justify-center rounded-full bg-[#007AFF] px-5 py-2.5 text-[13px] font-semibold text-white hover:bg-[#0055D4] active:scale-[0.97] transition-all min-h-[44px]"
                 >
                   Apply Now
-                </a>
+                </Link>
               </div>
             ))}
           </div>
@@ -122,12 +126,12 @@ export default function CareersPage() {
             We are always looking for exceptional people. Send your resume and a note
             about what you would bring to CouthActs.
           </p>
-          <a
-            href="mailto:careers@couthacts.com?subject=General Application"
-            className="mt-4 inline-block rounded-full bg-[#007AFF] px-5 py-2.5 text-[13px] font-semibold text-white hover:bg-[#0055D4] transition"
+          <Link
+            href="/careers/apply?role=general"
+            className="mt-4 inline-flex items-center justify-center rounded-full bg-[#007AFF] px-5 py-2.5 text-[13px] font-semibold text-white hover:bg-[#0055D4] active:scale-[0.97] transition-all min-h-[44px]"
           >
-            careers@couthacts.com
-          </a>
+            Submit General Application
+          </Link>
         </section>
 
         <div className="mt-16 flex flex-wrap gap-4 text-[13px] text-[#007AFF]">

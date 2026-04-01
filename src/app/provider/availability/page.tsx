@@ -16,18 +16,19 @@ export default function AvailabilityPage() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
 
-  useEffect(() => { loadMonth(); }, [year, month]);
-
-  async function loadMonth() {
-    const m = `${year}-${String(month + 1).padStart(2, "0")}`;
-    const res = await fetch(`/api/provider/availability?month=${m}`).then((r) => r.json());
-    const map: Record<string, Avail> = {};
-    for (const a of (res.availability || [])) {
-      const key = new Date(a.date).toISOString().split("T")[0];
-      map[key] = a;
+  useEffect(() => {
+    async function loadMonth() {
+      const m = `${year}-${String(month + 1).padStart(2, "0")}`;
+      const res = await fetch(`/api/provider/availability?month=${m}`).then((r) => r.json());
+      const map: Record<string, Avail> = {};
+      for (const a of (res.availability || [])) {
+        const key = new Date(a.date).toISOString().split("T")[0];
+        map[key] = a;
+      }
+      setAvail(map);
     }
-    setAvail(map);
-  }
+    loadMonth();
+  }, [year, month]);
 
   function toggleDay(dateStr: string) {
     setSaved(false);

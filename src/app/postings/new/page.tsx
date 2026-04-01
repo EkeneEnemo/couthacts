@@ -116,7 +116,7 @@ export default function NewPostingPage() {
   useEffect(() => {
     if (form.mode) {
       const min = getMinimumInsuranceTier(form.mode);
-      if (min === "ELITE") update({ insuranceTier: "ELITE" });
+      if (min === "ELITE") setForm((prev) => ({ ...prev, insuranceTier: "ELITE" }));
     }
   }, [form.mode]);
 

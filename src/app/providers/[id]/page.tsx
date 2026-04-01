@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { Navbar } from "@/components/navbar";
 import { ScoreGauge } from "@/components/score-gauge";
 import { ScoreBars } from "@/components/score-bars";
@@ -226,7 +227,7 @@ export default async function ProviderProfilePage({
                 <p className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em] mb-4">Fleet & Equipment</p>
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                   {provider.fleetPhotoUrls.map((url: string, i: number) => (
-                    <img key={i} src={url} alt={`Fleet ${i + 1}`} className="rounded-2xl object-cover aspect-[4/3] w-full" />
+                    <Image key={i} src={url} alt={`Fleet ${i + 1}`} width={400} height={300} className="rounded-2xl object-cover aspect-[4/3] w-full" />
                   ))}
                 </div>
               </div>

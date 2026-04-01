@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import { Navbar } from "@/components/navbar";
 import {
   CheckCircle,
@@ -48,9 +49,11 @@ export default async function UserProfilePage({
               {/* Avatar */}
               <div className="relative flex-shrink-0">
                 {user.avatarUrl ? (
-                  <img
+                  <Image
                     src={user.avatarUrl}
                     alt={`${user.firstName}'s profile`}
+                    width={88}
+                    height={88}
                     className="h-20 w-20 sm:h-[88px] sm:w-[88px] rounded-[22px] sm:rounded-[26px] object-cover shadow-lg"
                   />
                 ) : (
@@ -199,10 +202,12 @@ export default async function UserProfilePage({
                   <p className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em] mb-3">Fleet & Equipment</p>
                   <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                     {user.provider.fleetPhotoUrls.map((url: string, i: number) => (
-                      <img
+                      <Image
                         key={i}
                         src={url}
                         alt={`Fleet photo ${i + 1}`}
+                        width={400}
+                        height={300}
                         className="rounded-2xl object-cover aspect-[4/3] w-full"
                       />
                     ))}

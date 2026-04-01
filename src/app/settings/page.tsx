@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import Image from "next/image";
 import { Navbar } from "@/components/navbar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -167,7 +168,7 @@ export default function SettingsPage() {
           <div className="flex items-center gap-5">
             <div className="relative">
               {avatarUrl ? (
-                <img src={avatarUrl} alt="Profile" className="h-20 w-20 rounded-2xl object-cover" />
+                <Image src={avatarUrl} alt="Profile" width={80} height={80} className="h-20 w-20 rounded-2xl object-cover" />
               ) : (
                 <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-[#F5F5F7] text-[#86868B]">
                   <Camera className="h-8 w-8" />

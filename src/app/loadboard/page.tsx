@@ -42,22 +42,21 @@ export default function LoadBoardPage() {
   const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
+    async function loadData() {
+      const params = new URLSearchParams();
+      if (mode) params.set("mode", mode);
+      params.set("sort", sort);
+      if (hazmat) params.set("hazmat", "true");
+      if (oversized) params.set("oversized", "true");
+      if (fresh) params.set("fresh", "true");
+      const res = await fetch(`/api/loadboard?${params}`).then((r) => r.json());
+      setPosts(res.postings || []);
+      setLoading(false);
+    }
     loadData();
     const interval = setInterval(loadData, 30000); // Auto-refresh 30s
     return () => clearInterval(interval);
   }, [mode, sort, hazmat, oversized, fresh]);
-
-  async function loadData() {
-    const params = new URLSearchParams();
-    if (mode) params.set("mode", mode);
-    params.set("sort", sort);
-    if (hazmat) params.set("hazmat", "true");
-    if (oversized) params.set("oversized", "true");
-    if (fresh) params.set("fresh", "true");
-    const res = await fetch(`/api/loadboard?${params}`).then((r) => r.json());
-    setPosts(res.postings || []);
-    setLoading(false);
-  }
 
   function budgetRange(budget: number) {
     const low = Math.round(budget * 0.75);

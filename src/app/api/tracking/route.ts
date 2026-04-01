@@ -64,16 +64,15 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  // Push real-time update to the customer
-  pushToUser(booking.customerId, "tracking-update", {
-    bookingId,
-    lat,
-    lng,
-    speed,
-    heading,
-    note,
-    recordedAt: event.recordedAt.toISOString(),
-  }).catch((err) => console.error("[CouthActs]", err));
+  // Push real-time update to both the customer channel and the public tracking channel
+  const trackingPayload = {
+    bookingId, lat, lng, speed: speed ?? null, heading: heading ?? null,
+    note, recordedAt: event.recordedAt.toISOString(),
+  };
+  pushToUser(booking.customerId, "tracking-update", trackingPayload).catch((err) => console.error("[CouthActs]", err));
+  if (booking.trackingCode) {
+    pushToUser(`booking-${booking.trackingCode}`, "tracking-update", trackingPayload).catch((err) => console.error("[CouthActs]", err));
+  }
 
   return NextResponse.json({ success: true, eventId: event.id });
 }

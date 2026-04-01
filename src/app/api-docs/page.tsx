@@ -150,7 +150,7 @@ export default function ApiDocsPage() {
                 period: "",
                 desc: "For testing and prototyping.",
                 features: [
-                  "100 API calls / day",
+                  "1,000 API calls / month",
                   "Public tracking endpoint",
                   "Standard rate limits",
                   "Community support",
@@ -165,7 +165,7 @@ export default function ApiDocsPage() {
                 period: "/mo",
                 desc: "For production integrations.",
                 features: [
-                  "10,000 API calls / day",
+                  "5,000 API calls / month + $0.20/call overage",
                   "Webhook notifications",
                   "All tracking layers",
                   "Email support",
@@ -257,7 +257,7 @@ export default function ApiDocsPage() {
                 num: "02",
                 icon: Terminal,
                 title: "Make your first request",
-                desc: "Use your API key in the X-API-Key header. Start with GET /api/provider/v1/jobs to list available jobs.",
+                desc: "Use your API key in the Authorization: Bearer header. Start with GET /api/provider/v1/jobs to list available jobs.",
               },
               {
                 num: "03",
@@ -295,7 +295,7 @@ export default function ApiDocsPage() {
             </div>
             <pre className="text-[13px] text-white/35 font-mono leading-relaxed whitespace-pre-wrap">
               <code>{`curl -X GET https://couthacts.com/api/provider/v1/jobs \\
-  -H "X-API-Key: ca_live_your_key_here" \\
+  -H "Authorization: Bearer ca_live_your_key_here" \\
   -H "Content-Type: application/json"
 
 # Response
@@ -407,7 +407,7 @@ export default function ApiDocsPage() {
             </div>
             <pre className="text-[13px] text-white/35 font-mono leading-relaxed whitespace-pre-wrap">
               <code>{`POST /api/provider/v1/tracking
-X-API-Key: ca_live_your_key_here
+Authorization: Bearer ca_live_your_key_here
 
 {
   "bookingId": "clx...",
@@ -449,7 +449,7 @@ X-API-Key: ca_live_your_key_here
               {
                 icon: Key,
                 title: "API Key Authentication",
-                desc: "Every request requires an X-API-Key header. Keys are generated in Settings and can be revoked at any time.",
+                desc: "Every request requires an Authorization: Bearer header. Keys are generated in Settings and can be revoked at any time.",
               },
               {
                 icon: Lock,

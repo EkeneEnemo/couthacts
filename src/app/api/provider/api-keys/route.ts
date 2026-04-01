@@ -50,3 +50,29 @@ export async function POST(req: NextRequest) {
     message: "Save this key — it will not be shown again.",
   }, { status: 201 });
 }
+
+/**
+ * DELETE /api/provider/api-keys — Revoke an API key.
+ */
+export async function DELETE(req: NextRequest) {
+  const session = await getSession();
+  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const provider = await db.provider.findUnique({ where: { userId: session.user.id } });
+  if (!provider) return NextResponse.json({ error: "Provider not found" }, { status: 404 });
+
+  const { keyId } = await req.json();
+  if (!keyId) return NextResponse.json({ error: "keyId is required" }, { status: 400 });
+
+  const apiKey = await db.providerApiKey.findUnique({ where: { id: keyId } });
+  if (!apiKey || apiKey.providerId !== provider.id) {
+    return NextResponse.json({ error: "API key not found" }, { status: 404 });
+  }
+
+  await db.providerApiKey.update({
+    where: { id: keyId },
+    data: { isActive: false },
+  });
+
+  return NextResponse.json({ success: true, message: "API key revoked." });
+}

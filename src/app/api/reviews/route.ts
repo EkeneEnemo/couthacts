@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
   sendReviewReceivedEmail(
     providerRecord.user.email!, providerRecord.user.firstName,
     review.rating, reviewerName, posting?.title || "a booking", providerRecord.userId
-  ).catch(() => {});
+  ).catch((err) => console.error("[CouthActs]", err));
 
   return NextResponse.json({ review }, { status: 201 });
 }

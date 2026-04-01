@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
     bid.posting.title,
     trackingCode,
     booking.id
-  ).catch(() => {});
+  ).catch((err) => console.error("[CouthActs]", err));
 
   // Notify provider their bid was accepted
   const providerRecord = await db.provider.findUniqueOrThrow({
@@ -114,7 +114,7 @@ export async function POST(req: NextRequest) {
       bid.posting.title,
       `$${Number(bid.amountUsd).toFixed(2)}`,
       booking.id
-    ).catch(() => {});
+    ).catch((err) => console.error("[CouthActs]", err));
   }
 
   return NextResponse.json(
@@ -164,7 +164,7 @@ export async function PATCH(req: NextRequest) {
     // Email customer that job has started
     const startedCustomer = await db.user.findUnique({ where: { id: booking.customerId } });
     if (startedCustomer) {
-      sendBookingStartedEmail(startedCustomer.email, startedCustomer.firstName, startedPosting.title, bookingId, startedCustomer.id).catch(() => {});
+      sendBookingStartedEmail(startedCustomer.email, startedCustomer.firstName, startedPosting.title, bookingId, startedCustomer.id).catch((err) => console.error("[CouthActs]", err));
     }
 
     return NextResponse.json({ booking: updated });
@@ -202,9 +202,9 @@ export async function PATCH(req: NextRequest) {
       }
       await notifyBookingComplete(completedBooking.provider.userId, completedBooking.posting.title, bookingId);
       const provUser = await db.user.findUnique({ where: { id: completedBooking.provider.userId } });
-      if (provUser) sendBookingCompletedEmail(provUser.email, provUser.firstName, completedBooking.posting.title, bookingId, provUser.id).catch(() => {});
+      if (provUser) sendBookingCompletedEmail(provUser.email, provUser.firstName, completedBooking.posting.title, bookingId, provUser.id).catch((err) => console.error("[CouthActs]", err));
       // Recalculate CouthActs Score
-      recalculateCouthActsScore(completedBooking.providerId).catch(() => {});
+      recalculateCouthActsScore(completedBooking.providerId).catch((err) => console.error("[CouthActs]", err));
     }
 
     const updated = await db.booking.findUniqueOrThrow({ where: { id: bookingId } });
@@ -245,8 +245,8 @@ export async function PATCH(req: NextRequest) {
       }
       await notifyBookingComplete(booking.customerId, completedBooking.posting.title, bookingId);
       const custUser = await db.user.findUnique({ where: { id: booking.customerId } });
-      if (custUser) sendBookingCompletedEmail(custUser.email, custUser.firstName, completedBooking.posting.title, bookingId, custUser.id).catch(() => {});
-      recalculateCouthActsScore(completedBooking.providerId).catch(() => {});
+      if (custUser) sendBookingCompletedEmail(custUser.email, custUser.firstName, completedBooking.posting.title, bookingId, custUser.id).catch((err) => console.error("[CouthActs]", err));
+      recalculateCouthActsScore(completedBooking.providerId).catch((err) => console.error("[CouthActs]", err));
     }
 
     const updated = await db.booking.findUniqueOrThrow({ where: { id: bookingId } });
@@ -289,8 +289,8 @@ export async function PATCH(req: NextRequest) {
     const cancelTitle = cancelPosting?.title || "a booking";
     const customer = await db.user.findUniqueOrThrow({ where: { id: booking.customerId } });
     const providerRecord = await db.provider.findUniqueOrThrow({ where: { id: booking.providerId }, include: { user: true } });
-    sendBookingCancelledEmail(customer.email!, customer.firstName, cancelTitle, bookingId, !!hadEscrow, customer.id).catch(() => {});
-    sendBookingCancelledEmail(providerRecord.user.email!, providerRecord.user.firstName, cancelTitle, bookingId, !!hadEscrow, providerRecord.userId).catch(() => {});
+    sendBookingCancelledEmail(customer.email!, customer.firstName, cancelTitle, bookingId, !!hadEscrow, customer.id).catch((err) => console.error("[CouthActs]", err));
+    sendBookingCancelledEmail(providerRecord.user.email!, providerRecord.user.firstName, cancelTitle, bookingId, !!hadEscrow, providerRecord.userId).catch((err) => console.error("[CouthActs]", err));
 
     return NextResponse.json({ success: true });
   }

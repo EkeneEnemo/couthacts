@@ -32,7 +32,7 @@ export async function POST() {
       results.push({ keyId: key.id, calls: key.overageCallsThisMonth, charged: overageAmount, status: "charged" });
       // Notify user
       if (key.user.email) {
-        sendApiOverageEmail(key.user.email, key.user.firstName, key.overageCallsThisMonth, overageAmount, key.userId).catch(() => {});
+        sendApiOverageEmail(key.user.email, key.user.firstName, key.overageCallsThisMonth, overageAmount, key.userId).catch((err) => console.error("[CouthActs]", err));
       }
     } catch {
       results.push({ keyId: key.id, calls: key.overageCallsThisMonth, charged: 0, status: "failed" });

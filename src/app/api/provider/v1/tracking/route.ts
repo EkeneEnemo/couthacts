@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
   if (booking.trackingCode) {
     pushToUser(`booking-${booking.trackingCode}`, "tracking-update", {
       bookingId, lat, lng, status, note, recordedAt: event.recordedAt.toISOString(),
-    }).catch(() => {});
+    }).catch((err) => console.error("[CouthActs]", err));
   }
 
   return NextResponse.json({

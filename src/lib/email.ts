@@ -1,9 +1,10 @@
 import { Resend } from "resend";
 import { db } from "@/lib/db";
+import { createHmac } from "crypto";
 
 let _resend: Resend | null = null;
 
-function getResend() {
+export function getResend() {
   if (!_resend) {
     _resend = new Resend(process.env.RESEND_API_KEY!);
   }
@@ -12,6 +13,27 @@ function getResend() {
 
 const FROM = process.env.RESEND_FROM_EMAIL || "CouthActs <no-reply@couthacts.com>";
 const BASE = process.env.NEXTAUTH_URL || "https://couthacts.com";
+
+/**
+ * Generate an HMAC-based unsubscribe token for a user.
+ * No DB migration needed — derived deterministically from userId + secret.
+ */
+export function generateUnsubscribeToken(userId: string): string {
+  const secret = process.env.NEXTAUTH_SECRET || "couthacts-unsub-fallback";
+  return createHmac("sha256", secret).update(userId).digest("hex");
+}
+
+/**
+ * Verify an unsubscribe token and return the userId if valid.
+ */
+export function verifyUnsubscribeToken(userId: string, token: string): boolean {
+  return generateUnsubscribeToken(userId) === token;
+}
+
+function unsubscribeUrl(userId: string): string {
+  const token = generateUnsubscribeToken(userId);
+  return `${BASE}/email-unsubscribe?uid=${userId}&token=${token}`;
+}
 
 /**
  * Email notification types — users can toggle each one.
@@ -79,12 +101,30 @@ async function shouldSendEmail(userId: string, type: EmailNotificationType): Pro
   }
 }
 
-async function send(email: string, subject: string, html: string) {
-  await getResend().emails.send({ from: FROM, to: email, subject, html });
+async function send(email: string, subject: string, html: string, userId?: string) {
+  const headers: Record<string, string> = {};
+  if (userId) {
+    const unsub = unsubscribeUrl(userId);
+    headers["List-Unsubscribe"] = `<${unsub}>`;
+    headers["List-Unsubscribe-Post"] = "List-Unsubscribe=One-Click";
+  }
+  await getResend().emails.send({ from: FROM, to: email, subject, html, headers });
 }
 
-function wrap(body: string): string {
-  return `<div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">${body}</div>`;
+function wrap(body: string, userId?: string): string {
+  const footer = userId
+    ? `<div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #E8E8ED; text-align: center;">
+        <p style="color: #86868B; font-size: 11px; line-height: 1.6; margin: 0;">
+          CouthActs, Inc. &middot; Global Transportation Platform<br/>
+          <a href="${BASE}/settings" style="color: #86868B;">Manage email preferences</a>
+          &nbsp;&middot;&nbsp;
+          <a href="${unsubscribeUrl(userId)}" style="color: #86868B;">Unsubscribe</a>
+        </p>
+      </div>`
+    : `<div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #E8E8ED; text-align: center;">
+        <p style="color: #86868B; font-size: 11px; margin: 0;">CouthActs, Inc. &middot; Global Transportation Platform</p>
+      </div>`;
+  return `<div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">${body}${footer}</div>`;
 }
 
 function btn(href: string, text: string): string {
@@ -93,7 +133,7 @@ function btn(href: string, text: string): string {
 
 // ─── Email functions ───────────────────────────────────
 
-export async function sendWelcomeEmail(email: string, firstName: string) {
+export async function sendWelcomeEmail(email: string, firstName: string, userId?: string) {
   await send(email, "Welcome to CouthActs!", wrap(`
     <h1 style="color: #1E3A5F;">Welcome to CouthActs, ${firstName}!</h1>
     <p style="color: #444; line-height: 1.6;">You've joined the global transportation platform. Whether you're shipping cargo across the ocean or booking a ride across town, CouthActs connects you with verified providers across 18 transport modes.</p>
@@ -104,7 +144,7 @@ export async function sendWelcomeEmail(email: string, firstName: string) {
       <li>Post your first transport job</li>
     </ul>
     ${btn(`${BASE}/dashboard`, "Go to Dashboard")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendNewBidEmail(
@@ -117,7 +157,7 @@ export async function sendNewBidEmail(
     <p style="color: #444;">Hi ${firstName}, <strong>${providerName}</strong> placed a bid of <strong>${bidAmount}</strong> on your posting <strong>"${postingTitle}"</strong>.</p>
     <p style="color: #444;">Log in to review the bid, check the provider's CouthActs&trade; Score, and accept or wait for more offers.</p>
     ${btn(`${BASE}/postings/${postingId}`, "View Bids")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendBidAcceptedEmail(
@@ -130,7 +170,7 @@ export async function sendBidAcceptedEmail(
     <p style="color: #444;">Hi ${firstName}, your bid of <strong>${agreedAmount}</strong> on <strong>"${postingTitle}"</strong> has been accepted.</p>
     <p style="color: #444;">You can now start the job. The customer's funds are held in escrow and will be released to your wallet upon completion.</p>
     ${btn(`${BASE}/bookings/${bookingId}`, "View Booking")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendBookingConfirmationEmail(
@@ -146,7 +186,7 @@ export async function sendBookingConfirmationEmail(
     </div>
     <p style="color: #444;">Escrow funds are being held securely. The provider will only be paid once you confirm delivery.</p>
     ${btn(`${BASE}/bookings/${bookingId}`, "View Booking")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendBookingStartedEmail(
@@ -159,7 +199,7 @@ export async function sendBookingStartedEmail(
     <p style="color: #444;">Hi ${firstName}, the provider has started working on <strong>"${postingTitle}"</strong>.</p>
     <p style="color: #444;">You can track progress in real-time from your booking page.</p>
     ${btn(`${BASE}/bookings/${bookingId}`, "Track Job")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendSosAlertEmail(
@@ -190,7 +230,7 @@ export async function sendBookingCompletedEmail(
     <p style="color: #444;">Hi ${firstName}, <strong>"${postingTitle}"</strong> has been completed.</p>
     <p style="color: #444;">Both parties have confirmed. Thank you for using CouthActs!</p>
     ${btn(`${BASE}/bookings/${bookingId}`, "View Booking")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendEscrowReleasedEmail(
@@ -201,7 +241,7 @@ export async function sendEscrowReleasedEmail(
     <h1 style="color: #1E3A5F;">Payment Released!</h1>
     <p style="color: #444;">Hi ${firstName}, <strong>$${amount.toFixed(2)}</strong> has been released to your CouthActs wallet.</p>
     ${btn(`${BASE}/wallet`, "View Wallet")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendEscrowRefundedEmail(
@@ -212,7 +252,7 @@ export async function sendEscrowRefundedEmail(
     <h1 style="color: #1E3A5F;">Escrow Refunded</h1>
     <p style="color: #444;">Hi ${firstName}, <strong>$${amount.toFixed(2)}</strong> has been refunded to your CouthActs wallet.</p>
     ${btn(`${BASE}/bookings/${bookingId}`, "View Details")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendDisputeFiledEmail(
@@ -225,7 +265,7 @@ export async function sendDisputeFiledEmail(
     <p style="color: #444;">Hi ${firstName}, a dispute has been filed on the booking for <strong>${postingTitle}</strong>.</p>
     <p style="color: #444;">Escrow funds are frozen until the dispute is resolved. Our team will review and reach out.</p>
     ${btn(`${BASE}/bookings/${bookingId}`, "View Booking")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendVerificationApprovedEmail(
@@ -237,7 +277,7 @@ export async function sendVerificationApprovedEmail(
     <p style="color: #444;">Hi ${firstName}, your identity has been verified on CouthActs.</p>
     <p style="color: #444;">You can now post transportation needs and bid on opportunities.</p>
     ${btn(`${BASE}/dashboard`, "Go to Dashboard")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendWalletTopUpReceiptEmail(
@@ -253,7 +293,7 @@ export async function sendWalletTopUpReceiptEmail(
     </div>
     <p style="color: #444;">You can now use these funds to post jobs or fund escrow for bookings.</p>
     ${btn(`${BASE}/wallet`, "View Wallet")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendPaymentFailedEmail(
@@ -268,7 +308,7 @@ export async function sendPaymentFailedEmail(
     </div>
     <p style="color: #444;">Please check your payment method and try again. If the issue persists, contact your bank or reach out to us.</p>
     ${btn(`${BASE}${bookingId ? `/bookings/${bookingId}` : "/wallet"}`, bookingId ? "View Booking" : "Go to Wallet")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendBookingCancelledEmail(
@@ -281,7 +321,7 @@ export async function sendBookingCancelledEmail(
     <p style="color: #444;">Hi ${firstName}, the booking for <strong>"${postingTitle}"</strong> has been cancelled.</p>
     ${refunded ? `<p style="color: #444;">Escrow funds have been refunded to the customer's wallet.</p>` : ""}
     ${btn(`${BASE}/bookings/${bookingId}`, "View Details")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendPayoutInitiatedEmail(
@@ -297,7 +337,7 @@ export async function sendPayoutInitiatedEmail(
     </div>
     <p style="color: #444;">Funds typically arrive within 2–3 business days.</p>
     ${btn(`${BASE}/wallet`, "View Wallet")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendPayoutFailedEmail(
@@ -309,7 +349,7 @@ export async function sendPayoutFailedEmail(
     <p style="color: #444;">Hi ${firstName}, your withdrawal of <strong>$${amount.toFixed(2)}</strong> could not be completed. The funds have been returned to your CouthActs wallet.</p>
     <p style="color: #444;">Please verify your bank account details in Stripe Connect settings and try again.</p>
     ${btn(`${BASE}/wallet`, "View Wallet")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendStripeConnectReadyEmail(
@@ -320,7 +360,7 @@ export async function sendStripeConnectReadyEmail(
     <h1 style="color: #1E3A5F;">Payouts Enabled!</h1>
     <p style="color: #444;">Hi ${firstName}, your Stripe Connect account is fully set up. You can now withdraw earnings from your CouthActs wallet directly to your bank account.</p>
     ${btn(`${BASE}/wallet`, "Go to Wallet")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendReviewReceivedEmail(
@@ -336,7 +376,7 @@ export async function sendReviewReceivedEmail(
       <p style="margin: 0; font-size: 24px; color: #F59E0B;">${stars}</p>
     </div>
     ${btn(`${BASE}/dashboard`, "View Dashboard")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendScoreTierChangeEmail(
@@ -368,7 +408,7 @@ export async function sendScoreTierChangeEmail(
       <p style="margin: 4px 0 0; color: #444;">${perks[newTier] || ""}</p>
     </div>
     ${btn(`${BASE}/dashboard`, "View Dashboard")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendAdvanceDisbursedEmail(
@@ -386,7 +426,7 @@ export async function sendAdvanceDisbursedEmail(
     </div>
     <p style="color: #444;">The fee of $${advanceFee.toFixed(2)} will be deducted when the job is completed and escrow is released.</p>
     ${btn(`${BASE}/bookings/${bookingId}`, "View Booking")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendCourseEnrolledEmail(
@@ -402,7 +442,7 @@ export async function sendCourseEnrolledEmail(
     </div>` : ""}
     <p style="color: #444;">Start your lessons now and complete all modules before taking the exam.</p>
     ${btn(`${BASE}/academy`, "Go to Academy")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendExamResultEmail(
@@ -421,7 +461,7 @@ export async function sendExamResultEmail(
     </div>
     ${passed && certificateId ? `<p style="color: #444;">Your certificate ID: <strong>${certificateId}</strong></p>` : ""}
     ${btn(`${BASE}/academy`, passed ? "View Certificate" : "Review & Retake")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendAccountSuspendedEmail(
@@ -433,7 +473,7 @@ export async function sendAccountSuspendedEmail(
     <p style="color: #444;">Hi ${firstName}, your CouthActs account has been suspended by our team.</p>
     <p style="color: #444;">While suspended, you cannot post jobs, place bids, or withdraw funds. Any active bookings remain unaffected until completion.</p>
     <p style="color: #444;">If you believe this is an error, please contact us at <a href="mailto:support@couthacts.com" style="color: #2563EB;">support@couthacts.com</a>.</p>
-  `));
+  `, userId), userId);
 }
 
 export async function sendAccountReactivatedEmail(
@@ -444,7 +484,7 @@ export async function sendAccountReactivatedEmail(
     <h1 style="color: #1E3A5F;">Account Reactivated</h1>
     <p style="color: #444;">Hi ${firstName}, your CouthActs account is now active again. You can post jobs, place bids, and use all platform features.</p>
     ${btn(`${BASE}/dashboard`, "Go to Dashboard")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendKycRejectedEmail(
@@ -456,7 +496,7 @@ export async function sendKycRejectedEmail(
     <p style="color: #444;">Hi ${firstName}, your identity verification was not approved. This may be due to document quality, a name mismatch, or an expired ID.</p>
     <p style="color: #444;">You can resubmit your verification from Settings. If you need assistance, contact <a href="mailto:support@couthacts.com" style="color: #2563EB;">support@couthacts.com</a>.</p>
     ${btn(`${BASE}/settings`, "Go to Settings")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendBusinessApprovedEmail(
@@ -467,7 +507,7 @@ export async function sendBusinessApprovedEmail(
     <h1 style="color: #1E3A5F;">Business Verified!</h1>
     <p style="color: #444;">Hi ${firstName}, your business documents have been reviewed and approved. You can now bid on jobs that require business verification.</p>
     ${btn(`${BASE}/dashboard`, "Go to Dashboard")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendBusinessRejectedEmail(
@@ -479,7 +519,7 @@ export async function sendBusinessRejectedEmail(
     <p style="color: #444;">Hi ${firstName}, your business documents were not approved. Please review your submitted documents and ensure they are valid, legible, and unexpired.</p>
     <p style="color: #444;">You can resubmit from your provider settings, or contact <a href="mailto:support@couthacts.com" style="color: #2563EB;">support@couthacts.com</a> for assistance.</p>
     ${btn(`${BASE}/settings`, "Resubmit Documents")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendReverificationRequiredEmail(
@@ -491,7 +531,7 @@ export async function sendReverificationRequiredEmail(
     <p style="color: #444;">Hi ${firstName}, because you changed your name on your profile, your identity verification has been reset for security purposes.</p>
     <p style="color: #444;">Please re-verify your identity to continue posting jobs and placing bids.</p>
     ${btn(`${BASE}/settings`, "Verify Identity")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendApiOverageEmail(
@@ -509,7 +549,7 @@ export async function sendApiOverageEmail(
     </div>
     <p style="color: #444;">This amount was deducted from your CouthActs wallet. Review your usage in Settings.</p>
     ${btn(`${BASE}/settings`, "View API Usage")}
-  `));
+  `, userId), userId);
 }
 
 export async function sendApplicationConfirmationEmail(
@@ -546,5 +586,5 @@ export async function sendPostingExpiredEmail(
     </div>` : ""}
     <p style="color: #444;">${isInstant ? "Try increasing your budget or posting during peak hours." : "Consider adjusting your budget or requirements to attract more bids."}</p>
     ${btn(`${BASE}/dashboard`, "Post a New Job")}
-  `));
+  `, userId), userId);
 }

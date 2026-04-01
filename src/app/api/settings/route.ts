@@ -70,7 +70,7 @@ export async function PATCH(req: NextRequest) {
   if (nameChanged && currentUser.kycStatus === "APPROVED") {
     sendReverificationRequiredEmail(
       user.email!, user.firstName, user.id
-    ).catch(() => {});
+    ).catch((err) => console.error("[CouthActs]", err));
   }
 
   return NextResponse.json({ user });

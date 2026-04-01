@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
   sendAdvanceDisbursedEmail(
     session.user.email!, session.user.firstName,
     advanceAmount, advanceFee, escrowAmount, bookingId, session.user.id
-  ).catch(() => {});
+  ).catch((err) => console.error("[CouthActs]", err));
 
   return NextResponse.json({
     advanceId: advance.id, advanceAmount, advanceFee,

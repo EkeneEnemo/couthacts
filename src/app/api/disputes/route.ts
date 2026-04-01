@@ -64,10 +64,10 @@ export async function POST(req: NextRequest) {
   const customer = await db.user.findUniqueOrThrow({ where: { id: booking.customerId } });
   if (isCustomer) {
     await notifyDisputeFiled(providerRecord.userId, postingTitle, bookingId);
-    sendDisputeFiledEmail(providerRecord.user.email!, providerRecord.user.firstName, postingTitle, bookingId, providerRecord.userId).catch(() => {});
+    sendDisputeFiledEmail(providerRecord.user.email!, providerRecord.user.firstName, postingTitle, bookingId, providerRecord.userId).catch((err) => console.error("[CouthActs]", err));
   } else {
     await notifyDisputeFiled(booking.customerId, postingTitle, bookingId);
-    sendDisputeFiledEmail(customer.email!, customer.firstName, postingTitle, bookingId, booking.customerId).catch(() => {});
+    sendDisputeFiledEmail(customer.email!, customer.firstName, postingTitle, bookingId, booking.customerId).catch((err) => console.error("[CouthActs]", err));
   }
 
   return NextResponse.json({ dispute }, { status: 201 });

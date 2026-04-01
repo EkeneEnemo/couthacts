@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
     );
 
     // Send confirmation email
-    sendPayoutInitiatedEmail(session.user.email!, session.user.firstName, amount, session.user.id).catch(() => {});
+    sendPayoutInitiatedEmail(session.user.email!, session.user.firstName, amount, session.user.id).catch((err) => console.error("[CouthActs]", err));
 
     return NextResponse.json({
       success: true,

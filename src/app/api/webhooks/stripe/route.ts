@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
               // Send receipt email
               const topUpUser = await db.user.findUnique({ where: { id: meta.couthacts_user_id } });
               if (topUpUser?.email) {
-                sendWalletTopUpReceiptEmail(topUpUser.email, topUpUser.firstName, amountUsd, topUpUser.id).catch(() => {});
+                sendWalletTopUpReceiptEmail(topUpUser.email, topUpUser.firstName, amountUsd, topUpUser.id).catch((err) => console.error("[CouthActs]", err));
               }
             }
           }
@@ -120,7 +120,7 @@ export async function POST(req: NextRequest) {
             const failedUser = await db.user.findUnique({ where: { id: escrow.booking.customerId } });
             if (failedUser?.email) {
               const failReason = pi.last_payment_error?.message || "Payment could not be processed";
-              sendPaymentFailedEmail(failedUser.email, failedUser.firstName, failReason, escrow.bookingId || undefined, failedUser.id).catch(() => {});
+              sendPaymentFailedEmail(failedUser.email, failedUser.firstName, failReason, escrow.bookingId || undefined, failedUser.id).catch((err) => console.error("[CouthActs]", err));
             }
           }
         }
@@ -143,7 +143,7 @@ export async function POST(req: NextRequest) {
         if (newlyOnboarded) {
           for (const p of providers) {
             if (p.user.email) {
-              sendStripeConnectReadyEmail(p.user.email, p.user.firstName, p.userId).catch(() => {});
+              sendStripeConnectReadyEmail(p.user.email, p.user.firstName, p.userId).catch((err) => console.error("[CouthActs]", err));
             }
           }
         }
@@ -185,7 +185,7 @@ export async function POST(req: NextRequest) {
           // Notify provider
           const payoutUser = await db.user.findUnique({ where: { id: meta.couthacts_user_id } });
           if (payoutUser?.email) {
-            sendPayoutFailedEmail(payoutUser.email, payoutUser.firstName, amountUsd, payoutUser.id).catch(() => {});
+            sendPayoutFailedEmail(payoutUser.email, payoutUser.firstName, amountUsd, payoutUser.id).catch((err) => console.error("[CouthActs]", err));
           }
         }
         break;

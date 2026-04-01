@@ -59,12 +59,12 @@ export async function POST(req: NextRequest) {
     pushToUser(posting.customerId, "instant-accepted", {
       bookingId: booking.id, providerName: provider.businessName,
       trackingCode, providerId: provider.id,
-    }).catch(() => {});
+    }).catch((err) => console.error("[CouthActs]", err));
 
     // Email customer
     const customer = await db.user.findUnique({ where: { id: posting.customerId } });
     if (customer) {
-      sendBookingConfirmationEmail(customer.email, customer.firstName, posting.title, trackingCode, booking.id, customer.id).catch(() => {});
+      sendBookingConfirmationEmail(customer.email, customer.firstName, posting.title, trackingCode, booking.id, customer.id).catch((err) => console.error("[CouthActs]", err));
     }
 
     return NextResponse.json({

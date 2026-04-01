@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
         where: { userId: user.id },
         data: { isVerified: true, kybStatus: "APPROVED" },
       });
-      sendVerificationApprovedEmail(user.email, user.firstName, user.id).catch(() => {});
+      sendVerificationApprovedEmail(user.email, user.firstName, user.id).catch((err) => console.error("[CouthActs]", err));
     } else {
       await db.user.update({
         where: { id: user.id },

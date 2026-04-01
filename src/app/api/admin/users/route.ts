@@ -92,7 +92,7 @@ export async function PATCH(req: NextRequest) {
       data: { isActive: false },
     });
     const user = await getUser();
-    sendAccountSuspendedEmail(user.email!, user.firstName, user.id).catch(() => {});
+    sendAccountSuspendedEmail(user.email!, user.firstName, user.id).catch((err) => console.error("[CouthActs]", err));
     return NextResponse.json({ success: true });
   }
 
@@ -102,7 +102,7 @@ export async function PATCH(req: NextRequest) {
       data: { isActive: true },
     });
     const user = await getUser();
-    sendAccountReactivatedEmail(user.email!, user.firstName, user.id).catch(() => {});
+    sendAccountReactivatedEmail(user.email!, user.firstName, user.id).catch((err) => console.error("[CouthActs]", err));
     return NextResponse.json({ success: true });
   }
 
@@ -116,7 +116,7 @@ export async function PATCH(req: NextRequest) {
       data: { isVerified: true, kybStatus: "APPROVED" },
     });
     const user = await getUser();
-    sendVerificationApprovedEmail(user.email!, user.firstName, user.id).catch(() => {});
+    sendVerificationApprovedEmail(user.email!, user.firstName, user.id).catch((err) => console.error("[CouthActs]", err));
     return NextResponse.json({ success: true });
   }
 
@@ -126,7 +126,7 @@ export async function PATCH(req: NextRequest) {
       data: { kycStatus: "REJECTED" },
     });
     const user = await getUser();
-    sendKycRejectedEmail(user.email!, user.firstName, user.id).catch(() => {});
+    sendKycRejectedEmail(user.email!, user.firstName, user.id).catch((err) => console.error("[CouthActs]", err));
     return NextResponse.json({ success: true });
   }
 
@@ -136,7 +136,7 @@ export async function PATCH(req: NextRequest) {
       data: { isVerified: true, kybStatus: "APPROVED" },
     });
     const user = await getUser();
-    sendBusinessApprovedEmail(user.email!, user.firstName, user.id).catch(() => {});
+    sendBusinessApprovedEmail(user.email!, user.firstName, user.id).catch((err) => console.error("[CouthActs]", err));
     return NextResponse.json({ success: true });
   }
 
@@ -146,7 +146,7 @@ export async function PATCH(req: NextRequest) {
       data: { isVerified: false, kybStatus: "REJECTED" },
     });
     const user = await getUser();
-    sendBusinessRejectedEmail(user.email!, user.firstName, user.id).catch(() => {});
+    sendBusinessRejectedEmail(user.email!, user.firstName, user.id).catch((err) => console.error("[CouthActs]", err));
     return NextResponse.json({ success: true });
   }
 

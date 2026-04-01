@@ -19,7 +19,7 @@ export async function createNotification({
   });
 
   // Push real-time notification
-  pushToUser(userId, "notification", { id: notification.id, title, body, type, link }).catch(() => {});
+  pushToUser(userId, "notification", { id: notification.id, title, body, type, link }).catch((err) => console.error("[CouthActs]", err));
 
   return notification;
 }

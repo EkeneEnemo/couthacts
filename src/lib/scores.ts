@@ -117,7 +117,7 @@ export async function recalculateCouthActsScore(providerId: string) {
       sendScoreTierChangeEmail(
         providerUser.email, providerUser.firstName, tier, score,
         previousTier, providerUser.id
-      ).catch(() => {});
+      ).catch((err) => console.error("[CouthActs]", err));
     }
   }
 

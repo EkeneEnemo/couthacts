@@ -114,7 +114,7 @@ export async function POST(req: NextRequest) {
   pushToUser(recipientId, "new-message", {
     bookingId,
     message,
-  }).catch(() => {});
+  }).catch((err) => console.error("[CouthActs]", err));
 
   return NextResponse.json({ message }, { status: 201 });
 }

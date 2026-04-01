@@ -117,7 +117,7 @@ export async function GET() {
             data: { isVerified: true, kybStatus: "APPROVED" },
           });
 
-          sendVerificationApprovedEmail(user.email, user.firstName, user.id).catch(() => {});
+          sendVerificationApprovedEmail(user.email, user.firstName, user.id).catch((err) => console.error("[CouthActs]", err));
 
           return NextResponse.json({
             kycStatus: "APPROVED",

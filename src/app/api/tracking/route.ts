@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
     heading,
     note,
     recordedAt: event.recordedAt.toISOString(),
-  }).catch(() => {});
+  }).catch((err) => console.error("[CouthActs]", err));
 
   return NextResponse.json({ success: true, eventId: event.id });
 }

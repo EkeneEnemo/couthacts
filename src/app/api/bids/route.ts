@@ -106,13 +106,13 @@ export async function POST(req: NextRequest) {
       provider.businessName,
       `$${Number(bid.amountUsd).toFixed(2)}`,
       posting.id
-    ).catch(() => {});
+    ).catch((err) => console.error("[CouthActs]", err));
   }
   pushToPosting(body.postingId, "new-bid", {
     bidId: bid.id,
     amount: Number(bid.amountUsd),
     providerName: provider.businessName,
-  }).catch(() => {});
+  }).catch((err) => console.error("[CouthActs]", err));
 
   return NextResponse.json({ bid }, { status: 201 });
 }

@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
 
   sendCourseEnrolledEmail(
     session.user.email!, session.user.firstName, course.title, price, session.user.id
-  ).catch(() => {});
+  ).catch((err) => console.error("[CouthActs]", err));
 
   return NextResponse.json({ enrollmentId: enrollment.id }, { status: 201 });
 }

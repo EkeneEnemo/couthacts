@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
   sendExamResultEmail(
     session.user.email!, session.user.firstName,
     course?.title || "Academy Course", score, passed, certificateId, session.user.id
-  ).catch(() => {});
+  ).catch((err) => console.error("[CouthActs]", err));
 
   return NextResponse.json({
     score, passed, correct, total: questions.length,

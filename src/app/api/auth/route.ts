@@ -1,6 +1,7 @@
 import { db } from '@/lib/db'
 import { getOrCreateWallet } from '@/lib/wallet'
 import { sendWelcomeEmail } from '@/lib/email'
+import { rateLimit } from '@/lib/rate-limit'
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
 import { randomBytes } from 'crypto'
@@ -50,6 +51,9 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  const blocked = rateLimit(req, 10, "auth");
+  if (blocked) return blocked;
+
   try {
     const { action, email, password, firstName, lastName, role } = await req.json()
 
@@ -68,7 +72,7 @@ export async function POST(req: NextRequest) {
       await getOrCreateWallet(user.id)
 
       // Send welcome email (fire-and-forget)
-      sendWelcomeEmail(user.email, user.firstName).catch(() => {})
+      sendWelcomeEmail(user.email, user.firstName, user.id).catch((err) => console.error("[CouthActs]", err))
 
       const token = randomBytes(32).toString('hex')
       const expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)

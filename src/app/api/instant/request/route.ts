@@ -99,7 +99,7 @@ export async function POST(req: NextRequest) {
     const city = originAddress.split(",").pop()?.trim() || "global";
     pushToUser(`instant-${city.toLowerCase().replace(/\s/g, "-")}`, "new-instant-job", {
       postingId: posting.id, mode, originAddress, destinationAddress, budget,
-    }).catch(() => {});
+    }).catch((err) => console.error("[CouthActs]", err));
 
     // Schedule auto-cancel after 90 seconds
     const expiryUserId = session.user.id;
@@ -115,7 +115,7 @@ export async function POST(req: NextRequest) {
           // Notify customer
           const expiryUser = await db.user.findUnique({ where: { id: expiryUserId } });
           if (expiryUser?.email) {
-            sendPostingExpiredEmail(expiryUser.email, expiryUser.firstName, expiryTitle, budget, true, expiryUserId).catch(() => {});
+            sendPostingExpiredEmail(expiryUser.email, expiryUser.firstName, expiryTitle, budget, true, expiryUserId).catch((err) => console.error("[CouthActs]", err));
           }
         }
       } catch {}

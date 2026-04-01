@@ -1,12 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
-import { sendInquiryConfirmationEmail } from "@/lib/email";
-
-let _resend: Resend | null = null;
-function getResend() {
-  if (!_resend) _resend = new Resend(process.env.RESEND_API_KEY!);
-  return _resend;
-}
+import { getResend, sendInquiryConfirmationEmail } from "@/lib/email";
+import { rateLimit } from "@/lib/rate-limit";
 
 const FROM = process.env.RESEND_FROM_EMAIL || "CouthActs <no-reply@couthacts.com>";
 
@@ -15,6 +9,9 @@ const FROM = process.env.RESEND_FROM_EMAIL || "CouthActs <no-reply@couthacts.com
  * Validates required fields and sends a notification email to the sales team.
  */
 export async function POST(req: NextRequest) {
+  const blocked = rateLimit(req, 5, "enterprise-inquiry");
+  if (blocked) return blocked;
+
   try {
     const body = await req.json();
 
@@ -64,7 +61,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Send confirmation to the inquirer
-    sendInquiryConfirmationEmail(email, name, type || "enterprise").catch(() => {});
+    sendInquiryConfirmationEmail(email, name, type || "enterprise").catch((err) => console.error("[CouthActs]", err));
 
     return NextResponse.json({ success: true });
   } catch {

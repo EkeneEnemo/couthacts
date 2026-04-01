@@ -1,12 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
-import { sendApplicationConfirmationEmail } from "@/lib/email";
-
-let _resend: Resend | null = null;
-function getResend() {
-  if (!_resend) _resend = new Resend(process.env.RESEND_API_KEY!);
-  return _resend;
-}
+import { getResend, sendApplicationConfirmationEmail } from "@/lib/email";
+import { rateLimit } from "@/lib/rate-limit";
 
 const FROM = process.env.RESEND_FROM_EMAIL || "CouthActs <no-reply@couthacts.com>";
 
@@ -15,6 +9,9 @@ const FROM = process.env.RESEND_FROM_EMAIL || "CouthActs <no-reply@couthacts.com
  * Sends a notification email to the hiring team with applicant details.
  */
 export async function POST(req: NextRequest) {
+  const blocked = rateLimit(req, 5, "careers-apply");
+  if (blocked) return blocked;
+
   try {
     const formData = await req.formData();
 
@@ -90,7 +87,7 @@ export async function POST(req: NextRequest) {
     });
 
     // Send confirmation to applicant
-    sendApplicationConfirmationEmail(email, firstName, role).catch(() => {});
+    sendApplicationConfirmationEmail(email, firstName, role).catch((err) => console.error("[CouthActs]", err));
 
     return NextResponse.json({ success: true });
   } catch {

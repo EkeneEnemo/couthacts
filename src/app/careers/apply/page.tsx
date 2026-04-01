@@ -27,8 +27,8 @@ function ApplyForm() {
     linkedin: "",
     portfolio: "",
     coverLetter: "",
-    resumeName: "",
   });
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -38,29 +38,42 @@ function ApplyForm() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    if (!resumeFile) {
+      alert("Please upload your resume before submitting.");
+      return;
+    }
+
     setLoading(true);
 
-    // Send application via mailto fallback for now
-    const subject = encodeURIComponent(`Application: ${role.title}`);
-    const body = encodeURIComponent(
-      `Name: ${form.firstName} ${form.lastName}\n` +
-      `Email: ${form.email}\n` +
-      `Phone: ${form.phone}\n` +
-      `LinkedIn: ${form.linkedin}\n` +
-      `Portfolio: ${form.portfolio}\n\n` +
-      `Cover Letter:\n${form.coverLetter}\n\n` +
-      `Resume: ${form.resumeName || "(not attached — please reply with resume)"}\n\n` +
-      `Role: ${role.title}\n` +
-      `Submitted via CouthActs Careers`
-    );
+    try {
+      const formData = new FormData();
+      formData.append("role", role.title);
+      formData.append("firstName", form.firstName);
+      formData.append("lastName", form.lastName);
+      formData.append("email", form.email);
+      formData.append("phone", form.phone);
+      formData.append("linkedin", form.linkedin);
+      formData.append("portfolio", form.portfolio);
+      formData.append("coverLetter", form.coverLetter);
+      formData.append("resume", resumeFile);
 
-    window.open(`mailto:careers@couthacts.com?subject=${subject}&body=${body}`, "_self");
+      const res = await fetch("/api/careers/apply", {
+        method: "POST",
+        body: formData,
+      });
 
-    // Show success state after brief delay
-    setTimeout(() => {
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        const data = await res.json().catch(() => ({}));
+        alert(data.error || "Something went wrong. Please try again.");
+      }
+    } catch {
+      alert("Network error. Please check your connection and try again.");
+    } finally {
       setLoading(false);
-      setSubmitted(true);
-    }, 1500);
+    }
   }
 
   if (submitted) {
@@ -77,11 +90,11 @@ function ApplyForm() {
             </h1>
             <p className="mt-3 text-[14px] text-[#6E6E73] leading-relaxed">
               Thank you for your interest in <strong className="text-[#1D1D1F]">{role.title}</strong> at CouthActs.
-              Your email client opened with your application details. Our team reviews every submission
+              Your application and resume have been received. Our team reviews every submission
               and will reach out if there&apos;s a fit.
             </p>
             <p className="mt-4 text-[13px] text-[#86868B]">
-              Please ensure you attach your resume to the email before sending.
+              You&apos;ll receive a confirmation at the email address you provided.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
               <Link
@@ -209,18 +222,51 @@ function ApplyForm() {
           <div className="rounded-3xl bg-white/80 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 p-6 sm:p-8">
             <p className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.12em] mb-5">Application</p>
 
-            {/* Resume upload hint */}
+            {/* Resume upload */}
             <div>
-              <label className="block text-[12px] font-semibold text-[#1D1D1F] mb-1.5">Resume</label>
-              <div className="rounded-2xl border-2 border-dashed border-[#E8E8ED] bg-[#F5F5F7]/50 p-6 text-center">
-                <Upload className="h-6 w-6 text-[#C7C7CC] mx-auto" />
-                <p className="mt-2 text-[13px] text-[#6E6E73]">
-                  Please attach your resume to the email that opens when you submit.
-                </p>
-                <p className="mt-1 text-[11px] text-[#86868B]">
-                  PDF preferred &middot; Max 10 MB
-                </p>
-              </div>
+              <label className="block text-[12px] font-semibold text-[#1D1D1F] mb-1.5">Resume *</label>
+              <label
+                htmlFor="resume-upload"
+                className={`flex flex-col items-center justify-center rounded-2xl border-2 border-dashed p-6 text-center cursor-pointer transition-all min-h-[120px] ${
+                  resumeFile
+                    ? "border-[#34C759] bg-[#EEFBF1]/50"
+                    : "border-[#E8E8ED] bg-[#F5F5F7]/50 hover:border-[#007AFF] hover:bg-[#007AFF]/[0.02]"
+                }`}
+              >
+                {resumeFile ? (
+                  <>
+                    <CheckCircle className="h-6 w-6 text-[#34C759]" />
+                    <p className="mt-2 text-[13px] font-medium text-[#1D1D1F]">{resumeFile.name}</p>
+                    <p className="mt-0.5 text-[11px] text-[#86868B]">
+                      {(resumeFile.size / 1024 / 1024).toFixed(1)} MB &middot; Tap to replace
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <Upload className="h-6 w-6 text-[#C7C7CC]" />
+                    <p className="mt-2 text-[13px] text-[#6E6E73]">
+                      Tap to upload your resume
+                    </p>
+                    <p className="mt-0.5 text-[11px] text-[#86868B]">
+                      PDF, DOC, or DOCX &middot; Max 10 MB
+                    </p>
+                  </>
+                )}
+                <input
+                  id="resume-upload"
+                  type="file"
+                  accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  className="sr-only"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file && file.size <= 10 * 1024 * 1024) {
+                      setResumeFile(file);
+                    } else if (file) {
+                      alert("File must be under 10 MB.");
+                    }
+                  }}
+                />
+              </label>
             </div>
 
             {/* Cover letter */}

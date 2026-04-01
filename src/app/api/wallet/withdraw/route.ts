@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { debitWallet } from "@/lib/wallet";
 import { getStripe } from "@/lib/stripe";
+import { sendPayoutInitiatedEmail } from "@/lib/email";
 import { NextRequest, NextResponse } from "next/server";
 
 /**
@@ -63,6 +64,9 @@ export async function POST(req: NextRequest) {
       },
       { idempotencyKey: `withdraw-${session.user.id}-${Date.now()}` }
     );
+
+    // Send confirmation email
+    sendPayoutInitiatedEmail(session.user.email!, session.user.firstName, amount, session.user.id).catch(() => {});
 
     return NextResponse.json({
       success: true,

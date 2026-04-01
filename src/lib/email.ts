@@ -10,7 +10,7 @@ function getResend() {
   return _resend;
 }
 
-const FROM = process.env.RESEND_FROM_EMAIL || "CouthActs <onboarding@resend.dev>";
+const FROM = process.env.RESEND_FROM_EMAIL || "CouthActs <no-reply@couthacts.com>";
 const BASE = process.env.NEXTAUTH_URL || "https://couthacts.com";
 
 /**
@@ -30,6 +30,25 @@ export const EMAIL_NOTIFICATION_TYPES = {
   escrow_refunded: "Escrow refunded",
   dispute_filed: "Dispute filed",
   verification_approved: "Identity verified",
+  wallet_topup: "Wallet top-up receipt",
+  payment_failed: "Payment failed",
+  booking_cancelled: "Booking cancelled",
+  payout_initiated: "Withdrawal initiated",
+  payout_failed: "Withdrawal failed",
+  stripe_connect_ready: "Stripe Connect ready",
+  review_received: "New review received",
+  score_tier_change: "CouthActs Score tier change",
+  advance_disbursed: "Finance advance disbursed",
+  course_enrolled: "Academy course enrollment",
+  exam_result: "Academy exam result",
+  account_suspended: "Account suspended",
+  account_reactivated: "Account reactivated",
+  kyc_rejected: "Identity verification rejected",
+  business_approved: "Business verification approved",
+  business_rejected: "Business verification rejected",
+  reverification_required: "Re-verification required",
+  api_overage: "API overage charges",
+  posting_expired: "Posting expired",
 };
 
 export type EmailNotificationType = keyof typeof EMAIL_NOTIFICATION_TYPES;
@@ -218,5 +237,314 @@ export async function sendVerificationApprovedEmail(
     <p style="color: #444;">Hi ${firstName}, your identity has been verified on CouthActs.</p>
     <p style="color: #444;">You can now post transportation needs and bid on opportunities.</p>
     ${btn(`${BASE}/dashboard`, "Go to Dashboard")}
+  `));
+}
+
+export async function sendWalletTopUpReceiptEmail(
+  email: string, firstName: string, amount: number, userId?: string
+) {
+  if (userId && !(await shouldSendEmail(userId, "wallet_topup"))) return;
+  await send(email, `Wallet top-up: $${amount.toFixed(2)} added`, wrap(`
+    <h1 style="color: #1E3A5F;">Wallet Top-Up Successful</h1>
+    <p style="color: #444;">Hi ${firstName}, <strong>$${amount.toFixed(2)}</strong> has been added to your CouthActs wallet.</p>
+    <div style="background: #F0F9FF; padding: 16px; border-radius: 8px; margin: 16px 0;">
+      <p style="margin: 0; color: #0284C7;"><strong>Amount:</strong> $${amount.toFixed(2)}</p>
+      <p style="margin: 0; color: #0284C7;"><strong>Date:</strong> ${new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</p>
+    </div>
+    <p style="color: #444;">You can now use these funds to post jobs or fund escrow for bookings.</p>
+    ${btn(`${BASE}/wallet`, "View Wallet")}
+  `));
+}
+
+export async function sendPaymentFailedEmail(
+  email: string, firstName: string, reason: string, bookingId?: string, userId?: string
+) {
+  if (userId && !(await shouldSendEmail(userId, "payment_failed"))) return;
+  await send(email, "Payment failed — action required", wrap(`
+    <h1 style="color: #B91C1C;">Payment Failed</h1>
+    <p style="color: #444;">Hi ${firstName}, a payment on your account could not be processed.</p>
+    <div style="background: #FEF2F2; padding: 16px; border-radius: 8px; margin: 16px 0;">
+      <p style="margin: 0; color: #B91C1C;"><strong>Reason:</strong> ${reason}</p>
+    </div>
+    <p style="color: #444;">Please check your payment method and try again. If the issue persists, contact your bank or reach out to us.</p>
+    ${btn(`${BASE}${bookingId ? `/bookings/${bookingId}` : "/wallet"}`, bookingId ? "View Booking" : "Go to Wallet")}
+  `));
+}
+
+export async function sendBookingCancelledEmail(
+  email: string, firstName: string, postingTitle: string,
+  bookingId: string, refunded: boolean, userId?: string
+) {
+  if (userId && !(await shouldSendEmail(userId, "booking_cancelled"))) return;
+  await send(email, `Booking cancelled: ${postingTitle}`, wrap(`
+    <h1 style="color: #B91C1C;">Booking Cancelled</h1>
+    <p style="color: #444;">Hi ${firstName}, the booking for <strong>"${postingTitle}"</strong> has been cancelled.</p>
+    ${refunded ? `<p style="color: #444;">Escrow funds have been refunded to the customer's wallet.</p>` : ""}
+    ${btn(`${BASE}/bookings/${bookingId}`, "View Details")}
+  `));
+}
+
+export async function sendPayoutInitiatedEmail(
+  email: string, firstName: string, amount: number, userId?: string
+) {
+  if (userId && !(await shouldSendEmail(userId, "payout_initiated"))) return;
+  await send(email, `Withdrawal of $${amount.toFixed(2)} initiated`, wrap(`
+    <h1 style="color: #1E3A5F;">Withdrawal Initiated</h1>
+    <p style="color: #444;">Hi ${firstName}, your withdrawal of <strong>$${amount.toFixed(2)}</strong> has been submitted to your bank account.</p>
+    <div style="background: #F0F9FF; padding: 16px; border-radius: 8px; margin: 16px 0;">
+      <p style="margin: 0; color: #0284C7;"><strong>Amount:</strong> $${amount.toFixed(2)}</p>
+      <p style="margin: 0; color: #0284C7;"><strong>Date:</strong> ${new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</p>
+    </div>
+    <p style="color: #444;">Funds typically arrive within 2–3 business days.</p>
+    ${btn(`${BASE}/wallet`, "View Wallet")}
+  `));
+}
+
+export async function sendPayoutFailedEmail(
+  email: string, firstName: string, amount: number, userId?: string
+) {
+  if (userId && !(await shouldSendEmail(userId, "payout_failed"))) return;
+  await send(email, `Withdrawal of $${amount.toFixed(2)} failed`, wrap(`
+    <h1 style="color: #B91C1C;">Withdrawal Failed</h1>
+    <p style="color: #444;">Hi ${firstName}, your withdrawal of <strong>$${amount.toFixed(2)}</strong> could not be completed. The funds have been returned to your CouthActs wallet.</p>
+    <p style="color: #444;">Please verify your bank account details in Stripe Connect settings and try again.</p>
+    ${btn(`${BASE}/wallet`, "View Wallet")}
+  `));
+}
+
+export async function sendStripeConnectReadyEmail(
+  email: string, firstName: string, userId?: string
+) {
+  if (userId && !(await shouldSendEmail(userId, "stripe_connect_ready"))) return;
+  await send(email, "Stripe Connect is ready — you can now receive payouts!", wrap(`
+    <h1 style="color: #1E3A5F;">Payouts Enabled!</h1>
+    <p style="color: #444;">Hi ${firstName}, your Stripe Connect account is fully set up. You can now withdraw earnings from your CouthActs wallet directly to your bank account.</p>
+    ${btn(`${BASE}/wallet`, "Go to Wallet")}
+  `));
+}
+
+export async function sendReviewReceivedEmail(
+  email: string, firstName: string, rating: number,
+  reviewerName: string, postingTitle: string, userId?: string
+) {
+  if (userId && !(await shouldSendEmail(userId, "review_received"))) return;
+  const stars = "★".repeat(rating) + "☆".repeat(5 - rating);
+  await send(email, `New ${rating}-star review on "${postingTitle}"`, wrap(`
+    <h1 style="color: #1E3A5F;">New Review Received</h1>
+    <p style="color: #444;">Hi ${firstName}, <strong>${reviewerName}</strong> left a review on <strong>"${postingTitle}"</strong>.</p>
+    <div style="background: #F0F9FF; padding: 16px; border-radius: 8px; margin: 16px 0; text-align: center;">
+      <p style="margin: 0; font-size: 24px; color: #F59E0B;">${stars}</p>
+    </div>
+    ${btn(`${BASE}/dashboard`, "View Dashboard")}
+  `));
+}
+
+export async function sendScoreTierChangeEmail(
+  email: string, firstName: string, newTier: string, score: number,
+  previousTier: string, userId?: string
+) {
+  if (userId && !(await shouldSendEmail(userId, "score_tier_change"))) return;
+  const upgraded = ["PROBATION", "ESTABLISHED", "TRUSTED", "ELITE"].indexOf(newTier) >
+    ["PROBATION", "ESTABLISHED", "TRUSTED", "ELITE"].indexOf(previousTier);
+  const tierLabels: Record<string, string> = {
+    ELITE: "Elite (90–100)",
+    TRUSTED: "Trusted (75–89)",
+    ESTABLISHED: "Established (60–74)",
+    PROBATION: "Probation (0–59)",
+  };
+  const perks: Record<string, string> = {
+    ELITE: "Finance Advances, priority job matching, and highest advance limits.",
+    TRUSTED: "Finance Advances and enhanced visibility to customers.",
+    ESTABLISHED: "Full platform access and eligibility for more job types.",
+    PROBATION: "Complete jobs on time and earn positive reviews to improve your tier.",
+  };
+  await send(email, upgraded
+    ? `Congratulations! You've reached ${newTier} tier`
+    : `CouthActs Score update: ${newTier} tier`, wrap(`
+    <h1 style="color: ${upgraded ? "#1E3A5F" : "#B91C1C"};">${upgraded ? "Tier Upgrade!" : "Tier Update"}</h1>
+    <p style="color: #444;">Hi ${firstName}, your CouthActs Score is now <strong>${score}</strong> and your tier has changed from <strong>${previousTier}</strong> to <strong>${newTier}</strong>.</p>
+    <div style="background: ${upgraded ? "#F0F9FF" : "#FEF2F2"}; padding: 16px; border-radius: 8px; margin: 16px 0;">
+      <p style="margin: 0; color: ${upgraded ? "#0284C7" : "#B91C1C"};"><strong>New Tier:</strong> ${tierLabels[newTier] || newTier}</p>
+      <p style="margin: 4px 0 0; color: #444;">${perks[newTier] || ""}</p>
+    </div>
+    ${btn(`${BASE}/dashboard`, "View Dashboard")}
+  `));
+}
+
+export async function sendAdvanceDisbursedEmail(
+  email: string, firstName: string, advanceAmount: number,
+  advanceFee: number, escrowAmount: number, bookingId: string, userId?: string
+) {
+  if (userId && !(await shouldSendEmail(userId, "advance_disbursed"))) return;
+  await send(email, `Advance of $${advanceAmount.toFixed(2)} credited to your wallet`, wrap(`
+    <h1 style="color: #1E3A5F;">Advance Disbursed</h1>
+    <p style="color: #444;">Hi ${firstName}, your finance advance has been processed and credited to your wallet.</p>
+    <div style="background: #F0F9FF; padding: 16px; border-radius: 8px; margin: 16px 0;">
+      <p style="margin: 0; color: #0284C7;"><strong>Escrow Amount:</strong> $${escrowAmount.toFixed(2)}</p>
+      <p style="margin: 4px 0 0; color: #0284C7;"><strong>Advance (70%):</strong> $${advanceAmount.toFixed(2)}</p>
+      <p style="margin: 4px 0 0; color: #0284C7;"><strong>Fee (2.5%):</strong> $${advanceFee.toFixed(2)}</p>
+    </div>
+    <p style="color: #444;">The fee of $${advanceFee.toFixed(2)} will be deducted when the job is completed and escrow is released.</p>
+    ${btn(`${BASE}/bookings/${bookingId}`, "View Booking")}
+  `));
+}
+
+export async function sendCourseEnrolledEmail(
+  email: string, firstName: string, courseTitle: string,
+  pricePaid: number, userId?: string
+) {
+  if (userId && !(await shouldSendEmail(userId, "course_enrolled"))) return;
+  await send(email, `Enrolled: ${courseTitle}`, wrap(`
+    <h1 style="color: #1E3A5F;">Course Enrollment Confirmed</h1>
+    <p style="color: #444;">Hi ${firstName}, you've successfully enrolled in <strong>"${courseTitle}"</strong>.</p>
+    ${pricePaid > 0 ? `<div style="background: #F0F9FF; padding: 16px; border-radius: 8px; margin: 16px 0;">
+      <p style="margin: 0; color: #0284C7;"><strong>Amount Charged:</strong> $${pricePaid.toFixed(2)} from your wallet</p>
+    </div>` : ""}
+    <p style="color: #444;">Start your lessons now and complete all modules before taking the exam.</p>
+    ${btn(`${BASE}/academy`, "Go to Academy")}
+  `));
+}
+
+export async function sendExamResultEmail(
+  email: string, firstName: string, courseTitle: string,
+  score: number, passed: boolean, certificateId: string | null, userId?: string
+) {
+  if (userId && !(await shouldSendEmail(userId, "exam_result"))) return;
+  await send(email, passed
+    ? `Exam passed: ${courseTitle} — ${score}%`
+    : `Exam result: ${courseTitle} — ${score}%`, wrap(`
+    <h1 style="color: ${passed ? "#1E3A5F" : "#B91C1C"};">${passed ? "Exam Passed!" : "Exam Not Passed"}</h1>
+    <p style="color: #444;">Hi ${firstName}, here are your results for <strong>"${courseTitle}"</strong>:</p>
+    <div style="background: ${passed ? "#F0F9FF" : "#FEF2F2"}; padding: 16px; border-radius: 8px; margin: 16px 0; text-align: center;">
+      <p style="margin: 0; font-size: 32px; color: ${passed ? "#0284C7" : "#B91C1C"};"><strong>${score}%</strong></p>
+      <p style="margin: 4px 0 0; color: #444;">${passed ? "Passing grade: 70%" : "Required: 70% — you can retake after 24 hours"}</p>
+    </div>
+    ${passed && certificateId ? `<p style="color: #444;">Your certificate ID: <strong>${certificateId}</strong></p>` : ""}
+    ${btn(`${BASE}/academy`, passed ? "View Certificate" : "Review & Retake")}
+  `));
+}
+
+export async function sendAccountSuspendedEmail(
+  email: string, firstName: string, userId?: string
+) {
+  if (userId && !(await shouldSendEmail(userId, "account_suspended"))) return;
+  await send(email, "Your CouthActs account has been suspended", wrap(`
+    <h1 style="color: #B91C1C;">Account Suspended</h1>
+    <p style="color: #444;">Hi ${firstName}, your CouthActs account has been suspended by our team.</p>
+    <p style="color: #444;">While suspended, you cannot post jobs, place bids, or withdraw funds. Any active bookings remain unaffected until completion.</p>
+    <p style="color: #444;">If you believe this is an error, please contact us at <a href="mailto:support@couthacts.com" style="color: #2563EB;">support@couthacts.com</a>.</p>
+  `));
+}
+
+export async function sendAccountReactivatedEmail(
+  email: string, firstName: string, userId?: string
+) {
+  if (userId && !(await shouldSendEmail(userId, "account_reactivated"))) return;
+  await send(email, "Your CouthActs account has been reactivated", wrap(`
+    <h1 style="color: #1E3A5F;">Account Reactivated</h1>
+    <p style="color: #444;">Hi ${firstName}, your CouthActs account is now active again. You can post jobs, place bids, and use all platform features.</p>
+    ${btn(`${BASE}/dashboard`, "Go to Dashboard")}
+  `));
+}
+
+export async function sendKycRejectedEmail(
+  email: string, firstName: string, userId?: string
+) {
+  if (userId && !(await shouldSendEmail(userId, "kyc_rejected"))) return;
+  await send(email, "Identity verification was not approved", wrap(`
+    <h1 style="color: #B91C1C;">Verification Not Approved</h1>
+    <p style="color: #444;">Hi ${firstName}, your identity verification was not approved. This may be due to document quality, a name mismatch, or an expired ID.</p>
+    <p style="color: #444;">You can resubmit your verification from Settings. If you need assistance, contact <a href="mailto:support@couthacts.com" style="color: #2563EB;">support@couthacts.com</a>.</p>
+    ${btn(`${BASE}/settings`, "Go to Settings")}
+  `));
+}
+
+export async function sendBusinessApprovedEmail(
+  email: string, firstName: string, userId?: string
+) {
+  if (userId && !(await shouldSendEmail(userId, "business_approved"))) return;
+  await send(email, "Business verification approved", wrap(`
+    <h1 style="color: #1E3A5F;">Business Verified!</h1>
+    <p style="color: #444;">Hi ${firstName}, your business documents have been reviewed and approved. You can now bid on jobs that require business verification.</p>
+    ${btn(`${BASE}/dashboard`, "Go to Dashboard")}
+  `));
+}
+
+export async function sendBusinessRejectedEmail(
+  email: string, firstName: string, userId?: string
+) {
+  if (userId && !(await shouldSendEmail(userId, "business_rejected"))) return;
+  await send(email, "Business verification was not approved", wrap(`
+    <h1 style="color: #B91C1C;">Business Verification Not Approved</h1>
+    <p style="color: #444;">Hi ${firstName}, your business documents were not approved. Please review your submitted documents and ensure they are valid, legible, and unexpired.</p>
+    <p style="color: #444;">You can resubmit from your provider settings, or contact <a href="mailto:support@couthacts.com" style="color: #2563EB;">support@couthacts.com</a> for assistance.</p>
+    ${btn(`${BASE}/settings`, "Resubmit Documents")}
+  `));
+}
+
+export async function sendReverificationRequiredEmail(
+  email: string, firstName: string, userId?: string
+) {
+  if (userId && !(await shouldSendEmail(userId, "reverification_required"))) return;
+  await send(email, "Re-verification required — profile name changed", wrap(`
+    <h1 style="color: #B91C1C;">Re-verification Required</h1>
+    <p style="color: #444;">Hi ${firstName}, because you changed your name on your profile, your identity verification has been reset for security purposes.</p>
+    <p style="color: #444;">Please re-verify your identity to continue posting jobs and placing bids.</p>
+    ${btn(`${BASE}/settings`, "Verify Identity")}
+  `));
+}
+
+export async function sendApiOverageEmail(
+  email: string, firstName: string, overageCalls: number,
+  chargedAmount: number, userId?: string
+) {
+  if (userId && !(await shouldSendEmail(userId, "api_overage"))) return;
+  await send(email, `API overage: $${chargedAmount.toFixed(2)} charged for ${overageCalls} calls`, wrap(`
+    <h1 style="color: #1E3A5F;">API Overage Billing</h1>
+    <p style="color: #444;">Hi ${firstName}, your API usage exceeded the included quota last month. Here's the breakdown:</p>
+    <div style="background: #F0F9FF; padding: 16px; border-radius: 8px; margin: 16px 0;">
+      <p style="margin: 0; color: #0284C7;"><strong>Overage Calls:</strong> ${overageCalls.toLocaleString()}</p>
+      <p style="margin: 4px 0 0; color: #0284C7;"><strong>Rate:</strong> $0.20 per call</p>
+      <p style="margin: 4px 0 0; color: #0284C7;"><strong>Total Charged:</strong> $${chargedAmount.toFixed(2)}</p>
+    </div>
+    <p style="color: #444;">This amount was deducted from your CouthActs wallet. Review your usage in Settings.</p>
+    ${btn(`${BASE}/settings`, "View API Usage")}
+  `));
+}
+
+export async function sendApplicationConfirmationEmail(
+  email: string, firstName: string, role: string
+) {
+  await send(email, `Application received: ${role}`, wrap(`
+    <h1 style="color: #1E3A5F;">Application Received</h1>
+    <p style="color: #444;">Hi ${firstName}, thank you for applying for the <strong>${role}</strong> position at CouthActs.</p>
+    <p style="color: #444;">Our hiring team will review your application and get back to you within 5–7 business days. We appreciate your interest in joining CouthActs.</p>
+  `));
+}
+
+export async function sendInquiryConfirmationEmail(
+  email: string, name: string, type: string
+) {
+  const label = type === "government" ? "government/NGO" : "enterprise";
+  await send(email, "We received your inquiry", wrap(`
+    <h1 style="color: #1E3A5F;">Inquiry Received</h1>
+    <p style="color: #444;">Hi ${name}, thank you for your ${label} inquiry. Our team will review your requirements and reach out within 2–3 business days.</p>
+    <p style="color: #444;">For urgent inquiries, contact us directly at <a href="mailto:sales@couthacts.com" style="color: #2563EB;">sales@couthacts.com</a>.</p>
+  `));
+}
+
+export async function sendPostingExpiredEmail(
+  email: string, firstName: string, postingTitle: string,
+  refundAmount: number, isInstant: boolean, userId?: string
+) {
+  if (userId && !(await shouldSendEmail(userId, "posting_expired"))) return;
+  await send(email, `Posting expired: ${postingTitle}`, wrap(`
+    <h1 style="color: #B91C1C;">Posting Expired</h1>
+    <p style="color: #444;">Hi ${firstName}, your ${isInstant ? "instant job" : "posting"} <strong>"${postingTitle}"</strong> has expired without being accepted.</p>
+    ${refundAmount > 0 ? `<div style="background: #F0F9FF; padding: 16px; border-radius: 8px; margin: 16px 0;">
+      <p style="margin: 0; color: #0284C7;"><strong>Refunded:</strong> $${refundAmount.toFixed(2)} returned to your wallet</p>
+    </div>` : ""}
+    <p style="color: #444;">${isInstant ? "Try increasing your budget or posting during peak hours." : "Consider adjusting your budget or requirements to attract more bids."}</p>
+    ${btn(`${BASE}/dashboard`, "Post a New Job")}
   `));
 }

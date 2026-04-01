@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
+import { sendExamResultEmail } from "@/lib/email";
 import { randomBytes } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -85,6 +86,13 @@ export async function POST(req: NextRequest) {
       ...(passed && !enrollment.examPassed ? { completedAt: new Date(), certificateId } : {}),
     },
   });
+
+  // Send exam result email
+  const course = await db.course.findUnique({ where: { id: courseId } });
+  sendExamResultEmail(
+    session.user.email!, session.user.firstName,
+    course?.title || "Academy Course", score, passed, certificateId, session.user.id
+  ).catch(() => {});
 
   return NextResponse.json({
     score, passed, correct, total: questions.length,

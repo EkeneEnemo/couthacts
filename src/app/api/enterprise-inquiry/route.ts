@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { sendInquiryConfirmationEmail } from "@/lib/email";
 
 let _resend: Resend | null = null;
 function getResend() {
@@ -7,7 +8,7 @@ function getResend() {
   return _resend;
 }
 
-const FROM = process.env.RESEND_FROM_EMAIL || "CouthActs <onboarding@resend.dev>";
+const FROM = process.env.RESEND_FROM_EMAIL || "CouthActs <no-reply@couthacts.com>";
 
 /**
  * POST /api/enterprise-inquiry — Receive enterprise and government sales inquiries.
@@ -61,6 +62,9 @@ export async function POST(req: NextRequest) {
         `,
       });
     }
+
+    // Send confirmation to the inquirer
+    sendInquiryConfirmationEmail(email, name, type || "enterprise").catch(() => {});
 
     return NextResponse.json({ success: true });
   } catch {

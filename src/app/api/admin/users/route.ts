@@ -1,5 +1,10 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
+import {
+  sendAccountSuspendedEmail, sendAccountReactivatedEmail,
+  sendKycRejectedEmail, sendBusinessApprovedEmail, sendBusinessRejectedEmail,
+  sendVerificationApprovedEmail,
+} from "@/lib/email";
 import { NextRequest, NextResponse } from "next/server";
 
 async function checkAdmin() {
@@ -78,11 +83,16 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ success: true });
   }
 
+  // Helper to fetch user for email notifications
+  const getUser = () => db.user.findUniqueOrThrow({ where: { id: userId } });
+
   if (action === "suspend") {
     await db.user.update({
       where: { id: userId },
       data: { isActive: false },
     });
+    const user = await getUser();
+    sendAccountSuspendedEmail(user.email!, user.firstName, user.id).catch(() => {});
     return NextResponse.json({ success: true });
   }
 
@@ -91,6 +101,8 @@ export async function PATCH(req: NextRequest) {
       where: { id: userId },
       data: { isActive: true },
     });
+    const user = await getUser();
+    sendAccountReactivatedEmail(user.email!, user.firstName, user.id).catch(() => {});
     return NextResponse.json({ success: true });
   }
 
@@ -103,6 +115,8 @@ export async function PATCH(req: NextRequest) {
       where: { userId },
       data: { isVerified: true, kybStatus: "APPROVED" },
     });
+    const user = await getUser();
+    sendVerificationApprovedEmail(user.email!, user.firstName, user.id).catch(() => {});
     return NextResponse.json({ success: true });
   }
 
@@ -111,6 +125,8 @@ export async function PATCH(req: NextRequest) {
       where: { id: userId },
       data: { kycStatus: "REJECTED" },
     });
+    const user = await getUser();
+    sendKycRejectedEmail(user.email!, user.firstName, user.id).catch(() => {});
     return NextResponse.json({ success: true });
   }
 
@@ -119,6 +135,8 @@ export async function PATCH(req: NextRequest) {
       where: { userId },
       data: { isVerified: true, kybStatus: "APPROVED" },
     });
+    const user = await getUser();
+    sendBusinessApprovedEmail(user.email!, user.firstName, user.id).catch(() => {});
     return NextResponse.json({ success: true });
   }
 
@@ -127,6 +145,8 @@ export async function PATCH(req: NextRequest) {
       where: { userId },
       data: { isVerified: false, kybStatus: "REJECTED" },
     });
+    const user = await getUser();
+    sendBusinessRejectedEmail(user.email!, user.firstName, user.id).catch(() => {});
     return NextResponse.json({ success: true });
   }
 

@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { disputeEscrow } from "@/lib/escrow";
 import { notifyDisputeFiled } from "@/lib/notifications";
+import { sendDisputeFiledEmail } from "@/lib/email";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -59,11 +60,14 @@ export async function POST(req: NextRequest) {
 
   // Notify both parties
   const postingTitle = (await db.posting.findUnique({ where: { id: booking.postingId } }))?.title || "a booking";
-  const providerRecord = await db.provider.findUniqueOrThrow({ where: { id: booking.providerId } });
+  const providerRecord = await db.provider.findUniqueOrThrow({ where: { id: booking.providerId }, include: { user: true } });
+  const customer = await db.user.findUniqueOrThrow({ where: { id: booking.customerId } });
   if (isCustomer) {
     await notifyDisputeFiled(providerRecord.userId, postingTitle, bookingId);
+    sendDisputeFiledEmail(providerRecord.user.email!, providerRecord.user.firstName, postingTitle, bookingId, providerRecord.userId).catch(() => {});
   } else {
     await notifyDisputeFiled(booking.customerId, postingTitle, bookingId);
+    sendDisputeFiledEmail(customer.email!, customer.firstName, postingTitle, bookingId, booking.customerId).catch(() => {});
   }
 
   return NextResponse.json({ dispute }, { status: 201 });

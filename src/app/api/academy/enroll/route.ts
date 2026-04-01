@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { debitWallet, getOrCreateWallet } from "@/lib/wallet";
+import { sendCourseEnrolledEmail } from "@/lib/email";
 import { NextRequest, NextResponse } from "next/server";
 
 /**
@@ -39,6 +40,10 @@ export async function POST(req: NextRequest) {
   const enrollment = await db.enrollment.create({
     data: { userId: session.user.id, courseId, paidUsd: price },
   });
+
+  sendCourseEnrolledEmail(
+    session.user.email!, session.user.firstName, course.title, price, session.user.id
+  ).catch(() => {});
 
   return NextResponse.json({ enrollmentId: enrollment.id }, { status: 201 });
 }

@@ -3,7 +3,7 @@ import { getSession } from "@/lib/auth";
 import { createEscrow, releaseEscrow, refundEscrow } from "@/lib/escrow";
 import { creditWallet } from "@/lib/wallet";
 import { notifyBidAccepted, notifyBookingComplete, notifyEscrowReleased } from "@/lib/notifications";
-import { sendBookingConfirmationEmail, sendBidAcceptedEmail, sendBookingStartedEmail, sendBookingCompletedEmail } from "@/lib/email";
+import { sendBookingConfirmationEmail, sendBidAcceptedEmail, sendBookingStartedEmail, sendBookingCompletedEmail, sendBookingCancelledEmail } from "@/lib/email";
 import { recalculateCouthActsScore } from "@/lib/scores";
 import { NextRequest, NextResponse } from "next/server";
 import { randomBytes } from "crypto";
@@ -279,9 +279,18 @@ export async function PATCH(req: NextRequest) {
     });
 
     // Refund escrow (atomic — won't double-refund)
-    if (booking.escrow && booking.escrow.status === "HOLDING") {
-      await refundEscrow(booking.escrow.id);
+    const hadEscrow = booking.escrow && booking.escrow.status === "HOLDING";
+    if (hadEscrow) {
+      await refundEscrow(booking.escrow!.id);
     }
+
+    // Notify both parties via email
+    const cancelPosting = await db.posting.findUnique({ where: { id: booking.postingId } });
+    const cancelTitle = cancelPosting?.title || "a booking";
+    const customer = await db.user.findUniqueOrThrow({ where: { id: booking.customerId } });
+    const providerRecord = await db.provider.findUniqueOrThrow({ where: { id: booking.providerId }, include: { user: true } });
+    sendBookingCancelledEmail(customer.email!, customer.firstName, cancelTitle, bookingId, !!hadEscrow, customer.id).catch(() => {});
+    sendBookingCancelledEmail(providerRecord.user.email!, providerRecord.user.firstName, cancelTitle, bookingId, !!hadEscrow, providerRecord.userId).catch(() => {});
 
     return NextResponse.json({ success: true });
   }

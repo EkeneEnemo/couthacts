@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { sendScoreTierChangeEmail } from "@/lib/email";
 
 /**
  * CouthActs Score — The Trust Engine
@@ -94,6 +95,8 @@ export async function recalculateCouthActsScore(providerId: string) {
     : score >= 60 ? "ESTABLISHED"
     : "PROBATION";
 
+  const previousTier = provider.scoreTier;
+
   // Update provider
   await db.provider.update({
     where: { id: providerId },
@@ -106,6 +109,17 @@ export async function recalculateCouthActsScore(providerId: string) {
       disputeCount,
     },
   });
+
+  // Notify provider if tier changed
+  if (previousTier && tier !== previousTier) {
+    const providerUser = await db.user.findUnique({ where: { id: provider.userId } });
+    if (providerUser?.email) {
+      sendScoreTierChangeEmail(
+        providerUser.email, providerUser.firstName, tier, score,
+        previousTier, providerUser.id
+      ).catch(() => {});
+    }
+  }
 
   return { score, tier, completionRate, onTimeRate, avgRating, disputeCount };
 }

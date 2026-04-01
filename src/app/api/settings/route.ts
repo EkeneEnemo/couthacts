@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
+import { sendReverificationRequiredEmail } from "@/lib/email";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
@@ -64,6 +65,13 @@ export async function PATCH(req: NextRequest) {
     where: { id: session.user.id },
     data: updateData,
   });
+
+  // Notify about re-verification after update
+  if (nameChanged && currentUser.kycStatus === "APPROVED") {
+    sendReverificationRequiredEmail(
+      user.email!, user.firstName, user.id
+    ).catch(() => {});
+  }
 
   return NextResponse.json({ user });
 }

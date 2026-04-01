@@ -4,6 +4,7 @@ import { debitWallet, getOrCreateWallet } from "@/lib/wallet";
 import { calculatePostingFee } from "@/lib/posting-fees";
 import { getInsuranceFee } from "@/lib/insurance";
 import { pushToUser } from "@/lib/pusher-server";
+import { sendPostingExpiredEmail } from "@/lib/email";
 import { NextRequest, NextResponse } from "next/server";
 
 /**
@@ -101,6 +102,8 @@ export async function POST(req: NextRequest) {
     }).catch(() => {});
 
     // Schedule auto-cancel after 90 seconds
+    const expiryUserId = session.user.id;
+    const expiryTitle = posting.title;
     setTimeout(async () => {
       try {
         const p = await db.posting.findUnique({ where: { id: posting.id } });
@@ -108,7 +111,12 @@ export async function POST(req: NextRequest) {
           await db.posting.update({ where: { id: posting.id }, data: { status: "EXPIRED" } });
           // Refund budget (posting fee + protection fee kept)
           const { creditWallet } = await import("@/lib/wallet");
-          await creditWallet({ userId: session.user.id, amountUsd: budget, type: "ESCROW_REFUND", description: "Instant job expired — budget refunded", postingId: posting.id });
+          await creditWallet({ userId: expiryUserId, amountUsd: budget, type: "ESCROW_REFUND", description: "Instant job expired — budget refunded", postingId: posting.id });
+          // Notify customer
+          const expiryUser = await db.user.findUnique({ where: { id: expiryUserId } });
+          if (expiryUser?.email) {
+            sendPostingExpiredEmail(expiryUser.email, expiryUser.firstName, expiryTitle, budget, true, expiryUserId).catch(() => {});
+          }
         }
       } catch {}
     }, 90000);

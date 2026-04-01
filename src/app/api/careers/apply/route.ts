@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { sendApplicationConfirmationEmail } from "@/lib/email";
 
 let _resend: Resend | null = null;
 function getResend() {
@@ -7,7 +8,7 @@ function getResend() {
   return _resend;
 }
 
-const FROM = process.env.RESEND_FROM_EMAIL || "CouthActs <onboarding@resend.dev>";
+const FROM = process.env.RESEND_FROM_EMAIL || "CouthActs <no-reply@couthacts.com>";
 
 /**
  * POST /api/careers/apply — receive job applications with resume upload.
@@ -87,6 +88,9 @@ export async function POST(req: NextRequest) {
         },
       ],
     });
+
+    // Send confirmation to applicant
+    sendApplicationConfirmationEmail(email, firstName, role).catch(() => {});
 
     return NextResponse.json({ success: true });
   } catch {

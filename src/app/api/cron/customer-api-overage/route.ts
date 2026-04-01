@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { debitWallet } from "@/lib/wallet";
+import { sendApiOverageEmail } from "@/lib/email";
 import { NextResponse } from "next/server";
 
 const OVERAGE_RATE = 0.20;
@@ -29,6 +30,10 @@ export async function POST() {
         description: `API overage: ${key.overageCallsThisMonth} calls × $${OVERAGE_RATE}/call = $${overageAmount.toFixed(2)}`,
       });
       results.push({ keyId: key.id, calls: key.overageCallsThisMonth, charged: overageAmount, status: "charged" });
+      // Notify user
+      if (key.user.email) {
+        sendApiOverageEmail(key.user.email, key.user.firstName, key.overageCallsThisMonth, overageAmount, key.userId).catch(() => {});
+      }
     } catch {
       results.push({ keyId: key.id, calls: key.overageCallsThisMonth, charged: 0, status: "failed" });
     }

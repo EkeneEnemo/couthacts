@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { getStripe } from "@/lib/stripe";
 import { creditWallet } from "@/lib/wallet";
+import { sendWalletTopUpReceiptEmail, sendPaymentFailedEmail, sendBookingCancelledEmail, sendPayoutFailedEmail, sendStripeConnectReadyEmail } from "@/lib/email";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -58,6 +59,11 @@ export async function POST(req: NextRequest) {
                 description: `Wallet top-up via Stripe`,
                 stripeId: stripeRef,
               });
+              // Send receipt email
+              const topUpUser = await db.user.findUnique({ where: { id: meta.couthacts_user_id } });
+              if (topUpUser?.email) {
+                sendWalletTopUpReceiptEmail(topUpUser.email, topUpUser.firstName, amountUsd, topUpUser.id).catch(() => {});
+              }
             }
           }
         }
@@ -109,6 +115,14 @@ export async function POST(req: NextRequest) {
               });
             }
           }
+          // Notify customer of payment failure
+          if (escrow.booking?.customerId) {
+            const failedUser = await db.user.findUnique({ where: { id: escrow.booking.customerId } });
+            if (failedUser?.email) {
+              const failReason = pi.last_payment_error?.message || "Payment could not be processed";
+              sendPaymentFailedEmail(failedUser.email, failedUser.firstName, failReason, escrow.bookingId || undefined, failedUser.id).catch(() => {});
+            }
+          }
         }
         break;
       }
@@ -116,10 +130,23 @@ export async function POST(req: NextRequest) {
       case "account.updated": {
         const account = event.data.object;
         const isComplete = account.charges_enabled && account.payouts_enabled;
+        const providers = await db.provider.findMany({
+          where: { stripeConnectId: account.id },
+          include: { user: true },
+        });
+        // Check if any were previously not onboarded
+        const newlyOnboarded = isComplete && providers.some(p => !p.stripeOnboardingDone);
         await db.provider.updateMany({
           where: { stripeConnectId: account.id },
           data: { stripeOnboardingDone: isComplete },
         });
+        if (newlyOnboarded) {
+          for (const p of providers) {
+            if (p.user.email) {
+              sendStripeConnectReadyEmail(p.user.email, p.user.firstName, p.userId).catch(() => {});
+            }
+          }
+        }
         break;
       }
 
@@ -154,6 +181,11 @@ export async function POST(req: NextRequest) {
               description: `Payout failed — $${amountUsd.toFixed(2)} returned to wallet`,
               stripeId: transfer.id,
             });
+          }
+          // Notify provider
+          const payoutUser = await db.user.findUnique({ where: { id: meta.couthacts_user_id } });
+          if (payoutUser?.email) {
+            sendPayoutFailedEmail(payoutUser.email, payoutUser.firstName, amountUsd, payoutUser.id).catch(() => {});
           }
         }
         break;

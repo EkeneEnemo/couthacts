@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
+import { sendReviewReceivedEmail } from "@/lib/email";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -80,6 +81,18 @@ export async function POST(req: NextRequest) {
       onTimeRate: avgOnTime / 5,
     },
   });
+
+  // Notify provider of new review
+  const providerRecord = await db.provider.findUniqueOrThrow({
+    where: { id: booking.providerId },
+    include: { user: true },
+  });
+  const posting = await db.posting.findUnique({ where: { id: booking.postingId } });
+  const reviewerName = `${session.user.firstName} ${session.user.lastName}`;
+  sendReviewReceivedEmail(
+    providerRecord.user.email!, providerRecord.user.firstName,
+    review.rating, reviewerName, posting?.title || "a booking", providerRecord.userId
+  ).catch(() => {});
 
   return NextResponse.json({ review }, { status: 201 });
 }

@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { creditWallet } from "@/lib/wallet";
+import { sendAdvanceDisbursedEmail } from "@/lib/email";
 import { NextRequest, NextResponse } from "next/server";
 
 /**
@@ -58,6 +59,12 @@ export async function POST(req: NextRequest) {
     type: "ADVANCE", description: `Advance — 70% of $${escrowAmount.toFixed(2)} escrow`,
     bookingId,
   });
+
+  // Send confirmation email
+  sendAdvanceDisbursedEmail(
+    session.user.email!, session.user.firstName,
+    advanceAmount, advanceFee, escrowAmount, bookingId, session.user.id
+  ).catch(() => {});
 
   return NextResponse.json({
     advanceId: advance.id, advanceAmount, advanceFee,

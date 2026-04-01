@@ -13,7 +13,6 @@ import {
   Truck,
   Briefcase,
   Star,
-  MessageSquare,
 } from "lucide-react";
 import { ScoreWidget } from "@/components/score-gauge";
 import { ScoreBars } from "@/components/score-bars";

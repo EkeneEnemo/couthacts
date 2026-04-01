@@ -25,7 +25,7 @@ export function getResend() {
   return _resend;
 }
 
-const FROM = process.env.RESEND_FROM_EMAIL || "CouthActs <no-reply@couthacts.com>";
+const FROM = process.env.RESEND_FROM_EMAIL || "CouthActs <hello@couthacts.com>";
 const BASE = process.env.NEXTAUTH_URL || "https://couthacts.com";
 
 /**
@@ -583,7 +583,7 @@ export async function sendInquiryConfirmationEmail(
   await send(email, "We received your inquiry", wrap(`
     <h1 style="color: #1E3A5F;">Inquiry Received</h1>
     <p style="color: #444;">Hi ${esc(name)}, thank you for your ${esc(label)} inquiry. Our team will review your requirements and reach out within 2–3 business days.</p>
-    <p style="color: #444;">For urgent inquiries, contact us directly at <a href="mailto:sales@couthacts.com" style="color: #2563EB;">sales@couthacts.com</a>.</p>
+    <p style="color: #444;">For urgent inquiries, contact us directly at <a href="mailto:enterprise@couthacts.com" style="color: #2563EB;">enterprise@couthacts.com</a>.</p>
   `));
 }
 

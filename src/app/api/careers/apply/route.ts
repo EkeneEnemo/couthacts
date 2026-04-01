@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getResend, sendApplicationConfirmationEmail, escapeHtml as esc } from "@/lib/email";
 import { rateLimit } from "@/lib/rate-limit";
 
-const FROM = process.env.RESEND_FROM_EMAIL || "CouthActs <no-reply@couthacts.com>";
+const FROM = process.env.RESEND_FROM_EMAIL || "CouthActs <hello@couthacts.com>";
 
 /**
  * POST /api/careers/apply — receive job applications with resume upload.

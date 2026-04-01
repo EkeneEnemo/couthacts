@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getResend, sendInquiryConfirmationEmail } from "@/lib/email";
 import { rateLimit } from "@/lib/rate-limit";
 
-const FROM = process.env.RESEND_FROM_EMAIL || "CouthActs <no-reply@couthacts.com>";
+const FROM = process.env.RESEND_FROM_EMAIL || "CouthActs <hello@couthacts.com>";
 
 /**
  * POST /api/enterprise-inquiry — Receive enterprise and government sales inquiries.
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
     }
 
     const isGovernment = type === "government";
-    const recipient = isGovernment ? "government@couthacts.com" : "sales@couthacts.com";
+    const recipient = isGovernment ? "government@couthacts.com" : "enterprise@couthacts.com";
     const label = isGovernment ? "Government / NGO" : "Enterprise";
 
     if (process.env.RESEND_API_KEY) {

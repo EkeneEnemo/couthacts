@@ -1,13 +1,19 @@
 "use client";
 
+import * as Sentry from "@sentry/nextjs";
+import { useEffect } from "react";
 import { Logo } from "@/components/logo";
 
 export default function Error({
+  error,
   reset,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  useEffect(() => {
+    Sentry.captureException(error);
+  }, [error]);
   return (
     <div className="min-h-screen bg-[#F5F5F7] flex flex-col">
       <nav className="border-b border-[#E8E8ED]/60 bg-[#F5F5F7]/80 backdrop-blur-xl px-6 py-3.5">

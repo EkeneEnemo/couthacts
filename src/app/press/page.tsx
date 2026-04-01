@@ -81,12 +81,12 @@ export default function PressPage() {
             Our press kit includes the CouthActs logo in various formats (SVG, PNG),
             brand guidelines, approved photography, executive bios, and boilerplate copy.
           </p>
-          <a
-            href="mailto:press@couthacts.com?subject=Press Kit Request"
-            className="mt-4 inline-block rounded-full bg-[#007AFF] px-5 py-2.5 text-[13px] font-semibold text-white hover:bg-[#0055D4] transition"
+          <Link
+            href="/press/kit"
+            className="mt-4 inline-block rounded-full bg-[#007AFF] px-5 py-2.5 text-[13px] font-semibold text-white hover:bg-[#0055D4] active:scale-[0.97] transition-all min-h-[44px]"
           >
-            Download Press Kit
-          </a>
+            View Press Kit
+          </Link>
         </section>
 
         {/* Media Guidelines */}

@@ -472,7 +472,7 @@ export default function LandingPage() {
               </p>
               <ul className="mt-8 space-y-3">
                 {[
-                  "Invoice advances up to 80% of confirmed job value",
+                  "Invoice advances up to 70% of confirmed escrow value",
                   "Priority job matching for Elite-rated providers",
                   "Dedicated account manager and premium support",
                   "Lower escrow fees with volume-based pricing",
@@ -493,7 +493,7 @@ export default function LandingPage() {
 
             <div className="grid grid-cols-2 gap-4">
               {[
-                { value: "80%", label: "Advance Rate", desc: "Of confirmed job value" },
+                { value: "70%", label: "Advance Rate", desc: "Of confirmed escrow value" },
                 { value: "24h", label: "Funding Speed", desc: "After job confirmation" },
                 { value: "1%", label: "Lowest Escrow", desc: "For $500K+ jobs" },
                 { value: "Elite", label: "Score Tier", desc: "Required qualification" },

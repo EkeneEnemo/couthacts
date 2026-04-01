@@ -30,7 +30,6 @@ export async function POST() {
       });
       results.push({ keyId: key.id, calls: key.overageCallsThisMonth, charged: overageAmount, status: "charged" });
     } catch {
-      // Insufficient balance — TODO: send payment failure email, suspend after 7 days
       results.push({ keyId: key.id, calls: key.overageCallsThisMonth, charged: 0, status: "failed" });
     }
   }

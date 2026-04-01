@@ -168,7 +168,7 @@ export default function PressKitPage() {
                 },
                 {
                   name: "CouthActs Advance",
-                  desc: "Cash-flow tools for Elite-tier providers. Invoice advances up to 80% of confirmed job value within 24 hours. Dedicated account management and volume-based escrow pricing.",
+                  desc: "Cash-flow tools for Elite-tier providers. Invoice advances up to 70% of confirmed escrow value within 24 hours. Dedicated account management and volume-based escrow pricing.",
                 },
                 {
                   name: "CouthActs Academy",

@@ -7,6 +7,11 @@ import { ScoreGauge } from "@/components/score-gauge";
 import { ScoreBars } from "@/components/score-bars";
 import { CheckCircle, ArrowLeft, Star, Award, MapPin, Calendar, Briefcase, MessageSquare, Truck, Shield } from "lucide-react";
 
+export const metadata = {
+  title: "Provider Profile \u2014 CouthActs\u2122",
+  description: "View provider details, reviews, and service history on CouthActs.",
+};
+
 export default async function ProviderProfilePage({
   params,
 }: {

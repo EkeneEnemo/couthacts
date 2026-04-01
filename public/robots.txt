@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /settings
+Disallow: /wallet
+Disallow: /onboarding
+Disallow: /complete-profile
+Disallow: /verify-business
+Disallow: /bookings/
+Disallow: /postings/new
+Disallow: /instant
+Disallow: /provider/
+
+Sitemap: https://couthacts.com/sitemap.xml

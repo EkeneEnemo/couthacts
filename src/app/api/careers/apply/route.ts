@@ -1,11 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import { join } from "path";
+import { Resend } from "resend";
+
+let _resend: Resend | null = null;
+function getResend() {
+  if (!_resend) _resend = new Resend(process.env.RESEND_API_KEY!);
+  return _resend;
+}
+
+const FROM = process.env.RESEND_FROM_EMAIL || "CouthActs <onboarding@resend.dev>";
 
 /**
  * POST /api/careers/apply — receive job applications with resume upload.
- * Stores the resume to disk and logs the application.
- * In production, this would forward to an ATS or send via Resend/SendGrid.
+ * Sends a notification email to the hiring team with applicant details.
  */
 export async function POST(req: NextRequest) {
   try {
@@ -35,48 +41,55 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (resume.size > 10 * 1024 * 1024) {
+    if (resume.size > 5 * 1024 * 1024) {
       return NextResponse.json(
-        { error: "Resume must be under 10 MB." },
+        { error: "Resume must be under 5 MB." },
         { status: 400 }
       );
     }
 
-    // Save resume to disk
-    const uploadsDir = join(process.cwd(), "uploads", "applications");
-    await mkdir(uploadsDir, { recursive: true });
-
-    const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-    const safeName = `${firstName}-${lastName}-${timestamp}`.replace(/[^a-zA-Z0-9-]/g, "");
-    const ext = resume.name.split(".").pop() || "pdf";
-    const filename = `${safeName}.${ext}`;
-    const filepath = join(uploadsDir, filename);
-
+    // Convert resume to base64 for email attachment
     const bytes = await resume.arrayBuffer();
-    await writeFile(filepath, Buffer.from(bytes));
+    const resumeBase64 = Buffer.from(bytes).toString("base64");
+    const resumeSizeKB = (resume.size / 1024).toFixed(1);
 
-    // Log the application (in production: store in DB + send notification email)
-    const application = {
-      role,
-      name: `${firstName} ${lastName}`,
-      email,
-      phone,
-      linkedin,
-      portfolio,
-      coverLetter: coverLetter.slice(0, 500) + (coverLetter.length > 500 ? "..." : ""),
-      resumeFile: filename,
-      submittedAt: new Date().toISOString(),
-    };
+    const coverLetterSummary =
+      coverLetter.slice(0, 500) + (coverLetter.length > 500 ? "..." : "");
+    const submittedAt = new Date().toISOString();
 
-    // Save application metadata
-    const metaPath = join(uploadsDir, `${safeName}.json`);
-    await writeFile(metaPath, JSON.stringify(application, null, 2));
-
-    console.log(`[CAREERS] New application: ${application.name} for ${application.role}`);
+    // Send notification email to the hiring team with resume attached
+    await getResend().emails.send({
+      from: FROM,
+      to: "careers@couthacts.com",
+      subject: `New Application: ${firstName} ${lastName} — ${role}`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+          <h1 style="color: #1E3A5F;">New Job Application</h1>
+          <table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
+            <tr><td style="padding: 8px; font-weight: bold; color: #444;">Role</td><td style="padding: 8px;">${role}</td></tr>
+            <tr><td style="padding: 8px; font-weight: bold; color: #444;">Name</td><td style="padding: 8px;">${firstName} ${lastName}</td></tr>
+            <tr><td style="padding: 8px; font-weight: bold; color: #444;">Email</td><td style="padding: 8px;"><a href="mailto:${email}">${email}</a></td></tr>
+            <tr><td style="padding: 8px; font-weight: bold; color: #444;">Phone</td><td style="padding: 8px;">${phone || "N/A"}</td></tr>
+            <tr><td style="padding: 8px; font-weight: bold; color: #444;">LinkedIn</td><td style="padding: 8px;">${linkedin ? `<a href="${linkedin}">${linkedin}</a>` : "N/A"}</td></tr>
+            <tr><td style="padding: 8px; font-weight: bold; color: #444;">Portfolio</td><td style="padding: 8px;">${portfolio ? `<a href="${portfolio}">${portfolio}</a>` : "N/A"}</td></tr>
+          </table>
+          <h2 style="color: #1E3A5F;">Cover Letter</h2>
+          <p style="color: #444; line-height: 1.6; white-space: pre-wrap;">${coverLetterSummary}</p>
+          <h2 style="color: #1E3A5F;">Resume</h2>
+          <p style="color: #444;">File: <strong>${resume.name}</strong> (${resumeSizeKB} KB) — attached below.</p>
+          <p style="color: #888; font-size: 12px;">Submitted at ${submittedAt}</p>
+        </div>
+      `,
+      attachments: [
+        {
+          filename: resume.name,
+          content: resumeBase64,
+        },
+      ],
+    });
 
     return NextResponse.json({ success: true });
-  } catch (err) {
-    console.error("[CAREERS] Application error:", err);
+  } catch {
     return NextResponse.json(
       { error: "Failed to process application. Please try again." },
       { status: 500 }

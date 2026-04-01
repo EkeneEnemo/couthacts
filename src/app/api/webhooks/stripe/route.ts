@@ -20,9 +20,14 @@ export async function POST(req: NextRequest) {
     } catch {
       return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
     }
+  } else if (process.env.NODE_ENV === "production") {
+    // In production, the webhook secret is mandatory — refuse to process unsigned events.
+    return NextResponse.json(
+      { error: "Webhook secret not configured" },
+      { status: 500 }
+    );
   } else {
-    // No webhook secret — skip signature verification.
-    // This is acceptable for test mode; production should always set the secret.
+    // No webhook secret in dev/test — skip signature verification.
     try {
       event = JSON.parse(body);
     } catch {

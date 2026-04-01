@@ -60,7 +60,6 @@ export async function POST() {
   } catch (err: unknown) {
     const message =
       err instanceof Error ? err.message : "Failed to set up Stripe Connect";
-    console.error("[stripe-connect] POST error:", message);
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

@@ -13,6 +13,11 @@ import {
   Truck,
 } from "lucide-react";
 
+export const metadata = {
+  title: "User Profile \u2014 CouthActs\u2122",
+  description: "View user profile and activity on CouthActs.",
+};
+
 export default async function UserProfilePage({
   params,
 }: {

@@ -17,6 +17,11 @@ import {
 import { ScoreWidget } from "@/components/score-gauge";
 import { ScoreBars } from "@/components/score-bars";
 
+export const metadata = {
+  title: "Dashboard \u2014 CouthActs\u2122",
+  description: "Manage your postings, bookings, and account on CouthActs.",
+};
+
 const STATUS_STYLES: Record<string, { icon: typeof Clock; color: string; bg: string }> = {
   OPEN:        { icon: Clock,       color: "text-[#007AFF]", bg: "bg-[#EDF4FF]" },
   BIDDING:     { icon: Package,     color: "text-[#5856D6]", bg: "bg-[#F0EFFF]" },

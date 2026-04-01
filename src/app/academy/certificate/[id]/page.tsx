@@ -20,51 +20,51 @@ export default async function CertificatePage({
   if (!enrollment) notFound();
 
   return (
-    <div className="min-h-screen bg-cream-50">
+    <div className="min-h-screen bg-[#F5F5F7]">
       <Navbar />
       <div className="mx-auto max-w-2xl px-6 py-16">
-        <div className="rounded-2xl bg-white shadow-lg border border-gray-200 overflow-hidden">
+        <div className="rounded-3xl bg-white/80 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 overflow-hidden">
           {/* Header */}
-          <div className="bg-gradient-to-r from-ocean-700 to-sky-600 p-10 text-center text-white">
+          <div className="bg-gradient-to-r from-[#1D1D1F] to-[#007AFF] p-10 text-center text-white">
             <Award className="mx-auto h-16 w-16" />
-            <h1 className="mt-4 text-2xl font-display font-bold">CouthActs Academy</h1>
-            <p className="mt-1 text-sm text-sky-200">Certificate of Completion</p>
+            <h1 className="mt-4 text-2xl font-display font-bold tracking-tight">CouthActs Academy</h1>
+            <p className="mt-1 text-[14px] text-white/60">Certificate of Completion</p>
           </div>
 
           {/* Body */}
           <div className="p-10 text-center">
-            <p className="text-sm text-gray-500">This certifies that</p>
-            <p className="mt-2 text-3xl font-display font-bold text-ocean-900">
+            <p className="text-[13px] text-[#86868B]">This certifies that</p>
+            <p className="mt-2 text-3xl font-display font-bold tracking-tight text-[#1D1D1F]">
               {enrollment.user.firstName} {enrollment.user.lastName}
             </p>
-            <p className="mt-4 text-sm text-gray-500">has successfully completed the</p>
-            <p className="mt-2 text-xl font-display font-semibold text-ocean-800">
+            <p className="mt-4 text-[13px] text-[#86868B]">has successfully completed the</p>
+            <p className="mt-2 text-xl font-display font-semibold tracking-tight text-[#1D1D1F]">
               {enrollment.course.title}
             </p>
-            <p className="mt-1 text-sm text-gray-400">{enrollment.course.category.replace(/_/g, " ")} &middot; {enrollment.course.duration}</p>
+            <p className="mt-1 text-[13px] text-[#86868B]">{enrollment.course.category.replace(/_/g, " ")} &middot; {enrollment.course.duration}</p>
 
-            <div className="mt-6 flex items-center justify-center gap-2 text-green-600">
+            <div className="mt-6 flex items-center justify-center gap-2 text-[#34C759]">
               <CheckCircle className="h-5 w-5" />
-              <p className="text-sm font-medium">Exam passed with {enrollment.examScore}%</p>
+              <p className="text-[14px] font-medium">Exam passed with {enrollment.examScore}%</p>
             </div>
 
-            <div className="mt-6 rounded-xl bg-cream-50 p-4 inline-block">
-              <p className="text-xs text-gray-400">Certificate ID</p>
-              <p className="text-sm font-mono font-bold text-ocean-700">{enrollment.certificateId}</p>
-              <p className="text-xs text-gray-400 mt-1">
+            <div className="mt-6 rounded-2xl bg-[#F5F5F7] p-4 inline-block">
+              <p className="text-[11px] text-[#86868B] uppercase tracking-[0.1em] font-semibold">Certificate ID</p>
+              <p className="text-[14px] font-mono font-bold text-[#007AFF]">{enrollment.certificateId}</p>
+              <p className="text-[11px] text-[#86868B] mt-1">
                 Issued {enrollment.completedAt ? new Date(enrollment.completedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) : ""}
               </p>
             </div>
           </div>
 
           {/* Footer */}
-          <div className="border-t border-gray-100 px-10 py-6 text-center">
-            <p className="text-xs text-gray-400">
+          <div className="border-t border-[#E8E8ED] px-10 py-6 text-center">
+            <p className="text-[11px] text-[#86868B]">
               This certificate is issued by CouthActs Academy, operated by CouthActs, Inc. Intellectual property of Enemo Consulting Group, Inc.
               <br />
               Founded November 27, 2021 &middot; The Adolphus Tower, Dallas, TX
             </p>
-            <p className="mt-2 text-xs text-gray-300">Verified by CouthActs&trade; &middot; couthacts.com</p>
+            <p className="mt-2 text-[11px] text-[#E8E8ED]">Verified by CouthActs&trade; &middot; couthacts.com</p>
           </div>
         </div>
 

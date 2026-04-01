@@ -87,27 +87,27 @@ export default function AvailabilityPage() {
   const monthName = new Date(year, month).toLocaleDateString("en-US", { month: "long", year: "numeric" });
 
   return (
-    <div className="min-h-screen bg-cream-50">
+    <div className="min-h-screen bg-[#F5F5F7]">
       <Navbar />
       <div className="mx-auto max-w-2xl px-6 py-10">
         <div className="flex items-center gap-2 mb-6">
-          <Calendar className="h-5 w-5 text-ocean-600" />
-          <h1 className="text-2xl font-display font-bold text-ocean-900">Availability Calendar</h1>
+          <Calendar className="h-5 w-5 text-[#007AFF]" />
+          <h1 className="text-2xl font-display font-bold tracking-tight text-[#1D1D1F]">Availability Calendar</h1>
         </div>
 
-        <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
+        <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
           {/* Month nav */}
           <div className="flex items-center justify-between mb-4">
             <button onClick={() => { if (month === 0) { setMonth(11); setYear(year - 1); } else setMonth(month - 1); }}
-              className="rounded-lg p-2 hover:bg-gray-100 transition"><ChevronLeft className="h-4 w-4" /></button>
-            <p className="text-sm font-semibold text-ocean-800">{monthName}</p>
+              className="rounded-xl p-2 hover:bg-[#F5F5F7] transition"><ChevronLeft className="h-4 w-4 text-[#86868B]" /></button>
+            <p className="text-[14px] font-semibold text-[#1D1D1F]">{monthName}</p>
             <button onClick={() => { if (month === 11) { setMonth(0); setYear(year + 1); } else setMonth(month + 1); }}
-              className="rounded-lg p-2 hover:bg-gray-100 transition"><ChevronRight className="h-4 w-4" /></button>
+              className="rounded-xl p-2 hover:bg-[#F5F5F7] transition"><ChevronRight className="h-4 w-4 text-[#86868B]" /></button>
           </div>
 
           {/* Day headers */}
           <div className="grid grid-cols-7 gap-1 mb-1">
-            {DAYS.map((d) => <div key={d} className="text-center text-[10px] font-semibold text-gray-400 py-1">{d}</div>)}
+            {DAYS.map((d) => <div key={d} className="text-center text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em] py-1">{d}</div>)}
           </div>
 
           {/* Calendar cells */}
@@ -120,10 +120,10 @@ export default function AvailabilityPage() {
               const isPast = new Date(key) < new Date(new Date().toISOString().split("T")[0]);
               return (
                 <button key={i} onClick={() => !isPast && toggleDay(key)} disabled={isPast}
-                  className={`aspect-square rounded-lg text-sm font-medium transition flex items-center justify-center ${
-                    isPast ? "text-gray-300 cursor-not-allowed" :
-                    isAvailable ? "bg-green-50 text-green-700 hover:bg-green-100 border border-green-200" :
-                    "bg-red-50 text-red-600 hover:bg-red-100 border border-red-200"
+                  className={`aspect-square rounded-xl text-[14px] font-medium transition flex items-center justify-center ${
+                    isPast ? "text-[#E8E8ED] cursor-not-allowed" :
+                    isAvailable ? "bg-[#EEFBF1] text-[#34C759] hover:bg-[#34C759]/20 border border-[#34C759]/20" :
+                    "bg-[#FFF1F0] text-[#FF3B30] hover:bg-[#FF3B30]/10 border border-[#FF3B30]/20"
                   }`}>
                   {day}
                 </button>
@@ -133,19 +133,19 @@ export default function AvailabilityPage() {
 
           {/* Legend + bulk actions */}
           <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
-            <div className="flex items-center gap-4 text-xs">
-              <span className="flex items-center gap-1"><span className="h-3 w-3 rounded bg-green-200" /> Available</span>
-              <span className="flex items-center gap-1"><span className="h-3 w-3 rounded bg-red-200" /> Unavailable</span>
+            <div className="flex items-center gap-4 text-[11px] text-[#86868B]">
+              <span className="flex items-center gap-1"><span className="h-3 w-3 rounded-md bg-[#EEFBF1] border border-[#34C759]/20" /> Available</span>
+              <span className="flex items-center gap-1"><span className="h-3 w-3 rounded-md bg-[#FFF1F0] border border-[#FF3B30]/20" /> Unavailable</span>
             </div>
             <div className="flex gap-2">
-              <button onClick={markMonthAvailable} className="text-xs text-sky-600 hover:text-sky-700 font-medium">Mark month available</button>
-              <button onClick={markWeekendsUnavailable} className="text-xs text-red-500 hover:text-red-600 font-medium">Weekends off</button>
+              <button onClick={markMonthAvailable} className="text-[13px] text-[#007AFF] hover:text-[#0055D4] font-medium">Mark month available</button>
+              <button onClick={markWeekendsUnavailable} className="text-[13px] text-[#FF3B30] hover:text-[#FF3B30]/80 font-medium">Weekends off</button>
             </div>
           </div>
 
           <div className="mt-4 flex items-center gap-3">
             <Button onClick={saveAll} loading={saving} size="sm">Save calendar</Button>
-            {saved && <span className="text-xs text-green-600 font-medium">Saved!</span>}
+            {saved && <span className="text-[13px] text-[#34C759] font-medium">Saved!</span>}
           </div>
         </div>
       </div>

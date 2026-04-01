@@ -47,38 +47,38 @@ export default function ExamPage() {
     setSubmitting(false);
   }
 
-  if (loading) return <div className="min-h-screen bg-cream-50"><Navbar /><div className="mx-auto max-w-2xl px-6 py-20 text-center"><div className="h-8 w-48 mx-auto animate-pulse rounded bg-gray-200" /></div></div>;
-  if (error) return <div className="min-h-screen bg-cream-50"><Navbar /><div className="mx-auto max-w-2xl px-6 py-20 text-center"><p className="text-red-500">{error}</p></div></div>;
+  if (loading) return <div className="min-h-screen bg-[#F5F5F7]"><Navbar /><div className="mx-auto max-w-2xl px-6 py-20 text-center"><div className="h-8 w-48 mx-auto animate-pulse rounded-xl bg-[#E8E8ED]" /></div></div>;
+  if (error) return <div className="min-h-screen bg-[#F5F5F7]"><Navbar /><div className="mx-auto max-w-2xl px-6 py-20 text-center"><p className="text-[#FF3B30] text-[14px]">{error}</p></div></div>;
 
   const q = questions[current];
 
   // Results view
   if (results) {
     return (
-      <div className="min-h-screen bg-cream-50">
+      <div className="min-h-screen bg-[#F5F5F7]">
         <Navbar />
         <div className="mx-auto max-w-2xl px-6 py-10">
-          <div className="rounded-2xl bg-white p-8 shadow-sm border border-gray-100 text-center mb-6">
+          <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-8 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 text-center mb-6">
             {passed ? (
               <>
-                <Award className="mx-auto h-16 w-16 text-amber-500" />
-                <h1 className="mt-4 text-2xl font-display font-bold text-green-800">Congratulations!</h1>
-                <p className="mt-2 text-lg text-gray-600">You scored {score}% — Exam passed!</p>
+                <Award className="mx-auto h-16 w-16 text-[#FF9500]" />
+                <h1 className="mt-4 text-2xl font-display font-bold tracking-tight text-[#34C759]">Congratulations!</h1>
+                <p className="mt-2 text-lg text-[#6E6E73]">You scored {score}% — Exam passed!</p>
                 {certificateId && (
-                  <a href={`/academy/certificate/${certificateId}`} className="mt-4 inline-flex items-center gap-2 rounded-lg bg-ocean-600 px-6 py-3 text-sm font-medium text-white hover:bg-ocean-700 transition">
+                  <a href={`/academy/certificate/${certificateId}`} className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#007AFF] px-6 py-3 text-sm font-medium text-white hover:bg-[#0055D4] transition">
                     <Award className="h-4 w-4" /> View Certificate
                   </a>
                 )}
               </>
             ) : (
               <>
-                <XCircle className="mx-auto h-16 w-16 text-red-400" />
-                <h1 className="mt-4 text-2xl font-display font-bold text-red-800">Not quite</h1>
-                <p className="mt-2 text-lg text-gray-600">You scored {score}% — 70% required to pass.</p>
-                <p className="mt-1 text-sm text-gray-400">Review the explanations below and try again.</p>
+                <XCircle className="mx-auto h-16 w-16 text-[#FF3B30]" />
+                <h1 className="mt-4 text-2xl font-display font-bold tracking-tight text-[#FF3B30]">Not quite</h1>
+                <p className="mt-2 text-lg text-[#6E6E73]">You scored {score}% — 70% required to pass.</p>
+                <p className="mt-1 text-[13px] text-[#86868B]">Review the explanations below and try again.</p>
                 <button
                   onClick={() => { setResults(null); setCurrent(0); setAnswers({}); }}
-                  className="mt-4 inline-flex items-center gap-2 rounded-lg bg-ocean-600 px-6 py-3 text-sm font-medium text-white hover:bg-ocean-700 transition"
+                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#007AFF] px-6 py-3 text-sm font-medium text-white hover:bg-[#0055D4] transition"
                 >
                   Retake Exam
                 </button>
@@ -89,11 +89,11 @@ export default function ExamPage() {
           {/* Answer review */}
           <div className="space-y-4">
             {results.map((r, i) => (
-              <div key={r.questionId} className={`rounded-xl p-5 border ${r.isCorrect ? "bg-green-50 border-green-200" : "bg-red-50 border-red-200"}`}>
-                <p className="text-sm font-medium text-ocean-800">Q{i + 1}: {r.question}</p>
-                <p className="mt-1 text-xs">Your answer: <span className={r.isCorrect ? "text-green-700 font-semibold" : "text-red-700 font-semibold"}>{r.userAnswer || "—"}</span></p>
-                {!r.isCorrect && <p className="text-xs text-green-700">Correct: {r.correctAnswer}</p>}
-                <p className="mt-2 text-xs text-gray-600 italic">{r.explanation}</p>
+              <div key={r.questionId} className={`rounded-2xl p-5 border ${r.isCorrect ? "bg-[#EEFBF1] border-[#34C759]/20" : "bg-[#FFF1F0] border-[#FF3B30]/20"}`}>
+                <p className="text-[14px] font-medium text-[#1D1D1F]">Q{i + 1}: {r.question}</p>
+                <p className="mt-1 text-[13px]">Your answer: <span className={r.isCorrect ? "text-[#34C759] font-semibold" : "text-[#FF3B30] font-semibold"}>{r.userAnswer || "—"}</span></p>
+                {!r.isCorrect && <p className="text-[13px] text-[#34C759]">Correct: {r.correctAnswer}</p>}
+                <p className="mt-2 text-[13px] text-[#6E6E73] italic">{r.explanation}</p>
               </div>
             ))}
           </div>
@@ -104,23 +104,23 @@ export default function ExamPage() {
 
   // Question view
   return (
-    <div className="min-h-screen bg-cream-50">
+    <div className="min-h-screen bg-[#F5F5F7]">
       <Navbar />
       <div className="mx-auto max-w-2xl px-6 py-10">
         {/* Progress */}
         <div className="mb-6">
-          <div className="flex justify-between text-xs text-gray-400 mb-1">
+          <div className="flex justify-between text-[11px] text-[#86868B] mb-1">
             <span>Question {current + 1} of {questions.length}</span>
             <span>{Object.keys(answers).length} answered</span>
           </div>
-          <div className="h-1.5 rounded-full bg-gray-100 overflow-hidden">
-            <div className="h-full rounded-full bg-ocean-500 transition-all" style={{ width: `${((current + 1) / questions.length) * 100}%` }} />
+          <div className="h-1.5 rounded-full bg-[#E8E8ED] overflow-hidden">
+            <div className="h-full rounded-full bg-[#007AFF] transition-all" style={{ width: `${((current + 1) / questions.length) * 100}%` }} />
           </div>
         </div>
 
         {q && (
-          <div className="rounded-2xl bg-white p-8 shadow-sm border border-gray-100">
-            <p className="text-base font-medium text-ocean-900 mb-6">{q.question}</p>
+          <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-8 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+            <p className="text-[14px] font-medium text-[#1D1D1F] mb-6">{q.question}</p>
             <div className="space-y-3">
               {[
                 { key: "A", text: q.optionA },
@@ -129,11 +129,11 @@ export default function ExamPage() {
                 { key: "D", text: q.optionD },
               ].map((opt) => (
                 <label key={opt.key}
-                  className={`flex items-center gap-3 rounded-xl border-2 p-4 cursor-pointer transition ${answers[q.id] === opt.key ? "border-ocean-600 bg-ocean-50" : "border-gray-200 hover:border-gray-300"}`}>
+                  className={`flex items-center gap-3 rounded-xl border-2 p-4 cursor-pointer transition ${answers[q.id] === opt.key ? "border-[#007AFF] bg-[#007AFF]/5" : "border-[#E8E8ED] hover:border-[#86868B]"}`}>
                   <input type="radio" name={`q-${q.id}`} value={opt.key} checked={answers[q.id] === opt.key}
                     onChange={() => setAnswers((prev) => ({ ...prev, [q.id]: opt.key }))}
-                    className="accent-ocean-600" />
-                  <span className="text-sm text-ocean-800">{opt.key}. {opt.text}</span>
+                    className="accent-[#007AFF]" />
+                  <span className="text-[14px] text-[#1D1D1F]">{opt.key}. {opt.text}</span>
                 </label>
               ))}
             </div>

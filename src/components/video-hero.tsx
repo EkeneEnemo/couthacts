@@ -5,12 +5,11 @@ import { useState, useEffect } from "react";
 
 /**
  * Cinematic hero with Ken Burns effect — cycles through transport images
- * with slow zoom/pan animation. More reliable than video hosting and
- * works on all devices including mobile where autoplay video is restricted.
+ * with slow zoom/pan animation and smooth crossfade.
  */
 
 const HERO_IMAGES = [
-  "https://images.unsplash.com/photo-1494412574643-ff11b0a5eb95?w=1920&q=85",
+  "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1920&q=85",
   "https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1920&q=85",
   "https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=1920&q=85",
   "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=1920&q=85",
@@ -45,7 +44,8 @@ export function VideoHero() {
           />
         </div>
       ))}
-      <div className="absolute inset-0 bg-gradient-to-r from-ocean-900/95 via-ocean-900/85 to-ocean-900/70" />
+      {/* Deep gradient — almost black on the left for text legibility */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#1D1D1F]/95 via-[#1D1D1F]/80 to-[#1D1D1F]/60" />
     </div>
   );
 }

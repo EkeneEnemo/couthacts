@@ -115,10 +115,10 @@ export default function OnboardingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-cream-100">
+    <div className="min-h-screen bg-[#F5F5F7]">
       <Navbar />
       <div className="mx-auto max-w-3xl px-6 py-10">
-        <h1 className="text-2xl font-display font-bold text-ocean-900">
+        <h1 className="text-2xl font-display font-bold tracking-tight text-[#1D1D1F]">
           Provider Onboarding
         </h1>
 
@@ -128,12 +128,12 @@ export default function OnboardingPage() {
             <div key={s} className="flex-1">
               <div
                 className={`h-1.5 rounded-full transition-colors ${
-                  i <= step ? "bg-ocean-600" : "bg-gray-200"
+                  i <= step ? "bg-[#007AFF]" : "bg-[#E8E8ED]"
                 }`}
               />
               <p
-                className={`mt-1 text-xs ${
-                  i <= step ? "text-ocean-700 font-medium" : "text-gray-400"
+                className={`mt-1 text-[11px] ${
+                  i <= step ? "text-[#007AFF] font-semibold" : "text-[#86868B]"
                 }`}
               >
                 {s}
@@ -142,7 +142,7 @@ export default function OnboardingPage() {
           ))}
         </div>
 
-        <div className="mt-8 rounded-2xl bg-white p-8 shadow-sm border border-gray-100">
+        <div className="mt-8 rounded-3xl bg-white/80 backdrop-blur-xl p-8 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
           {/* Step 0: Business Info */}
           {step === 0 && (
             <div className="space-y-4">
@@ -162,7 +162,7 @@ export default function OnboardingPage() {
               />
 
               {/* Conditional regulatory fields */}
-              <p className="text-xs font-semibold uppercase tracking-wider text-sky-600 pt-2">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#86868B] pt-2">
                 Regulatory IDs (if applicable)
               </p>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -201,13 +201,13 @@ export default function OnboardingPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-ocean-800 mb-1">
+                <label className="block text-[12px] font-semibold text-[#1D1D1F] mb-1">
                   Bio / About your company
                 </label>
                 <textarea
                   rows={3}
                   placeholder="Tell customers about your services..."
-                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+                  className="w-full rounded-xl border border-[#E8E8ED] bg-white/80 backdrop-blur-sm px-4 py-2.5 text-[14px] outline-none focus:border-[#007AFF] focus:ring-2 focus:ring-[#007AFF]/15"
                   value={form.bio}
                   onChange={(e) => update({ bio: e.target.value })}
                 />
@@ -218,29 +218,29 @@ export default function OnboardingPage() {
           {/* Step 1: Transport Modes */}
           {step === 1 && (
             <div className="space-y-6">
-              <p className="text-sm text-gray-600">
+              <p className="text-[14px] text-[#6E6E73]">
                 Select all transport modes you offer:
               </p>
               {TRANSPORT_CATEGORIES.map((cat) => (
                 <div key={cat.name}>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-sky-600 mb-2">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#86868B] mb-2">
                     {cat.name}
                   </p>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {cat.modes.map((m) => (
                       <label
                         key={m.key}
-                        className={`flex items-center gap-2 rounded-lg border-2 p-3 text-sm cursor-pointer transition ${
+                        className={`flex items-center gap-2 rounded-xl border-2 p-3 text-[13px] cursor-pointer transition ${
                           form.modes.includes(m.key)
-                            ? "border-ocean-600 bg-ocean-50 text-ocean-700"
-                            : "border-gray-200 text-gray-600 hover:border-gray-300"
+                            ? "border-[#007AFF] bg-[#007AFF]/5 text-[#007AFF]"
+                            : "border-[#E8E8ED] text-[#6E6E73] hover:border-[#86868B]"
                         }`}
                       >
                         <input
                           type="checkbox"
                           checked={form.modes.includes(m.key)}
                           onChange={() => toggleMode(m.key)}
-                          className="accent-ocean-600"
+                          className="accent-[#007AFF]"
                         />
                         {m.label}
                       </label>
@@ -263,12 +263,12 @@ export default function OnboardingPage() {
               />
 
               <div>
-                <label className="block text-sm font-medium text-ocean-800 mb-1">
+                <label className="block text-[12px] font-semibold text-[#1D1D1F] mb-1">
                   Certifications
                 </label>
                 <div className="flex gap-2">
                   <input
-                    className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+                    className="flex-1 rounded-xl border border-[#E8E8ED] bg-white/80 backdrop-blur-sm px-4 py-2.5 text-[14px] outline-none focus:border-[#007AFF] focus:ring-2 focus:ring-[#007AFF]/15"
                     placeholder="e.g. HAZMAT certified, ISO 9001..."
                     value={form.certInput}
                     onChange={(e) => update({ certInput: e.target.value })}
@@ -283,7 +283,7 @@ export default function OnboardingPage() {
                     {form.certifications.map((c, i) => (
                       <span
                         key={i}
-                        className="inline-flex items-center gap-1 rounded-full bg-sky-50 px-3 py-1 text-xs text-sky-700"
+                        className="inline-flex items-center gap-1 rounded-full bg-[#F5F5F7] px-3.5 py-1.5 text-[12px] font-medium text-[#1D1D1F]"
                       >
                         {c}
                         <button
@@ -295,7 +295,7 @@ export default function OnboardingPage() {
                               ),
                             })
                           }
-                          className="text-sky-400 hover:text-sky-600"
+                          className="text-[#86868B] hover:text-[#FF3B30]"
                         >
                           &times;
                         </button>
@@ -306,12 +306,12 @@ export default function OnboardingPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-ocean-800 mb-1">
+                <label className="block text-[12px] font-semibold text-[#1D1D1F] mb-1">
                   Service areas
                 </label>
                 <div className="flex gap-2">
                   <input
-                    className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+                    className="flex-1 rounded-xl border border-[#E8E8ED] bg-white/80 backdrop-blur-sm px-4 py-2.5 text-[14px] outline-none focus:border-[#007AFF] focus:ring-2 focus:ring-[#007AFF]/15"
                     placeholder="e.g. US Northeast, Europe, Global..."
                     value={form.areaInput}
                     onChange={(e) => update({ areaInput: e.target.value })}
@@ -326,7 +326,7 @@ export default function OnboardingPage() {
                     {form.serviceArea.map((a, i) => (
                       <span
                         key={i}
-                        className="inline-flex items-center gap-1 rounded-full bg-ocean-50 px-3 py-1 text-xs text-ocean-700"
+                        className="inline-flex items-center gap-1 rounded-full bg-[#F5F5F7] px-3.5 py-1.5 text-[12px] font-medium text-[#1D1D1F]"
                       >
                         {a}
                         <button
@@ -338,7 +338,7 @@ export default function OnboardingPage() {
                               ),
                             })
                           }
-                          className="text-ocean-400 hover:text-ocean-600"
+                          className="text-[#86868B] hover:text-[#FF3B30]"
                         >
                           &times;
                         </button>
@@ -354,19 +354,19 @@ export default function OnboardingPage() {
           {step === 3 && (
             <div className="text-center space-y-6 py-4">
               {profileCreated && (
-                <div className="flex items-center justify-center gap-2 text-green-600">
+                <div className="flex items-center justify-center gap-2 text-[#34C759]">
                   <CheckCircle className="h-5 w-5" />
-                  <p className="text-sm font-medium">
+                  <p className="text-[14px] font-medium">
                     Provider profile created!
                   </p>
                 </div>
               )}
 
               <div>
-                <h3 className="text-lg font-display font-semibold text-ocean-800">
+                <h3 className="text-lg font-display font-bold tracking-tight text-[#1D1D1F]">
                   Connect Stripe to receive payments
                 </h3>
-                <p className="mt-2 text-sm text-gray-500 max-w-md mx-auto">
+                <p className="mt-2 text-[14px] text-[#6E6E73] max-w-md mx-auto">
                   CouthActs uses Stripe Connect to securely transfer escrow
                   funds to your account after job completion.
                 </p>
@@ -391,7 +391,7 @@ export default function OnboardingPage() {
           )}
 
           {error && (
-            <p className="mt-4 text-sm text-red-500 text-center">{error}</p>
+            <p className="mt-4 text-[12px] text-[#FF3B30] text-center">{error}</p>
           )}
 
           {/* Navigation */}

@@ -158,8 +158,8 @@ export default function NewPostingPage() {
       <div className="space-y-4">
         <Input label={labels.title} placeholder={labels.titlePlaceholder} value={form.title} onChange={(e) => update({ title: e.target.value })} />
         <div>
-          <label className="block text-sm font-medium text-ocean-800 mb-1">Description</label>
-          <textarea rows={3} placeholder={labels.descPlaceholder} className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200" value={form.description} onChange={(e) => update({ description: e.target.value })} />
+          <label className="block text-[13px] font-medium text-[#1D1D1F] mb-1">Description</label>
+          <textarea rows={3} placeholder={labels.descPlaceholder} className="w-full rounded-xl border border-[#E8E8ED] bg-white px-4 py-2.5 text-[14px] text-[#1D1D1F] outline-none focus:border-[#007AFF] focus:ring-2 focus:ring-[#007AFF]/15" value={form.description} onChange={(e) => update({ description: e.target.value })} />
         </div>
         <Input label={labels.origin} placeholder="Full address, city, or port" value={form.originAddress} onChange={(e) => update({ originAddress: e.target.value })} />
         <Input label={labels.destination} placeholder="Full address, city, or port" value={form.destinationAddress} onChange={(e) => update({ destinationAddress: e.target.value })} />
@@ -175,8 +175,8 @@ export default function NewPostingPage() {
           <Input label={labels.dateLabel} type="datetime-local" value={form.pickupDate} onChange={(e) => update({ pickupDate: e.target.value })} />
           {labels.date2Label && <Input label={labels.date2Label} type="datetime-local" value={form.deliveryDate} onChange={(e) => update({ deliveryDate: e.target.value })} />}
         </div>
-        <label className="flex items-center gap-2 text-sm">
-          <input type="checkbox" checked={form.isFlexibleDate} onChange={(e) => update({ isFlexibleDate: e.target.checked })} className="accent-ocean-600" /> Dates are flexible
+        <label className="flex items-center gap-2 text-[13px] text-[#1D1D1F]">
+          <input type="checkbox" checked={form.isFlexibleDate} onChange={(e) => update({ isFlexibleDate: e.target.checked })} className="accent-[#007AFF]" /> Dates are flexible
         </label>
       </div>
     );
@@ -187,15 +187,15 @@ export default function NewPostingPage() {
       <div className="space-y-3">
         <Input label={`Budget (${userCurrency})`} type="number" placeholder={`Min ${minUsd} ${userCurrency}`} value={form.budgetUsd} onChange={(e) => update({ budgetUsd: e.target.value })} />
         {userCurrency !== "USD" && exchangeRate && form.budgetUsd && (
-          <p className={`text-xs -mt-2 ${belowMin ? "text-red-500" : "text-gray-500"}`}>
+          <p className={`text-[11px] -mt-2 ${belowMin ? "text-[#FF3B30]" : "text-[#86868B]"}`}>
             ≈ ${budgetUsd.toFixed(2)} USD{belowMin && ` — below minimum of $${minUsd.toFixed(2)}`}
           </p>
         )}
         {userCurrency === "USD" && form.budgetUsd && belowMin && (
-          <p className="text-xs text-red-500 -mt-2">Minimum budget for {form.mode.replace(/_/g, " ")} is ${minUsd.toFixed(2)}</p>
+          <p className="text-[11px] text-[#FF3B30] -mt-2">Minimum budget for {form.mode.replace(/_/g, " ")} is ${minUsd.toFixed(2)}</p>
         )}
-        <label className="flex items-center gap-2 text-sm">
-          <input type="checkbox" checked={form.isUrgent} onChange={(e) => update({ isUrgent: e.target.checked })} className="accent-ocean-600" /> Mark as urgent
+        <label className="flex items-center gap-2 text-[13px] text-[#1D1D1F]">
+          <input type="checkbox" checked={form.isUrgent} onChange={(e) => update({ isUrgent: e.target.checked })} className="accent-[#007AFF]" /> Mark as urgent
         </label>
       </div>
     );
@@ -215,26 +215,26 @@ export default function NewPostingPage() {
               <Input label="Height (cm)" type="number" value={form.heightCm} onChange={(e) => update({ heightCm: e.target.value })} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-ocean-800 mb-1">Cargo description</label>
-              <textarea rows={2} placeholder="What are you shipping?" className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200" value={form.cargoDescription} onChange={(e) => update({ cargoDescription: e.target.value })} />
+              <label className="block text-[13px] font-medium text-[#1D1D1F] mb-1">Cargo description</label>
+              <textarea rows={2} placeholder="What are you shipping?" className="w-full rounded-xl border border-[#E8E8ED] bg-white px-4 py-2.5 text-[14px] text-[#1D1D1F] outline-none focus:border-[#007AFF] focus:ring-2 focus:ring-[#007AFF]/15" value={form.cargoDescription} onChange={(e) => update({ cargoDescription: e.target.value })} />
             </div>
           </>
         )}
         {labels.showSpecialHandling && (
           <>
-            <p className="text-xs font-semibold uppercase tracking-wider text-sky-600">Special handling</p>
+            <p className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em]">Special handling</p>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {([["isHazmat", "Hazmat"], ["isTemperatureControlled", "Temperature controlled"], ["isFragile", "Fragile"], ["isOversized", "Oversized"]] as const).map(([key, label]) => (
-                <label key={key} className={`flex items-center gap-2 rounded-lg border-2 p-3 text-sm cursor-pointer transition ${form[key] ? "border-ocean-600 bg-ocean-50" : "border-gray-200"}`}>
-                  <input type="checkbox" checked={form[key]} onChange={(e) => update({ [key]: e.target.checked })} className="accent-ocean-600" /> {label}
+                <label key={key} className={`flex items-center gap-2 rounded-xl border-2 p-3 text-[13px] cursor-pointer transition ${form[key] ? "border-[#007AFF] bg-[#007AFF]/5" : "border-[#E8E8ED]"}`}>
+                  <input type="checkbox" checked={form[key]} onChange={(e) => update({ [key]: e.target.checked })} className="accent-[#007AFF]" /> {label}
                 </label>
               ))}
             </div>
           </>
         )}
         <div>
-          <label className="block text-sm font-medium text-ocean-800 mb-1">Special instructions</label>
-          <textarea rows={2} placeholder="Anything the provider should know..." className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200" value={form.specialInstructions} onChange={(e) => update({ specialInstructions: e.target.value })} />
+          <label className="block text-[13px] font-medium text-[#1D1D1F] mb-1">Special instructions</label>
+          <textarea rows={2} placeholder="Anything the provider should know..." className="w-full rounded-xl border border-[#E8E8ED] bg-white px-4 py-2.5 text-[14px] text-[#1D1D1F] outline-none focus:border-[#007AFF] focus:ring-2 focus:ring-[#007AFF]/15" value={form.specialInstructions} onChange={(e) => update({ specialInstructions: e.target.value })} />
         </div>
       </div>
     );
@@ -247,11 +247,11 @@ export default function NewPostingPage() {
     return (
       <div className="space-y-3">
         <div className="flex items-center gap-2">
-          <Shield className="h-4 w-4 text-ocean-600" />
-          <p className="text-sm font-semibold text-ocean-800">Protection Coverage</p>
+          <Shield className="h-4 w-4 text-[#007AFF]" />
+          <p className="text-[13px] font-semibold text-[#1D1D1F]">Protection Coverage</p>
         </div>
         {isEliteRequired && (
-          <p className="text-xs text-amber-700 bg-amber-50 rounded-lg p-2 border border-amber-100">
+          <p className="text-[11px] text-[#FF9500] bg-[#FFF3E0] rounded-xl p-2 border border-[#FF9500]/20">
             Elite Protection is required for {form.mode.replace(/_/g, " ")} jobs.
           </p>
         )}
@@ -259,29 +259,29 @@ export default function NewPostingPage() {
           {tiers.map((t) => {
             const isSelected = form.insuranceTier === t.key;
             return (
-              <label key={t.key} className={`block rounded-xl border-2 p-4 cursor-pointer transition ${isSelected ? "border-ocean-600 bg-ocean-50" : "border-gray-200 hover:border-gray-300"}`}>
+              <label key={t.key} className={`block rounded-2xl border-2 p-4 cursor-pointer transition ${isSelected ? "border-[#007AFF] bg-[#007AFF]/5" : "border-[#E8E8ED] hover:border-[#86868B]"}`}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <input type="radio" name="insurance" value={t.key} checked={isSelected} onChange={() => update({ insuranceTier: t.key })} className="accent-ocean-600" />
+                    <input type="radio" name="insurance" value={t.key} checked={isSelected} onChange={() => update({ insuranceTier: t.key })} className="accent-[#007AFF]" />
                     <div>
-                      <p className="text-sm font-medium text-ocean-800">{t.label}</p>
-                      <p className="text-xs text-gray-500">{t.description}</p>
+                      <p className="text-[13px] font-medium text-[#1D1D1F]">{t.label}</p>
+                      <p className="text-[11px] text-[#86868B]">{t.description}</p>
                     </div>
                   </div>
                   <div className="text-right flex-shrink-0 ml-4">
-                    <p className="text-sm font-semibold text-ocean-700">
+                    <p className="text-[13px] font-semibold text-[#1D1D1F] tabular-nums">
                       {t.key === "NONE" ? "Free" : `$${t.fee(budgetUsd).toFixed(2)}`}
                     </p>
-                    <p className="text-[10px] text-gray-400">{t.coverage}</p>
+                    <p className="text-[10px] text-[#86868B]">{t.coverage}</p>
                   </div>
                 </div>
                 {isSelected && t.features && t.features.length > 0 && (
-                  <div className="mt-3 pt-3 border-t border-ocean-200/50">
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-ocean-600 mb-2">What&apos;s included</p>
+                  <div className="mt-3 pt-3 border-t border-[#E8E8ED]">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#007AFF] mb-2">What&apos;s included</p>
                     <ul className="space-y-1.5">
                       {t.features.map((f: string) => (
-                        <li key={f} className="flex items-start gap-2 text-xs text-ocean-700">
-                          <span className="mt-1 h-1.5 w-1.5 rounded-full bg-ocean-500 flex-shrink-0" />
+                        <li key={f} className="flex items-start gap-2 text-[11px] text-[#6E6E73]">
+                          <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#007AFF] flex-shrink-0" />
                           {f}
                         </li>
                       ))}
@@ -298,22 +298,22 @@ export default function NewPostingPage() {
 
   function ConfirmSummary() {
     return (
-      <div className="rounded-xl border border-ocean-200 bg-ocean-50/50 p-4 space-y-2">
-        <p className="text-xs font-semibold uppercase tracking-wider text-ocean-600">Payment Summary</p>
-        <div className="flex justify-between text-sm"><span className="text-gray-600">Budget hold</span><span className="font-medium text-ocean-800">${budgetUsd.toFixed(2)}</span></div>
-        <div className="flex justify-between text-sm"><span className="text-gray-600">Posting fee</span><span className="font-medium text-ocean-800">${postingFee.toFixed(2)}</span></div>
-        {insuranceFee > 0 && <div className="flex justify-between text-sm"><span className="text-gray-600">Insurance ({form.insuranceTier})</span><span className="font-medium text-ocean-800">${insuranceFee.toFixed(2)}</span></div>}
-        <hr className="border-ocean-200" />
-        <div className="flex justify-between text-sm"><span className="text-gray-600 font-semibold">Total from wallet</span><span className="font-bold text-ocean-700">${totalDebit.toFixed(2)}</span></div>
-        <div className="flex justify-between text-sm"><span className="text-gray-600">Wallet balance</span><span className={`font-semibold ${hasEnough ? "text-green-600" : "text-red-500"}`}>${walletBalance?.toFixed(2) ?? "—"}</span></div>
-        <div className="flex justify-between text-sm"><span className="text-gray-600">Escrow fee on completion</span><span className="text-gray-500">${escrowFee.toFixed(2)} ({budgetUsd < 500 ? "8" : budgetUsd < 5000 ? "6" : budgetUsd < 50000 ? "4" : budgetUsd < 500000 ? "2" : "1"}%)</span></div>
-        <p className="text-xs text-gray-400">Budget is held until a provider is matched. Provider is paid only when both parties confirm completion. Posting fee and protection fee are non-refundable.</p>
+      <div className="rounded-2xl border border-[#007AFF]/20 bg-[#007AFF]/5 p-4 space-y-2">
+        <p className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em]">Payment Summary</p>
+        <div className="flex justify-between text-[13px]"><span className="text-[#6E6E73]">Budget hold</span><span className="font-medium text-[#1D1D1F] tabular-nums">${budgetUsd.toFixed(2)}</span></div>
+        <div className="flex justify-between text-[13px]"><span className="text-[#6E6E73]">Posting fee</span><span className="font-medium text-[#1D1D1F] tabular-nums">${postingFee.toFixed(2)}</span></div>
+        {insuranceFee > 0 && <div className="flex justify-between text-[13px]"><span className="text-[#6E6E73]">Insurance ({form.insuranceTier})</span><span className="font-medium text-[#1D1D1F] tabular-nums">${insuranceFee.toFixed(2)}</span></div>}
+        <hr className="border-[#E8E8ED]" />
+        <div className="flex justify-between text-[13px]"><span className="text-[#6E6E73] font-semibold">Total from wallet</span><span className="font-bold text-[#1D1D1F] tabular-nums">${totalDebit.toFixed(2)}</span></div>
+        <div className="flex justify-between text-[13px]"><span className="text-[#6E6E73]">Wallet balance</span><span className={`font-semibold tabular-nums ${hasEnough ? "text-[#34C759]" : "text-[#FF3B30]"}`}>${walletBalance?.toFixed(2) ?? "—"}</span></div>
+        <div className="flex justify-between text-[13px]"><span className="text-[#6E6E73]">Escrow fee on completion</span><span className="text-[#86868B] tabular-nums">${escrowFee.toFixed(2)} ({budgetUsd < 500 ? "8" : budgetUsd < 5000 ? "6" : budgetUsd < 50000 ? "4" : budgetUsd < 500000 ? "2" : "1"}%)</span></div>
+        <p className="text-[11px] text-[#86868B]">Budget is held until a provider is matched. Provider is paid only when both parties confirm completion. Posting fee and protection fee are non-refundable.</p>
         {!hasEnough && (
-          <div className="flex items-start gap-2 rounded-lg bg-red-50 border border-red-200 p-3 mt-1">
-            <AlertTriangle className="h-4 w-4 text-red-500 mt-0.5 flex-shrink-0" />
+          <div className="flex items-start gap-2 rounded-xl bg-[#FFF1F0] border border-[#FF3B30]/20 p-3 mt-1">
+            <AlertTriangle className="h-4 w-4 text-[#FF3B30] mt-0.5 flex-shrink-0" />
             <div>
-              <p className="text-sm text-red-700 font-medium">Insufficient balance</p>
-              <p className="text-xs text-red-600">You need ${(totalDebit - (walletBalance ?? 0)).toFixed(2)} more. <Link href="/wallet" className="underline font-medium">Top up your wallet</Link></p>
+              <p className="text-[13px] text-[#FF3B30] font-medium">Insufficient balance</p>
+              <p className="text-[11px] text-[#FF3B30]/80">You need ${(totalDebit - (walletBalance ?? 0)).toFixed(2)} more. <Link href="/wallet" className="underline font-medium text-[#007AFF] hover:text-[#0055D4]">Top up your wallet</Link></p>
             </div>
           </div>
         )}
@@ -322,33 +322,33 @@ export default function NewPostingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-cream-100">
+    <div className="min-h-screen bg-[#F5F5F7]">
       <Navbar />
       <div className="mx-auto max-w-3xl px-6 py-10">
-        <h1 className="text-2xl font-display font-bold text-ocean-900">Post a Transportation Need</h1>
+        <h1 className="text-2xl font-display font-bold tracking-tight text-[#1D1D1F]">Post a Transportation Need</h1>
 
         {/* Progress bar */}
         <div className="mt-6 flex gap-2">
           {steps.map((s, i) => (
             <div key={s} className="flex-1">
-              <div className={`h-1.5 rounded-full transition-colors ${i <= step ? "bg-ocean-600" : "bg-gray-200"}`} />
-              <p className={`mt-1 text-xs ${i <= step ? "text-ocean-700 font-medium" : "text-gray-400"}`}>{s}</p>
+              <div className={`h-1.5 rounded-full transition-colors ${i <= step ? "bg-[#007AFF]" : "bg-[#E8E8ED]"}`} />
+              <p className={`mt-1 text-[11px] ${i <= step ? "text-[#007AFF] font-medium" : "text-[#86868B]"}`}>{s}</p>
             </div>
           ))}
         </div>
 
-        <div className="mt-8 rounded-2xl bg-white p-8 shadow-sm border border-gray-100">
+        <div className="mt-8 rounded-3xl bg-white/80 backdrop-blur-xl p-8 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
           {/* Step 0 is always Mode selection */}
           {step === 0 && (
             <div className="space-y-6">
-              <p className="text-sm text-gray-600">What type of transportation do you need?</p>
+              <p className="text-[14px] text-[#6E6E73]">What type of transportation do you need?</p>
               {TRANSPORT_CATEGORIES.map((catGroup) => (
                 <div key={catGroup.name}>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-sky-600 mb-2">{catGroup.name}</p>
+                  <p className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em] mb-2">{catGroup.name}</p>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {catGroup.modes.map((m) => (
                       <button key={m.key} type="button" onClick={() => { update({ mode: m.key }); setStep(0); }}
-                        className={`rounded-lg border-2 p-3 text-left text-sm font-medium transition ${form.mode === m.key ? "border-ocean-600 bg-ocean-50 text-ocean-700" : "border-gray-200 text-gray-600 hover:border-gray-300"}`}>
+                        className={`rounded-xl border-2 p-3 text-left text-[13px] font-medium transition ${form.mode === m.key ? "border-[#007AFF] bg-[#007AFF]/5 text-[#007AFF]" : "border-[#E8E8ED] text-[#6E6E73] hover:border-[#86868B]"}`}>
                         {m.label}
                       </button>
                     ))}
@@ -407,13 +407,13 @@ export default function NewPostingPage() {
             <div className="space-y-6">
               <InsuranceSelector />
               <div>
-                <p className="text-sm font-medium text-ocean-800 mb-2">Tracking layers</p>
+                <p className="text-[13px] font-medium text-[#1D1D1F] mb-2">Tracking layers</p>
                 <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {TRACKING_OPTIONS.map((t) => (
-                    <label key={t.value} className={`flex items-center gap-2 rounded-lg border-2 p-3 text-sm transition ${!t.active ? "border-gray-100 bg-gray-50 text-gray-400 cursor-not-allowed" : form.trackingLayers.includes(t.value) ? "border-ocean-600 bg-ocean-50 cursor-pointer" : "border-gray-200 cursor-pointer"}`}>
-                      <input type="checkbox" checked={form.trackingLayers.includes(t.value)} onChange={() => t.active && toggleTracking(t.value)} disabled={!t.active} className="accent-ocean-600" />
+                    <label key={t.value} className={`flex items-center gap-2 rounded-xl border-2 p-3 text-[13px] transition ${!t.active ? "border-[#E8E8ED] bg-[#F5F5F7] text-[#86868B] cursor-not-allowed" : form.trackingLayers.includes(t.value) ? "border-[#007AFF] bg-[#007AFF]/5 cursor-pointer" : "border-[#E8E8ED] cursor-pointer"}`}>
+                      <input type="checkbox" checked={form.trackingLayers.includes(t.value)} onChange={() => t.active && toggleTracking(t.value)} disabled={!t.active} className="accent-[#007AFF]" />
                       <span className="flex-1">{t.label}</span>
-                      {!t.active && <span className="rounded-full bg-gray-200 px-2 py-0.5 text-[10px] font-semibold text-gray-500">Coming Soon</span>}
+                      {!t.active && <span className="rounded-full bg-[#E8E8ED] px-2 py-0.5 text-[10px] font-semibold text-[#86868B]">Coming Soon</span>}
                     </label>
                   ))}
                 </div>
@@ -422,7 +422,7 @@ export default function NewPostingPage() {
             </div>
           )}
 
-          {error && <p className="mt-4 text-sm text-red-500 text-center">{error}</p>}
+          {error && <p className="mt-4 text-[13px] text-[#FF3B30] text-center">{error}</p>}
 
           {/* Navigation */}
           <div className="mt-8 flex items-center justify-between">

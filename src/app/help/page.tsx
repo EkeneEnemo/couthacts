@@ -117,29 +117,29 @@ function FAQAccordion({ section }: { section: FAQSection }) {
 
   return (
     <div>
-      <h2 className="text-xl font-display font-semibold text-ocean-800">{section.title}</h2>
+      <h2 className="text-xl font-display font-bold text-[#1D1D1F]">{section.title}</h2>
       <div className="mt-4 space-y-2">
         {section.items.map((item, i) => {
           const isOpen = openIndex === i;
           return (
             <div
               key={i}
-              className="rounded-xl border border-ocean-100 bg-white shadow-sm overflow-hidden"
+              className="rounded-3xl bg-white/80 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 overflow-hidden"
             >
               <button
                 onClick={() => setOpenIndex(isOpen ? null : i)}
                 className="flex w-full items-center justify-between px-5 py-4 text-left"
               >
-                <span className="text-sm font-medium text-ocean-800 pr-4">
+                <span className="text-[13px] font-medium text-[#1D1D1F] pr-4">
                   {item.question}
                 </span>
-                <span className="shrink-0 text-ocean-400 text-lg leading-none">
+                <span className="shrink-0 text-[#86868B] text-lg leading-none">
                   {isOpen ? "\u2212" : "+"}
                 </span>
               </button>
               {isOpen && (
                 <div className="px-5 pb-4">
-                  <p className="text-sm text-gray-600 leading-relaxed">{item.answer}</p>
+                  <p className="text-[13px] text-[#6E6E73] leading-relaxed">{item.answer}</p>
                 </div>
               )}
             </div>
@@ -152,13 +152,13 @@ function FAQAccordion({ section }: { section: FAQSection }) {
 
 export default function HelpPage() {
   return (
-    <div className="min-h-screen bg-cream-50">
+    <div className="min-h-screen bg-[#F5F5F7]">
       <Navbar />
       <div className="mx-auto max-w-3xl px-6 py-16">
-        <h1 className="text-3xl font-display font-bold text-ocean-900 sm:text-4xl">
+        <h1 className="text-3xl font-display font-bold text-[#1D1D1F] sm:text-4xl">
           Help Center
         </h1>
-        <p className="mt-3 text-lg text-gray-600">
+        <p className="mt-3 text-[14px] text-[#6E6E73]">
           Find answers to common questions about using the CouthActs platform.
         </p>
 
@@ -169,26 +169,26 @@ export default function HelpPage() {
         </div>
 
         {/* Contact support */}
-        <section className="mt-12 rounded-xl border border-ocean-100 bg-white p-6 shadow-sm text-center">
-          <h2 className="text-xl font-display font-semibold text-ocean-800">
+        <section className="mt-12 rounded-3xl bg-white/80 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 p-6 text-center">
+          <h2 className="text-xl font-display font-bold text-[#1D1D1F]">
             Still need help?
           </h2>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 text-[13px] text-[#6E6E73]">
             Our support team is available to assist you with any questions or issues.
           </p>
           <a
             href="mailto:support@couthacts.com"
-            className="mt-4 inline-block rounded-lg bg-ocean-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-ocean-700 transition"
+            className="mt-4 inline-block rounded-full bg-[#007AFF] px-5 py-2.5 text-[13px] font-semibold text-white hover:bg-[#0055D4] transition"
           >
             support@couthacts.com
           </a>
         </section>
 
-        <div className="mt-16 flex flex-wrap gap-4 text-sm text-ocean-600">
-          <Link href="/terms" className="underline hover:text-ocean-700">Terms of Service</Link>
-          <Link href="/privacy" className="underline hover:text-ocean-700">Privacy Policy</Link>
-          <Link href="/safety" className="underline hover:text-ocean-700">Safety Center</Link>
-          <Link href="/about" className="underline hover:text-ocean-700">About</Link>
+        <div className="mt-16 flex flex-wrap gap-4 text-[13px] text-[#007AFF]">
+          <Link href="/terms" className="hover:text-[#0055D4]">Terms of Service</Link>
+          <Link href="/privacy" className="hover:text-[#0055D4]">Privacy Policy</Link>
+          <Link href="/safety" className="hover:text-[#0055D4]">Safety Center</Link>
+          <Link href="/about" className="hover:text-[#0055D4]">About</Link>
         </div>
       </div>
     </div>

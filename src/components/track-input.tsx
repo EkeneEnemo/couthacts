@@ -14,11 +14,11 @@ export function TrackInput() {
         name="code"
         type="text"
         placeholder="Enter your tracking code"
-        className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-mono text-center outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200 sm:w-64 sm:text-left"
+        className="w-full rounded-2xl border border-[#E8E8ED] bg-white/80 backdrop-blur-xl px-5 py-3.5 text-[14px] font-mono text-center outline-none focus:border-[#007AFF] focus:ring-2 focus:ring-[#007AFF]/20 transition-all sm:w-72 sm:text-left"
       />
       <button
         type="submit"
-        className="w-full rounded-lg bg-ocean-600 px-6 py-3 text-sm font-semibold text-white hover:bg-ocean-700 transition sm:w-auto"
+        className="w-full rounded-2xl bg-[#007AFF] px-6 py-3.5 text-[13px] font-semibold text-white hover:bg-[#0055D4] transition-colors sm:w-auto"
       >
         Track Now
       </button>

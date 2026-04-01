@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Figtree } from "next/font/google";
 import "./globals.css";
 
@@ -14,10 +14,23 @@ const figtree = Figtree({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#F5F5F7",
+};
+
 export const metadata: Metadata = {
-  title: "CouthActs™ — Global Transportation Infrastructure Platform",
+  title: "CouthActs\u2122 \u2014 Global Transportation Infrastructure Platform",
   description:
-    "Book any transport mode worldwide — from taxis to cargo ships, private jets to freight rail. Verified providers, escrow-protected payments, real-time tracking.",
+    "Book any transport mode worldwide \u2014 from taxis to cargo ships, private jets to freight rail. Verified providers, escrow-protected payments, real-time tracking.",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "CouthActs",
+  },
 };
 
 export default function RootLayout({

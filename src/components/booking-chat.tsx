@@ -82,38 +82,38 @@ export function BookingChat({ bookingId, currentUserId }: BookingChatProps) {
   if (loading) return null;
 
   return (
-    <div className="rounded-2xl bg-white shadow-sm border border-gray-100 overflow-hidden">
-      {/* Header — always visible */}
+    <div className="rounded-3xl bg-white/80 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 overflow-hidden">
+      {/* Header -- always visible */}
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition"
+        className="w-full flex items-center justify-between p-4 hover:bg-[#F5F5F7] transition"
       >
         <div className="flex items-center gap-2">
-          <MessageCircle className="h-4 w-4 text-ocean-600" />
-          <span className="text-sm font-semibold text-ocean-800">
+          <MessageCircle className="h-4 w-4 text-[#007AFF]" />
+          <span className="text-[14px] font-semibold text-[#1D1D1F]">
             Chat
           </span>
           {messages.length > 0 && (
-            <span className="rounded-full bg-ocean-50 px-2 py-0.5 text-[10px] font-bold text-ocean-600">
+            <span className="rounded-full bg-[#007AFF]/10 px-2 py-0.5 text-[10px] font-bold text-[#007AFF]">
               {messages.length}
             </span>
           )}
         </div>
         <div className="flex items-center gap-2">
           {!chatOpen && (
-            <span className="flex items-center gap-1 text-[10px] font-medium text-gray-400">
+            <span className="flex items-center gap-1 text-[10px] font-medium text-[#86868B]">
               <Lock className="h-3 w-3" />
               Closed
             </span>
           )}
           {chatOpen && timeRemaining !== null && timeRemaining <= 48 && (
-            <span className="flex items-center gap-1 text-[10px] font-medium text-amber-600">
+            <span className="flex items-center gap-1 text-[10px] font-medium text-[#FF9500]">
               <Clock className="h-3 w-3" />
               {timeRemaining}h left
             </span>
           )}
           <svg
-            className={`h-4 w-4 text-gray-400 transition-transform ${expanded ? "rotate-180" : ""}`}
+            className={`h-4 w-4 text-[#86868B] transition-transform ${expanded ? "rotate-180" : ""}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -123,15 +123,15 @@ export function BookingChat({ bookingId, currentUserId }: BookingChatProps) {
         </div>
       </button>
 
-      {/* Chat body — collapsible */}
+      {/* Chat body -- collapsible */}
       {expanded && (
-        <div className="border-t border-gray-100">
+        <div className="border-t border-[#E8E8ED]">
           {/* Messages */}
           <div className="max-h-72 overflow-y-auto p-4 space-y-3">
             {messages.length === 0 && (
               <div className="text-center py-6">
-                <MessageCircle className="mx-auto h-8 w-8 text-gray-200" />
-                <p className="mt-2 text-xs text-gray-400">
+                <MessageCircle className="mx-auto h-8 w-8 text-[#E8E8ED]" />
+                <p className="mt-2 text-[13px] text-[#86868B]">
                   {chatOpen
                     ? "No messages yet. Start the conversation."
                     : "No messages were exchanged."}
@@ -149,8 +149,8 @@ export function BookingChat({ bookingId, currentUserId }: BookingChatProps) {
                   <div
                     className={`max-w-[80%] rounded-2xl px-4 py-2.5 ${
                       isMe
-                        ? "bg-ocean-600 text-white rounded-br-md"
-                        : "bg-gray-100 text-ocean-900 rounded-bl-md"
+                        ? "bg-[#007AFF] text-white rounded-br-md"
+                        : "bg-[#F5F5F7] text-[#1D1D1F] rounded-bl-md"
                     }`}
                   >
                     {!isMe && (
@@ -158,10 +158,10 @@ export function BookingChat({ bookingId, currentUserId }: BookingChatProps) {
                         {msg.sender.firstName}
                       </p>
                     )}
-                    <p className="text-sm leading-relaxed">{msg.body}</p>
+                    <p className="text-[14px] leading-relaxed">{msg.body}</p>
                     <p
                       className={`text-[10px] mt-1 ${
-                        isMe ? "text-white/50" : "text-gray-400"
+                        isMe ? "text-white/50" : "text-[#86868B]"
                       }`}
                     >
                       {new Date(msg.createdAt).toLocaleTimeString([], {
@@ -180,27 +180,27 @@ export function BookingChat({ bookingId, currentUserId }: BookingChatProps) {
           {chatOpen ? (
             <form
               onSubmit={sendMessage}
-              className="border-t border-gray-100 p-3 flex gap-2"
+              className="border-t border-[#E8E8ED] p-3 flex gap-2"
             >
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Type a message..."
-                className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-200"
+                className="flex-1 rounded-xl border border-[#E8E8ED] bg-[#F5F5F7] px-3 py-2 text-[14px] outline-none focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF]/20 transition"
                 maxLength={1000}
               />
               <button
                 type="submit"
                 disabled={!input.trim() || sending}
-                className="flex h-9 w-9 items-center justify-center rounded-lg bg-ocean-600 text-white transition hover:bg-ocean-700 disabled:opacity-40 disabled:cursor-not-allowed"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-[#007AFF] text-white transition hover:bg-[#0055D4] disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 <Send className="h-4 w-4" />
               </button>
             </form>
           ) : (
-            <div className="border-t border-gray-100 p-3">
-              <p className="text-xs text-gray-400 text-center flex items-center justify-center gap-1.5">
+            <div className="border-t border-[#E8E8ED] p-3">
+              <p className="text-[13px] text-[#86868B] text-center flex items-center justify-center gap-1.5">
                 <Lock className="h-3 w-3" />
                 Chat closed — 48-hour window after job completion has expired
               </p>

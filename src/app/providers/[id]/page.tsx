@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Navbar } from "@/components/navbar";
 import { ScoreGauge } from "@/components/score-gauge";
 import { ScoreBars } from "@/components/score-bars";
-import { CheckCircle, ArrowLeft, Star, Award } from "lucide-react";
+import { CheckCircle, ArrowLeft, Star, Award, MapPin, Calendar, Briefcase, MessageSquare, Truck, Shield } from "lucide-react";
 
 export default async function ProviderProfilePage({
   params,
@@ -29,7 +29,6 @@ export default async function ProviderProfilePage({
 
   if (!provider) notFound();
 
-  // Academy certifications
   const academyCerts = await db.enrollment.findMany({
     where: { userId: provider.userId, examPassed: true },
     include: { course: { select: { title: true, category: true, level: true, slug: true } } },
@@ -41,26 +40,104 @@ export default async function ProviderProfilePage({
     ? provider.reviews.reduce((s: number, r: ProviderReview) => s + r.rating, 0) / provider.reviews.length
     : 0;
 
-  return (
-    <div className="min-h-screen bg-cream-50">
-      <Navbar />
-      <div className="mx-auto max-w-4xl px-6 py-10">
-        <Link href="/browse" className="inline-flex items-center gap-1 text-sm text-ocean-600 hover:text-ocean-700 mb-6">
-          <ArrowLeft className="h-4 w-4" /> Back to jobs
-        </Link>
+  const memberSince = new Date(provider.user.createdAt).toLocaleDateString("en-US", { month: "long", year: "numeric" });
 
-        <div className="grid gap-6 lg:grid-cols-3">
-          {/* Left column — Score + identity */}
-          <div className="lg:col-span-1 space-y-6">
-            {/* Score gauge */}
-            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100 text-center">
+  return (
+    <div className="min-h-screen bg-[#F5F5F7]">
+      <Navbar />
+
+      {/* ── Back link ── */}
+      <div className="mx-auto max-w-5xl px-4 pt-6 sm:px-6 sm:pt-8">
+        <Link href="/browse" className="group inline-flex items-center gap-1.5 text-sm text-[#007AFF] hover:text-[#0055D4] transition-colors min-h-[44px] flex items-center">
+          <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" /> Back to jobs
+        </Link>
+      </div>
+
+      {/* ── Hero header ── */}
+      <div className="mx-auto max-w-5xl px-4 pt-4 pb-2 sm:px-6 sm:pt-6">
+        <div className="rounded-3xl bg-white/80 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 overflow-hidden">
+          <div className="px-5 pt-6 pb-5 sm:px-8 sm:pt-8 sm:pb-6 md:px-10 md:pt-10">
+            <div className="flex flex-col items-center text-center sm:flex-row sm:items-start sm:text-left gap-5 sm:gap-6">
+              {/* Avatar */}
+              <div className="relative flex-shrink-0">
+                <div className="flex h-16 w-16 sm:h-[72px] sm:w-[72px] items-center justify-center rounded-[18px] sm:rounded-[22px] bg-gradient-to-br from-ocean-500 to-ocean-700 text-xl sm:text-2xl font-display font-bold text-white shadow-lg shadow-ocean-500/20">
+                  {provider.businessName.charAt(0)}
+                </div>
+                {provider.isVerified && (
+                  <div className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-white shadow-sm">
+                    <CheckCircle className="h-4 w-4 text-[#34C759]" />
+                  </div>
+                )}
+              </div>
+
+              {/* Identity */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <h1 className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-[#1D1D1F] tracking-tight">
+                    {provider.businessName}
+                  </h1>
+                  {provider.scoreTier === "ELITE" && (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#EEFBF1] px-2.5 py-1 text-[11px] font-semibold text-[#1B8D36]">
+                      <Star className="h-3 w-3" /> Elite
+                    </span>
+                  )}
+                </div>
+                <div className="mt-2 flex items-center gap-4 flex-wrap text-[13px] text-[#86868B]">
+                  {provider.user.city && (
+                    <span className="inline-flex items-center gap-1">
+                      <MapPin className="h-3.5 w-3.5" />
+                      {provider.user.city}{provider.user.country && `, ${provider.user.country}`}
+                    </span>
+                  )}
+                  <span className="inline-flex items-center gap-1">
+                    <Calendar className="h-3.5 w-3.5" />
+                    Since {memberSince}
+                  </span>
+                </div>
+                {provider.bio && (
+                  <p className="mt-3 text-[14px] text-[#6E6E73] leading-relaxed max-w-2xl">{provider.bio}</p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* ── Stat bar ── */}
+          <div className="border-t border-[#E8E8ED]/60 bg-[#FAFAFA]/50 px-5 py-4 sm:px-8 sm:py-5 md:px-10">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+              {[
+                { value: provider.totalJobs, label: "Jobs Completed", icon: Briefcase },
+                { value: provider._count.reviews, label: "Reviews", icon: MessageSquare },
+                { value: provider.fleetSize || "\u2014", label: "Fleet Size", icon: Truck },
+                { value: provider.modes.length, label: "Transport Modes", icon: Shield },
+              ].map((s) => (
+                <div key={s.label} className="flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#F5F5F7] flex-shrink-0">
+                    <s.icon className="h-4 w-4 text-[#86868B]" />
+                  </div>
+                  <div>
+                    <p className="text-lg font-display font-bold text-[#1D1D1F] leading-tight">{s.value}</p>
+                    <p className="text-[11px] text-[#86868B]">{s.label}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Main content ── */}
+      <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
+        <div className="grid gap-5 sm:gap-6 lg:grid-cols-5">
+
+          {/* ── Left column — Score ── */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 text-center">
               <ScoreGauge score={provider.couthActsScore} tier={provider.scoreTier} />
-              <p className="mt-3 text-xs text-gray-400">Score recalculated after every completed job</p>
+              <p className="mt-4 text-[11px] text-[#86868B]">Recalculated after every completed job</p>
             </div>
 
-            {/* Sub-scores */}
-            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-              <p className="text-sm font-semibold text-ocean-800 mb-4">Performance Breakdown</p>
+            <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+              <p className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em] mb-5">Performance</p>
               <ScoreBars
                 completionRate={provider.completionRate}
                 onTimeRate={provider.onTimeRate}
@@ -70,80 +147,32 @@ export default async function ProviderProfilePage({
                 isVerified={provider.isVerified}
               />
             </div>
-
-            {/* Quick stats */}
-            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-              <div className="grid grid-cols-2 gap-4 text-center">
-                <div>
-                  <p className="text-xl font-display font-bold text-ocean-700">{provider.totalJobs}</p>
-                  <p className="text-xs text-gray-500">Jobs completed</p>
-                </div>
-                <div>
-                  <p className="text-xl font-display font-bold text-ocean-700">{provider._count.reviews}</p>
-                  <p className="text-xs text-gray-500">Reviews</p>
-                </div>
-                <div>
-                  <p className="text-xl font-display font-bold text-ocean-700">{provider.fleetSize || "—"}</p>
-                  <p className="text-xs text-gray-500">Fleet size</p>
-                </div>
-                <div>
-                  <p className="text-xl font-display font-bold text-ocean-700">{provider.modes.length}</p>
-                  <p className="text-xs text-gray-500">Active modes</p>
-                </div>
-              </div>
-            </div>
           </div>
 
-          {/* Right column — Profile info */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Header */}
-            <div className="rounded-2xl bg-white p-8 shadow-sm border border-gray-100">
-              <div className="flex items-start gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-ocean-100 text-xl font-display font-bold text-ocean-700 flex-shrink-0">
-                  {provider.businessName.charAt(0)}
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <h1 className="text-xl font-display font-bold text-ocean-900">{provider.businessName}</h1>
-                    {provider.isVerified && <CheckCircle className="h-5 w-5 text-sky-500" />}
-                    {provider.scoreTier === "ELITE" && (
-                      <span className="rounded-full bg-amber-50 border border-amber-200 px-2.5 py-0.5 text-[10px] font-bold text-amber-700 flex items-center gap-1">
-                        <Star className="h-3 w-3" /> ELITE
-                      </span>
-                    )}
-                  </div>
-                  {provider.user.city && (
-                    <p className="mt-1 text-sm text-gray-500">
-                      {provider.user.city}{provider.user.country && `, ${provider.user.country}`}
-                    </p>
-                  )}
-                  <p className="text-xs text-gray-400 mt-1">
-                    Member since {new Date(provider.user.createdAt).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
-                  </p>
-                </div>
-              </div>
-              {provider.bio && (
-                <p className="mt-4 text-sm text-gray-600 leading-relaxed">{provider.bio}</p>
-              )}
-            </div>
+          {/* ── Right column — Details ── */}
+          <div className="lg:col-span-3 space-y-6">
 
             {/* Transport modes */}
-            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-              <p className="text-xs font-semibold uppercase tracking-wider text-sky-600 mb-3">Transport Modes</p>
+            <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+              <p className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em] mb-4">Transport Modes</p>
               <div className="flex flex-wrap gap-2">
                 {provider.modes.map((m: string) => (
-                  <span key={m} className="rounded-full bg-ocean-50 px-3 py-1 text-xs font-medium text-ocean-700">{m.replace(/_/g, " ")}</span>
+                  <span key={m} className="rounded-full bg-[#F5F5F7] px-3.5 py-1.5 text-[12px] font-medium text-[#1D1D1F]">
+                    {m.replace(/_/g, " ")}
+                  </span>
                 ))}
               </div>
             </div>
 
             {/* Service areas */}
             {provider.serviceArea.length > 0 && (
-              <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-                <p className="text-xs font-semibold uppercase tracking-wider text-sky-600 mb-3">Service Areas</p>
+              <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+                <p className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em] mb-4">Service Areas</p>
                 <div className="flex flex-wrap gap-2">
                   {provider.serviceArea.map((a: string) => (
-                    <span key={a} className="rounded-full bg-sky-50 px-3 py-1 text-xs text-sky-700">{a}</span>
+                    <span key={a} className="rounded-full bg-[#F5F5F7] px-3.5 py-1.5 text-[12px] font-medium text-[#1D1D1F]">
+                      {a}
+                    </span>
                   ))}
                 </div>
               </div>
@@ -151,11 +180,13 @@ export default async function ProviderProfilePage({
 
             {/* Certifications */}
             {provider.certifications.length > 0 && (
-              <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-                <p className="text-xs font-semibold uppercase tracking-wider text-sky-600 mb-3">Certifications</p>
+              <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+                <p className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em] mb-4">Certifications</p>
                 <div className="flex flex-wrap gap-2">
                   {provider.certifications.map((c: string) => (
-                    <span key={c} className="rounded-full bg-green-50 px-3 py-1 text-xs text-green-700">{c}</span>
+                    <span key={c} className="inline-flex items-center gap-1.5 rounded-full bg-[#EEFBF1] px-3.5 py-1.5 text-[12px] font-medium text-[#1B8D36]">
+                      <CheckCircle className="h-3 w-3" /> {c}
+                    </span>
                   ))}
                 </div>
               </div>
@@ -163,23 +194,23 @@ export default async function ProviderProfilePage({
 
             {/* Academy Certifications */}
             {academyCerts.length > 0 && (
-              <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-                <p className="text-xs font-semibold uppercase tracking-wider text-sky-600 mb-3">Academy Certifications</p>
+              <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+                <p className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em] mb-4">Academy</p>
                 <div className="space-y-3">
                   {academyCerts.map((cert) => (
-                    <div key={cert.id} className="flex items-center gap-3 rounded-xl bg-gradient-to-r from-ocean-50 to-sky-50 p-4 border border-ocean-100">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-ocean-600 text-white flex-shrink-0">
+                    <div key={cert.id} className="flex items-center gap-4 rounded-2xl bg-[#F5F5F7]/70 p-4">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-[14px] bg-gradient-to-br from-ocean-500 to-ocean-700 text-white flex-shrink-0 shadow-sm">
                         <Award className="h-5 w-5" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-ocean-900 truncate">{cert.course.title}</p>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-[13px] font-semibold text-[#1D1D1F] truncate">{cert.course.title}</p>
+                        <p className="text-[11px] text-[#86868B]">
                           {cert.course.category.replace(/_/g, " ")} &middot; Score: {cert.examScore}%
-                          {cert.completedAt && ` &middot; ${new Date(cert.completedAt).toLocaleDateString("en-US", { month: "short", year: "numeric" })}`}
+                          {cert.completedAt && ` \u00B7 ${new Date(cert.completedAt).toLocaleDateString("en-US", { month: "short", year: "numeric" })}`}
                         </p>
                       </div>
                       {cert.certificateId && (
-                        <a href={`/academy/certificate/${cert.certificateId}`} className="text-xs font-semibold text-ocean-600 hover:text-ocean-700 flex-shrink-0">
+                        <a href={`/academy/certificate/${cert.certificateId}`} className="text-[12px] font-semibold text-[#007AFF] hover:text-[#0055D4] transition-colors flex-shrink-0">
                           View
                         </a>
                       )}
@@ -191,41 +222,52 @@ export default async function ProviderProfilePage({
 
             {/* Fleet photos */}
             {provider.fleetPhotoUrls.length > 0 && (
-              <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-                <p className="text-xs font-semibold uppercase tracking-wider text-sky-600 mb-3">Fleet & Equipment</p>
-                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+              <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+                <p className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em] mb-4">Fleet & Equipment</p>
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                   {provider.fleetPhotoUrls.map((url: string, i: number) => (
-                    <img key={i} src={url} alt={`Fleet ${i + 1}`} className="rounded-xl object-cover aspect-[4/3] w-full" />
+                    <img key={i} src={url} alt={`Fleet ${i + 1}`} className="rounded-2xl object-cover aspect-[4/3] w-full" />
                   ))}
                 </div>
               </div>
             )}
 
             {/* Reviews */}
-            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-              <p className="text-sm font-semibold text-ocean-800 mb-4">Reviews ({provider._count.reviews})</p>
+            <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+              <div className="flex items-baseline justify-between mb-5">
+                <p className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em]">Reviews</p>
+                <p className="text-[12px] text-[#86868B]">{provider._count.reviews} total</p>
+              </div>
               {provider.reviews.length === 0 ? (
-                <p className="text-sm text-gray-400 text-center py-4">No reviews yet</p>
+                <p className="text-[13px] text-[#86868B] text-center py-8">No reviews yet</p>
               ) : (
                 <div className="space-y-3">
                   {provider.reviews.map((review: ProviderReview) => (
-                    <div key={review.id} className="rounded-xl bg-cream-50 p-4">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-sm font-medium text-ocean-800">
+                    <div key={review.id} className="rounded-2xl bg-[#F5F5F7]/70 p-5">
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="min-w-0">
+                          <p className="text-[13px] font-semibold text-[#1D1D1F]">
                             {review.reviewer.firstName} {review.reviewer.lastName}
                           </p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-[11px] text-[#86868B] mt-0.5">
                             {review.booking.posting.mode.replace(/_/g, " ")} &middot; {review.booking.posting.title}
                           </p>
                         </div>
-                        <div className="flex items-center gap-0.5 text-amber-400">
+                        <div className="flex items-center gap-0.5 flex-shrink-0">
                           {Array.from({ length: 5 }).map((_, i) => (
-                            <span key={i} className={i < review.rating ? "" : "text-gray-300"}>★</span>
+                            <Star
+                              key={i}
+                              className="h-3.5 w-3.5"
+                              fill={i < review.rating ? "#FF9500" : "none"}
+                              stroke={i < review.rating ? "#FF9500" : "#D2D2D7"}
+                              strokeWidth={1.5}
+                            />
                           ))}
                         </div>
                       </div>
-                      {review.comment && <p className="mt-2 text-sm text-gray-600">{review.comment}</p>}
+                      {review.comment && (
+                        <p className="mt-2.5 text-[13px] text-[#6E6E73] leading-relaxed">{review.comment}</p>
+                      )}
                     </div>
                   ))}
                 </div>

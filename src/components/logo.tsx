@@ -16,9 +16,9 @@ const SIZES = {
 
 export function Logo({ size = "md", href = "/", variant = "default" }: LogoProps) {
   const s = SIZES[size];
-  const textColor = variant === "white" ? "text-white" : "text-ocean-800";
-  const tmColor = variant === "white" ? "text-sky-300" : "text-sky-500";
-  const microBg = variant === "white" ? "bg-white/90 text-ocean-900" : "bg-ocean-900 text-white";
+  const textColor = variant === "white" ? "text-white" : "text-[#1D1D1F]";
+  const tmColor = variant === "white" ? "text-white/50" : "text-[#007AFF]";
+  const microBg = variant === "white" ? "bg-white/90 text-[#1D1D1F]" : "bg-[#1D1D1F] text-white";
 
   const content = (
     <span className="inline-flex items-center gap-2.5">
@@ -31,7 +31,6 @@ export function Logo({ size = "md", href = "/", variant = "default" }: LogoProps
           height={s.img}
           className="rounded-lg object-contain w-full h-full"
         />
-        {/* Micro brand label */}
         <span
           className={`absolute -bottom-0.5 left-1/2 -translate-x-1/2 ${microBg} ${s.micro} font-bold tracking-wider px-1 py-px rounded-sm leading-none whitespace-nowrap`}
           style={{ fontFamily: "var(--font-figtree), system-ui, sans-serif" }}

@@ -43,33 +43,33 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-cream-100 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-[#F5F5F7] px-4">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <div className="flex justify-center">
             <Logo size="lg" />
           </div>
-          <h1 className="mt-4 text-2xl font-display font-semibold text-ocean-900">
+          <h1 className="mt-4 text-2xl font-display font-bold tracking-tight text-[#1D1D1F]">
             Create your account
           </h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-[14px] text-[#6E6E73]">
             Join the global transportation platform
           </p>
         </div>
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="space-y-5 rounded-2xl bg-white p-8 shadow-sm border border-gray-100"
+          className="space-y-5 rounded-3xl bg-white/80 backdrop-blur-xl p-8 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60"
         >
           {/* Role selector */}
           <div className="flex gap-3">
             {(["CUSTOMER", "PROVIDER"] as const).map((role) => (
               <label
                 key={role}
-                className={`flex-1 cursor-pointer rounded-lg border-2 p-3 text-center text-sm font-medium transition-all ${
+                className={`flex-1 cursor-pointer rounded-xl border-2 p-3 text-center text-[13px] font-medium transition-all ${
                   selectedRole === role
-                    ? "border-ocean-600 bg-ocean-50 text-ocean-700"
-                    : "border-gray-200 text-gray-500 hover:border-gray-300"
+                    ? "border-[#007AFF] bg-[#007AFF]/5 text-[#007AFF]"
+                    : "border-[#E8E8ED] text-[#6E6E73] hover:border-[#86868B]"
                 }`}
               >
                 <input
@@ -124,33 +124,33 @@ export default function RegisterPage() {
             {...register("confirmPassword")}
           />
 
-          <label className="flex items-start gap-2 text-xs text-gray-500">
-            <input type="checkbox" required className="accent-ocean-600 mt-0.5" />
+          <label className="flex items-start gap-2 text-[12px] text-[#6E6E73]">
+            <input type="checkbox" required className="accent-[#007AFF] mt-0.5" />
             <span>
               I agree to the{" "}
-              <Link href="/terms" target="_blank" className="text-ocean-600 underline hover:text-ocean-700">
+              <Link href="/terms" target="_blank" className="text-[#007AFF] underline hover:text-[#0055D4]">
                 Terms of Service
               </Link>{" "}
               and{" "}
-              <Link href="/privacy" target="_blank" className="text-ocean-600 underline hover:text-ocean-700">
+              <Link href="/privacy" target="_blank" className="text-[#007AFF] underline hover:text-[#0055D4]">
                 Privacy Policy
               </Link>
             </span>
           </label>
 
           {serverError && (
-            <p className="text-sm text-red-500 text-center">{serverError}</p>
+            <p className="text-[12px] text-[#FF3B30] text-center">{serverError}</p>
           )}
 
           <Button type="submit" loading={isSubmitting} className="w-full" size="lg">
             Create account
           </Button>
 
-          <p className="text-center text-sm text-gray-500">
+          <p className="text-center text-[14px] text-[#6E6E73]">
             Already have an account?{" "}
             <Link
               href="/login"
-              className="font-medium text-ocean-600 hover:text-ocean-700"
+              className="font-medium text-[#007AFF] hover:text-[#0055D4]"
             >
               Sign in
             </Link>

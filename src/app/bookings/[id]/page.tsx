@@ -88,27 +88,27 @@ const STATUS_CONFIG: Record<
 > = {
   CONFIRMED: {
     icon: CheckCircle,
-    color: "text-sky-600 bg-sky-50",
+    color: "text-[#007AFF] bg-[#007AFF]/10",
     label: "Confirmed",
   },
   IN_PROGRESS: {
     icon: Truck,
-    color: "text-blue-600 bg-blue-50",
+    color: "text-[#007AFF] bg-[#007AFF]/10",
     label: "In Progress",
   },
   COMPLETED: {
     icon: CheckCircle,
-    color: "text-emerald-600 bg-emerald-50",
+    color: "text-[#34C759] bg-[#EEFBF1]",
     label: "Completed",
   },
   DISPUTED: {
     icon: AlertTriangle,
-    color: "text-red-600 bg-red-50",
+    color: "text-[#FF3B30] bg-[#FFF1F0]",
     label: "Disputed",
   },
   CANCELLED: {
     icon: AlertTriangle,
-    color: "text-gray-500 bg-gray-100",
+    color: "text-[#86868B] bg-[#F5F5F7]",
     label: "Cancelled",
   },
 };
@@ -334,10 +334,10 @@ export default function BookingDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-cream-100">
+      <div className="min-h-screen bg-[#F5F5F7]">
         <Navbar />
         <div className="mx-auto max-w-4xl px-6 py-20 text-center">
-          <div className="h-8 w-48 mx-auto animate-pulse rounded bg-gray-200" />
+          <div className="h-8 w-48 mx-auto animate-pulse rounded-xl bg-[#E8E8ED]" />
         </div>
       </div>
     );
@@ -345,10 +345,10 @@ export default function BookingDetailPage() {
 
   if (!booking) {
     return (
-      <div className="min-h-screen bg-cream-100">
+      <div className="min-h-screen bg-[#F5F5F7]">
         <Navbar />
         <div className="mx-auto max-w-4xl px-6 py-20 text-center">
-          <p className="text-gray-500">Booking not found.</p>
+          <p className="text-[14px] text-[#6E6E73]">Booking not found.</p>
         </div>
       </div>
     );
@@ -368,12 +368,12 @@ export default function BookingDetailPage() {
       : booking.customerMarkedDone;
 
   return (
-    <div className="min-h-screen bg-cream-100">
+    <div className="min-h-screen bg-[#F5F5F7]">
       <Navbar />
       <div className="mx-auto max-w-4xl px-6 py-10">
         <Link
           href="/dashboard"
-          className="inline-flex items-center gap-1 text-sm text-ocean-600 hover:text-ocean-700 mb-6"
+          className="inline-flex items-center gap-1 text-[13px] text-[#007AFF] hover:text-[#0055D4] mb-6"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to dashboard
@@ -382,16 +382,16 @@ export default function BookingDetailPage() {
         {/* Header */}
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-2xl font-display font-bold text-ocean-900">
+            <h1 className="text-2xl font-display font-bold tracking-tight text-[#1D1D1F]">
               {booking.posting.title}
             </h1>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-[13px] text-[#86868B]">
               {booking.posting.mode.replace(/_/g, " ")} &middot; Booking{" "}
               {booking.id.slice(0, 8)}
             </p>
           </div>
           <div
-            className={`flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold ${statusConf.color}`}
+            className={`flex items-center gap-2 rounded-full px-2.5 py-0.5 text-[10px] font-semibold ${statusConf.color}`}
           >
             <StatusIcon className="h-3.5 w-3.5" />
             {statusConf.label}
@@ -402,38 +402,38 @@ export default function BookingDetailPage() {
           {/* Main content */}
           <div className="lg:col-span-2 space-y-6">
             {/* Route */}
-            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
+            <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
               <div className="flex items-center gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4 text-sky-500" />
-                    <p className="text-sm font-medium text-ocean-800">
+                    <MapPin className="h-4 w-4 text-[#007AFF]" />
+                    <p className="text-[13px] font-medium text-[#1D1D1F]">
                       {booking.posting.originAddress}
                     </p>
                   </div>
-                  <div className="ml-2 my-2 border-l-2 border-dashed border-gray-200 h-6" />
+                  <div className="ml-2 my-2 border-l-2 border-dashed border-[#E8E8ED] h-6" />
                   <div className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4 text-ocean-500" />
-                    <p className="text-sm font-medium text-ocean-800">
+                    <MapPin className="h-4 w-4 text-[#007AFF]" />
+                    <p className="text-[13px] font-medium text-[#1D1D1F]">
                       {booking.posting.destinationAddress}
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-4 grid grid-cols-1 gap-4 text-sm sm:grid-cols-2">
+              <div className="mt-4 grid grid-cols-1 gap-4 text-[13px] sm:grid-cols-2">
                 <div>
-                  <p className="text-xs text-gray-400">Scheduled pickup</p>
-                  <p className="font-medium text-ocean-700">
+                  <p className="text-[11px] text-[#86868B]">Scheduled pickup</p>
+                  <p className="font-medium text-[#1D1D1F]">
                     {new Date(booking.scheduledPickup).toLocaleDateString()}
                   </p>
                 </div>
                 {booking.scheduledDelivery && (
                   <div>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-[11px] text-[#86868B]">
                       Scheduled delivery
                     </p>
-                    <p className="font-medium text-ocean-700">
+                    <p className="font-medium text-[#1D1D1F]">
                       {new Date(
                         booking.scheduledDelivery
                       ).toLocaleDateString()}
@@ -444,16 +444,16 @@ export default function BookingDetailPage() {
             </div>
 
             {/* Tracking + Codes */}
-            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-              <h3 className="text-sm font-semibold text-ocean-800 mb-4">
+            <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+              <h3 className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em] mb-4">
                 Tracking & Verification
               </h3>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {booking.trackingCode && (
                   <div>
-                    <p className="text-xs text-gray-400">Tracking code</p>
+                    <p className="text-[11px] text-[#86868B]">Tracking code</p>
                     <div className="flex items-center gap-2">
-                      <code className="text-sm font-mono font-bold text-ocean-700">
+                      <code className="text-[13px] font-mono font-bold text-[#1D1D1F]">
                         {booking.trackingCode}
                       </code>
                       <button
@@ -463,12 +463,12 @@ export default function BookingDetailPage() {
                             "tracking"
                           )
                         }
-                        className="text-gray-400 hover:text-ocean-600"
+                        className="text-[#86868B] hover:text-[#007AFF]"
                       >
                         <Copy className="h-3.5 w-3.5" />
                       </button>
                       {copied === "tracking" && (
-                        <span className="text-xs text-green-600">
+                        <span className="text-[11px] text-[#34C759]">
                           Copied!
                         </span>
                       )}
@@ -477,7 +477,7 @@ export default function BookingDetailPage() {
                       href={`/track/${booking.trackingCode}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-2 inline-flex items-center gap-1.5 rounded-lg bg-ocean-600 px-4 py-2 text-xs font-semibold text-white hover:bg-ocean-700 transition"
+                      className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-[#007AFF] px-4 py-2 text-[11px] font-semibold text-white hover:bg-[#0055D4] transition"
                     >
                       <Navigation className="h-3.5 w-3.5" />
                       Track This Job
@@ -486,23 +486,23 @@ export default function BookingDetailPage() {
                 )}
                 {booking.pin && (
                   <div>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-[11px] text-[#86868B]">
                       Delivery PIN
                     </p>
                     <div className="flex items-center gap-2">
-                      <code className="text-sm font-mono font-bold text-ocean-700">
+                      <code className="text-[13px] font-mono font-bold text-[#1D1D1F]">
                         {booking.pin}
                       </code>
                       <button
                         onClick={() =>
                           copyToClipboard(booking.pin!, "pin")
                         }
-                        className="text-gray-400 hover:text-ocean-600"
+                        className="text-[#86868B] hover:text-[#007AFF]"
                       >
                         <Copy className="h-3.5 w-3.5" />
                       </button>
                       {copied === "pin" && (
-                        <span className="text-xs text-green-600">
+                        <span className="text-[11px] text-[#34C759]">
                           Copied!
                         </span>
                       )}
@@ -513,14 +513,14 @@ export default function BookingDetailPage() {
 
               {booking.posting.trackingLayers.length > 0 && (
                 <div className="mt-4">
-                  <p className="text-xs text-gray-400 mb-1">
+                  <p className="text-[11px] text-[#86868B] mb-1">
                     Active tracking layers
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {booking.posting.trackingLayers.map((t) => (
                       <span
                         key={t}
-                        className="rounded-full bg-ocean-50 px-2.5 py-0.5 text-xs text-ocean-600"
+                        className="rounded-full bg-[#007AFF]/10 px-2.5 py-0.5 text-[10px] font-semibold text-[#007AFF]"
                       >
                         {t.replace(/_/g, " ")}
                       </span>
@@ -532,26 +532,26 @@ export default function BookingDetailPage() {
 
             {/* Tracking events */}
             {booking.tracking.length > 0 && (
-              <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-                <h3 className="text-sm font-semibold text-ocean-800 mb-4">
+              <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+                <h3 className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em] mb-4">
                   Recent Tracking Events
                 </h3>
                 <div className="space-y-3">
                   {booking.tracking.map((event) => (
                     <div
                       key={event.id}
-                      className="flex items-start gap-3 text-sm"
+                      className="flex items-start gap-3 text-[13px]"
                     >
-                      <div className="mt-1 h-2 w-2 rounded-full bg-sky-500 flex-shrink-0" />
+                      <div className="mt-1 h-2 w-2 rounded-full bg-[#007AFF] flex-shrink-0" />
                       <div>
-                        <p className="font-medium text-ocean-700">
+                        <p className="font-medium text-[#1D1D1F]">
                           {event.layer.replace(/_/g, " ")}
                           {event.status && ` — ${event.status}`}
                         </p>
                         {event.note && (
-                          <p className="text-gray-500">{event.note}</p>
+                          <p className="text-[#6E6E73]">{event.note}</p>
                         )}
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[11px] text-[#86868B]">
                           {new Date(event.recordedAt).toLocaleString()}
                           {event.lat &&
                             event.lng &&
@@ -566,11 +566,11 @@ export default function BookingDetailPage() {
 
             {/* Start job — provider only, CONFIRMED status */}
             {booking.status === "CONFIRMED" && role === "provider" && (
-              <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-                <h3 className="text-sm font-semibold text-ocean-800 mb-2">
+              <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+                <h3 className="text-[13px] font-semibold text-[#1D1D1F] mb-2">
                   Ready to start?
                 </h3>
-                <p className="text-sm text-gray-500 mb-4">
+                <p className="text-[13px] text-[#6E6E73] mb-4">
                   Mark this job as in progress once you begin pickup.
                 </p>
                 <Button
@@ -586,8 +586,8 @@ export default function BookingDetailPage() {
 
             {/* GPS Live Tracking */}
             {(booking.status === "IN_PROGRESS" || booking.status === "CONFIRMED") && (
-              <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-                <h3 className="text-sm font-semibold text-ocean-800 mb-4">
+              <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+                <h3 className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em] mb-4">
                   Live GPS Tracking
                 </h3>
 
@@ -597,7 +597,7 @@ export default function BookingDetailPage() {
                     {!gpsActive ? (
                       <button
                         onClick={startGpsTracking}
-                        className="inline-flex items-center gap-2 rounded-lg bg-green-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-green-700 transition"
+                        className="inline-flex items-center gap-2 rounded-full bg-[#34C759] px-4 py-2.5 text-[13px] font-medium text-white hover:bg-[#2DB84E] transition"
                       >
                         <MapPin className="h-4 w-4" />
                         Start sharing location
@@ -606,21 +606,21 @@ export default function BookingDetailPage() {
                       <div className="space-y-2">
                         <div className="flex items-center gap-2">
                           <span className="relative flex h-3 w-3">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                            <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500" />
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#34C759] opacity-75" />
+                            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#34C759]" />
                           </span>
-                          <p className="text-sm text-green-700 font-medium">
+                          <p className="text-[13px] text-[#34C759] font-medium">
                             Sharing location live
                           </p>
                         </div>
                         {lastGps && (
-                          <p className="text-xs text-gray-500">
+                          <p className="text-[11px] text-[#86868B]">
                             {lastGps.lat.toFixed(6)}, {lastGps.lng.toFixed(6)}
                           </p>
                         )}
                         <button
                           onClick={stopGpsTracking}
-                          className="text-xs text-red-500 hover:text-red-600 font-medium"
+                          className="text-[11px] text-[#FF3B30] hover:text-[#FF3B30]/80 font-medium"
                         >
                           Stop sharing
                         </button>
@@ -636,35 +636,35 @@ export default function BookingDetailPage() {
                       <div className="space-y-3">
                         <div className="flex items-center gap-2">
                           <span className="relative flex h-3 w-3">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75" />
-                            <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500" />
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#007AFF] opacity-75" />
+                            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#007AFF]" />
                           </span>
-                          <p className="text-sm text-sky-700 font-medium">
+                          <p className="text-[13px] text-[#007AFF] font-medium">
                             Provider location is live
                           </p>
                         </div>
-                        <div className="rounded-xl bg-ocean-50 p-4">
-                          <p className="text-sm font-mono text-ocean-800">
+                        <div className="rounded-2xl bg-[#007AFF]/5 p-4">
+                          <p className="text-[13px] font-mono text-[#1D1D1F]">
                             {lastGps.lat.toFixed(6)}, {lastGps.lng.toFixed(6)}
                           </p>
                           <a
                             href={`https://www.google.com/maps?q=${lastGps.lat},${lastGps.lng}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="mt-2 inline-flex items-center gap-1 text-xs text-ocean-600 hover:text-ocean-700 font-medium"
+                            className="mt-2 inline-flex items-center gap-1 text-[11px] text-[#007AFF] hover:text-[#0055D4] font-medium"
                           >
                             <MapPin className="h-3 w-3" />
                             Open in Google Maps
                           </a>
                         </div>
                         {booking.lastLocationUpdate && (
-                          <p className="text-xs text-gray-400">
+                          <p className="text-[11px] text-[#86868B]">
                             Last updated: {new Date(booking.lastLocationUpdate).toLocaleTimeString()}
                           </p>
                         )}
                       </div>
                     ) : (
-                      <p className="text-sm text-gray-500">
+                      <p className="text-[13px] text-[#6E6E73]">
                         Waiting for provider to share location...
                       </p>
                     )}
@@ -675,11 +675,11 @@ export default function BookingDetailPage() {
 
             {/* PIN Delivery Confirmation — provider enters customer's PIN */}
             {role === "provider" && booking.status === "IN_PROGRESS" && !booking.providerMarkedDone && !pinSuccess && (
-              <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-                <h3 className="text-sm font-semibold text-ocean-800 mb-2">
+              <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+                <h3 className="text-[13px] font-semibold text-[#1D1D1F] mb-2">
                   Delivery Confirmation
                 </h3>
-                <p className="text-sm text-gray-500 mb-4">
+                <p className="text-[13px] text-[#6E6E73] mb-4">
                   Enter the customer&apos;s delivery PIN to confirm handoff.
                 </p>
                 <div className="flex gap-2">
@@ -690,7 +690,7 @@ export default function BookingDetailPage() {
                     placeholder="6-digit PIN"
                     value={pinInput}
                     onChange={(e) => setPinInput(e.target.value.replace(/\D/g, "").slice(0, 6))}
-                    className="flex-1 rounded-lg border border-gray-300 px-4 py-2.5 text-center text-lg font-mono tracking-widest outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+                    className="flex-1 rounded-xl border border-[#E8E8ED] px-4 py-2.5 text-center text-lg font-mono tracking-widest outline-none focus:border-[#007AFF] focus:ring-2 focus:ring-[#007AFF]/15"
                   />
                   <Button
                     onClick={verifyPin}
@@ -701,16 +701,16 @@ export default function BookingDetailPage() {
                   </Button>
                 </div>
                 {pinError && (
-                  <p className="mt-2 text-sm text-red-500">{pinError}</p>
+                  <p className="mt-2 text-[13px] text-[#FF3B30]">{pinError}</p>
                 )}
               </div>
             )}
 
             {pinSuccess && (
-              <div className="rounded-2xl bg-green-50 p-6 border border-green-200">
-                <div className="flex items-center gap-2 text-green-700">
+              <div className="rounded-3xl bg-[#EEFBF1] p-6 border border-[#34C759]/20">
+                <div className="flex items-center gap-2 text-[#34C759]">
                   <CheckCircle className="h-5 w-5" />
-                  <p className="text-sm font-medium">
+                  <p className="text-[13px] font-medium">
                     Delivery confirmed via PIN. Job marked as complete.
                   </p>
                 </div>
@@ -719,14 +719,14 @@ export default function BookingDetailPage() {
 
             {/* Customer: Show your PIN to the provider */}
             {role === "customer" && booking.status === "IN_PROGRESS" && booking.pin && !booking.providerMarkedDone && (
-              <div className="rounded-2xl bg-ocean-50 p-6 border border-ocean-200">
-                <h3 className="text-sm font-semibold text-ocean-800 mb-2">
+              <div className="rounded-3xl bg-[#007AFF]/5 p-6 border border-[#007AFF]/20">
+                <h3 className="text-[13px] font-semibold text-[#1D1D1F] mb-2">
                   Your Delivery PIN
                 </h3>
-                <p className="text-sm text-gray-600 mb-3">
+                <p className="text-[13px] text-[#6E6E73] mb-3">
                   Show this PIN to the provider upon delivery to confirm handoff.
                 </p>
-                <p className="text-4xl font-mono font-bold text-ocean-700 tracking-[0.3em] text-center">
+                <p className="text-4xl font-mono font-bold text-[#007AFF] tracking-[0.3em] text-center">
                   {booking.pin}
                 </p>
               </div>
@@ -735,16 +735,16 @@ export default function BookingDetailPage() {
             {/* Completion flow */}
             {booking.status !== "COMPLETED" &&
               booking.status !== "CANCELLED" && (
-                <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-                  <h3 className="text-sm font-semibold text-ocean-800 mb-4">
+                <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+                  <h3 className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em] mb-4">
                     Confirm Completion
                   </h3>
                   <div className="flex flex-col gap-2 mb-4 sm:flex-row sm:items-center sm:gap-4">
                     <div
-                      className={`flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium ${
+                      className={`flex items-center gap-2 rounded-full px-3 py-2 text-[11px] font-medium ${
                         booking.customerMarkedDone
-                          ? "bg-green-50 text-green-700"
-                          : "bg-gray-100 text-gray-500"
+                          ? "bg-[#EEFBF1] text-[#34C759]"
+                          : "bg-[#F5F5F7] text-[#86868B]"
                       }`}
                     >
                       {booking.customerMarkedDone ? (
@@ -758,10 +758,10 @@ export default function BookingDetailPage() {
                         : "pending"}
                     </div>
                     <div
-                      className={`flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium ${
+                      className={`flex items-center gap-2 rounded-full px-3 py-2 text-[11px] font-medium ${
                         booking.providerMarkedDone
-                          ? "bg-green-50 text-green-700"
-                          : "bg-gray-100 text-gray-500"
+                          ? "bg-[#EEFBF1] text-[#34C759]"
+                          : "bg-[#F5F5F7] text-[#86868B]"
                       }`}
                     >
                       {booking.providerMarkedDone ? (
@@ -787,7 +787,7 @@ export default function BookingDetailPage() {
                   )}
 
                   {myConfirm && !theirConfirm && (
-                    <p className="text-sm text-gray-500">
+                    <p className="text-[13px] text-[#6E6E73]">
                       Waiting for the{" "}
                       {role === "customer" ? "provider" : "customer"} to
                       confirm completion.
@@ -795,25 +795,25 @@ export default function BookingDetailPage() {
                   )}
 
                   {bothConfirmed && (
-                    <p className="text-sm text-green-600 font-medium">
+                    <p className="text-[13px] text-[#34C759] font-medium">
                       Both parties confirmed! The booking is complete.
                     </p>
                   )}
 
                   {/* Cancel button */}
                   {!bothConfirmed && (
-                    <div className="mt-4 pt-4 border-t border-gray-100">
+                    <div className="mt-4 pt-4 border-t border-[#E8E8ED]">
                       <Button
                         variant="ghost"
                         size="sm"
                         onClick={cancelBooking}
                         loading={actionLoading === "cancel"}
-                        className="text-red-500 hover:text-red-600 hover:bg-red-50"
+                        className="text-[#FF3B30] hover:text-[#FF3B30]/80 hover:bg-[#FFF1F0]"
                       >
                         Cancel booking
                       </Button>
                       {booking.escrow?.status === "HOLDING" && (
-                        <p className="mt-1 text-xs text-gray-400">
+                        <p className="mt-1 text-[11px] text-[#86868B]">
                           Escrow funds will be refunded to the customer&apos;s wallet.
                         </p>
                       )}
@@ -824,14 +824,14 @@ export default function BookingDetailPage() {
 
             {/* Review form — customer only, after completion */}
             {booking.status === "COMPLETED" && role === "customer" && !reviewSubmitted && (
-              <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-                <h3 className="text-sm font-semibold text-ocean-800 mb-4">
+              <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+                <h3 className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em] mb-4">
                   Leave a Review
                 </h3>
                 <div className="space-y-4">
                   {/* Star rating */}
                   <div>
-                    <p className="text-sm text-gray-600 mb-2">Overall rating</p>
+                    <p className="text-[13px] text-[#6E6E73] mb-2">Overall rating</p>
                     <div className="flex gap-1">
                       {[1, 2, 3, 4, 5].map((star) => (
                         <button
@@ -839,7 +839,7 @@ export default function BookingDetailPage() {
                           type="button"
                           onClick={() => setReviewRating(star)}
                           className={`text-2xl transition ${
-                            star <= reviewRating ? "text-amber-400" : "text-gray-300"
+                            star <= reviewRating ? "text-[#FF9500]" : "text-[#E8E8ED]"
                           }`}
                         >
                           ★
@@ -856,11 +856,11 @@ export default function BookingDetailPage() {
                       { label: "Condition", value: reviewCondition, setter: setReviewCondition },
                     ].map(({ label, value, setter }) => (
                       <div key={label}>
-                        <p className="text-xs text-gray-500 mb-1">{label}</p>
+                        <p className="text-[11px] text-[#86868B] mb-1">{label}</p>
                         <select
                           value={value}
                           onChange={(e) => setter(parseInt(e.target.value))}
-                          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-sky-500"
+                          className="w-full rounded-xl border border-[#E8E8ED] px-3 py-2 text-[13px] text-[#1D1D1F] outline-none focus:border-[#007AFF] focus:ring-2 focus:ring-[#007AFF]/15"
                         >
                           {[1, 2, 3, 4, 5].map((v) => (
                             <option key={v} value={v}>{v}/5</option>
@@ -872,13 +872,13 @@ export default function BookingDetailPage() {
 
                   {/* Comment */}
                   <div>
-                    <label className="block text-sm font-medium text-ocean-800 mb-1">
+                    <label className="block text-[13px] font-medium text-[#1D1D1F] mb-1">
                       Comment (optional)
                     </label>
                     <textarea
                       rows={3}
                       placeholder="How was your experience?"
-                      className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+                      className="w-full rounded-xl border border-[#E8E8ED] bg-white px-4 py-2.5 text-[14px] text-[#1D1D1F] outline-none focus:border-[#007AFF] focus:ring-2 focus:ring-[#007AFF]/15"
                       value={reviewComment}
                       onChange={(e) => setReviewComment(e.target.value)}
                     />
@@ -895,9 +895,9 @@ export default function BookingDetailPage() {
             )}
 
             {reviewSubmitted && (
-              <div className="rounded-2xl bg-green-50 p-6 border border-green-200 text-center">
-                <CheckCircle className="mx-auto h-8 w-8 text-green-600" />
-                <p className="mt-2 text-sm font-medium text-green-700">
+              <div className="rounded-3xl bg-[#EEFBF1] p-6 border border-[#34C759]/20 text-center">
+                <CheckCircle className="mx-auto h-8 w-8 text-[#34C759]" />
+                <p className="mt-2 text-[13px] font-medium text-[#34C759]">
                   Review submitted! Thank you.
                 </p>
               </div>
@@ -907,31 +907,31 @@ export default function BookingDetailPage() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Provider / Customer info */}
-            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-              <h3 className="text-sm font-semibold text-ocean-800 mb-3">
+            <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+              <h3 className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em] mb-3">
                 {role === "customer" ? "Provider" : "Customer"}
               </h3>
               {role === "customer" ? (
                 <div>
                   <div className="flex items-center gap-2">
-                    <p className="font-medium text-ocean-700">
+                    <p className="font-medium text-[#1D1D1F]">
                       {booking.provider.businessName}
                     </p>
                     {booking.provider.isVerified && (
-                      <CheckCircle className="h-3.5 w-3.5 text-sky-500" />
+                      <CheckCircle className="h-3.5 w-3.5 text-[#007AFF]" />
                     )}
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-[11px] text-[#86868B] mt-1">
                     Score: {booking.provider.couthActsScore} &middot;{" "}
                     {booking.provider.scoreTier}
                   </p>
                 </div>
               ) : (
                 <div>
-                  <p className="font-medium text-ocean-700">
+                  <p className="font-medium text-[#1D1D1F]">
                     {booking.customer.firstName} {booking.customer.lastName}
                   </p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-[11px] text-[#86868B] mt-1">
                     {booking.customer.email}
                   </p>
                 </div>
@@ -945,30 +945,30 @@ export default function BookingDetailPage() {
 
             {/* Escrow */}
             {booking.escrow && (
-              <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-                <h3 className="text-sm font-semibold text-ocean-800 mb-3">
+              <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+                <h3 className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em] mb-3">
                   Escrow
                 </h3>
-                <div className="space-y-3 text-sm">
+                <div className="space-y-3 text-[13px]">
                   <div className="flex items-center gap-2">
-                    <DollarSign className="h-4 w-4 text-sky-500" />
+                    <DollarSign className="h-4 w-4 text-[#007AFF]" />
                     <span
-                      className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                      className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold ${
                         booking.escrow.status === "HOLDING"
-                          ? "bg-amber-50 text-amber-700"
+                          ? "bg-[#FFF3E0] text-[#FF9500]"
                           : booking.escrow.status === "RELEASED"
-                          ? "bg-green-50 text-green-700"
+                          ? "bg-[#EEFBF1] text-[#34C759]"
                           : booking.escrow.status === "REFUNDED"
-                          ? "bg-gray-100 text-gray-600"
-                          : "bg-red-50 text-red-700"
+                          ? "bg-[#F5F5F7] text-[#86868B]"
+                          : "bg-[#FFF1F0] text-[#FF3B30]"
                       }`}
                     >
                       {booking.escrow.status}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500">Total</span>
-                    <span className="font-medium text-ocean-700">
+                    <span className="text-[#6E6E73]">Total</span>
+                    <span className="font-medium text-[#1D1D1F] tabular-nums">
                       $
                       {Number(
                         booking.escrow.totalAmountUsd
@@ -976,8 +976,8 @@ export default function BookingDetailPage() {
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500">Platform fee</span>
-                    <span className="text-gray-600">
+                    <span className="text-[#6E6E73]">Platform fee</span>
+                    <span className="text-[#6E6E73] tabular-nums">
                       $
                       {Number(
                         booking.escrow.escrowFeeUsd
@@ -985,8 +985,8 @@ export default function BookingDetailPage() {
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500">Provider payout</span>
-                    <span className="font-medium text-ocean-700">
+                    <span className="text-[#6E6E73]">Provider payout</span>
+                    <span className="font-medium text-[#1D1D1F] tabular-nums">
                       $
                       {Number(
                         booking.escrow.providerPayoutUsd
@@ -995,22 +995,22 @@ export default function BookingDetailPage() {
                   </div>
                   {booking.escrow.firstPaymentUsd && (
                     <>
-                      <hr className="border-gray-100" />
+                      <hr className="border-[#E8E8ED]" />
                       <div className="flex justify-between">
-                        <span className="text-gray-500">1st payment</span>
-                        <span className="text-ocean-700">
+                        <span className="text-[#6E6E73]">1st payment</span>
+                        <span className="text-[#1D1D1F] tabular-nums">
                           $
                           {Number(
                             booking.escrow.firstPaymentUsd
                           ).toLocaleString()}
                           {booking.escrow.firstPaymentReleasedAt && (
-                            <CheckCircle className="inline ml-1 h-3 w-3 text-green-500" />
+                            <CheckCircle className="inline ml-1 h-3 w-3 text-[#34C759]" />
                           )}
                         </span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-500">Final payment</span>
-                        <span className="text-ocean-700">
+                        <span className="text-[#6E6E73]">Final payment</span>
+                        <span className="text-[#1D1D1F] tabular-nums">
                           $
                           {Number(
                             booking.escrow.finalPaymentUsd
@@ -1037,26 +1037,26 @@ export default function BookingDetailPage() {
             )}
 
             {/* Payment & Protection */}
-            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-              <h3 className="text-sm font-semibold text-ocean-800 mb-3">
+            <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+              <h3 className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em] mb-3">
                 Payment & Protection
               </h3>
-              <dl className="space-y-2 text-sm">
+              <dl className="space-y-2 text-[13px]">
                 <div className="flex justify-between">
-                  <dt className="text-gray-500">Agreed price</dt>
-                  <dd className="font-medium text-ocean-700">
+                  <dt className="text-[#6E6E73]">Agreed price</dt>
+                  <dd className="font-medium text-[#1D1D1F] tabular-nums">
                     ${Number(booking.agreedAmountUsd).toLocaleString()}
                   </dd>
                 </div>
                 <div className="flex justify-between">
-                  <dt className="text-gray-500">Payment term</dt>
-                  <dd className="text-ocean-700">
+                  <dt className="text-[#6E6E73]">Payment term</dt>
+                  <dd className="text-[#1D1D1F]">
                     {booking.paymentTerm.replace(/_/g, " ")}
                   </dd>
                 </div>
                 <div className="flex justify-between">
-                  <dt className="text-gray-500">Protection</dt>
-                  <dd className="flex items-center gap-1 text-ocean-700">
+                  <dt className="text-[#6E6E73]">Protection</dt>
+                  <dd className="flex items-center gap-1 text-[#1D1D1F]">
                     <Shield className="h-3.5 w-3.5" />
                     {booking.insuranceTier}
                   </dd>
@@ -1066,32 +1066,32 @@ export default function BookingDetailPage() {
 
             {/* Dispute */}
             {booking.status !== "CANCELLED" && !disputeFiled && (
-              <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
+              <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
                 {booking.status === "DISPUTED" ? (
-                  <div className="flex items-center gap-2 text-red-600">
+                  <div className="flex items-center gap-2 text-[#FF3B30]">
                     <AlertTriangle className="h-4 w-4" />
-                    <p className="text-sm font-medium">Dispute in progress</p>
+                    <p className="text-[13px] font-medium">Dispute in progress</p>
                   </div>
                 ) : !showDisputeForm ? (
                   <button
                     onClick={() => setShowDisputeForm(true)}
-                    className="text-sm text-red-500 hover:text-red-600 font-medium"
+                    className="text-[13px] text-[#FF3B30] hover:text-[#FF3B30]/80 font-medium"
                   >
                     File a dispute
                   </button>
                 ) : (
                   <div className="space-y-3">
-                    <h3 className="text-sm font-semibold text-red-700">
+                    <h3 className="text-[13px] font-semibold text-[#FF3B30]">
                       File a Dispute
                     </h3>
                     <div>
-                      <label className="block text-xs text-gray-500 mb-1">
+                      <label className="block text-[11px] text-[#86868B] mb-1">
                         Reason
                       </label>
                       <select
                         value={disputeReason}
                         onChange={(e) => setDisputeReason(e.target.value)}
-                        className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-sky-500"
+                        className="w-full rounded-xl border border-[#E8E8ED] px-3 py-2 text-[13px] text-[#1D1D1F] outline-none focus:border-[#007AFF] focus:ring-2 focus:ring-[#007AFF]/15"
                       >
                         <option value="">Select a reason</option>
                         <option value="Non-delivery">Non-delivery</option>
@@ -1104,13 +1104,13 @@ export default function BookingDetailPage() {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-500 mb-1">
+                      <label className="block text-[11px] text-[#86868B] mb-1">
                         Description
                       </label>
                       <textarea
                         rows={3}
                         placeholder="Describe the issue..."
-                        className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-sky-500"
+                        className="w-full rounded-xl border border-[#E8E8ED] bg-white px-3 py-2 text-[13px] text-[#1D1D1F] outline-none focus:border-[#007AFF] focus:ring-2 focus:ring-[#007AFF]/15"
                         value={disputeDescription}
                         onChange={(e) =>
                           setDisputeDescription(e.target.value)
@@ -1123,7 +1123,7 @@ export default function BookingDetailPage() {
                         onClick={fileDispute}
                         loading={disputeSubmitting}
                         disabled={!disputeReason || !disputeDescription}
-                        className="bg-red-600 hover:bg-red-700 focus:ring-red-500"
+                        className="bg-[#FF3B30] hover:bg-[#FF3B30]/90 focus:ring-[#FF3B30]"
                       >
                         Submit dispute
                       </Button>
@@ -1140,8 +1140,8 @@ export default function BookingDetailPage() {
               </div>
             )}
             {disputeFiled && (
-              <div className="rounded-2xl bg-red-50 p-4 border border-red-200">
-                <p className="text-sm text-red-700 font-medium">
+              <div className="rounded-3xl bg-[#FFF1F0] p-4 border border-[#FF3B30]/20">
+                <p className="text-[13px] text-[#FF3B30] font-medium">
                   Dispute filed. Escrow funds are frozen until resolution.
                 </p>
               </div>

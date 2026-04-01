@@ -36,25 +36,25 @@ interface Transaction {
 }
 
 const TX_TYPE_LABELS: Record<string, { label: string; color: string }> = {
-  TOPUP: { label: "Top-up", color: "text-green-600 bg-green-50" },
-  POSTING_FEE: { label: "Posting Fee", color: "text-amber-600 bg-amber-50" },
-  ESCROW_HOLD: { label: "Escrow Hold", color: "text-blue-600 bg-blue-50" },
-  ESCROW_RELEASE: { label: "Escrow Release", color: "text-sky-600 bg-sky-50" },
-  ESCROW_REFUND: { label: "Refund", color: "text-green-600 bg-green-50" },
-  PAYOUT: { label: "Payout", color: "text-emerald-600 bg-emerald-50" },
-  ADVANCE: { label: "Advance", color: "text-purple-600 bg-purple-50" },
-  ADVANCE_REPAYMENT: { label: "Repayment", color: "text-orange-600 bg-orange-50" },
-  REFUND: { label: "Refund", color: "text-green-600 bg-green-50" },
-  ADJUSTMENT: { label: "Adjustment", color: "text-gray-600 bg-gray-100" },
+  TOPUP: { label: "Top-up", color: "text-[#34C759] bg-[#EEFBF1]" },
+  POSTING_FEE: { label: "Posting Fee", color: "text-[#FF9500] bg-[#FFF3E0]" },
+  ESCROW_HOLD: { label: "Escrow Hold", color: "text-[#007AFF] bg-[#007AFF]/10" },
+  ESCROW_RELEASE: { label: "Escrow Release", color: "text-[#007AFF] bg-[#007AFF]/10" },
+  ESCROW_REFUND: { label: "Refund", color: "text-[#34C759] bg-[#EEFBF1]" },
+  PAYOUT: { label: "Payout", color: "text-[#34C759] bg-[#EEFBF1]" },
+  ADVANCE: { label: "Advance", color: "text-[#AF52DE] bg-[#AF52DE]/10" },
+  ADVANCE_REPAYMENT: { label: "Repayment", color: "text-[#FF9500] bg-[#FFF3E0]" },
+  REFUND: { label: "Refund", color: "text-[#34C759] bg-[#EEFBF1]" },
+  ADJUSTMENT: { label: "Adjustment", color: "text-[#86868B] bg-[#F5F5F7]" },
 };
 
 export default function WalletPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-cream-100">
+      <div className="min-h-screen bg-[#F5F5F7]">
         <Navbar />
         <div className="mx-auto max-w-4xl px-6 py-20 text-center">
-          <div className="h-8 w-48 mx-auto animate-pulse rounded bg-gray-200" />
+          <div className="h-8 w-48 mx-auto animate-pulse rounded-xl bg-[#E8E8ED]" />
         </div>
       </div>
     }>
@@ -203,71 +203,71 @@ function WalletContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-cream-100">
+      <div className="min-h-screen bg-[#F5F5F7]">
         <Navbar />
         <div className="mx-auto max-w-4xl px-6 py-20 text-center">
-          <div className="h-8 w-48 mx-auto animate-pulse rounded bg-gray-200" />
+          <div className="h-8 w-48 mx-auto animate-pulse rounded-xl bg-[#E8E8ED]" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-cream-100">
+    <div className="min-h-screen bg-[#F5F5F7]">
       <Navbar />
       <div className="mx-auto max-w-4xl px-6 py-10">
         {/* Top-up result banners */}
         {topupStatus === "success" && (
-          <div className="mb-6 flex items-center gap-3 rounded-xl bg-green-50 border border-green-200 p-4">
-            <CheckCircle className="h-5 w-5 text-green-600" />
-            <p className="text-sm text-green-700">
+          <div className="mb-6 flex items-center gap-3 rounded-2xl bg-[#EEFBF1] border border-[#34C759]/20 p-4">
+            <CheckCircle className="h-5 w-5 text-[#34C759]" />
+            <p className="text-[13px] text-[#34C759]">
               Top-up successful! Your balance will update shortly.
             </p>
           </div>
         )}
         {topupStatus === "cancelled" && (
-          <div className="mb-6 flex items-center gap-3 rounded-xl bg-amber-50 border border-amber-200 p-4">
-            <XCircle className="h-5 w-5 text-amber-600" />
-            <p className="text-sm text-amber-700">Top-up was cancelled.</p>
+          <div className="mb-6 flex items-center gap-3 rounded-2xl bg-[#FFF3E0] border border-[#FF9500]/20 p-4">
+            <XCircle className="h-5 w-5 text-[#FF9500]" />
+            <p className="text-[13px] text-[#FF9500]">Top-up was cancelled.</p>
           </div>
         )}
 
-        <h1 className="text-2xl font-display font-bold text-ocean-900">
+        <h1 className="text-2xl font-display font-bold tracking-tight text-[#1D1D1F]">
           Wallet
         </h1>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-3">
           {/* Balance card */}
           <div className="lg:col-span-1 space-y-6">
-            <div className="rounded-2xl bg-gradient-to-br from-ocean-700 to-sky-600 p-6 text-white shadow-lg">
-              <div className="flex items-center gap-2 text-sky-200">
+            <div className="rounded-3xl bg-[#1D1D1F] p-6 text-white shadow-[0_2px_20px_rgba(0,0,0,.12)]">
+              <div className="flex items-center gap-2 text-white/60">
                 <Wallet className="h-5 w-5" />
-                <p className="text-sm font-medium">Available Balance</p>
+                <p className="text-[13px] font-medium">Available Balance</p>
               </div>
-              <p className="mt-3 text-4xl font-display font-bold">
+              <p className="mt-3 text-4xl font-display font-bold tabular-nums">
                 ${wallet?.balanceUsd.toLocaleString(undefined, {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
                 })}
               </p>
               {localBalanceStr && (
-                <p className="mt-1 text-lg text-sky-200/80 font-medium">
+                <p className="mt-1 text-lg text-white/50 font-medium tabular-nums">
                   ≈ {localBalanceStr}
                 </p>
               )}
-              <p className="mt-1 text-sm text-sky-200/60">
+              <p className="mt-1 text-[13px] text-white/40">
                 USD {userCurrency !== "USD" && `· ${userCurrency}`}
               </p>
               {wallet?.isLocked && (
-                <p className="mt-2 text-xs text-amber-300 font-medium">
+                <p className="mt-2 text-[11px] text-[#FF9500] font-medium">
                   Wallet is temporarily locked
                 </p>
               )}
             </div>
 
             {/* Top-up form */}
-            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-              <h3 className="text-sm font-semibold text-ocean-800 mb-3">
+            <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+              <h3 className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em] mb-3">
                 Add Funds
               </h3>
               <div className="space-y-3">
@@ -284,10 +284,10 @@ function WalletContent() {
                       key={amt}
                       type="button"
                       onClick={() => setTopupAmount(String(amt))}
-                      className={`flex-1 rounded-lg border py-1.5 text-xs font-medium transition ${
+                      className={`flex-1 rounded-full border py-1.5 text-[11px] font-medium transition ${
                         topupAmount === String(amt)
-                          ? "border-ocean-600 bg-ocean-50 text-ocean-700"
-                          : "border-gray-200 text-gray-500 hover:border-gray-300"
+                          ? "border-[#007AFF] bg-[#007AFF]/5 text-[#007AFF]"
+                          : "border-[#E8E8ED] text-[#86868B] hover:border-[#86868B]"
                       }`}
                     >
                       ${amt}
@@ -307,8 +307,8 @@ function WalletContent() {
 
             {/* Withdrawal — providers only */}
             {userRole === "PROVIDER" && (
-              <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-                <h3 className="text-sm font-semibold text-ocean-800 mb-3">
+              <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+                <h3 className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em] mb-3">
                   Withdraw to Bank
                 </h3>
                 <div className="space-y-3">
@@ -328,7 +328,7 @@ function WalletContent() {
                   >
                     Withdraw to Stripe
                   </Button>
-                  <p className="text-xs text-gray-400">
+                  <p className="text-[11px] text-[#86868B]">
                     Funds are transferred to your connected Stripe bank account.
                   </p>
                 </div>
@@ -338,20 +338,20 @@ function WalletContent() {
 
           {/* Transaction history */}
           <div className="lg:col-span-2">
-            <h2 className="text-lg font-display font-semibold text-ocean-800 mb-4">
+            <h2 className="text-lg font-display font-semibold tracking-tight text-[#1D1D1F] mb-4">
               Transaction History
             </h2>
             {transactions.length === 0 ? (
-              <div className="rounded-2xl bg-white p-12 text-center shadow-sm border border-gray-100">
-                <Wallet className="mx-auto h-12 w-12 text-gray-300" />
-                <p className="mt-4 text-gray-500">No transactions yet</p>
-                <p className="mt-1 text-sm text-gray-400">
+              <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-12 text-center shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
+                <Wallet className="mx-auto h-12 w-12 text-[#86868B]" />
+                <p className="mt-4 text-[14px] text-[#6E6E73]">No transactions yet</p>
+                <p className="mt-1 text-[13px] text-[#86868B]">
                   Top up your wallet to get started
                 </p>
               </div>
             ) : (
-              <div className="rounded-2xl bg-white shadow-sm border border-gray-100 overflow-hidden">
-                <div className="divide-y divide-gray-100">
+              <div className="rounded-3xl bg-white/80 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 overflow-hidden">
+                <div className="divide-y divide-[#E8E8ED]/60">
                   {transactions.map((tx) => {
                     const isCredit = tx.amountUsd > 0;
                     const typeInfo =
@@ -363,10 +363,10 @@ function WalletContent() {
                       >
                         <div className="flex items-center gap-3">
                           <div
-                            className={`flex h-9 w-9 items-center justify-center rounded-lg ${
+                            className={`flex h-9 w-9 items-center justify-center rounded-xl ${
                               isCredit
-                                ? "bg-green-50 text-green-600"
-                                : "bg-red-50 text-red-500"
+                                ? "bg-[#EEFBF1] text-[#34C759]"
+                                : "bg-[#FFF1F0] text-[#FF3B30]"
                             }`}
                           >
                             {isCredit ? (
@@ -376,16 +376,16 @@ function WalletContent() {
                             )}
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-ocean-800">
+                            <p className="text-[13px] font-medium text-[#1D1D1F]">
                               {tx.description}
                             </p>
                             <div className="flex items-center gap-2 mt-0.5">
                               <span
-                                className={`rounded-full px-2 py-0.5 text-xs font-medium ${typeInfo.color}`}
+                                className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold ${typeInfo.color}`}
                               >
                                 {typeInfo.label}
                               </span>
-                              <span className="text-xs text-gray-400">
+                              <span className="text-[11px] text-[#86868B]">
                                 {new Date(tx.createdAt).toLocaleDateString()}{" "}
                                 {new Date(tx.createdAt).toLocaleTimeString(
                                   [],
@@ -401,8 +401,8 @@ function WalletContent() {
                         <div className="flex items-center gap-3">
                           <div className="text-right">
                             <p
-                              className={`text-sm font-semibold ${
-                                isCredit ? "text-green-600" : "text-red-500"
+                              className={`text-[13px] font-semibold tabular-nums ${
+                                isCredit ? "text-[#34C759]" : "text-[#FF3B30]"
                               }`}
                             >
                               {isCredit ? "+" : ""}$
@@ -411,7 +411,7 @@ function WalletContent() {
                                 maximumFractionDigits: 2,
                               })}
                             </p>
-                            <p className="text-xs text-gray-400">
+                            <p className="text-[11px] text-[#86868B] tabular-nums">
                               Bal: $
                               {tx.balanceAfter.toLocaleString(undefined, {
                                 minimumFractionDigits: 2,
@@ -424,7 +424,7 @@ function WalletContent() {
                             target="_blank"
                             rel="noopener noreferrer"
                             title="Download receipt"
-                            className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:bg-ocean-50 hover:text-ocean-600 transition-colors"
+                            className="flex h-8 w-8 items-center justify-center rounded-xl text-[#86868B] hover:bg-[#007AFF]/5 hover:text-[#007AFF] transition-colors"
                           >
                             <FileText className="h-4 w-4" />
                           </a>

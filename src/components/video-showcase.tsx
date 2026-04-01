@@ -3,12 +3,6 @@
 import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
 
-/**
- * Cinematic showcase cards with Ken Burns motion effect.
- * Each card animates when scrolled into view — slow zoom + pan
- * gives the feeling of live footage without video hosting.
- */
-
 const CARDS = [
   {
     images: [
@@ -60,11 +54,13 @@ function MotionCard({ images, label, sub }: { images: string[]; label: string; s
   const [imgIndex, setImgIndex] = useState(0);
 
   useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => setVisible(entry.isIntersecting),
       { threshold: 0.2 }
     );
-    if (ref.current) observer.observe(ref.current);
+    observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
@@ -77,7 +73,7 @@ function MotionCard({ images, label, sub }: { images: string[]; label: string; s
   }, [visible, images.length]);
 
   return (
-    <div ref={ref} className="relative aspect-[3/4] overflow-hidden rounded-2xl group">
+    <div ref={ref} className="relative aspect-[3/4] overflow-hidden rounded-3xl group">
       {images.map((src, i) => (
         <div
           key={src}
@@ -92,18 +88,18 @@ function MotionCard({ images, label, sub }: { images: string[]; label: string; s
           />
         </div>
       ))}
-      <div className="absolute inset-0 bg-gradient-to-t from-ocean-900/80 via-transparent to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 p-4">
-        <div className="flex items-center gap-2">
+      <div className="absolute inset-0 bg-gradient-to-t from-[#1D1D1F]/80 via-transparent to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 p-5">
+        <div className="flex items-center gap-2.5">
           {visible && (
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#34C759] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#34C759]" />
             </span>
           )}
           <div>
-            <p className="text-sm font-semibold text-white">{label}</p>
-            <p className="text-[10px] text-sky-200/60">{sub}</p>
+            <p className="text-[13px] font-semibold text-white">{label}</p>
+            <p className="text-[10px] text-white/50">{sub}</p>
           </div>
         </div>
       </div>

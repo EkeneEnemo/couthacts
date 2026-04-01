@@ -34,17 +34,17 @@ export default function EnterprisePage() {
   }
 
   return (
-    <div className="min-h-screen bg-cream-50">
+    <div className="min-h-screen bg-[#F5F5F7]">
       <Navbar />
       <div className="mx-auto max-w-5xl px-6 py-16">
         <div className="grid gap-12 lg:grid-cols-2">
           {/* Left — value prop */}
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-sky-600">Enterprise</p>
-            <h1 className="mt-3 text-3xl font-display font-bold text-ocean-900 sm:text-4xl">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#007AFF]">Enterprise</p>
+            <h1 className="mt-3 text-3xl font-display font-bold text-[#1D1D1F] sm:text-4xl">
               Transportation infrastructure for organizations that move at scale.
             </h1>
-            <p className="mt-4 text-base text-gray-500 leading-relaxed">
+            <p className="mt-4 text-[14px] text-[#6E6E73] leading-relaxed">
               Dedicated account management, volume-based pricing, custom integrations, and priority support for organizations shipping at enterprise volume.
             </p>
 
@@ -56,12 +56,12 @@ export default function EnterprisePage() {
                 { icon: Truck, title: "API & Integration", desc: "Connect CouthActs directly to your ERP, WMS, or TMS. Webhook-driven automation." },
               ].map((f) => (
                 <div key={f.title} className="flex gap-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-ocean-50 flex-shrink-0">
-                    <f.icon className="h-5 w-5 text-ocean-600" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#F5F5F7] flex-shrink-0">
+                    <f.icon className="h-5 w-5 text-[#1D1D1F]" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-ocean-800">{f.title}</p>
-                    <p className="text-sm text-gray-500">{f.desc}</p>
+                    <p className="text-[13px] font-semibold text-[#1D1D1F]">{f.title}</p>
+                    <p className="text-[13px] text-[#6E6E73]">{f.desc}</p>
                   </div>
                 </div>
               ))}
@@ -71,16 +71,16 @@ export default function EnterprisePage() {
           {/* Right — contact form */}
           <div>
             {submitted ? (
-              <div className="rounded-2xl bg-white p-12 shadow-sm border border-gray-100 text-center">
-                <CheckCircle className="mx-auto h-12 w-12 text-green-500" />
-                <h2 className="mt-4 text-xl font-display font-bold text-ocean-900">We&apos;ll be in touch.</h2>
-                <p className="mt-2 text-sm text-gray-500">
+              <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-12 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 text-center">
+                <CheckCircle className="mx-auto h-12 w-12 text-[#34C759]" />
+                <h2 className="mt-4 text-xl font-display font-bold text-[#1D1D1F]">We&apos;ll be in touch.</h2>
+                <p className="mt-2 text-[13px] text-[#6E6E73]">
                   Our enterprise team typically responds within 24 hours.
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="rounded-2xl bg-white p-8 shadow-sm border border-gray-100 space-y-4">
-                <h2 className="text-lg font-display font-semibold text-ocean-800">Contact Enterprise Sales</h2>
+              <form onSubmit={handleSubmit} className="rounded-3xl bg-white/80 backdrop-blur-xl p-8 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 space-y-4">
+                <h2 className="text-lg font-display font-bold text-[#1D1D1F]">Contact Enterprise Sales</h2>
                 <div className="grid grid-cols-2 gap-3">
                   <Input name="name" label="Your name" placeholder="Jane Doe" required />
                   <Input name="company" label="Company" placeholder="Acme Logistics" required />
@@ -88,8 +88,8 @@ export default function EnterprisePage() {
                 <Input name="email" label="Work email" type="email" placeholder="jane@acme.com" required />
                 <Input name="phone" label="Phone" placeholder="+1 555 000 0000" />
                 <div>
-                  <label className="block text-sm font-medium text-ocean-800 mb-1">Monthly shipping volume</label>
-                  <select name="volume" className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-sky-500">
+                  <label className="block text-[13px] font-medium text-[#1D1D1F] mb-1">Monthly shipping volume</label>
+                  <select name="volume" className="w-full rounded-2xl border border-[#E8E8ED]/60 px-4 py-2.5 text-[13px] outline-none focus:border-[#007AFF]">
                     <option value="">Select volume</option>
                     <option value="<50">Less than 50 jobs</option>
                     <option value="50-200">50–200 jobs</option>
@@ -98,8 +98,8 @@ export default function EnterprisePage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-ocean-800 mb-1">Transport modes needed</label>
-                  <select name="modes" className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-sky-500">
+                  <label className="block text-[13px] font-medium text-[#1D1D1F] mb-1">Transport modes needed</label>
+                  <select name="modes" className="w-full rounded-2xl border border-[#E8E8ED]/60 px-4 py-2.5 text-[13px] outline-none focus:border-[#007AFF]">
                     <option value="">Select primary mode</option>
                     <option value="ground">Ground (Trucking, Freight, Courier)</option>
                     <option value="air">Air (Cargo, Charter)</option>
@@ -109,13 +109,13 @@ export default function EnterprisePage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-ocean-800 mb-1">Tell us about your needs</label>
-                  <textarea name="message" rows={3} placeholder="Current challenges, volume details, integration requirements..." className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200" />
+                  <label className="block text-[13px] font-medium text-[#1D1D1F] mb-1">Tell us about your needs</label>
+                  <textarea name="message" rows={3} placeholder="Current challenges, volume details, integration requirements..." className="w-full rounded-2xl border border-[#E8E8ED]/60 bg-white px-4 py-2.5 text-[13px] outline-none focus:border-[#007AFF] focus:ring-2 focus:ring-[#007AFF]/20" />
                 </div>
                 <Button type="submit" className="w-full" size="lg" loading={sending}>
                   Contact Sales
                 </Button>
-                <p className="text-xs text-gray-400 text-center">We typically respond within 24 hours.</p>
+                <p className="text-[11px] text-[#86868B] text-center">We typically respond within 24 hours.</p>
               </form>
             )}
           </div>

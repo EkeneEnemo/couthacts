@@ -4,7 +4,7 @@ export function PrintButton() {
   return (
     <button
       onClick={() => window.print()}
-      className="text-sm text-ocean-600 hover:text-ocean-700 font-medium"
+      className="text-[13px] text-[#007AFF] hover:text-[#0055D4] font-semibold transition-colors"
     >
       Print / Save as PDF
     </button>

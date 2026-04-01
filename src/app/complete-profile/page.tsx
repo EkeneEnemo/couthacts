@@ -38,21 +38,21 @@ export default function CompleteProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-cream-50">
+    <div className="min-h-screen bg-[#F5F5F7]">
       <Navbar />
       <div className="mx-auto max-w-md px-6 py-20">
-        <div className="rounded-2xl bg-white p-8 shadow-sm border border-gray-100 text-center">
+        <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-8 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 text-center">
           {avatarUrl ? (
             <>
-              <CheckCircle className="mx-auto h-12 w-12 text-green-500" />
-              <h1 className="mt-4 text-xl font-display font-bold text-ocean-900">Profile complete!</h1>
-              <p className="mt-2 text-sm text-gray-500">Redirecting to your dashboard...</p>
+              <CheckCircle className="mx-auto h-12 w-12 text-[#34C759]" />
+              <h1 className="mt-4 text-xl font-display font-bold tracking-tight text-[#1D1D1F]">Profile complete!</h1>
+              <p className="mt-2 text-[14px] text-[#6E6E73]">Redirecting to your dashboard...</p>
             </>
           ) : (
             <>
-              <Camera className="mx-auto h-12 w-12 text-ocean-400" />
-              <h1 className="mt-4 text-xl font-display font-bold text-ocean-900">Complete your profile</h1>
-              <p className="mt-2 text-sm text-gray-500">
+              <Camera className="mx-auto h-12 w-12 text-[#86868B]" />
+              <h1 className="mt-4 text-xl font-display font-bold tracking-tight text-[#1D1D1F]">Complete your profile</h1>
+              <p className="mt-2 text-[14px] text-[#6E6E73]">
                 Upload a professional headshot to access all CouthActs&#8482; features.
               </p>
               <div className="mt-6 space-y-3">
@@ -60,7 +60,7 @@ export default function CompleteProfilePage() {
                 <Button className="w-full" size="lg" onClick={() => fileRef.current?.click()} loading={uploading}>
                   Upload Headshot
                 </Button>
-                <div className="text-xs text-gray-400 space-y-1">
+                <div className="text-[11px] text-[#86868B] space-y-1">
                   <p>Requirements:</p>
                   <ul className="list-disc pl-4 text-left">
                     <li>Clear photo of your face</li>

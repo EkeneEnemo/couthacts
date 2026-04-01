@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getResend, sendApplicationConfirmationEmail } from "@/lib/email";
+import { getResend, sendApplicationConfirmationEmail, escapeHtml as esc } from "@/lib/email";
 import { rateLimit } from "@/lib/rate-limit";
 
 const FROM = process.env.RESEND_FROM_EMAIL || "CouthActs <no-reply@couthacts.com>";
@@ -46,6 +46,18 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const allowedTypes = [
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ];
+    if (!allowedTypes.includes(resume.type)) {
+      return NextResponse.json(
+        { error: "Resume must be a PDF or Word document." },
+        { status: 400 }
+      );
+    }
+
     // Convert resume to base64 for email attachment
     const bytes = await resume.arrayBuffer();
     const resumeBase64 = Buffer.from(bytes).toString("base64");
@@ -64,17 +76,17 @@ export async function POST(req: NextRequest) {
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
           <h1 style="color: #1E3A5F;">New Job Application</h1>
           <table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
-            <tr><td style="padding: 8px; font-weight: bold; color: #444;">Role</td><td style="padding: 8px;">${role}</td></tr>
-            <tr><td style="padding: 8px; font-weight: bold; color: #444;">Name</td><td style="padding: 8px;">${firstName} ${lastName}</td></tr>
-            <tr><td style="padding: 8px; font-weight: bold; color: #444;">Email</td><td style="padding: 8px;"><a href="mailto:${email}">${email}</a></td></tr>
-            <tr><td style="padding: 8px; font-weight: bold; color: #444;">Phone</td><td style="padding: 8px;">${phone || "N/A"}</td></tr>
-            <tr><td style="padding: 8px; font-weight: bold; color: #444;">LinkedIn</td><td style="padding: 8px;">${linkedin ? `<a href="${linkedin}">${linkedin}</a>` : "N/A"}</td></tr>
-            <tr><td style="padding: 8px; font-weight: bold; color: #444;">Portfolio</td><td style="padding: 8px;">${portfolio ? `<a href="${portfolio}">${portfolio}</a>` : "N/A"}</td></tr>
+            <tr><td style="padding: 8px; font-weight: bold; color: #444;">Role</td><td style="padding: 8px;">${esc(role)}</td></tr>
+            <tr><td style="padding: 8px; font-weight: bold; color: #444;">Name</td><td style="padding: 8px;">${esc(firstName)} ${esc(lastName)}</td></tr>
+            <tr><td style="padding: 8px; font-weight: bold; color: #444;">Email</td><td style="padding: 8px;">${esc(email)}</td></tr>
+            <tr><td style="padding: 8px; font-weight: bold; color: #444;">Phone</td><td style="padding: 8px;">${esc(phone) || "N/A"}</td></tr>
+            <tr><td style="padding: 8px; font-weight: bold; color: #444;">LinkedIn</td><td style="padding: 8px;">${linkedin ? esc(linkedin) : "N/A"}</td></tr>
+            <tr><td style="padding: 8px; font-weight: bold; color: #444;">Portfolio</td><td style="padding: 8px;">${portfolio ? esc(portfolio) : "N/A"}</td></tr>
           </table>
           <h2 style="color: #1E3A5F;">Cover Letter</h2>
-          <p style="color: #444; line-height: 1.6; white-space: pre-wrap;">${coverLetterSummary}</p>
+          <p style="color: #444; line-height: 1.6; white-space: pre-wrap;">${esc(coverLetterSummary)}</p>
           <h2 style="color: #1E3A5F;">Resume</h2>
-          <p style="color: #444;">File: <strong>${resume.name}</strong> (${resumeSizeKB} KB) — attached below.</p>
+          <p style="color: #444;">File: <strong>${esc(resume.name)}</strong> (${resumeSizeKB} KB) — attached below.</p>
           <p style="color: #888; font-size: 12px;">Submitted at ${submittedAt}</p>
         </div>
       `,

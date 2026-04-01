@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
+import { escapeHtml as esc } from "@/lib/email";
 import { NextRequest, NextResponse } from "next/server";
 import { readFileSync } from "fs";
 import { join } from "path";
@@ -247,11 +248,11 @@ export async function GET(req: NextRequest) {
         <div class="section-title">Account Holder</div>
         <div class="row">
           <span class="label">Name</span>
-          <span class="value">${user.firstName} ${user.lastName}</span>
+          <span class="value">${esc(user.firstName)} ${esc(user.lastName)}</span>
         </div>
         <div class="row">
           <span class="label">Email</span>
-          <span class="value">${user.email}</span>
+          <span class="value">${esc(user.email)}</span>
         </div>
       </div>
 

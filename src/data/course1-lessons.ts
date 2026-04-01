@@ -176,15 +176,15 @@ CouthActs uses a two-tier verification system: **KYC** (Know Your Customer) for 
 
 ## KYC — Personal Identity Verification
 
-KYC is required for **every user** on CouthActs — customers and providers alike. The process uses **Persona**, a government-grade identity verification service trusted by major financial institutions and Fortune 500 companies.
+KYC is required for **every user** on CouthActs — customers and providers alike. The process uses CouthActs' enterprise-grade, government-certified third-party identity verification system — trusted by major financial institutions and Fortune 500 companies worldwide.
 
 ### The KYC Process Step by Step
 
 1. **Navigate to Settings > Verification** on your CouthActs dashboard
-2. **Pay the $20 verification fee** — This fee covers the cost of Persona's identity verification infrastructure and is **non-refundable regardless of outcome**
+2. **Pay the $20 verification fee** — This fee covers the cost of identity verification infrastructure and is **non-refundable regardless of outcome**
 3. **Upload a photo of your government-issued ID** — Accepted documents include passport, driver's license, or national identity card. The ID must be current (not expired) and clearly legible
-4. **Take a live selfie** — Persona's liveness detection ensures you are physically present and not using a photo of someone else
-5. **Automated verification** — Persona checks that the ID is authentic, not tampered with, not expired, and that the selfie matches the photo on the ID
+4. **Take a live selfie** — Liveness detection ensures you are physically present and not using a photo of someone else
+5. **Automated verification** — The system checks that the ID is authentic, not tampered with, not expired, and that the selfie matches the photo on the ID using biometric analysis
 
 :::warning
 **Critical name-matching rule:** The first and last name on your CouthActs account must **exactly match** the name on your government ID. If your account says "Robert Smith" but your driver's license says "Bob Smith," verification will be rejected. Fix your account name BEFORE submitting verification.
@@ -196,7 +196,7 @@ Verification results are typically returned within minutes. If approved, your pr
 
 - **Name changes reset verification.** If you change your name on CouthActs after verification, your KYC status resets to unverified and you must reverify ($20 again). This prevents identity fraud.
 - **One identity per account.** You cannot verify multiple identities on a single account.
-- **International IDs accepted.** CouthActs serves providers globally. Persona supports government IDs from 200+ countries and territories.
+- **International IDs accepted.** CouthActs serves providers globally. Our verification system supports government IDs from 200+ countries and territories.
 
 ---
 

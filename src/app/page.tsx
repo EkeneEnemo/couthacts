@@ -418,7 +418,7 @@ export default function LandingPage() {
 
           <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { icon: Fingerprint, title: "ID Verified", desc: "Every user and provider passes Persona government ID verification. $20 per attempt\u2014no exceptions, no shortcuts.", badge: "Required" },
+              { icon: Fingerprint, title: "ID Verified", desc: "Every user and provider passes government ID verification through our enterprise-grade identity verification system. $20 per attempt\u2014no exceptions, no shortcuts.", badge: "Required" },
               { icon: Lock, title: "Escrow Protection", desc: "Customer funds are held from the moment a job is posted. Providers are paid only after both parties confirm completion.", badge: "Every job" },
               { icon: Zap, title: "CouthActs\u2122 Score", desc: "Proprietary algorithm rating every provider on reliability, on-time delivery, communication, and dispute history. Visible to all.", badge: "Transparent" },
               { icon: Shield, title: "Protection Tiers", desc: "Basic, Standard, and Premium protection tiers. Customers can require matching coverage on every posting.", badge: "Tiered" },

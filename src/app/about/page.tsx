@@ -363,7 +363,7 @@ export default function AboutPage() {
 
             <div className="grid grid-cols-2 gap-4">
               {[
-                { icon: Fingerprint, label: "ID Verification", desc: "Persona government ID" },
+                { icon: Fingerprint, label: "ID Verification", desc: "Government-grade KYC/KYB" },
                 { icon: Lock, label: "Escrow Protection", desc: "Every transaction secured" },
                 { icon: Zap, label: "CouthActs\u2122 Score", desc: "Transparent reputation" },
                 { icon: Shield, label: "Protection Tiers", desc: "Basic \u00B7 Standard \u00B7 Premium" },

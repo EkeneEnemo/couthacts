@@ -24,7 +24,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-lg font-display font-semibold text-[#1D1D1F]">2. Data We Collect</h2>
-            <p className="mt-3"><strong className="text-[#1D1D1F]">Personal identification:</strong> name, email, phone, government ID (processed by Persona — not stored by CouthActs), profile photo, company logo.</p>
+            <p className="mt-3"><strong className="text-[#1D1D1F]">Personal identification:</strong> name, email, phone, government ID (processed by our certified third-party identity verification provider — not stored by CouthActs), profile photo, company logo.</p>
             <p className="mt-3"><strong className="text-[#1D1D1F]">Transaction data:</strong> job postings, bids, bookings, escrow transactions, wallet transactions, protection fee payments, verification fee payments.</p>
             <p className="mt-3"><strong className="text-[#1D1D1F]">Location data:</strong> GPS coordinates during active jobs, origin and destination addresses.</p>
             <p className="mt-3"><strong className="text-[#1D1D1F]">Device data:</strong> IP address, browser type, device identifiers.</p>
@@ -36,12 +36,12 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-lg font-display font-semibold text-[#1D1D1F]">3. How We Use Your Data</h2>
-            <p className="mt-3">To operate the platform and process transactions; verify identity via Persona; calculate and display CouthActs Scores; provide live tracking during active jobs; process escrow and wallet transactions via Stripe; deliver Academy courses and certificates; send transactional emails via Resend; deliver real-time notifications via Pusher; provide customer support; detect and prevent fraud; comply with legal obligations; and improve platform features.</p>
+            <p className="mt-3">To operate the platform and process transactions; verify identity through our enterprise-grade identity verification system; calculate and display CouthActs Scores; provide live tracking during active jobs; process escrow and wallet transactions via Stripe; deliver Academy courses and certificates; send transactional emails via Resend; deliver real-time notifications via Pusher; provide customer support; detect and prevent fraud; comply with legal obligations; and improve platform features.</p>
           </section>
 
           <section>
             <h2 className="text-lg font-display font-semibold text-[#1D1D1F]">4. Data Sharing</h2>
-            <p className="mt-3">We share data with: <strong className="text-[#1D1D1F]">Persona</strong> (identity verification), <strong className="text-[#1D1D1F]">Stripe</strong> (payment processing), <strong className="text-[#1D1D1F]">Pusher</strong> (real-time events), <strong className="text-[#1D1D1F]">Vercel</strong> (hosting), <strong className="text-[#1D1D1F]">Neon</strong> (database), <strong className="text-[#1D1D1F]">Resend</strong> (email delivery), <strong className="text-[#1D1D1F]">Google Maps</strong> (location services), and <strong className="text-[#1D1D1F]">ExchangeRate-API</strong> (currency conversion — no personal data shared).</p>
+            <p className="mt-3">We share data with trusted, industry-leading service providers: identity verification (government-grade KYC/KYB processing — documents are not stored on CouthActs servers), <strong className="text-[#1D1D1F]">Stripe</strong> (PCI-DSS Level 1 certified payment processing), real-time event delivery, <strong className="text-[#1D1D1F]">Vercel</strong> (SOC 2 Type II certified hosting), encrypted database infrastructure, transactional email delivery, location and mapping services, and currency conversion (no personal data shared).</p>
             <p className="mt-3">We do not sell your personal data to third parties. We do not share your data for advertising purposes.</p>
           </section>
 

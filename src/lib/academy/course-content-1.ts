@@ -208,13 +208,13 @@ This verification system is what separates CouthActs from platforms that allow a
 
 ## KYC — Know Your Customer (Personal Identity)
 
-KYC verification uses **Persona**, a government-grade identity verification service trusted by major financial institutions and technology companies.
+KYC verification uses CouthActs' enterprise-grade, government-certified third-party identity verification system — trusted by major financial institutions and Fortune 500 companies worldwide.
 
 ### The Process
 1. Navigate to Settings → Identity Verification
 2. Upload a photo of your **government-issued ID** (passport, driver's license, or national ID card)
-3. Take a **live selfie** — Persona verifies that the selfie matches the ID photo
-4. Persona checks that the ID is authentic, not expired, and not tampered with
+3. Take a **live selfie** — the system uses biometric matching to verify that the selfie matches the ID photo
+4. The system checks that the ID is authentic, not expired, and not tampered with
 5. Results are typically returned within **2-5 minutes**
 
 ### Cost

@@ -142,7 +142,7 @@ export default function PressKitPage() {
             </h2>
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {[
-                { title: "Identity Verification", desc: "Every user and provider passes Persona government ID verification. KYC for individuals, KYB for businesses." },
+                { title: "Identity Verification", desc: "Every user and provider passes government-grade identity verification through our enterprise-certified third-party system. KYC for individuals, KYB for businesses — biometric matching, document authenticity, and real-time database checks." },
                 { title: "Escrow Protection", desc: "Customer funds held from job posting. Released only after mutual confirmation of completion." },
                 { title: "CouthActs Score", desc: "Proprietary algorithm rating providers on completion, on-time delivery, reviews, response time, and dispute history." },
                 { title: "9-Layer Tracking", desc: "GPS, flight tracking, maritime AIS, QR/PIN, photo checkpoints, condition monitoring, satellite, geofencing, and audit timeline." },

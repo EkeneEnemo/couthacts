@@ -167,6 +167,7 @@ export async function POST(req: NextRequest) {
         break;
       }
 
+      case "transfer.reversed":
       case "transfer.failed": {
         // Payout failed — restore wallet balance
         const transfer = event.data.object;

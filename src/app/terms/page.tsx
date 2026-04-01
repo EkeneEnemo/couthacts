@@ -34,7 +34,7 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-lg font-display font-semibold text-[#1D1D1F]">4. Identity Verification</h2>
-            <p className="mt-3">All Users must complete identity verification via Persona before accessing core platform features. Verification incurs a non-refundable fee of $20.00 USD per attempt. The fee is non-refundable regardless of outcome. Changing your name resets verification and requires re-verification ($20.00 again). CouthActs does not store government ID documents. Providers must additionally complete KYB verification.</p>
+            <p className="mt-3">All Users must complete identity verification through our enterprise-grade, government-certified third-party identity verification system before accessing core platform features. This system employs biometric matching, document authenticity analysis, and real-time database checks to ensure foolproof KYC and KYB verifications. Verification incurs a non-refundable fee of $20.00 USD per attempt. The fee is non-refundable regardless of outcome. Changing your name resets verification and requires re-verification ($20.00 again). CouthActs does not store government ID documents — all identity data is processed and secured by our verification partner under strict data protection agreements. Providers must additionally complete KYB (Know Your Business) verification with supporting business documentation.</p>
           </section>
 
           <section>

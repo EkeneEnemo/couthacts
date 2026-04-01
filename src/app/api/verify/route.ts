@@ -66,7 +66,7 @@ export async function POST() {
 
     return NextResponse.json({
       status: "IN_REVIEW",
-      message: "Verification started. Complete the identity check in the Persona window.",
+      message: "Verification started. Complete the identity check in the verification window.",
       personaId: inquiryId,
       url,
       feeCharged: VERIFICATION_FEE_USD,
@@ -156,7 +156,7 @@ export async function GET() {
           avatarUrl: user.avatarUrl,
           isVerified: false,
           verificationFee: VERIFICATION_FEE_USD,
-          rejectionReason: `Verification declined by Persona. The $${VERIFICATION_FEE_USD} fee is non-refundable. You may try again.`,
+          rejectionReason: `Verification declined. The $${VERIFICATION_FEE_USD} fee is non-refundable. You may try again.`,
         });
       }
     } catch {

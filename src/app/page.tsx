@@ -830,7 +830,7 @@ export default function LandingPage() {
           <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-8 sm:flex-row">
             <p className="text-[11px] text-white/20">
               &copy; {new Date().getFullYear()} CouthActs&#8482;, Inc. Founded
-              November 27, 2021. All rights reserved.
+              Nov. 27, 2021. All rights reserved.
             </p>
             <p className="text-[11px] text-white/20">
               The Adolphus Tower, Dallas, TX &middot; legal@couthacts.com

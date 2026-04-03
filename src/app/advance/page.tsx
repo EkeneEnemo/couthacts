@@ -368,8 +368,7 @@ export default function AdvancePage() {
             <Logo size="sm" variant="white" href="/" />
             <p className="text-[11px] text-white/35">
               &copy; {new Date().getFullYear()} CouthActs&#8482;. Operated by
-              CouthActs, Inc. Intellectual property of Enemo Consulting Group,
-              Inc.
+              CouthActs, Inc.
             </p>
           </div>
         </div>

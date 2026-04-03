@@ -517,8 +517,7 @@ export default function AboutPage() {
           <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-8 sm:flex-row">
             <p className="text-[11px] text-white/35">
               &copy; {new Date().getFullYear()} CouthActs&#8482;. Founded
-              November 27, 2021. Operated by CouthActs, Inc. Intellectual
-              property of Enemo Consulting Group, Inc. All rights reserved.
+              November 27, 2021. Operated by CouthActs, Inc. All rights reserved.
             </p>
             <p className="text-[11px] text-white/35">
               The Adolphus Tower, Dallas, TX &middot; legal@couthacts.com

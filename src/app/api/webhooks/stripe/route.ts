@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { getStripe } from "@/lib/stripe";
 import { creditWallet } from "@/lib/wallet";
-import { sendWalletTopUpReceiptEmail, sendPaymentFailedEmail, sendBookingCancelledEmail, sendPayoutFailedEmail, sendStripeConnectReadyEmail } from "@/lib/email";
+import { sendWalletTopUpReceiptEmail, sendPaymentFailedEmail, sendPayoutFailedEmail, sendStripeConnectReadyEmail } from "@/lib/email";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {

@@ -26,6 +26,16 @@ export const metadata: Metadata = {
   description:
     "Book any transport mode worldwide \u2014 from taxis to cargo ships, private jets to freight rail. Verified providers, escrow-protected payments, real-time tracking.",
   manifest: "/manifest.json",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png" },
+    ],
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",

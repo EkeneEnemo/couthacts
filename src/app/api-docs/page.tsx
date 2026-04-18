@@ -1,20 +1,7 @@
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { Navbar } from "@/components/navbar";
-import {
-  ArrowRight,
-  Code2,
-  Key,
-  Webhook,
-  Zap,
-  Shield,
-  Globe,
-  Lock,
-  Eye,
-  Terminal,
-  FileJson,
-  Send,
-} from "lucide-react";
+import { ArrowRight, Key, Terminal, Send, FileJson } from "lucide-react";
 
 export const metadata = {
   title: "API Documentation — CouthActs\u2122",
@@ -23,105 +10,76 @@ export const metadata = {
 };
 
 const ENDPOINTS = [
-  {
-    method: "POST",
-    path: "/api/v1/jobs",
-    desc: "Create a new transportation job with full mode-specific workflow.",
-    auth: "API Key",
-  },
-  {
-    method: "GET",
-    path: "/api/v1/jobs",
-    desc: "List your jobs with filtering by status, mode, and date range.",
-    auth: "API Key",
-  },
-  {
-    method: "GET",
-    path: "/api/v1/wallet",
-    desc: "Check wallet balance, transaction history, and escrow holds.",
-    auth: "API Key",
-  },
-  {
-    method: "POST",
-    path: "/api/provider/v1/tracking",
-    desc: "Push GPS/AIS/flight tracking updates for active bookings.",
-    auth: "Provider API Key",
-  },
-  {
-    method: "GET",
-    path: "/api/provider/v1/bookings",
-    desc: "List provider bookings with status, escrow, and tracking data.",
-    auth: "Provider API Key",
-  },
-  {
-    method: "GET",
-    path: "/api/provider/v1/jobs",
-    desc: "Browse available jobs matching your registered transport modes.",
-    auth: "Provider API Key",
-  },
-  {
-    method: "GET",
-    path: "/api/provider/v1/wallet",
-    desc: "Provider wallet balance, earnings, and advance eligibility.",
-    auth: "Provider API Key",
-  },
-  {
-    method: "GET",
-    path: "/api/track/{code}",
-    desc: "Public tracking endpoint. No authentication required.",
-    auth: "None",
-  },
+  { method: "POST", path: "/api/v1/jobs", desc: "Create a new transportation job with full mode-specific workflow.", auth: "API Key" },
+  { method: "GET", path: "/api/v1/jobs", desc: "List your jobs with filtering by status, mode, and date range.", auth: "API Key" },
+  { method: "GET", path: "/api/v1/wallet", desc: "Check wallet balance, transaction history, and escrow holds.", auth: "API Key" },
+  { method: "POST", path: "/api/provider/v1/tracking", desc: "Push GPS/AIS/flight tracking updates for active bookings.", auth: "Provider API Key" },
+  { method: "GET", path: "/api/provider/v1/bookings", desc: "List provider bookings with status, escrow, and tracking data.", auth: "Provider API Key" },
+  { method: "GET", path: "/api/provider/v1/jobs", desc: "Browse available jobs matching your registered transport modes.", auth: "Provider API Key" },
+  { method: "GET", path: "/api/provider/v1/wallet", desc: "Provider wallet balance, earnings, and advance eligibility.", auth: "Provider API Key" },
+  { method: "GET", path: "/api/track/{code}", desc: "Public tracking endpoint. No authentication required.", auth: "None" },
 ];
 
+const METHOD_STYLES: Record<string, { bg: string; color: string }> = {
+  POST: { bg: "#E8F7EC", color: "#34C759" },
+  GET: { bg: "#E8F1FF", color: "#007AFF" },
+  PUT: { bg: "#FFF5E6", color: "#FFB020" },
+  DELETE: { bg: "#FFE8E8", color: "#FF3B30" },
+};
+
 const TRACKING_LAYERS = [
-  { code: "MOBILE_GPS", label: "Mobile GPS", desc: "Real-time ground vehicle GPS coordinates" },
-  { code: "AIS_MARITIME", label: "AIS Maritime", desc: "Automatic Identification System for vessels" },
-  { code: "FLIGHT_TRACKING", label: "Flight Tracking", desc: "ADS-B transponder data for aircraft" },
-  { code: "ELD_INTEGRATION", label: "ELD Integration", desc: "Electronic Logging Device for commercial trucks" },
-  { code: "QR_PIN_CONFIRMATION", label: "QR/PIN Confirmation", desc: "Cryptographic pickup/delivery proof" },
-  { code: "IOT_DEVICE", label: "IoT Device", desc: "Temperature, humidity, shock sensors" },
-  { code: "SATELLITE", label: "Satellite", desc: "GPS + GLONASS for low-coverage areas" },
-  { code: "DOCUMENT_POD_AI", label: "Document POD/AI", desc: "Proof of delivery with AI verification" },
-  { code: "BIOMETRIC", label: "Biometric", desc: "Identity confirmation at handoff" },
+  { code: "MOBILE_GPS", label: "Mobile GPS", desc: "Real-time ground vehicle GPS coordinates", emoji: "📍" },
+  { code: "AIS_MARITIME", label: "AIS Maritime", desc: "Automatic Identification System for vessels", emoji: "⚓" },
+  { code: "FLIGHT_TRACKING", label: "Flight Tracking", desc: "ADS-B transponder data for aircraft", emoji: "✈️" },
+  { code: "ELD_INTEGRATION", label: "ELD Integration", desc: "Electronic Logging Device for commercial trucks", emoji: "🚚" },
+  { code: "QR_PIN_CONFIRMATION", label: "QR/PIN Confirmation", desc: "Cryptographic pickup/delivery proof", emoji: "🔐" },
+  { code: "IOT_DEVICE", label: "IoT Device", desc: "Temperature, humidity, shock sensors", emoji: "🌡️" },
+  { code: "SATELLITE", label: "Satellite", desc: "GPS + GLONASS for low-coverage areas", emoji: "🛰️" },
+  { code: "DOCUMENT_POD_AI", label: "Document POD/AI", desc: "Proof of delivery with AI verification", emoji: "📄" },
+  { code: "BIOMETRIC", label: "Biometric", desc: "Identity confirmation at handoff", emoji: "👤" },
 ];
 
 export default function ApiDocsPage() {
   return (
-    <div className="min-h-screen bg-[#F5F5F7]">
+    <div className="min-h-screen bg-[#FFFBF5]">
       <Navbar />
 
       {/* ═══════════════════════ HERO ═══════════════════════ */}
-      <section className="bg-[#1D1D1F]">
-        <div className="mx-auto max-w-7xl px-6 py-24 lg:py-32">
+      <section className="relative overflow-hidden bg-[#FFFBF5]">
+        <div className="pointer-events-none absolute -top-32 -left-32 h-[28rem] w-[28rem] rounded-full bg-[#B5E3FF]/50 blur-3xl" />
+        <div className="pointer-events-none absolute top-20 -right-24 h-[32rem] w-[32rem] rounded-full bg-[#E8F7EC]/60 blur-3xl" />
+
+        <div className="relative mx-auto max-w-7xl px-6 py-20 lg:py-28">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#007AFF]/30 bg-[#007AFF]/10 px-4 py-1.5 mb-6">
-              <Code2 className="h-3.5 w-3.5 text-[#007AFF]" />
-              <span className="text-[11px] font-semibold text-[#007AFF] tracking-[0.1em] uppercase">
-                Developer Platform
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#1D1D1F]/10 bg-white/70 backdrop-blur px-4 py-1.5 shadow-sm">
+              <span className="text-base">👩‍💻</span>
+              <span className="text-[12px] font-semibold text-[#1D1D1F]/70 tracking-wide">
+                Developer platform
               </span>
             </div>
-            <h1 className="text-4xl font-display font-bold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl">
+
+            <h1 className="mt-6 font-display font-black leading-[1.02] tracking-tight text-[#1D1D1F] text-5xl sm:text-6xl lg:text-7xl">
               Build on
               <br />
-              <span className="bg-gradient-to-r from-[#007AFF] via-[#007AFF] to-[#5856D6] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#007AFF] via-[#34C759] to-[#007AFF] bg-clip-text text-transparent">
                 CouthActs.
               </span>
             </h1>
-            <p className="mt-6 text-[14px] text-white/35 leading-relaxed max-w-2xl">
-              RESTful API with webhooks, real-time tracking streams across 9
-              layers, and programmatic job management. Integrate global
-              transportation into your software.
+            <p className="mt-6 text-lg text-[#1D1D1F]/60 leading-relaxed max-w-2xl">
+              A clean REST API, real-time webhooks, 9 tracking layers, and a playground
+              that doesn&rsquo;t hate you. Plug global transportation straight into your
+              software.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-10 flex flex-wrap gap-3">
               <Link
                 href="/settings"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-3.5 text-[13px] font-semibold text-[#1D1D1F] transition-all hover:scale-[1.02]"
+                className="group inline-flex items-center gap-2 rounded-full bg-[#1D1D1F] px-8 py-4 text-[15px] font-semibold text-white shadow-[0_8px_30px_rgba(29,29,31,0.25)] transition-all hover:bg-[#007AFF] hover:scale-[1.03]"
               >
                 Get API keys <Key className="h-4 w-4" />
               </Link>
               <Link
                 href="/enterprise"
-                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-8 py-3.5 text-[13px] font-semibold text-white transition-all hover:bg-white/10"
+                className="inline-flex items-center gap-2 rounded-full border border-[#1D1D1F]/15 bg-white/80 backdrop-blur px-8 py-4 text-[15px] font-semibold text-[#1D1D1F] transition-all hover:bg-white hover:scale-[1.03]"
               >
                 Enterprise API <ArrowRight className="h-4 w-4" />
               </Link>
@@ -131,99 +89,101 @@ export default function ApiDocsPage() {
       </section>
 
       {/* ═══════════════════════ API PLANS ═══════════════════════ */}
-      <section className="bg-white border-b border-[#E8E8ED]/60">
-        <div className="mx-auto max-w-7xl px-6 py-24 lg:py-32">
+      <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-28">
           <div className="text-center max-w-2xl mx-auto">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#007AFF]">
-              Plans
-            </p>
-            <h2 className="mt-3 text-3xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-4xl">
-              Choose your API tier.
+            <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#FF7A59]">Plans</p>
+            <h2 className="mt-3 text-4xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-5xl">
+              Pick your lane.
             </h2>
           </div>
 
-          <div className="mt-16 grid gap-6 sm:grid-cols-3">
+          <div className="mt-14 grid gap-6 sm:grid-cols-3">
             {[
               {
                 plan: "Starter",
+                emoji: "🌱",
                 price: "Free",
                 period: "",
-                desc: "For testing and prototyping.",
-                features: [
-                  "1,000 API calls / month",
-                  "Public tracking endpoint",
-                  "Standard rate limits",
-                  "Community support",
-                ],
+                desc: "Testing and prototyping.",
+                features: ["1,000 API calls / month", "Public tracking endpoint", "Standard rate limits", "Community support"],
                 cta: "Get started",
                 href: "/settings",
-                style: "border-[#E8E8ED]/60 bg-[#F5F5F7]",
+                color: "#34C759",
+                bg: "#E8F7EC",
               },
               {
                 plan: "Growth",
+                emoji: "🚀",
                 price: "$299",
                 period: "/mo",
-                desc: "For production integrations.",
-                features: [
-                  "5,000 API calls / month + $0.20/call overage",
-                  "Webhook notifications",
-                  "All tracking layers",
-                  "Email support",
-                  "Sandbox environment",
-                ],
+                desc: "Production integrations.",
+                features: ["5,000 API calls / month + $0.20/call overage", "Webhook notifications", "All tracking layers", "Email support", "Sandbox environment"],
                 cta: "Start building",
                 href: "/settings",
-                style:
-                  "border-[#007AFF]/30 bg-[#007AFF]/5 ring-2 ring-[#007AFF]/20",
+                color: "#007AFF",
+                bg: "#E8F1FF",
+                featured: true,
               },
               {
                 plan: "Enterprise",
+                emoji: "💎",
                 price: "Custom",
                 period: "",
-                desc: "For large-scale operations.",
-                features: [
-                  "Unlimited API calls",
-                  "Custom SLA",
-                  "Dedicated support engineer",
-                  "White-label tracking",
-                  "SSO + IP allowlisting",
-                  "Custom webhook filters",
-                ],
+                desc: "Large-scale operations.",
+                features: ["Unlimited API calls", "Custom SLA", "Dedicated support engineer", "White-label tracking", "SSO + IP allowlisting", "Custom webhook filters"],
                 cta: "Contact sales",
                 href: "/enterprise",
-                style: "border-[#E8E8ED]/60 bg-[#F5F5F7]",
+                color: "#FF6B9D",
+                bg: "#FFE8F0",
               },
             ].map((p) => (
               <div
                 key={p.plan}
-                className={`rounded-3xl border p-8 ${p.style}`}
+                className={`group rounded-[2rem] bg-white p-8 transition-all hover:shadow-[0_20px_60px_rgba(0,0,0,0.1)] hover:-translate-y-1 ${
+                  p.featured ? "border-2 shadow-[0_10px_40px_rgba(0,122,255,0.15)]" : "border border-[#1D1D1F]/5 shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
+                }`}
+                style={{ borderColor: p.featured ? p.color : undefined }}
               >
-                <p className="text-[11px] font-semibold text-[#86868B] uppercase tracking-[0.1em]">
-                  {p.plan}
-                </p>
-                <p className="mt-2 text-3xl font-display font-bold text-[#1D1D1F]">
-                  {p.price}
-                  {p.period && (
-                    <span className="text-[14px] font-normal text-[#86868B]">
-                      {p.period}
+                <div className="flex items-center justify-between">
+                  <span
+                    className="flex h-11 w-11 items-center justify-center rounded-2xl text-xl transition-transform group-hover:rotate-[-8deg]"
+                    style={{ backgroundColor: p.bg }}
+                  >
+                    {p.emoji}
+                  </span>
+                  {p.featured && (
+                    <span
+                      className="rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wider"
+                      style={{ backgroundColor: p.bg, color: p.color }}
+                    >
+                      Popular
                     </span>
                   )}
+                </div>
+                <p className="mt-5 text-[11px] font-bold text-[#1D1D1F]/50 uppercase tracking-[0.12em]">
+                  {p.plan}
                 </p>
-                <p className="mt-2 text-[13px] text-[#6E6E73]">{p.desc}</p>
+                <p className="mt-1 text-4xl font-display font-black text-[#1D1D1F]">
+                  {p.price}
+                  {p.period && <span className="text-[14px] font-semibold text-[#1D1D1F]/50">{p.period}</span>}
+                </p>
+                <p className="mt-2 text-[13px] text-[#1D1D1F]/60">{p.desc}</p>
                 <ul className="mt-6 space-y-2.5">
                   {p.features.map((f) => (
-                    <li
-                      key={f}
-                      className="flex items-center gap-2 text-[13px] text-[#6E6E73]"
-                    >
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#007AFF] flex-shrink-0" />
+                    <li key={f} className="flex items-start gap-2 text-[13px] text-[#1D1D1F]/65">
+                      <span
+                        className="mt-1.5 h-1.5 w-1.5 rounded-full flex-shrink-0"
+                        style={{ backgroundColor: p.color }}
+                      />
                       {f}
                     </li>
                   ))}
                 </ul>
                 <Link
                   href={p.href}
-                  className="mt-8 block text-center rounded-full bg-[#007AFF] px-6 py-3 text-[13px] font-semibold text-white transition-all hover:bg-[#0055D4]"
+                  className="mt-8 block text-center rounded-full px-6 py-3 text-[13px] font-semibold text-white transition-all hover:scale-[1.03]"
+                  style={{ backgroundColor: p.color }}
                 >
                   {p.cta}
                 </Link>
@@ -234,66 +194,51 @@ export default function ApiDocsPage() {
       </section>
 
       {/* ═══════════════════════ QUICK START ═══════════════════════ */}
-      <section className="bg-[#F5F5F7]">
-        <div className="mx-auto max-w-7xl px-6 py-24 lg:py-32">
+      <section className="bg-[#FFFBF5]">
+        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-28">
           <div className="text-center max-w-2xl mx-auto">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#007AFF]">
-              Quick Start
-            </p>
-            <h2 className="mt-3 text-3xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-4xl">
-              Three steps to your first API call.
+            <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#34C759]">Quick start</p>
+            <h2 className="mt-3 text-4xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-5xl">
+              Three steps to your first call.
             </h2>
           </div>
 
-          <div className="mt-16 grid gap-8 lg:grid-cols-3">
+          <div className="mt-14 grid gap-4 lg:grid-cols-3">
             {[
-              {
-                num: "01",
-                icon: Key,
-                title: "Get your API key",
-                desc: "Sign in, go to Settings, and generate a Provider API key. Your key starts with ca_live_ or ca_test_.",
-              },
-              {
-                num: "02",
-                icon: Terminal,
-                title: "Make your first request",
-                desc: "Use your API key in the Authorization: Bearer header. Start with GET /api/provider/v1/jobs to list available jobs.",
-              },
-              {
-                num: "03",
-                icon: Webhook,
-                title: "Set up webhooks",
-                desc: "Configure webhook URLs in Settings to receive real-time notifications for job status changes and tracking updates.",
-              },
+              { num: "01", emoji: "🔑", title: "Get your API key", desc: "Sign in, Settings, generate a Provider API key. Starts with ca_live_ or ca_test_.", color: "#FF7A59", bg: "#FFF1E8" },
+              { num: "02", emoji: "⚡", title: "Make your first request", desc: "Use your key in Authorization: Bearer. Start with GET /api/provider/v1/jobs.", color: "#007AFF", bg: "#E8F1FF" },
+              { num: "03", emoji: "🪝", title: "Set up webhooks", desc: "Configure webhook URLs in Settings to get real-time job and tracking updates.", color: "#34C759", bg: "#E8F7EC" },
             ].map((s) => (
-              <div key={s.num} className="relative">
-                <span className="absolute -top-4 -left-2 text-[7rem] font-display font-bold text-[#1D1D1F]/[0.04] leading-none select-none pointer-events-none">
-                  {s.num}
-                </span>
-                <div className="relative">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#1D1D1F] text-white">
-                    <s.icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="mt-5 text-lg font-display font-bold text-[#1D1D1F]">
-                    {s.title}
-                  </h3>
-                  <p className="mt-3 text-[13px] text-[#6E6E73] leading-relaxed">
-                    {s.desc}
-                  </p>
+              <div
+                key={s.num}
+                className="group relative rounded-[2rem] bg-white border border-[#1D1D1F]/5 p-7 shadow-[0_2px_16px_rgba(0,0,0,0.04)] transition-all hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] hover:-translate-y-1"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: s.color }}>
+                    Step {s.num}
+                  </span>
+                  <span
+                    className="flex h-11 w-11 items-center justify-center rounded-2xl text-xl transition-transform group-hover:rotate-[10deg]"
+                    style={{ backgroundColor: s.bg }}
+                  >
+                    {s.emoji}
+                  </span>
                 </div>
+                <h3 className="mt-5 text-lg font-display font-bold text-[#1D1D1F]">{s.title}</h3>
+                <p className="mt-2 text-[13px] text-[#1D1D1F]/60 leading-relaxed">{s.desc}</p>
               </div>
             ))}
           </div>
 
           {/* Code example */}
-          <div className="mt-16 rounded-3xl bg-[#1D1D1F] p-8 overflow-x-auto">
+          <div className="mt-12 rounded-[2rem] bg-[#1D1D1F] p-8 overflow-x-auto shadow-[0_16px_50px_rgba(0,0,0,0.2)]">
             <div className="flex items-center gap-2 mb-4">
-              <Terminal className="h-4 w-4 text-[#007AFF]" />
-              <p className="text-[11px] font-semibold text-[#007AFF] uppercase tracking-[0.1em]">
-                Example Request
+              <Terminal className="h-4 w-4 text-[#5AC8FA]" />
+              <p className="text-[11px] font-semibold text-[#5AC8FA] uppercase tracking-[0.1em]">
+                Example request
               </p>
             </div>
-            <pre className="text-[13px] text-white/35 font-mono leading-relaxed whitespace-pre-wrap">
+            <pre className="text-[13px] text-white/80 font-mono leading-relaxed whitespace-pre-wrap">
               <code>{`curl -X GET https://couthacts.com/api/provider/v1/jobs \\
   -H "Authorization: Bearer ca_live_your_key_here" \\
   -H "Content-Type: application/json"
@@ -324,88 +269,87 @@ export default function ApiDocsPage() {
 
       {/* ═══════════════════════ ENDPOINTS ═══════════════════════ */}
       <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-24 lg:py-32">
+        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-28">
           <div className="text-center max-w-2xl mx-auto">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#007AFF]">
-              Endpoints
-            </p>
-            <h2 className="mt-3 text-3xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-4xl">
-              Full API reference.
+            <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#007AFF]">Endpoints</p>
+            <h2 className="mt-3 text-4xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-5xl">
+              Full reference.
             </h2>
           </div>
 
-          <div className="mt-16 space-y-3">
-            {ENDPOINTS.map((e) => (
-              <div
-                key={`${e.method}-${e.path}`}
-                className="flex flex-col gap-3 rounded-3xl bg-white/80 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 p-5 sm:flex-row sm:items-center"
-              >
-                <div className="flex items-center gap-3 flex-shrink-0">
-                  <span
-                    className={`inline-flex w-16 justify-center rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em] ${
-                      e.method === "POST"
-                        ? "bg-[#34C759]/10 text-[#34C759]"
-                        : "bg-[#007AFF]/10 text-[#007AFF]"
-                    }`}
-                  >
-                    {e.method}
+          <div className="mt-14 space-y-3">
+            {ENDPOINTS.map((e) => {
+              const style = METHOD_STYLES[e.method] || { bg: "#FFFBF5", color: "#1D1D1F" };
+              return (
+                <div
+                  key={`${e.method}-${e.path}`}
+                  className="flex flex-col gap-3 rounded-[1.5rem] bg-[#FFFBF5] border border-[#1D1D1F]/5 p-5 sm:flex-row sm:items-center transition-all hover:bg-white hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)]"
+                >
+                  <div className="flex items-center gap-3 flex-shrink-0">
+                    <span
+                      className="inline-flex w-16 justify-center rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.1em]"
+                      style={{ backgroundColor: style.bg, color: style.color }}
+                    >
+                      {e.method}
+                    </span>
+                    <code className="text-[13px] font-mono font-semibold text-[#1D1D1F]">
+                      {e.path}
+                    </code>
+                  </div>
+                  <p className="text-[13px] text-[#1D1D1F]/60 flex-1">{e.desc}</p>
+                  <span className="rounded-full bg-white border border-[#1D1D1F]/10 px-3 py-1.5 text-[10px] font-semibold text-[#1D1D1F]/60 uppercase tracking-[0.1em] flex-shrink-0">
+                    {e.auth}
                   </span>
-                  <code className="text-[13px] font-mono font-semibold text-[#1D1D1F]">
-                    {e.path}
-                  </code>
                 </div>
-                <p className="text-[13px] text-[#6E6E73] flex-1">{e.desc}</p>
-                <span className="rounded-full bg-[#F5F5F7] px-3.5 py-1.5 text-[11px] font-semibold text-[#1D1D1F] uppercase tracking-[0.1em] flex-shrink-0">
-                  {e.auth}
-                </span>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* ═══════════════════════ 9 TRACKING LAYERS ═══════════════════════ */}
-      <section className="bg-[#1D1D1F]">
-        <div className="mx-auto max-w-7xl px-6 py-24 lg:py-32">
+      <section className="bg-[#FFFBF5]">
+        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-28">
           <div className="text-center max-w-2xl mx-auto">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#007AFF]">
-              Tracking API
-            </p>
-            <h2 className="mt-3 text-3xl font-display font-bold tracking-tight text-white sm:text-4xl">
-              9 tracking layers via API.
+            <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#FF7A59]">Tracking API</p>
+            <h2 className="mt-3 text-4xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-5xl">
+              Nine layers. One stream.
             </h2>
-            <p className="mt-4 text-[14px] text-white/35 max-w-xl mx-auto">
-              Push tracking events from any layer. Each event is timestamped,
-              geotagged, and streamed in real-time to the customer.
+            <p className="mt-4 text-[15px] text-[#1D1D1F]/55 max-w-xl mx-auto">
+              Push tracking from any layer. Each event is timestamped, geotagged, and
+              streamed in real-time to the customer.
             </p>
           </div>
 
-          <div className="mt-16 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {TRACKING_LAYERS.map((l) => (
               <div
                 key={l.code}
-                className="rounded-3xl border border-white/[0.06] bg-white/[0.03] p-6"
+                className="group rounded-[1.5rem] bg-white border border-[#1D1D1F]/5 p-6 shadow-[0_2px_14px_rgba(0,0,0,0.03)] transition-all hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:-translate-y-0.5"
               >
-                <code className="text-[11px] font-mono text-[#007AFF]">
-                  {l.code}
-                </code>
-                <h3 className="mt-2 text-[13px] font-semibold text-white">
-                  {l.label}
-                </h3>
-                <p className="mt-1 text-[11px] text-white/35">{l.desc}</p>
+                <div className="flex items-center gap-3">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#FFFBF5] text-xl transition-transform group-hover:rotate-[-8deg]">
+                    {l.emoji}
+                  </span>
+                  <code className="text-[10px] font-mono font-bold text-[#007AFF] bg-[#E8F1FF] px-2 py-0.5 rounded-md">
+                    {l.code}
+                  </code>
+                </div>
+                <h3 className="mt-3 text-[13px] font-display font-bold text-[#1D1D1F]">{l.label}</h3>
+                <p className="mt-1 text-[12px] text-[#1D1D1F]/55">{l.desc}</p>
               </div>
             ))}
           </div>
 
           {/* Tracking push example */}
-          <div className="mt-12 rounded-3xl border border-white/[0.06] bg-white/[0.03] p-8 overflow-x-auto">
+          <div className="mt-10 rounded-[2rem] bg-[#1D1D1F] p-8 overflow-x-auto shadow-[0_16px_50px_rgba(0,0,0,0.2)]">
             <div className="flex items-center gap-2 mb-4">
-              <Send className="h-4 w-4 text-[#007AFF]" />
-              <p className="text-[11px] font-semibold text-[#007AFF] uppercase tracking-[0.1em]">
-                Push a Tracking Event
+              <Send className="h-4 w-4 text-[#5AC8FA]" />
+              <p className="text-[11px] font-semibold text-[#5AC8FA] uppercase tracking-[0.1em]">
+                Push a tracking event
               </p>
             </div>
-            <pre className="text-[13px] text-white/35 font-mono leading-relaxed whitespace-pre-wrap">
+            <pre className="text-[13px] text-white/80 font-mono leading-relaxed whitespace-pre-wrap">
               <code>{`POST /api/provider/v1/tracking
 Authorization: Bearer ca_live_your_key_here
 
@@ -433,61 +377,36 @@ Authorization: Bearer ca_live_your_key_here
       </section>
 
       {/* ═══════════════════════ AUTH & SECURITY ═══════════════════════ */}
-      <section className="bg-[#F5F5F7]">
-        <div className="mx-auto max-w-7xl px-6 py-24 lg:py-32">
+      <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-28">
           <div className="text-center max-w-2xl mx-auto">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#007AFF]">
-              Authentication & Security
-            </p>
-            <h2 className="mt-3 text-3xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-4xl">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#34C759]">Auth & security</p>
+            <h2 className="mt-3 text-4xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-5xl">
               Secure by default.
             </h2>
           </div>
 
-          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              {
-                icon: Key,
-                title: "API Key Authentication",
-                desc: "Every request requires an Authorization: Bearer header. Keys are generated in Settings and can be revoked at any time.",
-              },
-              {
-                icon: Lock,
-                title: "HTTPS Only",
-                desc: "All API traffic is encrypted in transit. Plaintext HTTP requests are rejected.",
-              },
-              {
-                icon: Shield,
-                title: "Rate Limiting",
-                desc: "Requests are rate-limited per key. Starter: 100/day. Growth: 10K/day. Enterprise: custom.",
-              },
-              {
-                icon: Eye,
-                title: "Audit Logging",
-                desc: "Every API call is logged with timestamp, IP, endpoint, and response code. Available in your dashboard.",
-              },
-              {
-                icon: Globe,
-                title: "CORS & IP Allowlisting",
-                desc: "Enterprise plans can restrict API access to specific origins and IP ranges.",
-              },
-              {
-                icon: Zap,
-                title: "Webhook Signatures",
-                desc: "Outbound webhooks include HMAC signatures so you can verify the payload originated from CouthActs.",
-              },
+              { emoji: "🔑", title: "API key auth", desc: "Every request needs Authorization: Bearer. Generated in Settings, revocable anytime.", color: "#FF7A59", bg: "#FFF1E8" },
+              { emoji: "🔒", title: "HTTPS only", desc: "All API traffic encrypted in transit. Plaintext HTTP rejected.", color: "#34C759", bg: "#E8F7EC" },
+              { emoji: "🛡️", title: "Rate limiting", desc: "Per-key. Starter: 100/day. Growth: 10K/day. Enterprise: custom.", color: "#007AFF", bg: "#E8F1FF" },
+              { emoji: "👁️", title: "Audit logging", desc: "Every call logged with timestamp, IP, endpoint, response code. Viewable in dashboard.", color: "#FFB020", bg: "#FFF5E6" },
+              { emoji: "🌍", title: "CORS & IP allowlist", desc: "Enterprise plans restrict access to specific origins and IP ranges.", color: "#5AC8FA", bg: "#E8F5FF" },
+              { emoji: "✍️", title: "Webhook signatures", desc: "Outbound webhooks include HMAC signatures. Verify the payload is really us.", color: "#FF6B9D", bg: "#FFE8F0" },
             ].map((s) => (
               <div
                 key={s.title}
-                className="rounded-3xl bg-white/80 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 p-7"
+                className="group rounded-[1.5rem] bg-[#FFFBF5] border border-[#1D1D1F]/5 p-7 transition-all hover:bg-white hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:-translate-y-0.5"
               >
-                <s.icon className="h-5 w-5 text-[#1D1D1F]" />
-                <h3 className="mt-4 text-[14px] font-display font-bold text-[#1D1D1F]">
-                  {s.title}
-                </h3>
-                <p className="mt-2 text-[13px] text-[#6E6E73] leading-relaxed">
-                  {s.desc}
-                </p>
+                <span
+                  className="flex h-11 w-11 items-center justify-center rounded-2xl text-xl transition-transform group-hover:rotate-[-8deg]"
+                  style={{ backgroundColor: s.bg }}
+                >
+                  {s.emoji}
+                </span>
+                <h3 className="mt-4 text-[14px] font-display font-bold text-[#1D1D1F]">{s.title}</h3>
+                <p className="mt-2 text-[13px] text-[#1D1D1F]/60 leading-relaxed">{s.desc}</p>
               </div>
             ))}
           </div>
@@ -495,26 +414,24 @@ Authorization: Bearer ca_live_your_key_here
       </section>
 
       {/* ═══════════════════════ RESPONSE FORMAT ═══════════════════════ */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-4xl px-6 py-24 lg:py-32">
+      <section className="bg-[#FFFBF5]">
+        <div className="mx-auto max-w-5xl px-6 py-16 sm:py-24 lg:py-28">
           <div className="text-center max-w-2xl mx-auto">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#007AFF]">
-              Response Format
-            </p>
-            <h2 className="mt-3 text-3xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-4xl">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#FF6B9D]">Response format</p>
+            <h2 className="mt-3 text-4xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-5xl">
               Consistent. Predictable.
             </h2>
           </div>
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-2">
-            <div className="rounded-3xl bg-[#1D1D1F] p-6 overflow-x-auto">
+          <div className="mt-12 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-[1.5rem] bg-[#1D1D1F] p-6 overflow-x-auto shadow-[0_8px_30px_rgba(0,0,0,0.15)]">
               <div className="flex items-center gap-2 mb-3">
                 <FileJson className="h-4 w-4 text-[#34C759]" />
                 <p className="text-[11px] font-semibold text-[#34C759] uppercase tracking-[0.1em]">
                   Success (2xx)
                 </p>
               </div>
-              <pre className="text-[11px] text-white/35 font-mono leading-relaxed">
+              <pre className="text-[12px] text-white/80 font-mono leading-relaxed">
                 <code>{`{
   "success": true,
   "data": { ... },
@@ -526,14 +443,14 @@ Authorization: Bearer ca_live_your_key_here
               </pre>
             </div>
 
-            <div className="rounded-3xl bg-[#1D1D1F] p-6 overflow-x-auto">
+            <div className="rounded-[1.5rem] bg-[#1D1D1F] p-6 overflow-x-auto shadow-[0_8px_30px_rgba(0,0,0,0.15)]">
               <div className="flex items-center gap-2 mb-3">
                 <FileJson className="h-4 w-4 text-[#FF3B30]" />
                 <p className="text-[11px] font-semibold text-[#FF3B30] uppercase tracking-[0.1em]">
                   Error (4xx/5xx)
                 </p>
               </div>
-              <pre className="text-[11px] text-white/35 font-mono leading-relaxed">
+              <pre className="text-[12px] text-white/80 font-mono leading-relaxed">
                 <code>{`{
   "success": false,
   "error": {
@@ -552,25 +469,33 @@ Authorization: Bearer ca_live_your_key_here
       </section>
 
       {/* ═══════════════════════ CTA ═══════════════════════ */}
-      <section className="bg-[#F5F5F7]">
-        <div className="mx-auto max-w-4xl px-6 py-24 text-center">
-          <h2 className="text-3xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-4xl">
-            Ready to integrate?
+      <section className="relative overflow-hidden bg-[#FFFBF5]">
+        <div className="pointer-events-none absolute -top-20 left-1/4 h-96 w-96 rounded-full bg-[#B5E3FF]/40 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 right-1/4 h-96 w-96 rounded-full bg-[#E8F7EC]/50 blur-3xl" />
+
+        <div className="relative mx-auto max-w-4xl px-6 py-24 text-center">
+          <div className="inline-flex items-center gap-2 rounded-full bg-white border border-[#1D1D1F]/10 px-4 py-1.5 shadow-sm">
+            <span className="text-base">🛠️</span>
+            <span className="text-[12px] font-semibold text-[#1D1D1F]/70">Builders welcome</span>
+          </div>
+
+          <h2 className="mt-6 text-5xl font-display font-black tracking-tight text-[#1D1D1F] sm:text-6xl">
+            Ready to <span className="text-[#007AFF]">integrate?</span>
           </h2>
-          <p className="mt-4 text-[14px] text-[#6E6E73] max-w-lg mx-auto">
-            Get your API key and start building in minutes. Enterprise
-            customers get a dedicated support engineer and custom SLA.
+          <p className="mt-6 text-lg text-[#1D1D1F]/55 max-w-xl mx-auto">
+            Get your API key and start building in minutes. Enterprise customers get a
+            dedicated support engineer and custom SLA.
           </p>
-          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <div className="mt-12 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Link
               href="/settings"
-              className="inline-flex items-center gap-2 rounded-full bg-[#007AFF] px-10 py-4 text-[13px] font-semibold text-white shadow-[0_2px_20px_rgba(0,0,0,.04)] transition-all hover:bg-[#0055D4] hover:scale-[1.02]"
+              className="inline-flex w-full items-center gap-2 justify-center rounded-full bg-[#1D1D1F] px-10 py-4 text-[15px] font-semibold text-white shadow-[0_8px_30px_rgba(29,29,31,0.25)] transition-all hover:bg-[#007AFF] hover:scale-[1.03] sm:w-auto"
             >
               Get API keys <Key className="h-4 w-4" />
             </Link>
             <Link
               href="/enterprise"
-              className="inline-flex items-center gap-2 rounded-full border-2 border-[#E8E8ED]/60 px-10 py-4 text-[13px] font-semibold text-[#1D1D1F] transition-all hover:bg-white"
+              className="inline-flex w-full items-center gap-2 justify-center rounded-full border border-[#1D1D1F]/15 bg-white px-10 py-4 text-[15px] font-semibold text-[#1D1D1F] transition-all hover:bg-[#1D1D1F] hover:text-white sm:w-auto"
             >
               Enterprise API <ArrowRight className="h-4 w-4" />
             </Link>
@@ -580,12 +505,11 @@ Authorization: Bearer ca_live_your_key_here
 
       {/* ═══════════════════════ FOOTER ═══════════════════════ */}
       <footer className="bg-[#1D1D1F] text-white">
-        <div className="mx-auto max-w-7xl px-6 py-16">
-          <div className="flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-8 sm:flex-row">
+        <div className="mx-auto max-w-7xl px-6 py-12">
+          <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
             <Logo size="sm" variant="white" href="/" />
             <p className="text-[11px] text-white/35">
-              &copy; {new Date().getFullYear()} CouthActs&#8482;. Operated by
-              CouthActs, Inc.
+              &copy; {new Date().getFullYear()} CouthActs&#8482;. Operated by CouthActs, Inc.
             </p>
           </div>
         </div>

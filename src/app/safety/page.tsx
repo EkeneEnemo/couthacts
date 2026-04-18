@@ -7,231 +7,236 @@ export const metadata = {
 
 export default function SafetyPage() {
   return (
-    <div className="min-h-screen bg-[#F5F5F7]">
+    <div className="min-h-screen bg-[#FFFBF5] relative overflow-hidden">
       <Navbar />
-      <div className="mx-auto max-w-4xl px-6 py-16">
-        <h1 className="text-3xl font-display font-bold text-[#1D1D1F] sm:text-4xl">
-          Safety Center
+
+      <div className="pointer-events-none absolute -top-20 -left-32 h-[24rem] w-[24rem] rounded-full bg-[#FFB8C9]/40 blur-3xl" />
+      <div className="pointer-events-none absolute top-40 -right-24 h-[28rem] w-[28rem] rounded-full bg-[#B5E3FF]/40 blur-3xl" />
+
+      <div className="relative mx-auto max-w-5xl px-6 py-16 sm:py-20">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[#1D1D1F]/10 bg-white/70 backdrop-blur px-4 py-1.5 shadow-sm">
+          <span className="text-base">🛡️</span>
+          <span className="text-[12px] font-semibold text-[#1D1D1F]/70 tracking-wide">
+            Safety, built in from day one
+          </span>
+        </div>
+
+        <h1 className="mt-6 text-5xl font-display font-black tracking-tight text-[#1D1D1F] sm:text-6xl">
+          You&rsquo;re looked after,
+          <br />
+          <span className="text-[#FF6B9D]">always.</span>
         </h1>
-        <p className="mt-3 text-[14px] text-[#6E6E73] max-w-2xl leading-relaxed">
-          Your safety is the foundation of CouthActs. Every feature we build starts with
-          the question: does this protect our users?
+        <p className="mt-6 text-lg text-[#1D1D1F]/60 max-w-2xl leading-relaxed">
+          Every feature we ship starts with the same question: does this make our
+          users safer? Here&rsquo;s what that looks like in practice.
         </p>
 
         {/* SOS Feature */}
-        <section className="mt-12">
-          <h2 className="text-2xl font-display font-bold text-[#1D1D1F]">
-            SOS Emergency Feature
+        <section className="mt-16">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#FF3B30]">One button</p>
+          <h2 className="mt-3 text-3xl font-display font-bold text-[#1D1D1F] sm:text-4xl">
+            The <span className="text-[#FF3B30]">SOS</span> button.
           </h2>
-          <div className="mt-4 rounded-3xl border border-[#FF3B30]/20 bg-[#FF3B30]/5 p-6">
-            <p className="text-[14px] text-[#6E6E73] leading-relaxed">
-              Every active booking on CouthActs includes an <strong>SOS button</strong>. When
-              triggered by either the customer or provider, the following happens immediately:
+          <div className="mt-6 rounded-[2rem] bg-gradient-to-br from-[#FFE8E8] via-white to-[#FFF5E6] border border-[#FF3B30]/15 p-8 sm:p-10 shadow-sm">
+            <p className="text-[15px] text-[#1D1D1F]/70 leading-relaxed">
+              Every active booking has an <strong className="text-[#1D1D1F]">SOS button</strong>.
+              One tap, and four things happen at once:
             </p>
-            <ul className="mt-3 space-y-2 text-[13px] text-[#6E6E73]">
-              <li className="flex items-start gap-2">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#FF3B30]/10 text-[11px] font-semibold text-[#FF3B30]">1</span>
-                <span>The CouthActs safety team receives a real-time alert with your booking details, location data, and contact information.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#FF3B30]/10 text-[11px] font-semibold text-[#FF3B30]">2</span>
-                <span>The booking is immediately flagged and all payment activity is frozen to prevent fund movement.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#FF3B30]/10 text-[11px] font-semibold text-[#FF3B30]">3</span>
-                <span>A safety team member contacts you directly to assess the situation and coordinate with local authorities if needed.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#FF3B30]/10 text-[11px] font-semibold text-[#FF3B30]">4</span>
-                <span>A full incident report is created and preserved for any subsequent investigation or legal proceeding.</span>
-              </li>
+            <ul className="mt-6 space-y-3">
+              {[
+                "Our safety team gets a real-time alert with your booking, location, and contacts.",
+                "The booking is instantly flagged and all payment activity is frozen.",
+                "A real human calls you to assess the situation and coordinate with local authorities if needed.",
+                "A full incident report is created and preserved for any investigation or legal proceeding.",
+              ].map((line, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#FF3B30] text-[12px] font-bold text-white shadow-sm">
+                    {i + 1}
+                  </span>
+                  <span className="text-[14px] text-[#1D1D1F]/70 leading-relaxed pt-0.5">{line}</span>
+                </li>
+              ))}
             </ul>
-            <p className="mt-4 text-[13px] text-[#6E6E73]">
-              The SOS feature is available on every active booking page. In a life-threatening
-              emergency, always call your local emergency number (911 in the US) first.
+            <p className="mt-6 text-[13px] text-[#1D1D1F]/55">
+              🚨 In a life-threatening emergency, always call your local emergency number (911 in the US) first.
             </p>
           </div>
         </section>
 
         {/* Protection Tiers */}
-        <section className="mt-12">
-          <h2 className="text-2xl font-display font-bold text-[#1D1D1F]">
-            Protection Tiers
+        <section className="mt-16">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#007AFF]">Protection tiers</p>
+          <h2 className="mt-3 text-3xl font-display font-bold text-[#1D1D1F] sm:text-4xl">
+            Coverage that matches your cargo.
           </h2>
-          <p className="mt-4 text-[14px] text-[#6E6E73] leading-relaxed">
-            CouthActs provides tiered protection coverage to protect your cargo and
-            transactions. The appropriate tier is determined by transport mode and
-            declared cargo value.
-          </p>
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
-            <div className="rounded-3xl bg-white/80 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 p-5">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#86868B]">Basic</p>
-              <h3 className="mt-1 text-lg font-display font-bold text-[#1D1D1F]">Standard Coverage</h3>
-              <p className="mt-2 text-[13px] text-[#6E6E73] leading-relaxed">
-                Included with every booking at no additional cost. Covers loss or damage up
-                to the platform&apos;s standard liability limit. Suitable for standard-value
-                shipments across all transport modes.
-              </p>
-            </div>
-            <div className="rounded-3xl bg-white/80 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-[#007AFF]/20 p-5 ring-1 ring-[#007AFF]/10">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#007AFF]">Enhanced</p>
-              <h3 className="mt-1 text-lg font-display font-bold text-[#1D1D1F]">Extended Coverage</h3>
-              <p className="mt-2 text-[13px] text-[#6E6E73] leading-relaxed">
-                Higher liability limits for medium-to-high-value cargo. Includes coverage for
-                delays, temperature excursions (refrigerated), and partial loss. Available
-                as an add-on during job posting.
-              </p>
-            </div>
-            <div className="rounded-3xl bg-[#007AFF]/5 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-[#007AFF]/20 p-5 ring-1 ring-[#007AFF]/20">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#007AFF]">Premium</p>
-              <h3 className="mt-1 text-lg font-display font-bold text-[#1D1D1F]">Full Coverage</h3>
-              <p className="mt-2 text-[13px] text-[#6E6E73] leading-relaxed">
-                Comprehensive coverage for high-value, specialized, or hazardous cargo.
-                Includes all-risk protection, door-to-door coverage, and dedicated claims
-                handling. Required for shipments above the enhanced tier threshold.
-              </p>
-            </div>
+          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            {[
+              {
+                tier: "Basic",
+                emoji: "🤝",
+                title: "Standard coverage",
+                desc: "Included with every booking at no extra cost. Covers loss or damage up to the platform&rsquo;s standard liability limit.",
+                color: "#34C759",
+                bg: "#E8F7EC",
+              },
+              {
+                tier: "Enhanced",
+                emoji: "🛡️",
+                title: "Extended coverage",
+                desc: "Higher limits for medium-to-high-value cargo. Includes delays, temperature excursions, and partial loss. Add-on during posting.",
+                color: "#007AFF",
+                bg: "#E8F1FF",
+                featured: true,
+              },
+              {
+                tier: "Premium",
+                emoji: "💎",
+                title: "Full coverage",
+                desc: "All-risk protection for high-value, specialized, or hazardous cargo. Door-to-door, dedicated claims handling.",
+                color: "#FF6B9D",
+                bg: "#FFE8F0",
+              },
+            ].map((t) => (
+              <div
+                key={t.tier}
+                className={`group rounded-[1.5rem] bg-white p-6 shadow-[0_2px_16px_rgba(0,0,0,0.04)] transition-all hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)] hover:-translate-y-1 ${t.featured ? "border-2" : "border"} `}
+                style={{ borderColor: t.featured ? t.color : "rgba(29,29,31,0.05)" }}
+              >
+                <span
+                  className="flex h-11 w-11 items-center justify-center rounded-2xl text-xl transition-transform group-hover:rotate-[-8deg]"
+                  style={{ backgroundColor: t.bg }}
+                >
+                  {t.emoji}
+                </span>
+                <p
+                  className="mt-4 text-[10px] font-semibold uppercase tracking-[0.12em]"
+                  style={{ color: t.color }}
+                >
+                  {t.tier}
+                </p>
+                <h3 className="mt-1 text-lg font-display font-bold text-[#1D1D1F]">{t.title}</h3>
+                <p
+                  className="mt-2 text-[13px] text-[#1D1D1F]/60 leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: t.desc }}
+                />
+              </div>
+            ))}
           </div>
         </section>
 
         {/* Provider Verification */}
-        <section className="mt-12">
-          <h2 className="text-2xl font-display font-bold text-[#1D1D1F]">
-            Provider Verification
+        <section className="mt-16">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#34C759]">Provider verification</p>
+          <h2 className="mt-3 text-3xl font-display font-bold text-[#1D1D1F] sm:text-4xl">
+            No ghosts allowed.
           </h2>
-          <p className="mt-4 text-[14px] text-[#6E6E73] leading-relaxed">
-            Every provider on CouthActs must pass a multi-step verification process before
-            they can bid on jobs or receive payments. This process includes:
+          <p className="mt-4 text-[15px] text-[#1D1D1F]/60 leading-relaxed max-w-2xl">
+            Every provider passes a five-step verification before they can bid or get paid:
           </p>
-          <div className="mt-4 space-y-3">
+          <div className="mt-8 space-y-3">
             {[
-              {
-                step: "Identity Verification",
-                desc: "Government-issued photo ID is checked against the provider\u2019s account details. A $20 non-refundable verification fee applies per attempt.",
-              },
-              {
-                step: "Business Registration",
-                desc: "Business name, registration number, and jurisdiction are validated against public registries where available.",
-              },
-              {
-                step: "Regulatory Credentials",
-                desc: "DOT, MC, FMCSA, IMO, FAA, and other mode-specific regulatory IDs are verified against the issuing authority\u2019s databases.",
-              },
-              {
-                step: "Insurance Documentation",
-                desc: "Active protection certificates are reviewed for coverage type, limits, and validity period. Expired or insufficient coverage results in verification denial.",
-              },
-              {
-                step: "Ongoing Monitoring",
-                desc: "Verified providers are subject to periodic re-verification. Expired credentials or insurance will result in automatic suspension until updated documentation is provided.",
-              },
-            ].map((item) => (
+              { emoji: "🪪", step: "Identity verification", desc: "Government ID checked against account details. $20 non-refundable per attempt." },
+              { emoji: "🏢", step: "Business registration", desc: "Business name, number, and jurisdiction validated against public registries." },
+              { emoji: "📋", step: "Regulatory credentials", desc: "DOT, MC, FMCSA, IMO, FAA, and mode-specific IDs checked against issuing authorities." },
+              { emoji: "🛡️", step: "Insurance documentation", desc: "Active protection certificates reviewed for type, limits, and validity." },
+              { emoji: "🔄", step: "Ongoing monitoring", desc: "Periodic re-verification. Expired credentials suspend the account until renewed." },
+            ].map((item, i) => (
               <div
                 key={item.step}
-                className="rounded-3xl bg-white/80 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 p-5"
+                className="group flex items-start gap-4 rounded-[1.5rem] bg-white border border-[#1D1D1F]/5 p-5 shadow-[0_2px_14px_rgba(0,0,0,0.03)] transition-all hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:-translate-y-0.5"
               >
-                <h3 className="font-display font-bold text-[#1D1D1F]">{item.step}</h3>
-                <p className="mt-1 text-[13px] text-[#6E6E73] leading-relaxed">{item.desc}</p>
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FFFBF5] text-xl">
+                  {item.emoji}
+                </span>
+                <div className="flex-1 min-w-0 pt-0.5">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-[11px] font-semibold text-[#FF7A59]">Step {i + 1}</span>
+                    <h3 className="font-display font-bold text-[#1D1D1F]">{item.step}</h3>
+                  </div>
+                  <p className="mt-1 text-[13px] text-[#1D1D1F]/60 leading-relaxed">{item.desc}</p>
+                </div>
               </div>
             ))}
           </div>
         </section>
 
         {/* Escrow Protection */}
-        <section className="mt-12">
-          <h2 className="text-2xl font-display font-bold text-[#1D1D1F]">
-            Escrow Protection
+        <section className="mt-16">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#FFB020]">Escrow protection</p>
+          <h2 className="mt-3 text-3xl font-display font-bold text-[#1D1D1F] sm:text-4xl">
+            Money only moves when it should.
           </h2>
-          <p className="mt-4 text-[14px] text-[#6E6E73] leading-relaxed">
-            The CouthActs escrow system ensures that money only changes hands when
-            the service is delivered. Here is how it works:
-          </p>
-          <div className="mt-4 space-y-3 text-[13px] text-[#6E6E73]">
-            <div className="flex items-start gap-3">
-              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#F5F5F7] text-[11px] font-semibold text-[#1D1D1F]">1</span>
-              <span>When a customer accepts a provider&apos;s bid, the agreed amount is moved from the customer&apos;s wallet into escrow.</span>
-            </div>
-            <div className="flex items-start gap-3">
-              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#F5F5F7] text-[11px] font-semibold text-[#1D1D1F]">2</span>
-              <span>The funds are held securely and cannot be accessed by either party during transit.</span>
-            </div>
-            <div className="flex items-start gap-3">
-              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#F5F5F7] text-[11px] font-semibold text-[#1D1D1F]">3</span>
-              <span>Once the provider marks the job as complete, the customer has a confirmation window to verify delivery.</span>
-            </div>
-            <div className="flex items-start gap-3">
-              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#F5F5F7] text-[11px] font-semibold text-[#1D1D1F]">4</span>
-              <span>If the customer confirms delivery (or the confirmation window expires without dispute), funds are released to the provider&apos;s wallet.</span>
-            </div>
-            <div className="flex items-start gap-3">
-              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#F5F5F7] text-[11px] font-semibold text-[#1D1D1F]">5</span>
-              <span>If a dispute is raised, funds remain in escrow until the CouthActs resolution team makes a determination.</span>
-            </div>
+          <div className="mt-8 rounded-[2rem] bg-white border border-[#1D1D1F]/5 p-8 shadow-[0_4px_30px_rgba(0,0,0,0.03)]">
+            {[
+              "When you accept a bid, the agreed amount moves from your wallet into escrow.",
+              "Funds are held securely during transit &mdash; neither party can touch them.",
+              "The provider marks the job complete, and you get a confirmation window to verify delivery.",
+              "Confirmed (or window expires without dispute)? Funds release to the provider.",
+              "Dispute filed? Funds stay frozen until the resolution team decides.",
+            ].map((line, i) => (
+              <div key={i} className="flex items-start gap-4 py-3 border-b border-[#1D1D1F]/5 last:border-0">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#FFF5E6] text-[13px] font-bold text-[#FFB020]">
+                  {i + 1}
+                </span>
+                <p
+                  className="text-[14px] text-[#1D1D1F]/70 leading-relaxed pt-1"
+                  dangerouslySetInnerHTML={{ __html: line }}
+                />
+              </div>
+            ))}
           </div>
         </section>
 
         {/* Dispute Resolution */}
-        <section className="mt-12">
-          <h2 className="text-2xl font-display font-bold text-[#1D1D1F]">
-            Dispute Resolution
+        <section className="mt-16">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#FF6B9D]">Dispute resolution</p>
+          <h2 className="mt-3 text-3xl font-display font-bold text-[#1D1D1F] sm:text-4xl">
+            Real humans. Fair outcomes.
           </h2>
-          <p className="mt-4 text-[14px] text-[#6E6E73] leading-relaxed">
-            CouthActs provides a structured dispute resolution process to handle
-            disagreements between customers and providers fairly:
-          </p>
-          <div className="mt-4 space-y-3">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {[
-              {
-                step: "Filing",
-                desc: "Either party can file a dispute from the booking details page within the allowed window. The dispute must include a description and any supporting evidence (photos, documents, tracking data).",
-              },
-              {
-                step: "Evidence Collection",
-                desc: "Both parties are notified and given a defined period to submit their side of the story with supporting materials. The CouthActs resolution team reviews all evidence impartially.",
-              },
-              {
-                step: "Resolution",
-                desc: "Based on the evidence, the resolution team issues a determination. Outcomes may include full release of funds to the provider, full refund to the customer, or a split decision with partial amounts to each party.",
-              },
-              {
-                step: "Appeal",
-                desc: "If either party disagrees with the determination, they may submit a one-time appeal with additional evidence within the appeal window. The appeal is reviewed by a senior member of the resolution team.",
-              },
+              { emoji: "📝", step: "Filing", desc: "Either party files from the booking page within the allowed window, with a description and supporting evidence." },
+              { emoji: "📎", step: "Evidence", desc: "Both sides get a defined period to submit their story. The resolution team reviews everything impartially." },
+              { emoji: "⚖️", step: "Resolution", desc: "A determination is issued based on evidence. Outcomes can be full release, full refund, or a split." },
+              { emoji: "🔁", step: "Appeal", desc: "Either party gets one appeal with additional evidence. Senior team reviews." },
             ].map((item) => (
               <div
                 key={item.step}
-                className="rounded-3xl bg-white/80 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 p-5"
+                className="group rounded-[1.5rem] bg-white border border-[#1D1D1F]/5 p-5 shadow-[0_2px_14px_rgba(0,0,0,0.03)] transition-all hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:-translate-y-0.5"
               >
-                <h3 className="font-display font-bold text-[#1D1D1F]">{item.step}</h3>
-                <p className="mt-1 text-[13px] text-[#6E6E73] leading-relaxed">{item.desc}</p>
+                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#FFE8F0] text-xl">
+                  {item.emoji}
+                </span>
+                <h3 className="mt-4 font-display font-bold text-[#1D1D1F]">{item.step}</h3>
+                <p className="mt-1 text-[13px] text-[#1D1D1F]/60 leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
         </section>
 
         {/* Contact */}
-        <section className="mt-12 rounded-3xl bg-white/80 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 p-6 text-center">
-          <h2 className="text-xl font-display font-bold text-[#1D1D1F]">
-            Contact Our Safety Team
+        <section className="mt-16 rounded-[2.5rem] bg-gradient-to-br from-[#FFE8F0] via-white to-[#EAF4FF] p-10 border border-white shadow-sm text-center">
+          <span className="text-5xl">💛</span>
+          <h2 className="mt-4 text-3xl font-display font-bold text-[#1D1D1F]">
+            Need our safety team?
           </h2>
-          <p className="mt-2 text-[13px] text-[#6E6E73]">
-            If you have a safety concern, need to report an incident, or have questions
-            about our safety features, reach out directly.
+          <p className="mt-3 text-[14px] text-[#1D1D1F]/60 max-w-xl mx-auto">
+            For safety concerns, incidents, or questions &mdash; reach us directly. Real humans, real answers.
           </p>
           <a
             href="mailto:safety@couthacts.com"
-            className="mt-4 inline-block rounded-full bg-[#007AFF] px-5 py-2.5 text-[13px] font-semibold text-white hover:bg-[#0055D4] transition"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#1D1D1F] px-8 py-3.5 text-[14px] font-semibold text-white hover:bg-[#FF7A59] hover:scale-[1.03] transition-all"
           >
             safety@couthacts.com
           </a>
         </section>
 
-        <div className="mt-16 flex flex-wrap gap-4 text-[13px] text-[#007AFF]">
-          <Link href="/about" className="hover:text-[#0055D4]">About</Link>
-          <Link href="/terms" className="hover:text-[#0055D4]">Terms of Service</Link>
-          <Link href="/privacy" className="hover:text-[#0055D4]">Privacy Policy</Link>
-          <Link href="/acceptable-use" className="hover:text-[#0055D4]">Acceptable Use Policy</Link>
-          <Link href="/help" className="hover:text-[#0055D4]">Help Center</Link>
+        <div className="mt-12 flex flex-wrap gap-2">
+          <Link href="/about" className="rounded-full bg-white border border-[#1D1D1F]/10 px-4 py-2 text-[12px] font-semibold text-[#1D1D1F]/70 hover:bg-[#FFF5E6] hover:border-[#FF7A59]/40 hover:text-[#FF7A59] transition-all">About</Link>
+          <Link href="/terms" className="rounded-full bg-white border border-[#1D1D1F]/10 px-4 py-2 text-[12px] font-semibold text-[#1D1D1F]/70 hover:bg-[#FFF5E6] hover:border-[#FF7A59]/40 hover:text-[#FF7A59] transition-all">Terms</Link>
+          <Link href="/privacy" className="rounded-full bg-white border border-[#1D1D1F]/10 px-4 py-2 text-[12px] font-semibold text-[#1D1D1F]/70 hover:bg-[#FFF5E6] hover:border-[#FF7A59]/40 hover:text-[#FF7A59] transition-all">Privacy</Link>
+          <Link href="/acceptable-use" className="rounded-full bg-white border border-[#1D1D1F]/10 px-4 py-2 text-[12px] font-semibold text-[#1D1D1F]/70 hover:bg-[#FFF5E6] hover:border-[#FF7A59]/40 hover:text-[#FF7A59] transition-all">Acceptable Use</Link>
+          <Link href="/help" className="rounded-full bg-white border border-[#1D1D1F]/10 px-4 py-2 text-[12px] font-semibold text-[#1D1D1F]/70 hover:bg-[#FFF5E6] hover:border-[#FF7A59]/40 hover:text-[#FF7A59] transition-all">Help</Link>
         </div>
       </div>
     </div>

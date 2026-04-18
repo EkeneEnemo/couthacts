@@ -2,17 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { Logo } from "@/components/logo";
 import { TrackInput } from "@/components/track-input";
-import { VideoHero } from "@/components/video-hero";
 import { AnimatedCounter } from "@/components/animated-counter";
 import {
   ArrowRight,
   Shield,
   Zap,
-  Lock,
   Eye,
-  Scale,
-  ChevronRight,
-  ChevronDown,
   MapPin,
   Satellite,
   Radio,
@@ -28,192 +23,322 @@ import {
   Building2,
   Landmark,
   Code2,
-  Users,
+  Heart,
+  Package,
+  Home,
   Briefcase,
-  Crown,
-  Star,
+  Sparkles,
+  Smile,
+  Sun,
+  Lock,
+  Scale,
+  Waves,
+  Car,
 } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-[#F5F5F7]">
+    <div className="min-h-screen bg-[#FFFBF5]">
       <Navbar />
 
       {/* ═══════════════════════ 1. HERO ═══════════════════════ */}
-      <section className="relative overflow-hidden bg-[#1D1D1F] min-h-screen flex items-center">
-        <VideoHero />
+      <section className="relative overflow-hidden bg-[#FFFBF5] pt-20 pb-20 sm:pt-28 sm:pb-28 lg:pt-32 lg:pb-36">
+        {/* Soft gradient blobs */}
+        <div className="pointer-events-none absolute -top-32 -left-32 h-[28rem] w-[28rem] rounded-full bg-[#FFD8B5]/50 blur-3xl" />
+        <div className="pointer-events-none absolute top-20 -right-24 h-[32rem] w-[32rem] rounded-full bg-[#B5E3FF]/50 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 left-1/3 h-[22rem] w-[22rem] rounded-full bg-[#FFB8C9]/40 blur-3xl" />
 
-        <div className="relative mx-auto max-w-7xl px-6 w-full">
-          <div className="flex flex-col items-center text-center pt-24 pb-32 lg:pt-0 lg:pb-40">
-            {/* Live badge */}
-            <div className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-5 py-2 mb-10">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#34C759] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#34C759]" />
-              </span>
-              <span className="text-[12px] font-semibold text-white/60 tracking-wide">
-                Platform live &mdash; 190+ countries
-              </span>
+        <div className="relative mx-auto max-w-7xl px-6">
+          <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-16">
+            {/* Left: copy */}
+            <div className="animate-fade-up">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#1D1D1F]/10 bg-white/70 backdrop-blur px-4 py-1.5 shadow-sm">
+                <Sun className="h-3.5 w-3.5 text-[#FF9A3C]" />
+                <span className="text-[12px] font-semibold text-[#1D1D1F]/70 tracking-wide">
+                  Hi there &mdash; welcome to the easy way
+                </span>
+              </div>
+
+              <h1 className="mt-6 font-display font-black leading-[1.02] tracking-tight text-[#1D1D1F] text-5xl sm:text-6xl lg:text-7xl xl:text-[5.25rem]">
+                Hey. Let&rsquo;s
+                <br />
+                get it{" "}
+                <span className="relative inline-block">
+                  <span className="relative z-10 bg-gradient-to-r from-[#007AFF] via-[#5AC8FA] to-[#34C759] bg-clip-text text-transparent">
+                    there.
+                  </span>
+                  <span className="absolute -bottom-1 left-0 right-0 h-3 rounded-full bg-[#FFE3A3]/70 z-0" />
+                </span>
+              </h1>
+
+              <p className="mt-6 max-w-xl text-lg text-[#1D1D1F]/60 leading-relaxed sm:text-xl">
+                A birthday gift across town. A whole apartment across the country. A
+                container across the ocean. CouthActs is the{" "}
+                <span className="font-semibold text-[#1D1D1F]/80">friendliest way</span>{" "}
+                to move anything, anywhere &mdash; with real humans you can trust and
+                your money safely held until it lands.
+              </p>
+
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/register"
+                  className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#1D1D1F] px-8 py-4 text-[15px] font-semibold text-white shadow-[0_8px_30px_rgba(29,29,31,0.25)] transition-all hover:bg-[#007AFF] hover:shadow-[0_12px_40px_rgba(0,122,255,0.35)] hover:scale-[1.03] active:scale-[0.98]"
+                >
+                  Let&rsquo;s move something
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+                <Link
+                  href="/register?role=PROVIDER"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[#1D1D1F]/15 bg-white/80 backdrop-blur px-8 py-4 text-[15px] font-semibold text-[#1D1D1F] transition-all hover:bg-white hover:scale-[1.03]"
+                >
+                  I drive / I deliver
+                </Link>
+              </div>
+
+              <div className="mt-8 flex flex-wrap items-center gap-4 text-[13px] text-[#1D1D1F]/50">
+                <span className="flex items-center gap-1.5">
+                  <Heart className="h-3.5 w-3.5 text-[#FF6B9D]" />
+                  Free to join
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Shield className="h-3.5 w-3.5 text-[#34C759]" />
+                  Money held safely
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Smile className="h-3.5 w-3.5 text-[#FFB020]" />
+                  Real humans
+                </span>
+              </div>
             </div>
 
-            {/* Headline */}
-            <h1 className="animate-fade-up animation-delay-150 text-4xl font-display font-black leading-[1.02] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem]">
-              Move Anything.
-              <br />
-              Anywhere.
-              <br />
-              <span className="bg-gradient-to-r from-[#007AFF] via-[#5AC8FA] to-[#007AFF] bg-clip-text text-transparent">
-                Protected.
-              </span>
-            </h1>
+            {/* Right: friendly collage */}
+            <div className="animate-fade-up animation-delay-300 relative">
+              <div className="relative grid grid-cols-6 grid-rows-6 gap-3 h-[32rem] lg:h-[36rem]">
+                {/* Big happy moving photo */}
+                <div className="relative col-span-4 row-span-4 overflow-hidden rounded-[2rem] shadow-xl ring-1 ring-black/5">
+                  <Image
+                    src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80"
+                    alt="Bright sunny home ready for move-in"
+                    fill
+                    priority
+                    className="object-cover"
+                  />
+                  <div className="absolute bottom-4 left-4 right-4 rounded-2xl bg-white/90 backdrop-blur-md p-3 shadow-lg flex items-center gap-3">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#34C759]/15">
+                      <Home className="h-4 w-4 text-[#34C759]" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[11px] font-semibold text-[#1D1D1F]">Movers arriving</p>
+                      <p className="text-[10px] text-[#1D1D1F]/50">Tomorrow · 9:00 AM</p>
+                    </div>
+                    <span className="text-[10px] font-semibold text-[#34C759]">On the way</span>
+                  </div>
+                </div>
 
-            {/* Subline */}
-            <p className="animate-fade-up animation-delay-300 mt-6 text-base text-white/40 leading-relaxed max-w-2xl sm:mt-8 sm:text-lg lg:text-xl">
-              CouthActs&#8482; is the global transportation infrastructure that
-              powers the movement of people and goods across every mode on
-              Earth&mdash;ground, air, sea, and rail. One platform. Complete
-              protection. No exceptions.
-            </p>
+                {/* Package photo */}
+                <div className="relative col-span-2 row-span-2 overflow-hidden rounded-[1.5rem] shadow-lg ring-1 ring-black/5">
+                  <Image
+                    src="https://images.unsplash.com/photo-1586769852044-692d6e3703f0?w=800&q=80"
+                    alt="Package being delivered"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
 
-            {/* CTAs — min-h-[48px] for mobile touch targets */}
-            <div className="animate-fade-up animation-delay-450 mt-10 flex flex-col gap-3 w-full px-4 sm:mt-12 sm:flex-row sm:w-auto sm:px-0">
-              <Link
-                href="/register"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#007AFF] px-10 py-4 min-h-[48px] text-[15px] font-semibold text-white shadow-lg shadow-[#007AFF]/25 transition-all hover:bg-[#0055D4] hover:scale-[1.02] active:scale-[0.98]"
-              >
-                Start moving
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-              <Link
-                href="/register?role=PROVIDER"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 backdrop-blur-sm px-10 py-4 min-h-[48px] text-[15px] font-semibold text-white transition-all hover:bg-white/10 active:bg-white/15"
-              >
-                Join as provider
-              </Link>
-            </div>
+                {/* Yellow smile card */}
+                <div className="col-span-2 row-span-2 rounded-[1.5rem] bg-[#FFE3A3] p-5 flex flex-col justify-between shadow-lg">
+                  <Sparkles className="h-6 w-6 text-[#1D1D1F]" />
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-wider text-[#1D1D1F]/60">
+                      Today
+                    </p>
+                    <p className="mt-1 text-3xl font-display font-black text-[#1D1D1F] tabular-nums">
+                      <AnimatedCounter end={4200} /> +
+                    </p>
+                    <p className="text-[11px] text-[#1D1D1F]/60">
+                      moves in progress
+                    </p>
+                  </div>
+                </div>
 
-            {/* Trust indicators */}
-            <div className="animate-fade-up animation-delay-600 mt-8 flex flex-wrap items-center justify-center gap-4 text-[11px] text-white/30 sm:mt-10 sm:gap-6 sm:text-[12px]">
-              <span className="flex items-center gap-1.5">
-                <Shield className="h-3.5 w-3.5" />
-                Escrow-protected
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Fingerprint className="h-3.5 w-3.5" />
-                ID-verified users
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Eye className="h-3.5 w-3.5" />
-                Real-time tracking
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Zap className="h-3.5 w-3.5" />
-                18 transport modes
-              </span>
+                {/* Road trip */}
+                <div className="relative col-span-3 row-span-2 overflow-hidden rounded-[1.5rem] shadow-lg ring-1 ring-black/5">
+                  <Image
+                    src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1000&q=80"
+                    alt="Open road at sunset"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1D1D1F]/40 via-transparent to-transparent" />
+                  <div className="absolute bottom-3 left-4 text-white">
+                    <p className="text-[10px] font-semibold uppercase tracking-wider text-white/80">On route</p>
+                    <p className="text-[15px] font-display font-bold">Denver → Austin</p>
+                  </div>
+                </div>
+
+                {/* Coral live-chip */}
+                <div className="col-span-3 row-span-2 rounded-[1.5rem] bg-[#FF7A59] p-5 flex flex-col justify-between shadow-lg text-white">
+                  <div className="flex items-center gap-2">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white/80" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
+                    </span>
+                    <p className="text-[11px] font-semibold uppercase tracking-wider">
+                      Live tracking
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-[13px] font-medium opacity-90">
+                      &ldquo;Box arrived and mom loved it.&rdquo;
+                    </p>
+                    <p className="mt-2 text-[11px] opacity-70">— Priya, Chicago</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 animate-bounce">
-          <span className="text-[10px] font-medium text-white/20 uppercase tracking-widest">Scroll</span>
-          <ChevronDown className="h-4 w-4 text-white/20" />
+          {/* Floating stats row */}
+          <div className="mt-16 lg:mt-24 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+            {[
+              { value: 190, suffix: "+", label: "Countries", color: "#007AFF" },
+              { value: 18, suffix: "", label: "Ways to move", color: "#FF7A59" },
+              { value: 100, suffix: "%", label: "Money-safe", color: "#34C759" },
+              { value: 24, suffix: "/7", label: "Real support", color: "#FFB020" },
+            ].map((s) => (
+              <div
+                key={s.label}
+                className="rounded-3xl bg-white/70 backdrop-blur-md border border-white/80 px-5 py-5 text-center shadow-[0_2px_16px_rgba(0,0,0,0.04)] hover-lift"
+              >
+                <p
+                  className="text-3xl font-display font-black tabular-nums sm:text-4xl"
+                  style={{ color: s.color }}
+                >
+                  <AnimatedCounter end={s.value} suffix={s.suffix} />
+                </p>
+                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#1D1D1F]/50">
+                  {s.label}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
+      </section>
 
-        {/* Stats bar */}
-        <div className="absolute bottom-0 left-0 right-0 border-t border-white/[0.06] bg-[#1D1D1F]/80 backdrop-blur-xl">
-          <div className="mx-auto max-w-7xl px-6 py-5">
-            <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-              {[
-                { value: 18, suffix: "", label: "Transport Modes" },
-                { value: 190, suffix: "+", label: "Countries" },
-                { value: 100, suffix: "%", label: "Escrow Protected" },
-                { value: 9, suffix: "", label: "Tracking Layers" },
-              ].map((s) => (
-                <div key={s.label} className="text-center">
-                  <p className="text-2xl font-display font-bold text-white sm:text-3xl tabular-nums">
-                    <AnimatedCounter end={s.value} suffix={s.suffix} />
-                  </p>
-                  <p className="mt-0.5 text-[10px] font-medium text-white/30 uppercase tracking-[0.12em]">
-                    {s.label}
-                  </p>
+      {/* ═══════════════════════ 2. QUICK TRACK ═══════════════════════ */}
+      <section className="bg-[#FFFBF5]">
+        <div className="mx-auto max-w-3xl px-6 pb-16">
+          <div className="rounded-[2rem] bg-gradient-to-br from-[#EAF4FF] via-white to-[#FFF1E3] p-8 sm:p-10 shadow-sm border border-white">
+            <div className="flex items-start gap-4">
+              <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-[#007AFF]/10">
+                <MapPin className="h-5 w-5 text-[#007AFF]" />
+              </div>
+              <div className="flex-1">
+                <h2 className="text-xl font-display font-bold text-[#1D1D1F] sm:text-2xl">
+                  Got a tracking code?
+                </h2>
+                <p className="mt-1 text-[13px] text-[#1D1D1F]/55">
+                  Peek at your stuff right now. No sign-in, no fuss.
+                </p>
+                <div className="mt-4">
+                  <TrackInput />
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════ 2. TRANSPORT MODES ═══════════════════════ */}
-      <section className="bg-[#F5F5F7]">
-        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-32">
-          <div className="max-w-3xl">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#007AFF]">
-              Our Network
+      {/* ═══════════════════════ 3. WHAT ARE YOU MOVING ═══════════════════════ */}
+      <section className="bg-[#FFFBF5]">
+        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-28">
+          <div className="max-w-2xl">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#FF7A59]">
+              Pick your vibe
             </p>
-            <h2 className="mt-3 text-3xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-4xl lg:text-5xl">
-              Every mode of transportation.
-              <br />
-              <span className="text-[#86868B]">One global platform.</span>
+            <h2 className="mt-3 text-4xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-5xl">
+              So, what are we moving today?
             </h2>
+            <p className="mt-4 text-[15px] text-[#1D1D1F]/55">
+              Eighteen ways to get it there. Pick the one that fits and we&rsquo;ll take
+              it from there.
+            </p>
           </div>
 
-          <div className="mt-16 grid gap-4 sm:grid-cols-2">
+          <div className="mt-12 grid gap-4 sm:grid-cols-2">
             {[
               {
-                title: "Ground",
-                count: "6 modes",
-                items: "Taxi \u00B7 Limo \u00B7 Courier \u00B7 Moving \u00B7 Freight \u00B7 Heavy Haul",
-                image: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1200&q=80",
-                alt: "Fleet of trucks on highway",
+                title: "Around town",
+                emoji: "🚕",
+                count: "Taxi · Courier · Moving · Freight",
+                tagline: "From groceries to grand pianos.",
+                image: "https://images.unsplash.com/photo-1558980664-10ea5e6a0e04?w=1200&q=80",
+                alt: "Friendly courier on a sunny street",
+                color: "from-[#FF7A59] to-[#FFB020]",
+                icon: Car,
               },
               {
-                title: "Air",
-                count: "4 modes",
-                items: "Private Jet \u00B7 Helicopter \u00B7 Airline \u00B7 Air Cargo",
-                image: "https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=1200&q=80",
-                alt: "Private jet in flight",
+                title: "Up in the air",
+                emoji: "✈️",
+                count: "Jets · Helicopters · Airlines · Cargo",
+                tagline: "Window seat or window frame, we fly it.",
+                image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1200&q=80",
+                alt: "Airplane wing over clouds at sunset",
+                color: "from-[#5AC8FA] to-[#007AFF]",
+                icon: Plane,
               },
               {
-                title: "Maritime",
-                count: "3 modes",
-                items: "Cargo Ship \u00B7 Yacht Charter \u00B7 Ferry",
-                image: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=1200&q=80",
-                alt: "Cargo ship at sea",
+                title: "Out at sea",
+                emoji: "⛵",
+                count: "Cargo · Yacht · Ferry",
+                tagline: "Calm seas and container ships.",
+                image: "https://images.unsplash.com/photo-1540946485063-a40da27545f8?w=1200&q=80",
+                alt: "Sailboat on calm sunny water",
+                color: "from-[#34C759] to-[#5AC8FA]",
+                icon: Waves,
               },
               {
-                title: "Specialty",
-                count: "5 modes",
-                items: "Rail \u00B7 Armored \u00B7 Medical \u00B7 Hazmat \u00B7 Oversized",
+                title: "Something special",
+                emoji: "💎",
+                count: "Rail · Armored · Medical · Hazmat · Oversized",
+                tagline: "The stuff other platforms won&rsquo;t touch.",
                 image: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=1200&q=80",
-                alt: "Freight train on tracks",
+                alt: "Scenic freight train through landscape",
+                color: "from-[#FF6B9D] to-[#FF7A59]",
+                icon: Sparkles,
               },
             ].map((v) => (
               <Link
                 key={v.title}
                 href="/register"
-                className="group relative overflow-hidden rounded-3xl bg-[#1D1D1F] aspect-[16/10]"
+                className="group relative overflow-hidden rounded-[2rem] bg-white aspect-[16/10] shadow-[0_4px_30px_rgba(0,0,0,0.05)] ring-1 ring-black/5 transition-all hover:shadow-[0_20px_60px_rgba(0,0,0,0.12)] hover:-translate-y-1"
               >
                 <Image
                   src={v.image}
                   alt={v.alt}
                   fill
-                  className="object-cover opacity-50 transition-transform duration-700 group-hover:scale-105"
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1D1D1F] via-[#1D1D1F]/50 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-8">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#007AFF]">
-                    {v.count}
-                  </p>
-                  <h3 className="mt-2 text-2xl font-display font-bold text-white lg:text-3xl">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1D1D1F] via-[#1D1D1F]/30 to-transparent" />
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${v.color} opacity-0 mix-blend-multiply transition-opacity duration-500 group-hover:opacity-40`}
+                />
+
+                <div className="absolute top-5 right-5 h-11 w-11 flex items-center justify-center rounded-2xl bg-white/90 backdrop-blur text-xl shadow-md">
+                  {v.emoji}
+                </div>
+
+                <div className="absolute bottom-0 left-0 right-0 p-7">
+                  <h3 className="text-3xl font-display font-black text-white lg:text-4xl">
                     {v.title}
                   </h3>
-                  <p className="mt-2 text-[13px] text-white/40 leading-relaxed">
-                    {v.items}
+                  <p className="mt-1 text-[13px] text-white/80">{v.tagline}</p>
+                  <p className="mt-3 text-[12px] text-white/60 font-medium">
+                    {v.count}
                   </p>
-                  <div className="mt-4 flex items-center gap-1.5 text-[12px] font-semibold text-[#007AFF] opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
-                    Explore modes <ChevronRight className="h-3.5 w-3.5" />
+                  <div className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-4 py-1.5 text-[12px] font-semibold text-[#1D1D1F] opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+                    Let&rsquo;s go <ArrowRight className="h-3.5 w-3.5" />
                   </div>
                 </div>
               </Link>
@@ -222,558 +347,567 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ═══════════════════════ 3. WHO WE SERVE ═══════════════════════ */}
+      {/* ═══════════════════════ 4. MADE FOR YOUR MOMENTS ═══════════════════════ */}
       <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-32">
+        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-28">
           <div className="text-center max-w-2xl mx-auto">
             <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#007AFF]">
-              Who We Serve
+              Made for your moments
             </p>
-            <h2 className="mt-3 text-3xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-4xl">
-              Built for everyone who moves.
+            <h2 className="mt-3 text-4xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-5xl">
+              Whatever the day brings.
+            </h2>
+          </div>
+
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                icon: Package,
+                title: "Sending it",
+                desc: "A birthday box to mom. A forgotten charger to your partner. We&rsquo;ll get it there today.",
+                cta: "Send a package",
+                color: "#FF7A59",
+                bg: "#FFF1E8",
+              },
+              {
+                icon: Home,
+                title: "Moving in",
+                desc: "First apartment, fifth house, or somewhere in between. Book verified movers with one tap.",
+                cta: "Book movers",
+                color: "#34C759",
+                bg: "#E8F7EC",
+              },
+              {
+                icon: Briefcase,
+                title: "Running a biz",
+                desc: "Pallets, containers, or a fleet of deliveries. Scale up without hiring a logistics team.",
+                cta: "Ship at scale",
+                color: "#007AFF",
+                bg: "#E8F1FF",
+              },
+              {
+                icon: Sparkles,
+                title: "Going big",
+                desc: "Private jet for the weekend. Yacht for the honeymoon. Armored transport for the art. Yes, really.",
+                cta: "Go premium",
+                color: "#FF6B9D",
+                bg: "#FFE8F0",
+              },
+            ].map((s) => (
+              <Link
+                key={s.title}
+                href="/register"
+                className="group rounded-[2rem] bg-[#FFFBF5] p-7 transition-all hover:bg-white hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 border border-[#1D1D1F]/5"
+              >
+                <div
+                  className="flex h-12 w-12 items-center justify-center rounded-2xl transition-transform group-hover:scale-110 group-hover:rotate-[-4deg]"
+                  style={{ backgroundColor: s.bg }}
+                >
+                  <s.icon className="h-5 w-5" style={{ color: s.color }} />
+                </div>
+                <h3 className="mt-5 text-xl font-display font-bold text-[#1D1D1F]">
+                  {s.title}
+                </h3>
+                <p className="mt-3 text-[14px] text-[#1D1D1F]/60 leading-relaxed">
+                  {s.desc}
+                </p>
+                <div
+                  className="mt-6 inline-flex items-center gap-1.5 text-[13px] font-semibold transition-colors"
+                  style={{ color: s.color }}
+                >
+                  {s.cta}
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════ 5. HOW IT WORKS ═══════════════════════ */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#EAF4FF] via-[#FFFBF5] to-[#FFF1E3]">
+        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-28">
+          <div className="text-center max-w-2xl mx-auto">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#FF7A59]">
+              Easier than texting a friend
+            </p>
+            <h2 className="mt-3 text-4xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-5xl">
+              Four taps. You&rsquo;re done.
             </h2>
           </div>
 
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
               {
-                icon: Users,
-                title: "Individuals",
-                desc: "Book a verified taxi, send a package across town, hire movers for your next home. Every transaction escrow-protected with real-time tracking.",
-                cta: "Get started",
-                href: "/register",
+                num: "01",
+                title: "Say what you need",
+                desc: "A taxi? A courier? A container ship? Tell us in your own words.",
+                emoji: "💬",
+                color: "#FF7A59",
+                bg: "#FFF1E8",
               },
               {
-                icon: Briefcase,
-                title: "Businesses",
-                desc: "Ship freight at scale. From single pallets to full container loads across trucking, rail, ocean, and air cargo. Verified carriers, competitive bids.",
-                cta: "Ship freight",
-                href: "/register",
+                num: "02",
+                title: "Real people bid",
+                desc: "Verified pros with real ratings compete for your job. Pick the one you like.",
+                emoji: "👋",
+                color: "#007AFF",
+                bg: "#E8F1FF",
               },
               {
-                icon: Building2,
-                title: "Enterprise & Gov",
-                desc: "Volume-based pricing, custom API integrations, dedicated account management, regulatory compliance, and priority support for large-scale operations.",
-                cta: "Contact sales",
-                href: "/enterprise",
+                num: "03",
+                title: "Money held safely",
+                desc: "Your funds sit in escrow. Nobody gets paid until you&rsquo;re happy.",
+                emoji: "🔒",
+                color: "#34C759",
+                bg: "#E8F7EC",
               },
               {
-                icon: Crown,
-                title: "Premium",
-                desc: "Private jets. Yacht charters. Armored transport. White-glove service for high-value assets and discerning clients. Complete discretion.",
-                cta: "Go premium",
-                href: "/register",
+                num: "04",
+                title: "Watch it happen",
+                desc: "Live map, photo check-ins, and a friendly ping when it arrives.",
+                emoji: "📍",
+                color: "#FF6B9D",
+                bg: "#FFE8F0",
               },
             ].map((s) => (
               <div
-                key={s.title}
-                className="group rounded-3xl border-t-2 border-t-transparent bg-[#F5F5F7]/60 p-8 transition-all hover:bg-white hover:shadow-[0_4px_24px_rgba(0,0,0,.06)] hover:border-t-[#007AFF]"
+                key={s.num}
+                className="group relative rounded-[2rem] bg-white p-7 shadow-[0_4px_30px_rgba(0,0,0,0.04)] transition-all hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] hover:-translate-y-1"
               >
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#1D1D1F]">
-                  <s.icon className="h-5 w-5 text-white" />
+                <div className="flex items-center justify-between">
+                  <span
+                    className="text-[10px] font-semibold uppercase tracking-wider"
+                    style={{ color: s.color }}
+                  >
+                    Step {s.num}
+                  </span>
+                  <span
+                    className="flex h-10 w-10 items-center justify-center rounded-2xl text-xl transition-transform group-hover:rotate-[10deg]"
+                    style={{ backgroundColor: s.bg }}
+                  >
+                    {s.emoji}
+                  </span>
                 </div>
                 <h3 className="mt-5 text-lg font-display font-bold text-[#1D1D1F]">
                   {s.title}
                 </h3>
-                <p className="mt-3 text-[13px] text-[#6E6E73] leading-relaxed">
+                <p className="mt-2 text-[13px] text-[#1D1D1F]/55 leading-relaxed">
                   {s.desc}
                 </p>
-                <Link
-                  href={s.href}
-                  className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#007AFF] transition-colors hover:text-[#0055D4]"
-                >
-                  {s.cta}
-                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-                </Link>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════ 4. HOW IT WORKS ═══════════════════════ */}
-      <section className="bg-[#F5F5F7] overflow-hidden">
-        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-32">
-          <div className="text-center max-w-2xl mx-auto">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#007AFF]">
-              How It Works
-            </p>
-            <h2 className="mt-3 text-3xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-4xl">
-              Four steps. Complete control.
-            </h2>
-          </div>
+      {/* ═══════════════════════ 6. PEACE OF MIND ═══════════════════════ */}
+      <section className="bg-[#FFFBF5]">
+        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-28">
+          <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center lg:gap-20">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#34C759]">
+                Peace of mind, included
+              </p>
+              <h2 className="mt-3 text-4xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-5xl">
+                We&rsquo;ve got your back.
+                <br />
+                <span className="text-[#1D1D1F]/50">Every single move.</span>
+              </h2>
+              <p className="mt-6 text-[15px] text-[#1D1D1F]/60 leading-relaxed max-w-md">
+                Strangers on the internet? Not here. Every driver, mover, and pilot
+                passes real ID checks. Your money is held safely until you say the
+                word. And if something goes sideways, a real person steps in &mdash;
+                not a chatbot.
+              </p>
 
-          <div className="mt-20 relative grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {/* Desktop dotted connector line between numbered circles */}
-            <div className="hidden lg:block absolute top-[22px] left-[calc(12.5%+22px)] right-[calc(12.5%+22px)] border-t-2 border-dashed border-[#D2D2D7]/60 pointer-events-none" />
-
-            {[
-              {
-                num: "01",
-                title: "Post your need",
-                desc: "Describe what needs moving. 18 mode-specific workflows tailored to every transport type\u2014from a taxi ride to a container ship.",
-              },
-              {
-                num: "02",
-                title: "Verified providers bid",
-                desc: "Identity-verified, score-rated providers compete for your job. Compare prices, reviews, on-time rates, and protection tiers.",
-              },
-              {
-                num: "03",
-                title: "Funds held in escrow",
-                desc: "Your budget is secured the moment you post. The provider is paid only when both parties confirm completion. No risk.",
-              },
-              {
-                num: "04",
-                title: "Track in real-time",
-                desc: "Live GPS, flight tracking, maritime AIS, QR/PIN delivery confirmation. A full checkpoint timeline for every mile.",
-              },
-            ].map((s) => (
-              <div key={s.num} className="relative">
-                <span className="absolute -top-4 -left-2 text-[7rem] font-display font-black text-[#1D1D1F]/[0.03] leading-none select-none pointer-events-none">
-                  {s.num}
-                </span>
-                <div className="relative">
-                  <span className="relative z-10 inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#1D1D1F] text-[13px] font-bold text-white shadow-lg shadow-[#1D1D1F]/10">
-                    {s.num}
+              <div className="mt-8 flex flex-wrap gap-2">
+                {[
+                  "ID-verified",
+                  "Escrow-safe",
+                  "9-layer tracking",
+                  "Real-human disputes",
+                ].map((chip) => (
+                  <span
+                    key={chip}
+                    className="rounded-full bg-white border border-[#1D1D1F]/10 px-4 py-2 text-[12px] font-semibold text-[#1D1D1F]/70 shadow-sm"
+                  >
+                    {chip}
                   </span>
-                  <h3 className="mt-5 text-lg font-display font-bold text-[#1D1D1F]">
-                    {s.title}
-                  </h3>
-                  <p className="mt-3 text-[13px] text-[#6E6E73] leading-relaxed">
-                    {s.desc}
-                  </p>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
 
-          <div className="hidden lg:block mt-0 relative">
-            <div className="absolute top-0 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-[#D2D2D7] to-transparent" />
+            <div className="grid gap-4 sm:grid-cols-2">
+              {[
+                {
+                  icon: Fingerprint,
+                  title: "Real people, real IDs",
+                  desc: "Every user passes government ID checks. Ghosts need not apply.",
+                  color: "#007AFF",
+                  bg: "#E8F1FF",
+                },
+                {
+                  icon: Lock,
+                  title: "Money held safely",
+                  desc: "Your funds wait in escrow. The provider only gets paid when you&rsquo;re happy.",
+                  color: "#34C759",
+                  bg: "#E8F7EC",
+                },
+                {
+                  icon: Eye,
+                  title: "Know where it is",
+                  desc: "GPS, photos, QR check-ins. Nine layers of &ldquo;yep, still on track.&rdquo;",
+                  color: "#FF7A59",
+                  bg: "#FFF1E8",
+                },
+                {
+                  icon: Scale,
+                  title: "Fair if it goes wrong",
+                  desc: "Real people resolve disputes within 24 hours. Funds stay frozen till it&rsquo;s sorted.",
+                  color: "#FF6B9D",
+                  bg: "#FFE8F0",
+                },
+              ].map((f) => (
+                <div
+                  key={f.title}
+                  className="rounded-[1.5rem] bg-white p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all hover:shadow-[0_12px_36px_rgba(0,0,0,0.08)] hover:-translate-y-1"
+                >
+                  <div
+                    className="flex h-11 w-11 items-center justify-center rounded-2xl"
+                    style={{ backgroundColor: f.bg }}
+                  >
+                    <f.icon className="h-5 w-5" style={{ color: f.color }} />
+                  </div>
+                  <h3 className="mt-4 text-[15px] font-display font-bold text-[#1D1D1F]">
+                    {f.title}
+                  </h3>
+                  <p
+                    className="mt-2 text-[13px] text-[#1D1D1F]/55 leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: f.desc }}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════ 5. TRACKING LAYERS ═══════════════════════ */}
-      <section className="relative overflow-hidden bg-[#1D1D1F]">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,122,255,.06),transparent_70%)]" />
-        <div className="relative mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-32">
+      {/* ═══════════════════════ 7. TRACKING LAYERS ═══════════════════════ */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-28">
           <div className="text-center max-w-2xl mx-auto">
             <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#007AFF]">
-              9 Tracking Layers
+              Always in the loop
             </p>
-            <h2 className="mt-3 text-3xl font-display font-bold tracking-tight text-white sm:text-4xl">
-              Know where everything is.
+            <h2 className="mt-3 text-4xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-5xl">
+              You&rsquo;ll never wonder
               <br />
-              <span className="text-[#007AFF]">Always.</span>
+              <span className="text-[#007AFF]">&ldquo;where is it?&rdquo;</span>
             </h2>
-            <p className="mt-4 text-[14px] text-white/35">
-              Every transport mode has purpose-built tracking. Nine layers
-              working together so nothing is ever out of sight.
+            <p className="mt-4 text-[15px] text-[#1D1D1F]/55">
+              Nine ways of keeping eyes on your stuff. Quietly, in the background.
             </p>
           </div>
 
-          <div className="mt-16 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { icon: MapPin, title: "Live GPS", desc: "Real-time ground vehicle position updates every 15 seconds." },
-              { icon: Plane, title: "Flight Tracking", desc: "ADS-B integration for private jets, helicopters, and air cargo." },
-              { icon: Anchor, title: "Maritime AIS", desc: "Automatic Identification System for cargo ships and yacht charters." },
-              { icon: QrCode, title: "QR/PIN Confirmation", desc: "Cryptographic proof of pickup and delivery. Tamper-proof." },
-              { icon: Camera, title: "Photo Checkpoints", desc: "Timestamped, geotagged photos at every major milestone." },
-              { icon: Thermometer, title: "Condition Monitoring", desc: "Temperature, humidity, and shock sensors for sensitive cargo." },
-              { icon: Satellite, title: "Satellite Positioning", desc: "GPS + GLONASS for areas with limited cellular coverage." },
-              { icon: Radio, title: "Geofence Alerts", desc: "Automated notifications when shipments enter or leave defined zones." },
-              { icon: Eye, title: "Timeline History", desc: "Full checkpoint timeline with audit trail. Exportable as PDF." },
+              { icon: MapPin, title: "Live GPS", desc: "Updates every 15 seconds.", color: "#007AFF" },
+              { icon: Plane, title: "Flight tracking", desc: "Follow every wing in the sky.", color: "#5AC8FA" },
+              { icon: Anchor, title: "Maritime AIS", desc: "Cargo ships and yacht charters on the map.", color: "#34C759" },
+              { icon: QrCode, title: "QR / PIN confirm", desc: "Cryptographic proof at pickup & drop.", color: "#FF7A59" },
+              { icon: Camera, title: "Photo check-ins", desc: "Timestamped, geotagged, shareable.", color: "#FFB020" },
+              { icon: Thermometer, title: "Condition sensors", desc: "Temperature, humidity, shock — all logged.", color: "#FF6B9D" },
+              { icon: Satellite, title: "Satellite GPS", desc: "GLONASS backup where cell won&rsquo;t reach.", color: "#007AFF" },
+              { icon: Radio, title: "Geofence pings", desc: "Notified the moment it enters your zone.", color: "#34C759" },
+              { icon: Eye, title: "Full timeline", desc: "Every checkpoint, exportable as PDF.", color: "#FF7A59" },
             ].map((t) => (
               <div
                 key={t.title}
-                className="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-6 transition-all hover:bg-white/[0.06] hover:border-white/[0.1]"
+                className="group rounded-2xl bg-[#FFFBF5] p-5 transition-all hover:bg-white hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 border border-[#1D1D1F]/5"
               >
-                <t.icon className="h-5 w-5 text-[#007AFF]" />
-                <h3 className="mt-3 text-[13px] font-semibold text-white">
-                  {t.title}
-                </h3>
-                <p className="mt-1.5 text-[12px] text-white/30 leading-relaxed">
-                  {t.desc}
-                </p>
+                <div className="flex items-center gap-3">
+                  <div
+                    className="flex h-9 w-9 items-center justify-center rounded-xl transition-transform group-hover:scale-110"
+                    style={{ backgroundColor: `${t.color}18` }}
+                  >
+                    <t.icon className="h-4 w-4" style={{ color: t.color }} />
+                  </div>
+                  <h3 className="text-[14px] font-semibold text-[#1D1D1F]">
+                    {t.title}
+                  </h3>
+                </div>
+                <p
+                  className="mt-2 text-[12px] text-[#1D1D1F]/50 leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: t.desc }}
+                />
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════ 6. TRUST ENGINE ═══════════════════════ */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-32">
-          <div className="text-center max-w-2xl mx-auto">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#007AFF]">
-              Trust Engine
+      {/* ═══════════════════════ 8. FOR PROS (Advance + Academy) ═══════════════════════ */}
+      <section className="bg-[#FFFBF5]">
+        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-28">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#FF7A59]">
+              For the pros behind the wheel
             </p>
-            <h2 className="mt-3 text-3xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-4xl">
-              Security isn&apos;t a feature.
-              <br />
-              <span className="text-[#86868B]">It&apos;s the foundation.</span>
+            <h2 className="mt-3 text-4xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-5xl">
+              Drivers. Movers. Pilots. We built this for you too.
             </h2>
           </div>
 
-          <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              { icon: Fingerprint, title: "ID Verified", desc: "Every user and provider passes government ID verification through our enterprise-grade identity verification system. $20 per attempt\u2014no exceptions, no shortcuts.", badge: "Required" },
-              { icon: Lock, title: "Escrow Protection", desc: "Customer funds are held from the moment a job is posted. Providers are paid only after both parties confirm completion.", badge: "Every job" },
-              { icon: Zap, title: "CouthActs\u2122 Score", desc: "Proprietary algorithm rating every provider on reliability, on-time delivery, communication, and dispute history. Visible to all.", badge: "Transparent" },
-              { icon: Shield, title: "Protection Tiers", desc: "Basic, Standard, and Premium protection tiers. Customers can require matching coverage on every posting.", badge: "Tiered" },
-              { icon: Eye, title: "9-Layer Tracking", desc: "GPS, flight, AIS, QR/PIN, photo checkpoints, condition monitoring, satellite, geofencing, and full audit timeline.", badge: "Comprehensive" },
-              { icon: Scale, title: "Dispute Resolution", desc: "Evidence upload, immediate escrow freeze, admin-mediated resolution. Funds don\u2019t move until it\u2019s resolved. 24-hour SLA.", badge: "Protected" },
-            ].map((f) => (
-              <div
-                key={f.title}
-                className="rounded-3xl bg-[#F5F5F7]/60 p-8 transition-all hover:bg-white hover:shadow-[0_4px_24px_rgba(0,0,0,.06)]"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#F5F5F7]">
-                    <f.icon className="h-5 w-5 text-[#1D1D1F]" />
-                  </div>
-                  <span className="rounded-full bg-[#F5F5F7] px-2.5 py-1 text-[10px] font-semibold text-[#6E6E73] uppercase tracking-wider">
-                    {f.badge}
+          <div className="grid gap-6 lg:grid-cols-2">
+            {/* Advance */}
+            <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#0B2E1E] via-[#0E3D27] to-[#0B2E1E] p-10 lg:p-12 text-white shadow-xl">
+              <div className="absolute -top-20 -right-20 h-64 w-64 rounded-full bg-[#34C759]/30 blur-3xl" />
+              <div className="relative">
+                <div className="inline-flex items-center gap-2 rounded-full bg-[#34C759]/15 px-4 py-1.5">
+                  <Zap className="h-3.5 w-3.5 text-[#34C759]" />
+                  <span className="text-[11px] font-semibold text-[#34C759] uppercase tracking-wider">
+                    CouthActs Advance
                   </span>
                 </div>
-                <h3 className="mt-5 text-[15px] font-display font-bold text-[#1D1D1F]">
-                  {f.title}
+                <h3 className="mt-6 text-3xl font-display font-black sm:text-4xl">
+                  Get paid. <span className="text-[#34C759]">Fast.</span>
                 </h3>
-                <p className="mt-2 text-[13px] text-[#6E6E73] leading-relaxed">
-                  {f.desc}
+                <p className="mt-4 text-[14px] text-white/65 leading-relaxed max-w-md">
+                  Don&rsquo;t wait for the job to close. Elite providers can pull up to
+                  70% of their escrow within 24 hours &mdash; so the next fuel tank,
+                  next load, next week is always covered.
+                </p>
+
+                <div className="mt-8 grid grid-cols-3 gap-3">
+                  {[
+                    { v: "70%", l: "Advance rate" },
+                    { v: "24h", l: "Funding speed" },
+                    { v: "1%", l: "Lowest fee" },
+                  ].map((s) => (
+                    <div key={s.l} className="rounded-2xl bg-white/5 border border-white/10 p-4">
+                      <p className="text-2xl font-display font-black text-[#34C759] tabular-nums">{s.v}</p>
+                      <p className="mt-1 text-[11px] text-white/50">{s.l}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <Link
+                  href="/advance"
+                  className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#34C759] px-7 py-3 text-[13px] font-semibold text-[#0B2E1E] transition-all hover:bg-white hover:scale-[1.03]"
+                >
+                  Learn about Advance <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Academy */}
+            <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#FFF5E6] via-white to-[#FFE8F0] p-10 lg:p-12 shadow-xl border border-white">
+              <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-[#FF6B9D]/20 blur-3xl" />
+              <div className="relative">
+                <div className="inline-flex items-center gap-2 rounded-full bg-[#FF6B9D]/10 px-4 py-1.5">
+                  <GraduationCap className="h-3.5 w-3.5 text-[#FF6B9D]" />
+                  <span className="text-[11px] font-semibold text-[#FF6B9D] uppercase tracking-wider">
+                    CouthActs Academy
+                  </span>
+                </div>
+                <h3 className="mt-6 text-3xl font-display font-black text-[#1D1D1F] sm:text-4xl">
+                  Learn. <span className="text-[#FF6B9D]">Earn.</span> Repeat.
+                </h3>
+                <p className="mt-4 text-[14px] text-[#1D1D1F]/60 leading-relaxed max-w-md">
+                  Short courses. Real certifications. Bigger jobs. Level up your score
+                  and unlock the stuff everyone else can&rsquo;t touch.
+                </p>
+
+                <div className="mt-8 space-y-3">
+                  {[
+                    { icon: GraduationCap, title: "Transport Safety", meta: "12 modules · 4h", badge: "Cert" },
+                    { icon: BookOpen, title: "Hazmat Handling", meta: "8 modules · 3h", badge: "Cert" },
+                    { icon: Award, title: "Customer Excellence", meta: "6 modules · 2h", badge: "Boost" },
+                  ].map((c) => (
+                    <div key={c.title} className="flex items-center gap-4 rounded-2xl bg-white/80 backdrop-blur border border-white p-4 shadow-sm">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FF6B9D]/10 flex-shrink-0">
+                        <c.icon className="h-4 w-4 text-[#FF6B9D]" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[13px] font-semibold text-[#1D1D1F]">{c.title}</p>
+                        <p className="text-[11px] text-[#1D1D1F]/50">{c.meta}</p>
+                      </div>
+                      <span className="rounded-full bg-[#FF6B9D]/10 px-2.5 py-1 text-[10px] font-semibold text-[#FF6B9D] uppercase tracking-wider">
+                        {c.badge}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                <Link
+                  href="/academy"
+                  className="mt-8 inline-flex items-center gap-2 text-[13px] font-semibold text-[#FF6B9D] hover:text-[#FF7A59]"
+                >
+                  Explore the Academy <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════ 9. BIG OPERATIONS (Enterprise + Gov) ═══════════════════════ */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-20">
+          <div className="rounded-[2.5rem] bg-[#1D1D1F] p-8 lg:p-12 relative overflow-hidden">
+            <div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-[#007AFF]/10 blur-3xl" />
+            <div className="relative grid gap-10 lg:grid-cols-[1fr_1fr_1fr] lg:items-start">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#5AC8FA]">
+                  Big operations
+                </p>
+                <h2 className="mt-3 text-3xl font-display font-bold text-white sm:text-4xl">
+                  Moving more?
+                  <br />
+                  We do that too.
+                </h2>
+                <p className="mt-4 text-[13px] text-white/50 leading-relaxed">
+                  Whether you&rsquo;re a Fortune 500 or a federal agency, the
+                  infrastructure scales. Same platform, serious tools.
                 </p>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* ═══════════════════════ 7. COUTHACTS ADVANCE ═══════════════════════ */}
-      <section className="relative overflow-hidden bg-[#1D1D1F]">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(52,199,89,.08),transparent_60%)]" />
-        <div className="relative mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-32">
-          <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#34C759]/20 bg-[#34C759]/10 px-4 py-1.5 mb-6">
-                <Star className="h-3.5 w-3.5 text-[#34C759]" />
-                <span className="text-[11px] font-semibold text-[#34C759] tracking-wide uppercase">
-                  Elite Provider Program
-                </span>
-              </div>
-              <h2 className="text-3xl font-display font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-                CouthActs
-                <span className="text-[#34C759]"> Advance</span>
-              </h2>
-              <p className="mt-6 text-[14px] text-white/35 leading-relaxed max-w-lg">
-                Cash-flow tools built for top-tier providers. Get paid faster
-                with invoice advances, maintain fleet readiness, and grow
-                without the wait.
-              </p>
-              <ul className="mt-8 space-y-3">
-                {[
-                  "Invoice advances up to 70% of confirmed escrow value",
-                  "Priority job matching for Elite-rated providers",
-                  "Dedicated account manager and premium support",
-                  "Lower escrow fees with volume-based pricing",
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-[13px] text-white/50">
-                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#34C759] flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/advance"
-                className="mt-10 inline-flex items-center gap-2 rounded-full border border-[#34C759]/30 px-8 py-3.5 text-[13px] font-semibold text-[#34C759] transition-all hover:bg-[#34C759] hover:text-white"
-              >
-                Learn about Advance <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { value: "70%", label: "Advance Rate", desc: "Of confirmed escrow value" },
-                { value: "24h", label: "Funding Speed", desc: "After job confirmation" },
-                { value: "1%", label: "Lowest Escrow", desc: "For $500K+ jobs" },
-                { value: "Elite", label: "Score Tier", desc: "Required qualification" },
-              ].map((s) => (
-                <div key={s.label} className="rounded-2xl border border-[#34C759]/15 bg-[#34C759]/5 p-6">
-                  <p className="text-2xl font-display font-bold text-[#34C759] lg:text-3xl tabular-nums">
-                    {s.value}
-                  </p>
-                  <p className="mt-1 text-[13px] font-semibold text-white">
-                    {s.label}
-                  </p>
-                  <p className="text-[11px] text-white/30">{s.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════ 8. ACADEMY ═══════════════════════ */}
-      <section className="bg-[#F5F5F7]">
-        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-32">
-          <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#007AFF]">
-                CouthActs Academy
-              </p>
-              <h2 className="mt-3 text-3xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-4xl">
-                Learn. Certify.
-                <br />
-                <span className="text-[#86868B]">Earn more.</span>
-              </h2>
-              <p className="mt-6 text-[14px] text-[#6E6E73] leading-relaxed">
-                The CouthActs Academy trains providers to meet global
-                transportation standards. Complete courses, earn certifications,
-                boost your CouthActs Score, and unlock higher-tier jobs.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-2">
-                {[
-                  "Safety & Compliance",
-                  "Hazmat Handling",
-                  "Customer Excellence",
-                  "Fleet Management",
-                ].map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full bg-[#E8E8ED] px-3.5 py-1.5 text-[12px] font-medium text-[#1D1D1F]"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <Link
-                href="/academy"
-                className="mt-8 inline-flex items-center gap-2 text-[13px] font-semibold text-[#007AFF] hover:text-[#0055D4] transition-colors"
-              >
-                Explore Academy <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-
-            <div className="relative space-y-3">
-              {[
-                { icon: GraduationCap, title: "Certified Transport Safety", lessons: "12 modules", duration: "4 hours", badge: "Certification" },
-                { icon: BookOpen, title: "Hazardous Materials Handling", lessons: "8 modules", duration: "3 hours", badge: "Certification" },
-                { icon: Award, title: "Customer Excellence Program", lessons: "6 modules", duration: "2 hours", badge: "Score Boost" },
-              ].map((course) => (
-                <div
-                  key={course.title}
-                  className="flex items-center gap-5 rounded-2xl bg-white/80 backdrop-blur-xl p-5 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 transition-all hover:shadow-[0_4px_24px_rgba(0,0,0,.06)]"
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+                <Building2 className="h-6 w-6 text-[#5AC8FA]" />
+                <h3 className="mt-4 text-xl font-display font-bold text-white">
+                  Enterprise
+                </h3>
+                <p className="mt-2 text-[12px] text-white/50 leading-relaxed">
+                  Volume pricing, dedicated teams, SSO, API webhooks, white-label
+                  tracking.
+                </p>
+                <Link
+                  href="/enterprise"
+                  className="mt-5 inline-flex items-center gap-1.5 text-[12px] font-semibold text-[#5AC8FA] hover:text-white transition-colors"
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F5F5F7] flex-shrink-0">
-                    <course.icon className="h-5 w-5 text-[#1D1D1F]" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-[13px] font-semibold text-[#1D1D1F]">
-                      {course.title}
-                    </h3>
-                    <p className="mt-0.5 text-[11px] text-[#86868B]">
-                      {course.lessons} &middot; {course.duration}
-                    </p>
-                  </div>
-                  <span className="rounded-full bg-[#EDF4FF] px-2.5 py-1 text-[10px] font-semibold text-[#007AFF] uppercase tracking-wider flex-shrink-0">
-                    {course.badge}
-                  </span>
-                </div>
-              ))}
+                  Contact sales <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+                <Landmark className="h-6 w-6 text-[#5AC8FA]" />
+                <h3 className="mt-4 text-xl font-display font-bold text-white">
+                  Government
+                </h3>
+                <p className="mt-2 text-[12px] text-white/50 leading-relaxed">
+                  FedRAMP-aligned controls, SAM.gov integration, full audit trail.
+                </p>
+                <Link
+                  href="/government"
+                  className="mt-5 inline-flex items-center gap-1.5 text-[12px] font-semibold text-[#5AC8FA] hover:text-white transition-colors"
+                >
+                  See solutions <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════ 9. ENTERPRISE + GOVERNMENT ═══════════════════════ */}
-      <section className="bg-[#1D1D1F]">
-        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-32">
-          <div className="grid gap-6 lg:grid-cols-2">
-            <div className="rounded-3xl border border-white/[0.06] bg-white/[0.03] p-10 lg:p-12">
-              <Building2 className="h-8 w-8 text-[#007AFF]" />
-              <h3 className="mt-5 text-2xl font-display font-bold text-white lg:text-3xl">
-                Enterprise
-              </h3>
-              <p className="mt-4 text-[14px] text-white/35 leading-relaxed">
-                Volume-based pricing, dedicated account management, custom API
-                integrations, SSO, and priority support for organizations moving
-                more than 50 jobs per month.
-              </p>
-              <ul className="mt-6 space-y-2.5">
-                {[
-                  "Custom escrow terms and SLAs",
-                  "Dedicated account team",
-                  "API access with webhooks",
-                  "White-label tracking portal",
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-2.5 text-[13px] text-white/40">
-                    <span className="h-1 w-1 rounded-full bg-[#007AFF]" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/enterprise"
-                className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-8 py-3.5 text-[13px] font-semibold text-[#1D1D1F] transition-all hover:scale-[1.02] shadow-sm"
-              >
-                Contact Enterprise Sales <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-
-            <div className="rounded-3xl border border-white/[0.06] bg-white/[0.03] p-10 lg:p-12">
-              <Landmark className="h-8 w-8 text-[#007AFF]" />
-              <h3 className="mt-5 text-2xl font-display font-bold text-white lg:text-3xl">
-                Government
-              </h3>
-              <p className="mt-4 text-[14px] text-white/35 leading-relaxed">
-                Purpose-built for federal, state, and municipal agencies.
-                Compliance-first infrastructure with full audit trails,
-                procurement integrations, and regulatory controls.
-              </p>
-              <ul className="mt-6 space-y-2.5">
-                {[
-                  "FedRAMP-aligned security controls",
-                  "SAM.gov and procurement integration",
-                  "Full audit trail and compliance reporting",
-                  "Multi-agency fleet coordination",
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-2.5 text-[13px] text-white/40">
-                    <span className="h-1 w-1 rounded-full bg-[#007AFF]" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/government"
-                className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/15 px-8 py-3.5 text-[13px] font-semibold text-white transition-all hover:bg-white/10"
-              >
-                Government Solutions <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════ 10. PROVIDER API ═══════════════════════ */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-4xl px-6 py-16 sm:py-24 lg:py-32 text-center">
+      {/* ═══════════════════════ 10. DEVELOPERS ═══════════════════════ */}
+      <section className="bg-[#FFFBF5]">
+        <div className="mx-auto max-w-4xl px-6 py-16 text-center">
           <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#007AFF]">
-            Developer Platform
+            Builders welcome
           </p>
           <h2 className="mt-3 text-3xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-4xl">
-            Build on CouthActs
+            Got code? Build on us.
           </h2>
-          <p className="mt-4 text-[14px] text-[#6E6E73] max-w-xl mx-auto">
-            RESTful API with webhooks, real-time tracking streams, and
-            programmatic job management. Integrate transportation into your
-            software.
+          <p className="mt-4 text-[14px] text-[#1D1D1F]/55 max-w-xl mx-auto">
+            A clean REST API, real-time webhooks, and a playground that doesn&rsquo;t
+            hate you.
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            {[
-              { plan: "Starter", price: "Free", desc: "100 calls/day" },
-              { plan: "Growth", price: "$299/mo", desc: "10K calls/day" },
-              { plan: "Enterprise", price: "Custom", desc: "Unlimited + SLA" },
-            ].map((p) => (
-              <div
-                key={p.plan}
-                className="rounded-2xl bg-[#F5F5F7]/60 px-6 py-5 text-center min-w-[160px] transition-all hover:bg-white hover:shadow-[0_4px_24px_rgba(0,0,0,.06)]"
-              >
-                <p className="text-[10px] font-semibold text-[#86868B] uppercase tracking-wider">
-                  {p.plan}
-                </p>
-                <p className="mt-1 text-xl font-display font-bold text-[#1D1D1F] tabular-nums">
-                  {p.price}
-                </p>
-                <p className="text-[11px] text-[#86868B]">{p.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 inline-flex items-center gap-3 rounded-2xl bg-[#1D1D1F] px-8 py-4">
-            <Code2 className="h-5 w-5 text-[#007AFF]" />
+          <div className="mt-10 inline-flex items-center gap-3 rounded-2xl bg-[#1D1D1F] px-6 py-4 shadow-xl">
+            <Code2 className="h-5 w-5 text-[#5AC8FA]" />
             <code className="text-[13px] text-[#5AC8FA] font-mono">
               POST /api/v1/jobs
             </code>
-            <span className="text-[12px] text-white/30">
-              &mdash; create a job in one request
+            <span className="text-[12px] text-white/40">
+              &mdash; one request, done
             </span>
           </div>
 
           <div className="mt-8">
             <Link
               href="/api-docs"
-              className="inline-flex items-center gap-2 text-[13px] font-semibold text-[#007AFF] hover:text-[#0055D4] transition-colors"
+              className="inline-flex items-center gap-2 text-[13px] font-semibold text-[#007AFF] hover:text-[#0055D4]"
             >
-              View API documentation <ArrowRight className="h-4 w-4" />
+              Read the docs <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════ 11. TRACK A JOB ═══════════════════════ */}
-      <section className="bg-[#F5F5F7]">
-        <div className="mx-auto max-w-2xl px-6 py-20 text-center">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#007AFF]">
-            Track a Job
-          </p>
-          <h2 className="mt-3 text-2xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-3xl">
-            Have a tracking code?
-          </h2>
-          <p className="mt-3 text-[13px] text-[#86868B]">
-            Real-time status, live location, and full checkpoint history. No
-            login required.
-          </p>
-          <TrackInput />
-        </div>
-      </section>
+      {/* ═══════════════════════ 11. FINAL CTA ═══════════════════════ */}
+      <section className="relative overflow-hidden bg-[#FFFBF5]">
+        <div className="pointer-events-none absolute -top-20 left-1/4 h-96 w-96 rounded-full bg-[#FFD8B5]/40 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 right-1/4 h-96 w-96 rounded-full bg-[#B5E3FF]/40 blur-3xl" />
 
-      {/* ═══════════════════════ 12. FINAL CTA ═══════════════════════ */}
-      <section className="relative overflow-hidden bg-white">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,122,255,.06),transparent_70%)] pointer-events-none" />
-        <div className="relative mx-auto max-w-4xl px-6 py-28 lg:py-36 text-center">
-          <h2 className="text-4xl font-display font-black tracking-tight text-[#1D1D1F] sm:text-5xl lg:text-6xl">
-            The future of transportation
+        <div className="relative mx-auto max-w-4xl px-6 py-24 lg:py-32 text-center">
+          <div className="inline-flex items-center gap-2 rounded-full bg-white border border-[#1D1D1F]/10 px-4 py-1.5 shadow-sm">
+            <Heart className="h-3.5 w-3.5 text-[#FF6B9D]" />
+            <span className="text-[12px] font-semibold text-[#1D1D1F]/70">
+              Free account. No credit card. No catch.
+            </span>
+          </div>
+
+          <h2 className="mt-8 text-5xl font-display font-black tracking-tight text-[#1D1D1F] sm:text-6xl lg:text-7xl">
+            So. Ready to
             <br />
-            <span className="text-[#86868B]">is already here.</span>
+            <span className="bg-gradient-to-r from-[#FF7A59] via-[#FF6B9D] to-[#007AFF] bg-clip-text text-transparent">
+              move something?
+            </span>
           </h2>
-          <p className="mt-6 text-lg text-[#6E6E73] mx-auto max-w-xl">
-            Create your free CouthActs&#8482; account in under a minute. Move
-            anything, anywhere, with complete protection.
+
+          <p className="mt-6 text-lg text-[#1D1D1F]/55 mx-auto max-w-xl">
+            Sign up in under a minute. Post your first move in two more. Watch it
+            happen from wherever you are.
           </p>
+
           <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
               href="/register"
-              className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#007AFF] px-10 py-4 text-[14px] font-semibold text-white shadow-lg shadow-[#007AFF]/20 transition-all hover:bg-[#0055D4] hover:scale-[1.02] sm:w-auto"
+              className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#1D1D1F] px-10 py-4 text-[15px] font-semibold text-white shadow-[0_8px_30px_rgba(29,29,31,0.25)] transition-all hover:bg-[#007AFF] hover:scale-[1.03] hover:shadow-[0_12px_40px_rgba(0,122,255,0.35)] sm:w-auto"
             >
-              Create free account
+              Start moving
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               href="/register?role=PROVIDER"
-              className="inline-flex w-full items-center justify-center rounded-full border border-[#E8E8ED] px-10 py-4 text-[14px] font-semibold text-[#1D1D1F] transition-all hover:bg-[#F5F5F7] sm:w-auto"
+              className="inline-flex w-full items-center justify-center rounded-full border border-[#1D1D1F]/15 bg-white px-10 py-4 text-[15px] font-semibold text-[#1D1D1F] transition-all hover:bg-[#1D1D1F] hover:text-white sm:w-auto"
             >
-              Register as provider
+              I drive / I deliver
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════ 13. FOOTER ═══════════════════════ */}
+      {/* ═══════════════════════ 12. FOOTER ═══════════════════════ */}
       <footer className="bg-[#1D1D1F]">
         <div className="mx-auto max-w-7xl px-6 py-16 lg:py-20">
           <div className="grid gap-12 lg:grid-cols-5">
             <div className="lg:col-span-2">
               <Logo size="md" variant="white" href="/" />
-              <p className="mt-5 text-[13px] text-white/30 leading-relaxed max-w-sm">
-                The global transportation infrastructure platform. 18 modes.
-                190+ countries. Every transaction protected by escrow.
+              <p className="mt-5 text-[13px] text-white/40 leading-relaxed max-w-sm">
+                The friendliest way to move anything, anywhere. 18 modes, 190+
+                countries, and real humans you can trust.
               </p>
+              <div className="mt-6 flex items-center gap-2">
+                <Heart className="h-4 w-4 text-[#FF6B9D]" />
+                <span className="text-[12px] text-white/50">Made with care in Dallas, TX</span>
+              </div>
             </div>
 
             <div className="grid grid-cols-3 gap-8 lg:col-span-3">
               <div className="space-y-3 text-[13px]">
-                <p className="text-[10px] font-semibold text-white/50 uppercase tracking-[0.12em]">
+                <p className="text-[10px] font-semibold text-white/60 uppercase tracking-[0.12em]">
                   Platform
                 </p>
                 {[
@@ -783,13 +917,13 @@ export default function LandingPage() {
                   { href: "/enterprise", label: "Enterprise" },
                   { href: "/government", label: "Government" },
                 ].map((l) => (
-                  <Link key={l.href + l.label} href={l.href} className="block text-white/30 hover:text-white transition-colors">
+                  <Link key={l.href + l.label} href={l.href} className="block text-white/40 hover:text-white transition-colors">
                     {l.label}
                   </Link>
                 ))}
               </div>
               <div className="space-y-3 text-[13px]">
-                <p className="text-[10px] font-semibold text-white/50 uppercase tracking-[0.12em]">
+                <p className="text-[10px] font-semibold text-white/60 uppercase tracking-[0.12em]">
                   Resources
                 </p>
                 {[
@@ -803,13 +937,13 @@ export default function LandingPage() {
                   { href: "/press", label: "Press" },
                   { href: "/help", label: "Help Center" },
                 ].map((l) => (
-                  <Link key={l.href} href={l.href} className="block text-white/30 hover:text-white transition-colors">
+                  <Link key={l.href} href={l.href} className="block text-white/40 hover:text-white transition-colors">
                     {l.label}
                   </Link>
                 ))}
               </div>
               <div className="space-y-3 text-[13px]">
-                <p className="text-[10px] font-semibold text-white/50 uppercase tracking-[0.12em]">
+                <p className="text-[10px] font-semibold text-white/60 uppercase tracking-[0.12em]">
                   Legal
                 </p>
                 {[
@@ -819,7 +953,7 @@ export default function LandingPage() {
                   { href: "/acceptable-use", label: "Acceptable Use" },
                   { href: "/safety", label: "Safety" },
                 ].map((l) => (
-                  <Link key={l.href} href={l.href} className="block text-white/30 hover:text-white transition-colors">
+                  <Link key={l.href} href={l.href} className="block text-white/40 hover:text-white transition-colors">
                     {l.label}
                   </Link>
                 ))}
@@ -827,12 +961,12 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-8 sm:flex-row">
-            <p className="text-[11px] text-white/20">
+          <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
+            <p className="text-[11px] text-white/30">
               &copy; {new Date().getFullYear()} CouthActs&#8482;, Inc. Founded
               Nov. 27, 2021. All rights reserved.
             </p>
-            <p className="text-[11px] text-white/20">
+            <p className="text-[11px] text-white/30">
               The Adolphus Tower, Dallas, TX &middot; legal@couthacts.com
             </p>
           </div>

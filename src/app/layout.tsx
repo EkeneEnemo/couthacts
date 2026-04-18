@@ -22,9 +22,10 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "CouthActs\u2122 \u2014 Global Transportation Infrastructure Platform",
+  metadataBase: new URL("https://www.couthacts.com"),
+  title: "CouthActs\u2122 \u2014 Move Anything. Anywhere. Protected.",
   description:
-    "Book any transport mode worldwide \u2014 from taxis to cargo ships, private jets to freight rail. Verified providers, escrow-protected payments, real-time tracking.",
+    "The friendliest way to move anything, anywhere. 18 transport modes across 190+ countries. Verified humans, escrow-safe payments, real-time tracking.",
   manifest: "/manifest.json",
   icons: {
     icon: [
@@ -40,6 +41,21 @@ export const metadata: Metadata = {
     capable: true,
     statusBarStyle: "default",
     title: "CouthActs",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://www.couthacts.com",
+    siteName: "CouthActs",
+    title: "CouthActs\u2122 \u2014 Move Anything. Anywhere. Protected.",
+    description:
+      "The friendliest way to move anything, anywhere. Verified humans, escrow-safe payments, real-time tracking across 18 transport modes.",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CouthActs\u2122 \u2014 Move Anything. Anywhere. Protected.",
+    description:
+      "The friendliest way to move anything, anywhere. Verified humans, escrow-safe payments, real-time tracking.",
   },
 };
 

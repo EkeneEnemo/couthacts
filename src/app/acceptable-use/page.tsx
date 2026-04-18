@@ -7,27 +7,36 @@ export const metadata = {
 
 export default function AcceptableUsePage() {
   return (
-    <div className="min-h-screen bg-[#F5F5F7]">
+    <div className="min-h-screen bg-[#FFFBF5] relative overflow-hidden">
       <Navbar />
-      <div className="mx-auto max-w-3xl px-6 py-16">
-        <h1 className="text-3xl font-display font-bold tracking-tight text-[#1D1D1F] sm:text-4xl">
-          Acceptable Use Policy
+
+      <div className="pointer-events-none absolute -top-20 -right-32 h-[24rem] w-[24rem] rounded-full bg-[#FFB8C9]/40 blur-3xl" />
+      <div className="pointer-events-none absolute top-40 -left-24 h-[28rem] w-[28rem] rounded-full bg-[#B5E3FF]/40 blur-3xl" />
+
+      <div className="relative mx-auto max-w-3xl px-6 py-16 sm:py-20">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[#1D1D1F]/10 bg-white/70 backdrop-blur px-4 py-1.5 shadow-sm">
+          <span className="text-base">🛡️</span>
+          <span className="text-[12px] font-semibold text-[#1D1D1F]/70 tracking-wide">
+            Playing fair keeps everyone safe
+          </span>
+        </div>
+
+        <h1 className="mt-6 text-5xl font-display font-black tracking-tight text-[#1D1D1F] sm:text-6xl">
+          Acceptable <span className="text-[#FF6B9D]">use</span>.
         </h1>
-        <p className="mt-2 text-[11px] text-[#86868B]">
-          Last updated: March 30, 2026 &middot; Effective immediately
+        <p className="mt-4 text-[11px] text-[#1D1D1F]/40">
+          Last updated March 30, 2026 &middot; Effective immediately
         </p>
 
-        <div className="mt-10 max-w-none space-y-8 text-[14px] text-[#6E6E73] leading-relaxed">
-          {/* 1 */}
+        <div className="mt-12 rounded-[2rem] bg-white border border-[#1D1D1F]/5 p-8 sm:p-10 lg:p-12 shadow-[0_4px_30px_rgba(0,0,0,0.03)] space-y-8 text-[14px] text-[#1D1D1F]/65 leading-relaxed">
+
           <section>
-            <h2 className="text-lg font-display font-semibold text-[#1D1D1F]">
-              1. Purpose
-            </h2>
+            <h2 className="text-lg font-display font-bold text-[#1D1D1F]">1. Purpose</h2>
             <p className="mt-3">
               This Acceptable Use Policy (&quot;AUP&quot;) outlines the prohibited activities
               on the CouthActs&#8482; platform. All users&mdash;customers, providers, and
               enterprise accounts&mdash;are bound by this policy in addition to the{" "}
-              <Link href="/terms" className="text-[#007AFF] hover:text-[#0055D4]">
+              <Link href="/terms" className="text-[#007AFF] hover:text-[#FF7A59] font-semibold transition-colors">
                 Terms of Service
               </Link>
               . Violations may result in immediate account suspension, permanent ban, forfeiture
@@ -35,15 +44,10 @@ export default function AcceptableUsePage() {
             </p>
           </section>
 
-          {/* 2 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-[#1D1D1F]">
-              2. Prohibited Activities
-            </h2>
+            <h2 className="text-lg font-display font-bold text-[#1D1D1F]">2. Prohibited Activities</h2>
 
-            <h3 className="text-base font-semibold text-[#1D1D1F] mt-4">
-              2.1 Illegal Transportation
-            </h3>
+            <h3 className="text-base font-semibold text-[#1D1D1F] mt-4">2.1 Illegal Transportation</h3>
             <p className="mt-3">You may not use CouthActs to:</p>
             <ul className="list-disc pl-5 space-y-1 mt-2">
               <li>Transport illegal substances, contraband, or controlled materials without proper licensing and documentation.</li>
@@ -53,9 +57,7 @@ export default function AcceptableUsePage() {
               <li>Transport goods that violate CITES, IATA dangerous goods regulations, IMO IMDG codes, or DOT hazmat requirements without proper classification and handling.</li>
             </ul>
 
-            <h3 className="text-base font-semibold text-[#1D1D1F] mt-4">
-              2.2 Fraud and Misrepresentation
-            </h3>
+            <h3 className="text-base font-semibold text-[#1D1D1F] mt-4">2.2 Fraud and Misrepresentation</h3>
             <p className="mt-3">You may not:</p>
             <ul className="list-disc pl-5 space-y-1 mt-2">
               <li>Create accounts using false identities, stolen credentials, or fabricated business registrations.</li>
@@ -66,9 +68,7 @@ export default function AcceptableUsePage() {
               <li>Falsely claim completion of a job or fabricate proof of delivery.</li>
             </ul>
 
-            <h3 className="text-base font-semibold text-[#1D1D1F] mt-4">
-              2.3 Harassment and Abuse
-            </h3>
+            <h3 className="text-base font-semibold text-[#1D1D1F] mt-4">2.3 Harassment and Abuse</h3>
             <p className="mt-3">You may not:</p>
             <ul className="list-disc pl-5 space-y-1 mt-2">
               <li>Threaten, intimidate, harass, or abuse any other user, whether customer, provider, or CouthActs staff.</li>
@@ -77,9 +77,7 @@ export default function AcceptableUsePage() {
               <li>Send spam, unsolicited commercial messages, or phishing attempts through the platform&apos;s messaging system.</li>
             </ul>
 
-            <h3 className="text-base font-semibold text-[#1D1D1F] mt-4">
-              2.4 Circumventing Escrow
-            </h3>
+            <h3 className="text-base font-semibold text-[#1D1D1F] mt-4">2.4 Circumventing Escrow</h3>
             <p className="mt-3">You may not:</p>
             <ul className="list-disc pl-5 space-y-1 mt-2">
               <li>Arrange off-platform payments to avoid escrow protections or platform fees.</li>
@@ -88,9 +86,7 @@ export default function AcceptableUsePage() {
               <li>Create postings with artificially low budgets with the intent of negotiating off-platform rates.</li>
             </ul>
 
-            <h3 className="text-base font-semibold text-[#1D1D1F] mt-4">
-              2.5 Fake Reviews
-            </h3>
+            <h3 className="text-base font-semibold text-[#1D1D1F] mt-4">2.5 Fake Reviews</h3>
             <p className="mt-3">You may not:</p>
             <ul className="list-disc pl-5 space-y-1 mt-2">
               <li>Post reviews for transactions that did not occur or that you were not a party to.</li>
@@ -100,9 +96,7 @@ export default function AcceptableUsePage() {
               <li>Threaten a negative review to coerce a user into providing a refund or discount outside of the proper dispute process.</li>
             </ul>
 
-            <h3 className="text-base font-semibold text-[#1D1D1F] mt-4">
-              2.6 Automated Scraping and Abuse
-            </h3>
+            <h3 className="text-base font-semibold text-[#1D1D1F] mt-4">2.6 Automated Scraping and Abuse</h3>
             <p className="mt-3">You may not:</p>
             <ul className="list-disc pl-5 space-y-1 mt-2">
               <li>Use bots, scrapers, crawlers, or automated tools to extract data from the CouthActs platform without written authorization.</li>
@@ -113,11 +107,8 @@ export default function AcceptableUsePage() {
             </ul>
           </section>
 
-          {/* 3 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-[#1D1D1F]">
-              3. Consequences of Violations
-            </h2>
+            <h2 className="text-lg font-display font-bold text-[#1D1D1F]">3. Consequences of Violations</h2>
             <p className="mt-3">
               CouthActs reserves the right to take any of the following actions in response
               to AUP violations, at our sole discretion:
@@ -138,19 +129,13 @@ export default function AcceptableUsePage() {
             </p>
           </section>
 
-          {/* 4 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-[#1D1D1F]">
-              4. Reporting Violations
-            </h2>
+            <h2 className="text-lg font-display font-bold text-[#1D1D1F]">4. Reporting Violations</h2>
             <p className="mt-3">
               If you witness or become aware of a violation of this Acceptable Use Policy,
               please report it immediately using the &quot;Report&quot; button on the relevant
               booking, profile, or review, or by contacting us directly at{" "}
-              <a
-                href="mailto:legal@couthacts.com"
-                className="text-[#007AFF] hover:text-[#0055D4]"
-              >
+              <a href="mailto:legal@couthacts.com" className="text-[#007AFF] hover:text-[#FF7A59] font-semibold transition-colors">
                 legal@couthacts.com
               </a>
               . All reports are investigated by our trust and safety team. You may report
@@ -158,11 +143,8 @@ export default function AcceptableUsePage() {
             </p>
           </section>
 
-          {/* 5 */}
           <section>
-            <h2 className="text-lg font-display font-semibold text-[#1D1D1F]">
-              5. Changes to This Policy
-            </h2>
+            <h2 className="text-lg font-display font-bold text-[#1D1D1F]">5. Changes to This Policy</h2>
             <p className="mt-3">
               We may update this Acceptable Use Policy from time to time. Material changes
               will be communicated via email or platform notification at least thirty (30)
@@ -172,11 +154,27 @@ export default function AcceptableUsePage() {
           </section>
         </div>
 
-        <div className="mt-16 flex flex-wrap gap-4 text-[14px]">
-          <Link href="/terms" className="text-[#007AFF] hover:text-[#0055D4]">Terms of Service</Link>
-          <Link href="/privacy" className="text-[#007AFF] hover:text-[#0055D4]">Privacy Policy</Link>
-          <Link href="/cookies" className="text-[#007AFF] hover:text-[#0055D4]">Cookie Policy</Link>
-          <Link href="/safety" className="text-[#007AFF] hover:text-[#0055D4]">Safety Center</Link>
+        <div className="mt-10 rounded-[2rem] bg-gradient-to-br from-[#FFE8F0] via-white to-[#EAF4FF] p-8 border border-white shadow-sm">
+          <div className="flex items-start gap-4">
+            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-white shadow-sm text-2xl">
+              🚨
+            </div>
+            <div className="flex-1">
+              <h3 className="text-lg font-display font-bold text-[#1D1D1F]">
+                See something sketchy?
+              </h3>
+              <p className="mt-1 text-[13px] text-[#1D1D1F]/60">
+                Tell us at <a href="mailto:legal@couthacts.com" className="text-[#007AFF] hover:text-[#FF7A59] font-semibold transition-colors">legal@couthacts.com</a>. Anonymous reports welcome &mdash; we read every one.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-wrap gap-2">
+          <Link href="/terms" className="rounded-full bg-white border border-[#1D1D1F]/10 px-4 py-2 text-[12px] font-semibold text-[#1D1D1F]/70 hover:bg-[#FFF5E6] hover:border-[#FF7A59]/40 hover:text-[#FF7A59] transition-all">Terms of Service</Link>
+          <Link href="/privacy" className="rounded-full bg-white border border-[#1D1D1F]/10 px-4 py-2 text-[12px] font-semibold text-[#1D1D1F]/70 hover:bg-[#FFF5E6] hover:border-[#FF7A59]/40 hover:text-[#FF7A59] transition-all">Privacy Policy</Link>
+          <Link href="/cookies" className="rounded-full bg-white border border-[#1D1D1F]/10 px-4 py-2 text-[12px] font-semibold text-[#1D1D1F]/70 hover:bg-[#FFF5E6] hover:border-[#FF7A59]/40 hover:text-[#FF7A59] transition-all">Cookie Policy</Link>
+          <Link href="/safety" className="rounded-full bg-white border border-[#1D1D1F]/10 px-4 py-2 text-[12px] font-semibold text-[#1D1D1F]/70 hover:bg-[#FFF5E6] hover:border-[#FF7A59]/40 hover:text-[#FF7A59] transition-all">Safety Center</Link>
         </div>
       </div>
     </div>

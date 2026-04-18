@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Navbar } from "@/components/navbar";
-import { GraduationCap, Clock, BookOpen, Award, ChevronRight, User } from "lucide-react";
+import { Clock, BookOpen, Award, ChevronRight, User } from "lucide-react";
 
 interface Course {
   id: string; title: string; slug: string; description: string;
@@ -13,20 +13,20 @@ interface Course {
 }
 
 const CATEGORIES = [
-  { key: "", label: "All" },
-  { key: "PLATFORM_MASTERY", label: "Platform" },
-  { key: "GROUND_TRANSPORT", label: "Ground" },
-  { key: "FREIGHT_LOGISTICS", label: "Freight" },
-  { key: "AIR_TRANSPORT", label: "Air" },
-  { key: "MARITIME", label: "Maritime" },
-  { key: "COMPLIANCE_SAFETY", label: "Compliance" },
-  { key: "BUSINESS_OPERATIONS", label: "Business" },
+  { key: "", label: "All", emoji: "✨" },
+  { key: "PLATFORM_MASTERY", label: "Platform", emoji: "⚡" },
+  { key: "GROUND_TRANSPORT", label: "Ground", emoji: "🚚" },
+  { key: "FREIGHT_LOGISTICS", label: "Freight", emoji: "📦" },
+  { key: "AIR_TRANSPORT", label: "Air", emoji: "✈️" },
+  { key: "MARITIME", label: "Maritime", emoji: "⛵" },
+  { key: "COMPLIANCE_SAFETY", label: "Compliance", emoji: "🛡️" },
+  { key: "BUSINESS_OPERATIONS", label: "Business", emoji: "💼" },
 ];
 
-const LEVEL_COLORS: Record<string, string> = {
-  BEGINNER: "bg-[#EEFBF1] text-[#34C759]",
-  INTERMEDIATE: "bg-[#007AFF]/10 text-[#007AFF]",
-  ADVANCED: "bg-purple-50 text-purple-600",
+const LEVEL_STYLES: Record<string, { bg: string; color: string; emoji: string }> = {
+  BEGINNER: { bg: "#E8F7EC", color: "#34C759", emoji: "🌱" },
+  INTERMEDIATE: { bg: "#E8F1FF", color: "#007AFF", emoji: "🚀" },
+  ADVANCED: { bg: "#FFE8F0", color: "#FF6B9D", emoji: "💎" },
 };
 
 export default function AcademyPage() {
@@ -52,41 +52,55 @@ export default function AcademyPage() {
   const filtered = category ? displayCourses.filter((c) => c.category === category) : displayCourses;
 
   return (
-    <div className="min-h-screen bg-[#F5F5F7]">
+    <div className="min-h-screen bg-[#FFFBF5] relative overflow-hidden">
       <Navbar />
-      <div className="mx-auto max-w-7xl px-6 py-10">
+
+      <div className="pointer-events-none absolute -top-20 -left-32 h-[24rem] w-[24rem] rounded-full bg-[#FFE3A3]/50 blur-3xl" />
+      <div className="pointer-events-none absolute top-40 -right-24 h-[28rem] w-[28rem] rounded-full bg-[#FFB8C9]/40 blur-3xl" />
+
+      <div className="relative mx-auto max-w-7xl px-6 py-16 sm:py-20">
         {/* Hero */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <GraduationCap className="h-6 w-6 text-[#007AFF]" />
-            <h1 className="text-3xl font-display font-bold tracking-tight text-[#1D1D1F]">CouthActs Academy</h1>
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#1D1D1F]/10 bg-white/70 backdrop-blur px-4 py-1.5 shadow-sm">
+            <span className="text-base">🎓</span>
+            <span className="text-[12px] font-semibold text-[#1D1D1F]/70 tracking-wide">
+              CouthActs Academy
+            </span>
           </div>
-          <p className="text-[14px] text-[#6E6E73]">
-            Professional education built for the transportation industry.
-            Real-world curriculum. Pass the exam. Earn your certificate.
+
+          <h1 className="mt-6 text-5xl font-display font-black tracking-tight text-[#1D1D1F] sm:text-6xl">
+            Learn. <span className="text-[#FF6B9D]">Earn.</span> Repeat.
+          </h1>
+          <p className="mt-6 text-lg text-[#1D1D1F]/60 leading-relaxed">
+            Real-world courses for transportation pros. Short, focused, and built to
+            boost your CouthActs Score &mdash; so bigger jobs come to you.
           </p>
-          <p className="mt-2 text-[11px] text-[#86868B] max-w-lg mx-auto">
-            CouthActs Academy courses are professional development programs offered by CouthActs, Inc. Course completion certificates are CouthActs credentials and do not constitute government-issued licenses, certifications, or regulatory approvals.
-          </p>
-          <div className="mt-4 flex items-center justify-center gap-4 text-[13px] text-[#86868B]">
-            <span className="flex items-center gap-1"><BookOpen className="h-4 w-4" /> {courses.length} courses</span>
-            <span className="flex items-center gap-1"><Clock className="h-4 w-4" /> Self-paced</span>
-            <span className="flex items-center gap-1"><Award className="h-4 w-4" /> Certificates</span>
+
+          <div className="mt-6 flex items-center justify-center gap-4 text-[13px] text-[#1D1D1F]/50">
+            <span className="flex items-center gap-1.5"><BookOpen className="h-3.5 w-3.5" /> {courses.length} courses</span>
+            <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" /> Self-paced</span>
+            <span className="flex items-center gap-1.5"><Award className="h-3.5 w-3.5" /> Real certificates</span>
           </div>
+
+          <p className="mt-4 text-[11px] text-[#1D1D1F]/40 max-w-xl mx-auto">
+            Certificates are CouthActs credentials &mdash; they don&rsquo;t constitute government-issued licenses or regulatory approvals.
+          </p>
         </div>
 
-        {/* View tabs — All / My Courses / Completed */}
-        <div className="flex items-center justify-center gap-1 mb-6 rounded-2xl bg-white/60 backdrop-blur-xl p-1 max-w-md mx-auto border border-white/60">
+        {/* View tabs */}
+        <div className="flex items-center justify-center gap-1 mb-6 rounded-full bg-white/70 backdrop-blur p-1 max-w-md mx-auto border border-white shadow-sm">
           {[
-            { key: "all" as const, label: "All Courses", icon: BookOpen },
+            { key: "all" as const, label: "All", icon: BookOpen },
             { key: "enrolled" as const, label: `Enrolled (${enrolled.length})`, icon: User },
             { key: "completed" as const, label: `Completed (${completed.length})`, icon: Award },
           ].map((t) => (
             <button
               key={t.key}
               onClick={() => setTab(t.key)}
-              className={`flex-1 flex items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-[11px] font-semibold transition ${
-                tab === t.key ? "bg-white text-[#007AFF] shadow-[0_2px_20px_rgba(0,0,0,.04)]" : "text-[#86868B] hover:text-[#6E6E73]"
+              className={`flex-1 flex items-center justify-center gap-1.5 rounded-full px-4 py-2 text-[12px] font-semibold transition-all ${
+                tab === t.key
+                  ? "bg-[#1D1D1F] text-white shadow-sm"
+                  : "text-[#1D1D1F]/55 hover:text-[#1D1D1F]"
               }`}
             >
               <t.icon className="h-3.5 w-3.5" />
@@ -95,72 +109,104 @@ export default function AcademyPage() {
           ))}
         </div>
 
-        {/* Category tabs */}
-        <div className="flex flex-wrap gap-2 mb-8 justify-center">
-          {CATEGORIES.map((c) => (
-            <button key={c.key} onClick={() => setCategory(c.key)}
-              className={`rounded-full px-4 py-1.5 text-[13px] font-medium transition ${category === c.key ? "bg-[#007AFF] text-white" : "bg-white/80 backdrop-blur-xl text-[#6E6E73] border border-[#E8E8ED] hover:border-[#86868B]"}`}>
-              {c.label}
-            </button>
-          ))}
+        {/* Category chips */}
+        <div className="flex flex-wrap gap-2 mb-10 justify-center">
+          {CATEGORIES.map((c) => {
+            const active = category === c.key;
+            return (
+              <button
+                key={c.key}
+                onClick={() => setCategory(c.key)}
+                className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-[13px] font-semibold transition-all ${
+                  active
+                    ? "bg-[#FF7A59] text-white shadow-sm scale-[1.03]"
+                    : "bg-white border border-[#1D1D1F]/10 text-[#1D1D1F]/70 hover:bg-[#FFF5E6] hover:border-[#FF7A59]/40 hover:text-[#FF7A59]"
+                }`}
+              >
+                <span>{c.emoji}</span>
+                {c.label}
+              </button>
+            );
+          })}
         </div>
 
         {/* Course grid */}
         {loading ? (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[1, 2, 3].map((i) => <div key={i} className="h-64 animate-pulse rounded-3xl bg-white/80 border border-white/60" />)}
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-64 animate-pulse rounded-[1.5rem] bg-white/80 border border-white" />
+            ))}
           </div>
         ) : filtered.length === 0 ? (
-          <div className="text-center py-16">
-            <GraduationCap className="mx-auto h-12 w-12 text-[#E8E8ED]" />
-            <p className="mt-4 text-[14px] text-[#6E6E73]">No courses available yet. Check back soon.</p>
+          <div className="text-center py-20 rounded-[2rem] bg-white border border-[#1D1D1F]/5">
+            <span className="text-5xl">📚</span>
+            <p className="mt-4 text-[14px] text-[#1D1D1F]/55">No courses here yet. Check back soon.</p>
           </div>
         ) : (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((c) => (
-              <Link key={c.id} href={`/academy/${c.slug}`}
-                className="group rounded-3xl bg-white/80 backdrop-blur-xl p-6 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 hover:shadow-[0_4px_30px_rgba(0,0,0,.08)] hover:-translate-y-0.5 transition">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold ${LEVEL_COLORS[c.level] || "bg-[#F5F5F7] text-[#6E6E73]"}`}>
-                    {c.level}
-                  </span>
-                  <span className="rounded-full bg-[#007AFF]/10 px-2.5 py-0.5 text-[10px] font-semibold text-[#007AFF]">
-                    {c.category.replace(/_/g, " ")}
-                  </span>
-                </div>
-                <h3 className="text-[14px] font-display font-semibold text-[#1D1D1F] group-hover:text-[#007AFF] transition">{c.title}</h3>
-                <p className="mt-2 text-[13px] text-[#6E6E73] line-clamp-2">{c.description}</p>
-                <div className="mt-4 flex items-center justify-between">
-                  <div className="flex items-center gap-3 text-[11px] text-[#86868B]">
-                    <span>{c.duration}</span>
-                    <span>{c.totalLessons} lessons</span>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {filtered.map((c) => {
+              const level = LEVEL_STYLES[c.level] || { bg: "#FFFBF5", color: "#1D1D1F", emoji: "📘" };
+              return (
+                <Link
+                  key={c.id}
+                  href={`/academy/${c.slug}`}
+                  className="group rounded-[1.5rem] bg-white border border-[#1D1D1F]/5 p-6 shadow-[0_2px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all"
+                >
+                  <div className="flex items-center gap-2 mb-4">
+                    <span
+                      className="flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider"
+                      style={{ backgroundColor: level.bg, color: level.color }}
+                    >
+                      <span>{level.emoji}</span>
+                      {c.level}
+                    </span>
+                    <span className="rounded-full bg-[#FFF5E6] px-2.5 py-1 text-[10px] font-semibold text-[#FF7A59] uppercase tracking-wider">
+                      {c.category.replace(/_/g, " ")}
+                    </span>
                   </div>
-                  <span className="text-[14px] font-bold text-[#1D1D1F]">${c.priceUsd}</span>
-                </div>
-                {/* Enrollment status */}
-                {c.enrollment && (
-                  <div className="mt-3">
-                    {c.enrollment.examPassed ? (
-                      <div className="flex items-center gap-1.5 text-[11px] font-semibold text-[#34C759]">
-                        <Award className="h-3.5 w-3.5" /> Certified
-                      </div>
-                    ) : (
-                      <div>
-                        <div className="h-1.5 rounded-full bg-[#F5F5F7] overflow-hidden">
-                          <div className="h-full rounded-full bg-[#007AFF]" style={{ width: `${c.enrollment.progress}%` }} />
+                  <h3 className="text-[16px] font-display font-bold text-[#1D1D1F] group-hover:text-[#FF7A59] transition-colors">
+                    {c.title}
+                  </h3>
+                  <p className="mt-2 text-[13px] text-[#1D1D1F]/60 line-clamp-2 leading-relaxed">
+                    {c.description}
+                  </p>
+                  <div className="mt-5 flex items-center justify-between">
+                    <div className="flex items-center gap-3 text-[11px] text-[#1D1D1F]/50">
+                      <span>⏱ {c.duration}</span>
+                      <span>{c.totalLessons} lessons</span>
+                    </div>
+                    <span className="text-[16px] font-display font-bold text-[#1D1D1F]">${c.priceUsd}</span>
+                  </div>
+
+                  {c.enrollment && (
+                    <div className="mt-4">
+                      {c.enrollment.examPassed ? (
+                        <div className="flex items-center gap-1.5 rounded-full bg-[#E8F7EC] px-3 py-1.5 text-[11px] font-semibold text-[#34C759] w-fit">
+                          <Award className="h-3.5 w-3.5" /> Certified 🎉
                         </div>
-                        <p className="mt-1 text-[10px] text-[#86868B]">{c.enrollment.progress}% complete</p>
-                      </div>
-                    )}
-                  </div>
-                )}
-                {!c.enrollment && (
-                  <div className="mt-3 flex items-center gap-1 text-[11px] font-semibold text-[#007AFF] opacity-0 group-hover:opacity-100 transition">
-                    Enroll <ChevronRight className="h-3 w-3" />
-                  </div>
-                )}
-              </Link>
-            ))}
+                      ) : (
+                        <div>
+                          <div className="h-1.5 rounded-full bg-[#FFFBF5] overflow-hidden">
+                            <div
+                              className="h-full rounded-full bg-gradient-to-r from-[#FF7A59] to-[#FF6B9D] transition-all"
+                              style={{ width: `${c.enrollment.progress}%` }}
+                            />
+                          </div>
+                          <p className="mt-1.5 text-[11px] font-medium text-[#1D1D1F]/55">
+                            {c.enrollment.progress}% through &mdash; keep going
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  {!c.enrollment && (
+                    <div className="mt-4 flex items-center gap-1.5 text-[12px] font-semibold text-[#FF7A59] opacity-0 group-hover:opacity-100 transition-all">
+                      Enroll <ChevronRight className="h-3.5 w-3.5" />
+                    </div>
+                  )}
+                </Link>
+              );
+            })}
           </div>
         )}
       </div>

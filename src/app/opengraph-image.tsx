@@ -5,6 +5,8 @@ export const alt = "CouthActs — Move Anything. Anywhere.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+const SITE = "https://www.couthacts.com";
+
 export default async function OpenGraphImage() {
   return new ImageResponse(
     (
@@ -31,36 +33,14 @@ export default async function OpenGraphImage() {
             justifyContent: "space-between",
           }}
         >
-          {/* Wordmark */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 12,
-              fontSize: 26,
-              fontWeight: 800,
-              color: "#1D1D1F",
-              letterSpacing: -0.5,
-            }}
-          >
-            <div
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 12,
-                backgroundColor: "#1D1D1F",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "white",
-                fontSize: 24,
-                fontWeight: 900,
-              }}
-            >
-              C
-            </div>
-            CouthActs
-          </div>
+          {/* Logo */}
+          <img
+            src={`${SITE}/press/logo-full.png`}
+            width={260}
+            height={60}
+            alt="CouthActs"
+            style={{ objectFit: "contain", objectPosition: "left center" }}
+          />
 
           {/* Headline */}
           <div
@@ -169,7 +149,7 @@ export default async function OpenGraphImage() {
           </div>
         </div>
 
-        {/* Right column — 2x2 emoji mode tiles */}
+        {/* Right column — 2x2 real photo tiles */}
         <div
           style={{
             display: "flex",
@@ -184,67 +164,79 @@ export default async function OpenGraphImage() {
           <div style={{ display: "flex", gap: 18 }}>
             <div
               style={{
+                display: "flex",
                 width: 220,
                 height: 220,
                 borderRadius: 36,
-                backgroundColor: "#FFF1E8",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 120,
-                boxShadow: "0 12px 40px rgba(0,0,0,0.08)",
+                overflow: "hidden",
+                boxShadow: "0 12px 40px rgba(0,0,0,0.12)",
               }}
             >
-              🚕
+              <img
+                src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=500&q=80"
+                alt="Around town"
+                width={220}
+                height={220}
+                style={{ objectFit: "cover", width: "100%", height: "100%" }}
+              />
             </div>
             <div
               style={{
+                display: "flex",
                 width: 220,
                 height: 220,
                 borderRadius: 36,
-                backgroundColor: "#E8F1FF",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 120,
-                boxShadow: "0 12px 40px rgba(0,0,0,0.08)",
+                overflow: "hidden",
+                boxShadow: "0 12px 40px rgba(0,0,0,0.12)",
                 transform: "translateY(-20px)",
               }}
             >
-              ✈️
+              <img
+                src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=500&q=80"
+                alt="Up in the air"
+                width={220}
+                height={220}
+                style={{ objectFit: "cover", width: "100%", height: "100%" }}
+              />
             </div>
           </div>
           <div style={{ display: "flex", gap: 18 }}>
             <div
               style={{
+                display: "flex",
                 width: 220,
                 height: 220,
                 borderRadius: 36,
-                backgroundColor: "#E8F7EC",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 120,
-                boxShadow: "0 12px 40px rgba(0,0,0,0.08)",
+                overflow: "hidden",
+                boxShadow: "0 12px 40px rgba(0,0,0,0.12)",
                 transform: "translateY(20px)",
               }}
             >
-              ⛵
+              <img
+                src="https://images.unsplash.com/photo-1540946485063-a40da27545f8?w=500&q=80"
+                alt="Out at sea"
+                width={220}
+                height={220}
+                style={{ objectFit: "cover", width: "100%", height: "100%" }}
+              />
             </div>
             <div
               style={{
+                display: "flex",
                 width: 220,
                 height: 220,
                 borderRadius: 36,
-                backgroundColor: "#FFE8F0",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 120,
-                boxShadow: "0 12px 40px rgba(0,0,0,0.08)",
+                overflow: "hidden",
+                boxShadow: "0 12px 40px rgba(0,0,0,0.12)",
               }}
             >
-              💎
+              <img
+                src="https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=500&q=80"
+                alt="Something special"
+                width={220}
+                height={220}
+                style={{ objectFit: "cover", width: "100%", height: "100%" }}
+              />
             </div>
           </div>
         </div>

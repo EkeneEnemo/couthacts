@@ -11,6 +11,9 @@ const roles = [
     slug: "senior-full-stack-engineer",
     location: "Remote (US / EMEA)",
     type: "Full-time",
+    emoji: "💻",
+    color: "#007AFF",
+    bg: "#E8F1FF",
     description:
       "Own features end-to-end across our Next.js / TypeScript / Prisma stack. You will build the core platform infrastructure\u2014escrow systems, real-time tracking integrations, multi-currency wallets\u2014and ship code that serves users in 190+ countries.",
   },
@@ -19,6 +22,9 @@ const roles = [
     slug: "growth-lead",
     location: "Dallas, TX or Remote",
     type: "Full-time",
+    emoji: "📈",
+    color: "#FF7A59",
+    bg: "#FFF1E8",
     description:
       "Drive customer and provider acquisition across global markets. You will design growth loops, run experiments, build referral programs, and partner with product to improve onboarding and activation. Data-driven mindset required.",
   },
@@ -27,6 +33,9 @@ const roles = [
     slug: "enterprise-sales-manager",
     location: "Dallas, TX",
     type: "Full-time",
+    emoji: "🤝",
+    color: "#34C759",
+    bg: "#E8F7EC",
     description:
       "Close enterprise and government accounts that need multimodal transportation at scale. You will manage the full sales cycle from prospecting through contract execution, working closely with our enterprise and government platform teams.",
   },
@@ -35,109 +44,142 @@ const roles = [
     slug: "operations-manager",
     location: "Dallas, TX",
     type: "Full-time",
+    emoji: "⚙️",
+    color: "#FF6B9D",
+    bg: "#FFE8F0",
     description:
       "Oversee day-to-day platform operations including provider verification, dispute resolution, and compliance. You will build processes, manage escalations, and ensure that every transaction on CouthActs meets our quality standards.",
   },
 ];
 
+const whys = [
+  { emoji: "🌍", text: "Work on a platform that handles real money, real cargo, and real accountability across the globe." },
+  { emoji: "⚡", text: "Small, high-impact team where your work ships fast and matters immediately." },
+  { emoji: "💰", text: "Competitive compensation, equity, and the flexibility to work remotely." },
+  { emoji: "🏙️", text: "Headquartered at The Adolphus Tower in Dallas, TX, with a distributed team worldwide." },
+];
+
 export default function CareersPage() {
   return (
-    <div className="min-h-screen bg-[#F5F5F7]">
+    <div className="min-h-screen bg-[#FFFBF5] relative overflow-hidden">
       <Navbar />
-      <div className="mx-auto max-w-4xl px-6 py-16">
-        <h1 className="text-3xl font-display font-bold text-[#1D1D1F] sm:text-4xl">
-          Careers
+
+      <div className="pointer-events-none absolute -top-20 -right-32 h-[24rem] w-[24rem] rounded-full bg-[#FFD8B5]/40 blur-3xl" />
+      <div className="pointer-events-none absolute top-40 -left-24 h-[28rem] w-[28rem] rounded-full bg-[#B5E3FF]/40 blur-3xl" />
+
+      <div className="relative mx-auto max-w-5xl px-6 py-16 sm:py-20">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[#1D1D1F]/10 bg-white/70 backdrop-blur px-4 py-1.5 shadow-sm">
+          <span className="text-base">🚀</span>
+          <span className="text-[12px] font-semibold text-[#1D1D1F]/70 tracking-wide">
+            Join the team moving the world
+          </span>
+        </div>
+
+        <h1 className="mt-6 text-5xl font-display font-black tracking-tight text-[#1D1D1F] sm:text-6xl">
+          Come build the <span className="text-[#FF7A59]">future</span>
+          <br />
+          of transportation.
         </h1>
-        <p className="mt-3 text-[14px] text-[#6E6E73] max-w-2xl leading-relaxed">
-          Join the team building transportation&apos;s future. We are creating the
-          infrastructure that connects customers and verified providers across 18 modes
-          and 190+ countries.
+        <p className="mt-6 text-lg text-[#1D1D1F]/60 max-w-2xl leading-relaxed">
+          Small team, serious platform. 18 transport modes, 190+ countries, real money,
+          real cargo. If you want your work to ship and matter, you&rsquo;re in the right place.
         </p>
 
         {/* Why CouthActs */}
-        <section className="mt-12">
-          <h2 className="text-2xl font-display font-bold text-[#1D1D1F]">
-            Why CouthActs
+        <section className="mt-16">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#FF7A59]">Why us</p>
+          <h2 className="mt-3 text-3xl font-display font-bold text-[#1D1D1F] sm:text-4xl">
+            Four good reasons.
           </h2>
-          <ul className="mt-4 space-y-3 text-[14px] text-[#6E6E73] leading-relaxed">
-            <li className="flex items-start gap-3">
-              <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#F5F5F7] text-[11px] font-semibold text-[#1D1D1F]">1</span>
-              <span>Work on a platform that handles real money, real cargo, and real accountability across the globe.</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#F5F5F7] text-[11px] font-semibold text-[#1D1D1F]">2</span>
-              <span>Small, high-impact team where your work ships fast and matters immediately.</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#F5F5F7] text-[11px] font-semibold text-[#1D1D1F]">3</span>
-              <span>Competitive compensation, equity, and the flexibility to work remotely.</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#F5F5F7] text-[11px] font-semibold text-[#1D1D1F]">4</span>
-              <span>Headquartered at The Adolphus Tower in Dallas, TX, with a distributed team worldwide.</span>
-            </li>
-          </ul>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {whys.map((w, i) => (
+              <div
+                key={i}
+                className="flex items-start gap-4 rounded-[1.5rem] bg-white border border-[#1D1D1F]/5 p-6 shadow-[0_2px_16px_rgba(0,0,0,0.04)] transition-all hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)] hover:-translate-y-1"
+              >
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FFFBF5] text-xl">
+                  {w.emoji}
+                </span>
+                <p className="text-[14px] text-[#1D1D1F]/70 leading-relaxed pt-1">
+                  {w.text}
+                </p>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* Open Roles */}
-        <section className="mt-12">
-          <h2 className="text-2xl font-display font-bold text-[#1D1D1F]">
-            Open Roles
+        <section className="mt-16">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#007AFF]">Open roles</p>
+          <h2 className="mt-3 text-3xl font-display font-bold text-[#1D1D1F] sm:text-4xl">
+            Where you come in.
           </h2>
-          <div className="mt-6 space-y-4">
+          <div className="mt-8 space-y-4">
             {roles.map((role) => (
               <div
-                key={role.title}
-                className="rounded-3xl bg-white/80 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 p-6"
+                key={role.slug}
+                className="group rounded-[2rem] bg-white border border-[#1D1D1F]/5 p-7 shadow-[0_2px_16px_rgba(0,0,0,0.04)] transition-all hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1"
               >
-                <div className="flex flex-wrap items-start justify-between gap-2">
-                  <h3 className="font-display font-bold text-[#1D1D1F] text-lg">
-                    {role.title}
-                  </h3>
-                  <div className="flex gap-2">
-                    <span className="rounded-full bg-[#F5F5F7] px-3.5 py-1.5 text-[12px] font-medium text-[#1D1D1F]">
-                      {role.type}
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div className="flex items-start gap-4 flex-1 min-w-0">
+                    <span
+                      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-2xl transition-transform group-hover:rotate-[-8deg]"
+                      style={{ backgroundColor: role.bg }}
+                    >
+                      {role.emoji}
                     </span>
-                    <span className="rounded-full bg-[#F5F5F7] px-3.5 py-1.5 text-[12px] font-medium text-[#1D1D1F]">
-                      {role.location}
-                    </span>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-xl font-display font-bold text-[#1D1D1F]">
+                        {role.title}
+                      </h3>
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        <span className="rounded-full bg-[#FFFBF5] border border-[#1D1D1F]/5 px-3 py-1 text-[11px] font-semibold text-[#1D1D1F]/60">
+                          {role.type}
+                        </span>
+                        <span className="rounded-full bg-[#FFFBF5] border border-[#1D1D1F]/5 px-3 py-1 text-[11px] font-semibold text-[#1D1D1F]/60">
+                          {role.location}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <p className="mt-3 text-[13px] text-[#6E6E73] leading-relaxed">
+                <p className="mt-4 text-[14px] text-[#1D1D1F]/60 leading-relaxed">
                   {role.description}
                 </p>
                 <Link
                   href={`/careers/apply?role=${role.slug}`}
-                  className="mt-4 inline-flex items-center justify-center rounded-full bg-[#007AFF] px-5 py-2.5 text-[13px] font-semibold text-white hover:bg-[#0055D4] active:scale-[0.97] transition-all min-h-[44px]"
+                  className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#1D1D1F] px-6 py-3 text-[13px] font-semibold text-white hover:bg-[#007AFF] hover:scale-[1.03] transition-all"
+                  style={{ minHeight: "44px" }}
                 >
-                  Apply Now
+                  Apply now →
                 </Link>
               </div>
             ))}
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="mt-12 rounded-3xl bg-white/80 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 p-6 text-center">
-          <h2 className="text-xl font-display font-bold text-[#1D1D1F]">
-            Don&apos;t see your role?
+        {/* General Application CTA */}
+        <section className="mt-16 rounded-[2.5rem] bg-gradient-to-br from-[#FFF5E6] via-white to-[#EAF4FF] p-10 border border-white shadow-sm text-center">
+          <span className="text-4xl">✨</span>
+          <h2 className="mt-4 text-3xl font-display font-bold text-[#1D1D1F]">
+            Don&rsquo;t see your role?
           </h2>
-          <p className="mt-2 text-[13px] text-[#6E6E73]">
-            We are always looking for exceptional people. Send your resume and a note
-            about what you would bring to CouthActs.
+          <p className="mt-3 text-[14px] text-[#1D1D1F]/60 max-w-xl mx-auto">
+            We&rsquo;re always looking for exceptional people. Send your story and what
+            you&rsquo;d bring &mdash; we read every one.
           </p>
           <Link
             href="/careers/apply?role=general"
-            className="mt-4 inline-flex items-center justify-center rounded-full bg-[#007AFF] px-5 py-2.5 text-[13px] font-semibold text-white hover:bg-[#0055D4] active:scale-[0.97] transition-all min-h-[44px]"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#1D1D1F] px-8 py-3.5 text-[14px] font-semibold text-white hover:bg-[#FF7A59] hover:scale-[1.03] transition-all"
           >
-            Submit General Application
+            Send a general application
           </Link>
         </section>
 
-        <div className="mt-16 flex flex-wrap gap-4 text-[13px] text-[#007AFF]">
-          <Link href="/about" className="hover:text-[#0055D4]">About</Link>
-          <Link href="/press" className="hover:text-[#0055D4]">Press</Link>
-          <Link href="/safety" className="hover:text-[#0055D4]">Safety Center</Link>
+        <div className="mt-12 flex flex-wrap gap-2">
+          <Link href="/about" className="rounded-full bg-white border border-[#1D1D1F]/10 px-4 py-2 text-[12px] font-semibold text-[#1D1D1F]/70 hover:bg-[#FFF5E6] hover:border-[#FF7A59]/40 hover:text-[#FF7A59] transition-all">About</Link>
+          <Link href="/press" className="rounded-full bg-white border border-[#1D1D1F]/10 px-4 py-2 text-[12px] font-semibold text-[#1D1D1F]/70 hover:bg-[#FFF5E6] hover:border-[#FF7A59]/40 hover:text-[#FF7A59] transition-all">Press</Link>
+          <Link href="/safety" className="rounded-full bg-white border border-[#1D1D1F]/10 px-4 py-2 text-[12px] font-semibold text-[#1D1D1F]/70 hover:bg-[#FFF5E6] hover:border-[#FF7A59]/40 hover:text-[#FF7A59] transition-all">Safety</Link>
         </div>
       </div>
     </div>

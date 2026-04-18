@@ -33,14 +33,42 @@ export default async function OpenGraphImage() {
             justifyContent: "space-between",
           }}
         >
-          {/* Logo */}
-          <img
-            src={`${SITE}/press/logo-full.png`}
-            width={260}
-            height={60}
-            alt="CouthActs"
-            style={{ objectFit: "contain", objectPosition: "left center" }}
-          />
+          {/* Logo lockup: mark + wordmark */}
+          <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+            <img
+              src={`${SITE}/press/logo-mark-512.png`}
+              width={72}
+              height={72}
+              alt="CouthActs"
+              style={{ objectFit: "contain" }}
+            />
+            <div
+              style={{
+                display: "flex",
+                alignItems: "baseline",
+                fontSize: 52,
+                fontWeight: 900,
+                color: "#1D1D1F",
+                letterSpacing: -1.5,
+                fontFamily: "serif",
+              }}
+            >
+              CouthActs
+              <span
+                style={{
+                  fontSize: 22,
+                  marginLeft: 4,
+                  marginTop: -20,
+                  color: "#1D1D1F",
+                  opacity: 0.5,
+                  fontWeight: 700,
+                  fontFamily: "sans-serif",
+                }}
+              >
+                ™
+              </span>
+            </div>
+          </div>
 
           {/* Headline */}
           <div

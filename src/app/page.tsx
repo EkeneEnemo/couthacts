@@ -11,7 +11,6 @@ import {
   MapPin,
   Satellite,
   Radio,
-  Fingerprint,
   Camera,
   Thermometer,
   Anchor,
@@ -24,14 +23,10 @@ import {
   Landmark,
   Code2,
   Heart,
-  Package,
   Home,
-  Briefcase,
   Sparkles,
   Smile,
   Sun,
-  Lock,
-  Scale,
   Waves,
   Car,
 } from "lucide-react";
@@ -273,8 +268,8 @@ export default function LandingPage() {
                 emoji: "🚕",
                 count: "Taxi · Courier · Moving · Freight",
                 tagline: "From groceries to grand pianos.",
-                image: "https://images.unsplash.com/photo-1558980664-10ea5e6a0e04?w=1200&q=80",
-                alt: "Friendly courier on a sunny street",
+                image: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1200&q=80",
+                alt: "Yellow taxis on a sunny city street",
                 color: "from-[#FF7A59] to-[#FFB020]",
                 icon: Car,
               },
@@ -302,7 +297,7 @@ export default function LandingPage() {
                 title: "Something special",
                 emoji: "💎",
                 count: "Rail · Armored · Medical · Hazmat · Oversized",
-                tagline: "The stuff other platforms won&rsquo;t touch.",
+                tagline: "The stuff other platforms won’t touch.",
                 image: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=1200&q=80",
                 alt: "Scenic freight train through landscape",
                 color: "from-[#FF6B9D] to-[#FF7A59]",
@@ -362,61 +357,73 @@ export default function LandingPage() {
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
               {
-                icon: Package,
+                emoji: "📦",
                 title: "Sending it",
-                desc: "A birthday box to mom. A forgotten charger to your partner. We&rsquo;ll get it there today.",
+                desc: "A birthday box to mom. A forgotten charger to your partner. We’ll get it there today.",
                 cta: "Send a package",
                 color: "#FF7A59",
-                bg: "#FFF1E8",
+                image: "https://images.unsplash.com/photo-1586769852044-692d6e3703f0?w=1000&q=80",
+                alt: "Stack of brown parcels ready to ship",
               },
               {
-                icon: Home,
+                emoji: "🏡",
                 title: "Moving in",
                 desc: "First apartment, fifth house, or somewhere in between. Book verified movers with one tap.",
                 cta: "Book movers",
                 color: "#34C759",
-                bg: "#E8F7EC",
+                image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1000&q=80",
+                alt: "Moving boxes stacked in a sunny room",
               },
               {
-                icon: Briefcase,
+                emoji: "💼",
                 title: "Running a biz",
                 desc: "Pallets, containers, or a fleet of deliveries. Scale up without hiring a logistics team.",
                 cta: "Ship at scale",
                 color: "#007AFF",
-                bg: "#E8F1FF",
+                image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1000&q=80",
+                alt: "Warehouse shelves filled with goods",
               },
               {
-                icon: Sparkles,
+                emoji: "✨",
                 title: "Going big",
                 desc: "Private jet for the weekend. Yacht for the honeymoon. Armored transport for the art. Yes, really.",
                 cta: "Go premium",
                 color: "#FF6B9D",
-                bg: "#FFE8F0",
+                image: "https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=1000&q=80",
+                alt: "Private jet on a sunny tarmac",
               },
             ].map((s) => (
               <Link
                 key={s.title}
                 href="/register"
-                className="group rounded-[2rem] bg-[#FFFBF5] p-7 transition-all hover:bg-white hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 border border-[#1D1D1F]/5"
+                className="group relative overflow-hidden rounded-[2rem] bg-white transition-all hover:shadow-[0_20px_60px_rgba(0,0,0,0.12)] hover:-translate-y-1 border border-[#1D1D1F]/5 flex flex-col"
               >
-                <div
-                  className="flex h-12 w-12 items-center justify-center rounded-2xl transition-transform group-hover:scale-110 group-hover:rotate-[-4deg]"
-                  style={{ backgroundColor: s.bg }}
-                >
-                  <s.icon className="h-5 w-5" style={{ color: s.color }} />
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <Image
+                    src={s.image}
+                    alt={s.alt}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent" />
+                  <span className="absolute top-4 right-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/95 backdrop-blur text-2xl shadow-lg transition-transform group-hover:rotate-[-8deg] group-hover:scale-110">
+                    {s.emoji}
+                  </span>
                 </div>
-                <h3 className="mt-5 text-xl font-display font-bold text-[#1D1D1F]">
-                  {s.title}
-                </h3>
-                <p className="mt-3 text-[14px] text-[#1D1D1F]/60 leading-relaxed">
-                  {s.desc}
-                </p>
-                <div
-                  className="mt-6 inline-flex items-center gap-1.5 text-[13px] font-semibold transition-colors"
-                  style={{ color: s.color }}
-                >
-                  {s.cta}
-                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                <div className="flex flex-col flex-1 p-6">
+                  <h3 className="text-xl font-display font-bold text-[#1D1D1F]">
+                    {s.title}
+                  </h3>
+                  <p className="mt-2 text-[13px] text-[#1D1D1F]/60 leading-relaxed flex-1">
+                    {s.desc}
+                  </p>
+                  <div
+                    className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold transition-colors"
+                    style={{ color: s.color }}
+                  >
+                    {s.cta}
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                  </div>
                 </div>
               </Link>
             ))}
@@ -457,7 +464,7 @@ export default function LandingPage() {
               {
                 num: "03",
                 title: "Money held safely",
-                desc: "Your funds sit in escrow. Nobody gets paid until you&rsquo;re happy.",
+                desc: "Your funds sit in escrow. Nobody gets paid until you’re happy.",
                 emoji: "🔒",
                 color: "#34C759",
                 bg: "#E8F7EC",
@@ -541,51 +548,65 @@ export default function LandingPage() {
             <div className="grid gap-4 sm:grid-cols-2">
               {[
                 {
-                  icon: Fingerprint,
+                  emoji: "🪪",
                   title: "Real people, real IDs",
                   desc: "Every user passes government ID checks. Ghosts need not apply.",
                   color: "#007AFF",
-                  bg: "#E8F1FF",
+                  image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1000&q=80",
+                  alt: "Hands holding an ID card",
                 },
                 {
-                  icon: Lock,
+                  emoji: "🔐",
                   title: "Money held safely",
-                  desc: "Your funds wait in escrow. The provider only gets paid when you&rsquo;re happy.",
+                  desc: "Your funds wait in escrow. The provider only gets paid when you’re happy.",
                   color: "#34C759",
-                  bg: "#E8F7EC",
+                  image: "https://images.unsplash.com/photo-1579621970795-87facc2f976d?w=1000&q=80",
+                  alt: "Secure wallet and stacked cash",
                 },
                 {
-                  icon: Eye,
+                  emoji: "📍",
                   title: "Know where it is",
-                  desc: "GPS, photos, QR check-ins. Nine layers of &ldquo;yep, still on track.&rdquo;",
+                  desc: "GPS, photos, QR check-ins. Nine layers of “yep, still on track.”",
                   color: "#FF7A59",
-                  bg: "#FFF1E8",
+                  image: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=1000&q=80",
+                  alt: "Map app open on a smartphone",
                 },
                 {
-                  icon: Scale,
+                  emoji: "🤝",
                   title: "Fair if it goes wrong",
-                  desc: "Real people resolve disputes within 24 hours. Funds stay frozen till it&rsquo;s sorted.",
+                  desc: "Real people resolve disputes within 24 hours. Funds stay frozen till it’s sorted.",
                   color: "#FF6B9D",
-                  bg: "#FFE8F0",
+                  image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=1000&q=80",
+                  alt: "Friendly support agent smiling",
                 },
               ].map((f) => (
                 <div
                   key={f.title}
-                  className="rounded-[1.5rem] bg-white p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all hover:shadow-[0_12px_36px_rgba(0,0,0,0.08)] hover:-translate-y-1"
+                  className="group overflow-hidden rounded-[1.5rem] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all hover:shadow-[0_16px_44px_rgba(0,0,0,0.10)] hover:-translate-y-1"
                 >
-                  <div
-                    className="flex h-11 w-11 items-center justify-center rounded-2xl"
-                    style={{ backgroundColor: f.bg }}
-                  >
-                    <f.icon className="h-5 w-5" style={{ color: f.color }} />
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <Image
+                      src={f.image}
+                      alt={f.alt}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+                    <span className="absolute top-3 right-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-white/95 backdrop-blur text-xl shadow-md transition-transform group-hover:rotate-[-8deg] group-hover:scale-110">
+                      {f.emoji}
+                    </span>
                   </div>
-                  <h3 className="mt-4 text-[15px] font-display font-bold text-[#1D1D1F]">
-                    {f.title}
-                  </h3>
-                  <p
-                    className="mt-2 text-[13px] text-[#1D1D1F]/55 leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: f.desc }}
-                  />
+                  <div className="p-5">
+                    <h3
+                      className="text-[15px] font-display font-bold"
+                      style={{ color: f.color }}
+                    >
+                      {f.title}
+                    </h3>
+                    <p className="mt-2 text-[13px] text-[#1D1D1F]/60 leading-relaxed">
+                      {f.desc}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>

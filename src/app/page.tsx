@@ -132,27 +132,23 @@ export default function LandingPage() {
                 </div>
 
                 {/* Package photo */}
-                <div className="relative col-span-2 row-span-2 overflow-hidden rounded-[1.5rem] shadow-lg ring-1 ring-black/5">
+                <div className="relative col-span-2 row-span-4 overflow-hidden rounded-[1.5rem] shadow-lg ring-1 ring-black/5">
                   <Image
                     src="https://images.unsplash.com/photo-1586769852044-692d6e3703f0?w=800&q=80"
                     alt="Package being delivered"
                     fill
                     className="object-cover"
                   />
-                </div>
-
-                {/* Yellow smile card */}
-                <div className="col-span-2 row-span-2 rounded-[1.5rem] bg-[#FFE3A3] p-5 flex flex-col justify-between shadow-lg">
-                  <Sparkles className="h-6 w-6 text-[#1D1D1F]" />
-                  <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-wider text-[#1D1D1F]/60">
-                      Today
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1D1D1F]/50 via-transparent to-transparent" />
+                  <div className="absolute top-4 right-4 h-10 w-10 flex items-center justify-center rounded-2xl bg-white/95 backdrop-blur text-lg shadow-md">
+                    📦
+                  </div>
+                  <div className="absolute bottom-4 left-4 right-4 rounded-2xl bg-white/90 backdrop-blur-md p-3 shadow-lg">
+                    <p className="text-[10px] font-semibold uppercase tracking-wider text-[#FF7A59]">
+                      Out for delivery
                     </p>
-                    <p className="mt-1 text-3xl font-display font-black text-[#1D1D1F] tabular-nums">
-                      <AnimatedCounter end={4200} /> +
-                    </p>
-                    <p className="text-[11px] text-[#1D1D1F]/60">
-                      moves in progress
+                    <p className="mt-0.5 text-[12px] font-semibold text-[#1D1D1F]">
+                      Arrives by 4:30 PM
                     </p>
                   </div>
                 </div>

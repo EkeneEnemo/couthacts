@@ -19,7 +19,11 @@
     "learnMore": "了解更多",
     "getStarted": "开始使用",
     "readMore": "阅读更多",
-    "viewAll": "查看全部"
+    "viewAll": "查看全部",
+    "letsGo": "出发",
+    "contactSales": "联系销售",
+    "seeSolutions": "查看方案",
+    "readTheDocs": "阅读文档"
   },
   "nav": {
     "services": "服务",
@@ -28,19 +32,260 @@
     "safety": "安全",
     "enterprise": "企业",
     "government": "政府",
-    "api": "API"
+    "api": "API",
+    "browseJobs": "浏览任务",
+    "postAJob": "发布任务",
+    "instant": "即时",
+    "instantJobs": "即时任务",
+    "admin": "管理",
+    "adminDashboard": "管理后台"
   },
   "home": {
     "heroBadge": "你好 — 最简单的方式",
-    "heroTitle": "把东西送到目的地。",
+    "heroTitle": "嗨。让我们",
+    "heroTitleLine2": "送到",
+    "heroTitleHighlight": "目的地。",
+    "heroSub": "穿城送出的生日礼物。横跨全国的整套公寓。越洋而去的货柜。CouthActs 是<b>最友好的方式</b>，把任何东西送到任何地方 — 真人值得信赖，资金安全托管直到送达。",
     "freeToJoin": "免费加入",
     "moneyHeldSafely": "资金安全托管",
-    "realHumans": "真人服务",
+    "realHumans": "真实的人",
     "letsMoveSomething": "开始运送",
-    "iDrive": "我是司机 / 我送货"
+    "iDrive": "我是司机 / 我送货",
+    "countries": "国家",
+    "waysToMove": "运输方式",
+    "moneySafe": "资金安全",
+    "realSupport": "真人客服",
+    "track": {
+      "title": "有追踪码吗？",
+      "sub": "现在就看看你的货物。无需登录，不用烦恼。"
+    },
+    "moving": {
+      "label": "选择你的风格",
+      "title": "那么，我们今天要运什么？",
+      "sub": "十八种送达方式。选一种合适的，剩下的我们来处理。",
+      "aroundTown": {
+        "title": "市内",
+        "count": "出租 · 快递 · 搬家 · 货运",
+        "tagline": "从食品杂货到三角钢琴。"
+      },
+      "air": {
+        "title": "空中",
+        "count": "私人飞机 · 直升机 · 航班 · 航空货运",
+        "tagline": "窗边座位或整扇窗框，我们都能送。"
+      },
+      "sea": {
+        "title": "海上",
+        "count": "货运 · 游艇 · 渡轮",
+        "tagline": "平静海面与集装箱船。"
+      },
+      "special": {
+        "title": "特殊类型",
+        "count": "铁路 · 装甲 · 医疗 · 危险品 · 超大件",
+        "tagline": "其他平台不愿碰的，我们来。"
+      }
+    },
+    "moments": {
+      "label": "为每一个时刻而生",
+      "title": "无论今天发生什么。",
+      "sending": {
+        "title": "寄出",
+        "desc": "送妈妈的生日包裹。忘带的充电器。我们今天就送到。",
+        "cta": "寄送包裹"
+      },
+      "moving": {
+        "title": "搬家",
+        "desc": "第一套公寓、第五套房子、或介于之间。一键预约认证搬家团队。",
+        "cta": "预约搬家"
+      },
+      "business": {
+        "title": "经营业务",
+        "desc": "托盘、集装箱或送货车队。无需组建物流团队即可扩大规模。",
+        "cta": "规模化运输"
+      },
+      "premium": {
+        "title": "高端需求",
+        "desc": "周末私人飞机。蜜月游艇。艺术品装甲运输。没错，都行。",
+        "cta": "选择高端"
+      }
+    },
+    "how": {
+      "label": "比发消息还简单",
+      "title": "四步，搞定。",
+      "step1": {
+        "title": "说出你的需求",
+        "desc": "出租车？快递？集装箱船？用你自己的话告诉我们。"
+      },
+      "step2": {
+        "title": "真实服务者竞标",
+        "desc": "有真实评价的认证专业人员竞标你的任务。挑一个你喜欢的。"
+      },
+      "step3": {
+        "title": "资金安全托管",
+        "desc": "资金保存在托管账户。满意之前谁都不能拿。"
+      },
+      "step4": {
+        "title": "全程可见",
+        "desc": "实时地图、照片签到，到达时友好提醒。"
+      }
+    },
+    "peace": {
+      "label": "放心服务，全包在内",
+      "title": "我们守护你。",
+      "titleSub": "每一次运输。",
+      "body": "网上的陌生人？这里不是。每位司机、搬家师傅、飞行员都经过真实身份核验。资金安全保留直到你认可。如果出了问题，真人介入，不是聊天机器人。",
+      "chipIdVerified": "身份已核验",
+      "chipEscrowSafe": "资金托管",
+      "chipTracking": "九层追踪",
+      "chipDisputes": "真人处理纠纷",
+      "feature1": {
+        "title": "真人，真证件",
+        "desc": "每位用户都通过官方身份核验。幽灵用户没门。"
+      },
+      "feature2": {
+        "title": "资金安全托管",
+        "desc": "资金在托管账户中等待。你满意了，服务者才会收款。"
+      },
+      "feature3": {
+        "title": "知道它在哪",
+        "desc": "GPS、照片、二维码。九层的\"仍在路上\"。"
+      },
+      "feature4": {
+        "title": "出问题也公平",
+        "desc": "真人在24小时内解决纠纷。资金冻结直到处理完毕。"
+      }
+    },
+    "tracking": {
+      "label": "时刻掌握",
+      "title": "你再也不用问",
+      "titleHighlight": "\"到哪了？\"",
+      "sub": "九种方式盯着你的货物。安静地，在后台运行。",
+      "gps": { "title": "实时 GPS", "desc": "每15秒更新一次。" },
+      "flight": { "title": "航班追踪", "desc": "天空中的每一翼尽收眼底。" },
+      "maritime": { "title": "海上 AIS", "desc": "货船和包船游艇在地图上。" },
+      "qr": { "title": "二维码 / PIN 验证", "desc": "取件和送达的加密证明。" },
+      "photo": { "title": "照片签到", "desc": "带时间戳和地理位置，可分享。" },
+      "sensors": { "title": "状态传感器", "desc": "温度、湿度、震动 — 全部记录。" },
+      "satellite": { "title": "卫星 GPS", "desc": "蜂窝覆盖不到的地方 GLONASS 备用。" },
+      "geofence": { "title": "地理围栏提醒", "desc": "进入你的区域时通知。" },
+      "timeline": { "title": "完整时间轴", "desc": "每个检查点，可导出为 PDF。" }
+    },
+    "pros": {
+      "label": "给方向盘后的专业人员",
+      "title": "司机、搬运工、飞行员。这也是为你打造的。",
+      "advanceBadge": "CouthActs Advance",
+      "advanceTitle": "领薪。",
+      "advanceTitleFast": "快。",
+      "advanceBody": "不用等任务结束。精英服务者可在24小时内支取高达70%的托管资金 — 下一箱油、下一单货、下一周都有着落。",
+      "advanceStat1": "预支比例",
+      "advanceStat2": "放款速度",
+      "advanceStat3": "最低费率",
+      "advanceCta": "了解 Advance",
+      "academyBadge": "CouthActs Academy",
+      "academyTitle": "学习。",
+      "academyTitleEarn": "赚取。",
+      "academyTitleRepeat": "重复。",
+      "academyBody": "短课程。真认证。更大单子。提升分数，解锁别人碰不到的机会。",
+      "academyCta": "探索 Academy",
+      "courseSafety": "运输安全",
+      "courseHazmat": "危险品操作",
+      "courseExcellence": "客户卓越",
+      "courseCert": "认证",
+      "courseBoost": "提升"
+    },
+    "bigOps": {
+      "label": "大规模运营",
+      "title": "需要运更多？",
+      "titleSub": "我们也做。",
+      "body": "不论你是财富 500 强还是联邦机构，基础设施都能扩展。同一平台，认真的工具。",
+      "enterpriseTitle": "企业版",
+      "enterpriseBody": "批量定价、专属团队、SSO、API 网关挂钩、白标追踪。",
+      "governmentTitle": "政府",
+      "governmentBody": "符合 FedRAMP 的控制、SAM.gov 集成、完整审计线索。"
+    },
+    "devs": {
+      "label": "开发者欢迎",
+      "title": "有代码？在我们上面构建。",
+      "body": "干净的 REST API、实时 Webhooks，以及不让人头疼的沙盒。",
+      "codeNote": "— 一次请求，完成"
+    },
+    "finalCta": {
+      "badge": "免费账户。无需信用卡。没有套路。",
+      "title": "那么。准备好",
+      "titleHighlight": "运点什么了？",
+      "body": "一分钟内完成注册。再用两分钟发布首单。从任何地方看着它发生。",
+      "cta": "开始运送"
+    },
+    "footer": {
+      "tagline": "把任何东西送到任何地方的最友好方式。18 种方式、190 多个国家、真实值得信赖的人。",
+      "madeWithCare": "在德州达拉斯用心打造",
+      "platform": "平台",
+      "resources": "资源",
+      "legal": "法律",
+      "rights": "保留所有权利",
+      "founded": "创立于",
+      "address": "阿道弗斯大厦，德州达拉斯",
+      "contact": "legal@couthacts.com",
+      "links": {
+        "browseJobs": "浏览任务",
+        "getStarted": "开始使用",
+        "forProviders": "给服务商",
+        "enterprise": "企业",
+        "government": "政府",
+        "about": "关于",
+        "academy": "Academy",
+        "advance": "Advance",
+        "apiDocs": "API 文档",
+        "signIn": "登录",
+        "settings": "设置",
+        "careers": "招聘",
+        "press": "媒体",
+        "help": "帮助中心",
+        "terms": "服务条款",
+        "privacy": "隐私政策",
+        "cookies": "Cookie",
+        "acceptableUse": "可接受使用",
+        "safety": "安全"
+      }
+    }
+  },
+  "seo": {
+    "escrowSafe": "资金托管",
+    "quotesInMinutes": "几分钟获得报价",
+    "idVerified": "身份核验服务商",
+    "commonQuestions": "常见问题",
+    "alsoPopular": "同样热门",
+    "whatYouGet": "你会得到",
+    "ready": "准备好",
+    "postThisMove": "发布这次运输",
+    "getRealQuotes": "获取真实报价",
+    "browseSimilar": "浏览类似运输",
+    "fromPrice": "起价",
+    "miles": "英里",
+    "kilometers": "公里"
   },
   "locale": {
     "change": "切换语言",
     "language": "语言"
+  },
+  "wallet": {
+    "balance": "余额",
+    "topUp": "充值",
+    "history": "记录",
+    "pending": "处理中",
+    "available": "可用"
+  },
+  "booking": {
+    "status": "状态",
+    "pickup": "取货",
+    "delivery": "送达",
+    "tracking": "追踪",
+    "messages": "消息"
+  },
+  "errors": {
+    "notFound": "页面未找到",
+    "notFoundSub": "你查找的页面已移动或从未存在。",
+    "goHome": "回到首页",
+    "serverError": "我们这边出了点问题",
+    "serverErrorSub": "工程师已经收到提醒。请稍等再试。"
   }
 }

@@ -19,7 +19,11 @@
     "learnMore": "Mehr erfahren",
     "getStarted": "Loslegen",
     "readMore": "Weiterlesen",
-    "viewAll": "Alle anzeigen"
+    "viewAll": "Alle anzeigen",
+    "letsGo": "Los geht's",
+    "contactSales": "Vertrieb kontaktieren",
+    "seeSolutions": "Lösungen ansehen",
+    "readTheDocs": "Dokumentation lesen"
   },
   "nav": {
     "services": "Dienste",
@@ -28,19 +32,260 @@
     "safety": "Sicherheit",
     "enterprise": "Unternehmen",
     "government": "Behörden",
-    "api": "API"
+    "api": "API",
+    "browseJobs": "Aufträge durchsuchen",
+    "postAJob": "Auftrag inserieren",
+    "instant": "Sofort",
+    "instantJobs": "Sofortaufträge",
+    "admin": "Admin",
+    "adminDashboard": "Admin-Dashboard"
   },
   "home": {
     "heroBadge": "Hallo — der einfachste Weg",
-    "heroTitle": "Bringen wir es dorthin.",
+    "heroTitle": "Hey. Bringen wir",
+    "heroTitleLine2": "es",
+    "heroTitleHighlight": "hin.",
+    "heroSub": "Ein Geburtstagsgeschenk quer durch die Stadt. Eine ganze Wohnung durchs Land. Ein Container über den Ozean. CouthActs ist der <b>sympathischste Weg</b>, alles überall hinzubringen — mit echten Menschen, denen man vertrauen kann, und Ihrem Geld sicher verwahrt bis zur Ankunft.",
     "freeToJoin": "Kostenlose Anmeldung",
     "moneyHeldSafely": "Geld sicher verwahrt",
     "realHumans": "Echte Menschen",
     "letsMoveSomething": "Etwas bewegen",
-    "iDrive": "Ich fahre / ich liefere"
+    "iDrive": "Ich fahre / ich liefere",
+    "countries": "Länder",
+    "waysToMove": "Transportarten",
+    "moneySafe": "Geld sicher",
+    "realSupport": "Echter Support",
+    "track": {
+      "title": "Haben Sie einen Sendungscode?",
+      "sub": "Schauen Sie jetzt gleich nach Ihrer Sendung. Ohne Anmeldung, ohne Stress."
+    },
+    "moving": {
+      "label": "Wählen Sie Ihren Stil",
+      "title": "Was bewegen wir heute?",
+      "sub": "Achtzehn Wege ans Ziel. Wählen Sie den passenden — den Rest erledigen wir.",
+      "aroundTown": {
+        "title": "Quer durch die Stadt",
+        "count": "Taxi · Kurier · Umzug · Fracht",
+        "tagline": "Vom Einkauf bis zum Flügel."
+      },
+      "air": {
+        "title": "Durch die Luft",
+        "count": "Jets · Hubschrauber · Airlines · Luftfracht",
+        "tagline": "Ob Fensterplatz oder Fensterrahmen — wir fliegen es."
+      },
+      "sea": {
+        "title": "Auf hoher See",
+        "count": "Fracht · Yacht · Fähre",
+        "tagline": "Ruhige See und Containerschiffe."
+      },
+      "special": {
+        "title": "Etwas Besonderes",
+        "count": "Schiene · Gepanzert · Medizinisch · Gefahrgut · Überdimensional",
+        "tagline": "Was andere Plattformen nicht anfassen."
+      }
+    },
+    "moments": {
+      "label": "Für Ihre Momente gemacht",
+      "title": "Egal, was der Tag bringt.",
+      "sending": {
+        "title": "Etwas versenden",
+        "desc": "Ein Geburtstagspaket an Mama. Ein vergessenes Ladekabel zum Partner. Wir bringen es heute noch.",
+        "cta": "Paket senden"
+      },
+      "moving": {
+        "title": "Einziehen",
+        "desc": "Erste Wohnung, fünftes Haus oder irgendwas dazwischen. Verifizierte Umzugshelfer auf Knopfdruck buchen.",
+        "cta": "Umzug buchen"
+      },
+      "business": {
+        "title": "Business führen",
+        "desc": "Paletten, Container oder eine Lieferflotte. Skalieren ohne Logistikteam einzustellen.",
+        "cta": "In großem Maßstab versenden"
+      },
+      "premium": {
+        "title": "Größer denken",
+        "desc": "Privatjet fürs Wochenende. Yacht für die Flitterwochen. Gepanzerter Transport für die Kunst. Ja, wirklich.",
+        "cta": "Premium wählen"
+      }
+    },
+    "how": {
+      "label": "Einfacher als eine SMS",
+      "title": "Vier Taps. Fertig.",
+      "step1": {
+        "title": "Sagen Sie, was Sie brauchen",
+        "desc": "Ein Taxi? Einen Kurier? Ein Containerschiff? Sagen Sie es mit Ihren Worten."
+      },
+      "step2": {
+        "title": "Echte Menschen bieten",
+        "desc": "Verifizierte Profis mit echten Bewertungen bewerben sich um Ihren Auftrag. Wählen Sie Ihre Person."
+      },
+      "step3": {
+        "title": "Geld sicher verwahrt",
+        "desc": "Ihr Geld liegt im Treuhandkonto. Niemand wird bezahlt, bevor Sie zufrieden sind."
+      },
+      "step4": {
+        "title": "Live mitverfolgen",
+        "desc": "Live-Karte, Foto-Checkins und eine freundliche Benachrichtigung bei Ankunft."
+      }
+    },
+    "peace": {
+      "label": "Sicherheit inklusive",
+      "title": "Wir haben Ihren Rücken.",
+      "titleSub": "Bei jedem Transport.",
+      "body": "Fremde im Netz? Hier nicht. Jede Fahrerin, jeder Umzugshelfer, jeder Pilot durchläuft echte Identitätsprüfungen. Ihr Geld bleibt sicher, bis Sie grünes Licht geben. Und wenn etwas schiefläuft, springt ein echter Mensch ein — kein Chatbot.",
+      "chipIdVerified": "Identität geprüft",
+      "chipEscrowSafe": "Treuhand-sicher",
+      "chipTracking": "9-Schichten-Tracking",
+      "chipDisputes": "Echte Menschen klären Streitfälle",
+      "feature1": {
+        "title": "Echte Menschen, echte Ausweise",
+        "desc": "Jeder Nutzer durchläuft eine amtliche ID-Prüfung. Geister kommen nicht durch."
+      },
+      "feature2": {
+        "title": "Geld sicher verwahrt",
+        "desc": "Ihr Geld wartet im Treuhand. Der Anbieter wird erst bezahlt, wenn Sie zufrieden sind."
+      },
+      "feature3": {
+        "title": "Wissen, wo es ist",
+        "desc": "GPS, Fotos, QR-Check-ins. Neun Schichten \"ja, noch auf Kurs\"."
+      },
+      "feature4": {
+        "title": "Fair, wenn's schiefgeht",
+        "desc": "Echte Menschen lösen Streitfälle binnen 24 Stunden. Geld bleibt eingefroren bis zur Klärung."
+      }
+    },
+    "tracking": {
+      "label": "Immer informiert",
+      "title": "Sie werden sich nie fragen",
+      "titleHighlight": "\"wo ist es?\"",
+      "sub": "Neun Wege, Ihre Sachen im Blick zu behalten. Leise, im Hintergrund.",
+      "gps": { "title": "Live-GPS", "desc": "Updates alle 15 Sekunden." },
+      "flight": { "title": "Flugverfolgung", "desc": "Jeden Flügel am Himmel verfolgen." },
+      "maritime": { "title": "Maritimes AIS", "desc": "Containerschiffe und Yachten auf der Karte." },
+      "qr": { "title": "QR- / PIN-Bestätigung", "desc": "Kryptografischer Nachweis bei Abholung und Zustellung." },
+      "photo": { "title": "Foto-Checkins", "desc": "Mit Zeitstempel, Geolokalisierung und teilbar." },
+      "sensors": { "title": "Zustandssensoren", "desc": "Temperatur, Feuchte, Stöße — alles protokolliert." },
+      "satellite": { "title": "Satelliten-GPS", "desc": "GLONASS-Backup, wo kein Netz hinreicht." },
+      "geofence": { "title": "Geofence-Pings", "desc": "Benachrichtigt, sobald es Ihre Zone erreicht." },
+      "timeline": { "title": "Vollständige Timeline", "desc": "Jeder Checkpoint, als PDF exportierbar." }
+    },
+    "pros": {
+      "label": "Für die Profis am Steuer",
+      "title": "Fahrer. Umzugshelfer. Piloten. Wir haben das auch für Sie gebaut.",
+      "advanceBadge": "CouthActs Advance",
+      "advanceTitle": "Werden Sie bezahlt.",
+      "advanceTitleFast": "Schnell.",
+      "advanceBody": "Warten Sie nicht auf den Auftragsabschluss. Elite-Anbieter können bis zu 70 % ihres Treuhand innerhalb von 24 Stunden abrufen — damit die nächste Tankfüllung, die nächste Ladung, die nächste Woche immer gedeckt ist.",
+      "advanceStat1": "Vorschussrate",
+      "advanceStat2": "Auszahlungstempo",
+      "advanceStat3": "Niedrigste Gebühr",
+      "advanceCta": "Mehr zu Advance",
+      "academyBadge": "CouthActs Academy",
+      "academyTitle": "Lernen.",
+      "academyTitleEarn": "Verdienen.",
+      "academyTitleRepeat": "Wiederholen.",
+      "academyBody": "Kurze Kurse. Echte Zertifizierungen. Größere Aufträge. Erhöhen Sie Ihren Score und entriegeln Sie, was andere nicht erreichen.",
+      "academyCta": "Die Academy erkunden",
+      "courseSafety": "Transportsicherheit",
+      "courseHazmat": "Gefahrgut-Handling",
+      "courseExcellence": "Kunden-Exzellenz",
+      "courseCert": "Zert",
+      "courseBoost": "Boost"
+    },
+    "bigOps": {
+      "label": "Großer Betrieb",
+      "title": "Sie bewegen mehr?",
+      "titleSub": "Das können wir auch.",
+      "body": "Ob Fortune 500 oder Bundesbehörde — die Infrastruktur skaliert. Gleiche Plattform, ernsthafte Werkzeuge.",
+      "enterpriseTitle": "Enterprise",
+      "enterpriseBody": "Volumentarife, dedizierte Teams, SSO, API-Webhooks, White-Label-Tracking.",
+      "governmentTitle": "Behörden",
+      "governmentBody": "FedRAMP-konforme Kontrollen, SAM.gov-Integration, lückenloser Audit-Trail."
+    },
+    "devs": {
+      "label": "Entwickler willkommen",
+      "title": "Haben Sie Code? Bauen Sie auf uns.",
+      "body": "Eine saubere REST-API, Echtzeit-Webhooks und eine Sandbox, die Sie nicht hasst.",
+      "codeNote": "— eine Anfrage, fertig"
+    },
+    "finalCta": {
+      "badge": "Kostenloses Konto. Keine Kreditkarte. Kein Haken.",
+      "title": "Also. Bereit,",
+      "titleHighlight": "etwas zu bewegen?",
+      "body": "Registrieren Sie sich in unter einer Minute. Schalten Sie Ihren ersten Transport in zwei weiteren. Verfolgen Sie alles von überall.",
+      "cta": "Jetzt loslegen"
+    },
+    "footer": {
+      "tagline": "Der sympathischste Weg, alles überallhin zu bringen. 18 Modi, 190+ Länder und echte Menschen, denen man vertrauen kann.",
+      "madeWithCare": "Mit Sorgfalt gemacht in Dallas, TX",
+      "platform": "Plattform",
+      "resources": "Ressourcen",
+      "legal": "Rechtliches",
+      "rights": "Alle Rechte vorbehalten",
+      "founded": "Gegründet",
+      "address": "The Adolphus Tower, Dallas, TX",
+      "contact": "legal@couthacts.com",
+      "links": {
+        "browseJobs": "Aufträge durchsuchen",
+        "getStarted": "Loslegen",
+        "forProviders": "Für Anbieter",
+        "enterprise": "Enterprise",
+        "government": "Behörden",
+        "about": "Über uns",
+        "academy": "Academy",
+        "advance": "Advance",
+        "apiDocs": "API-Docs",
+        "signIn": "Anmelden",
+        "settings": "Einstellungen",
+        "careers": "Karriere",
+        "press": "Presse",
+        "help": "Hilfecenter",
+        "terms": "Nutzungsbedingungen",
+        "privacy": "Datenschutz",
+        "cookies": "Cookies",
+        "acceptableUse": "Nutzungsrichtlinie",
+        "safety": "Sicherheit"
+      }
+    }
+  },
+  "seo": {
+    "escrowSafe": "Treuhand-sicher",
+    "quotesInMinutes": "Angebote in Minuten",
+    "idVerified": "Anbieter mit geprüfter Identität",
+    "commonQuestions": "Häufige Fragen",
+    "alsoPopular": "Auch beliebt",
+    "whatYouGet": "Was Sie bekommen",
+    "ready": "Bereit",
+    "postThisMove": "Diesen Transport einstellen",
+    "getRealQuotes": "Echte Angebote einholen",
+    "browseSimilar": "Ähnliche Transporte ansehen",
+    "fromPrice": "Ab",
+    "miles": "mi",
+    "kilometers": "km"
   },
   "locale": {
     "change": "Sprache ändern",
     "language": "Sprache"
+  },
+  "wallet": {
+    "balance": "Guthaben",
+    "topUp": "Aufladen",
+    "history": "Verlauf",
+    "pending": "Ausstehend",
+    "available": "Verfügbar"
+  },
+  "booking": {
+    "status": "Status",
+    "pickup": "Abholung",
+    "delivery": "Zustellung",
+    "tracking": "Tracking",
+    "messages": "Nachrichten"
+  },
+  "errors": {
+    "notFound": "Seite nicht gefunden",
+    "notFoundSub": "Die gesuchte Seite wurde verschoben oder hat nie existiert.",
+    "goHome": "Zur Startseite",
+    "serverError": "Auf unserer Seite ist etwas schiefgelaufen",
+    "serverErrorSub": "Unsere Ingenieure wurden benachrichtigt. Bitte versuchen Sie es gleich erneut."
   }
 }

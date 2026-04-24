@@ -19,24 +19,33 @@
     "learnMore": "Learn more",
     "getStarted": "Get started",
     "readMore": "Read more",
-    "viewAll": "View all"
+    "viewAll": "View all",
+    "letsGo": "Let's go",
+    "contactSales": "Contact sales",
+    "seeSolutions": "See solutions",
+    "readTheDocs": "Read the docs"
   },
   "nav": {
-    "platform": "Platform",
-    "resources": "Resources",
-    "legal": "Legal",
     "services": "Services",
     "aboutUs": "About",
     "help": "Help",
     "safety": "Safety",
     "enterprise": "Enterprise",
     "government": "Government",
-    "api": "API"
+    "api": "API",
+    "browseJobs": "Browse Jobs",
+    "postAJob": "Post a job",
+    "instant": "Instant",
+    "instantJobs": "Instant Jobs",
+    "admin": "Admin",
+    "adminDashboard": "Admin Dashboard"
   },
   "home": {
     "heroBadge": "Hi there — welcome to the easy way",
-    "heroTitle": "Hey. Let's get it there.",
-    "heroSub": "A birthday gift across town. A whole apartment across the country. A container across the ocean. CouthActs is the friendliest way to move anything, anywhere.",
+    "heroTitle": "Hey. Let's",
+    "heroTitleLine2": "get it",
+    "heroTitleHighlight": "there.",
+    "heroSub": "A birthday gift across town. A whole apartment across the country. A container across the ocean. CouthActs is the <b>friendliest way</b> to move anything, anywhere — with real humans you can trust and your money safely held until it lands.",
     "freeToJoin": "Free to join",
     "moneyHeldSafely": "Money held safely",
     "realHumans": "Real humans",
@@ -45,7 +54,199 @@
     "countries": "Countries",
     "waysToMove": "Ways to move",
     "moneySafe": "Money-safe",
-    "realSupport": "Real support"
+    "realSupport": "Real support",
+    "track": {
+      "title": "Got a tracking code?",
+      "sub": "Peek at your stuff right now. No sign-in, no fuss."
+    },
+    "moving": {
+      "label": "Pick your vibe",
+      "title": "So, what are we moving today?",
+      "sub": "Eighteen ways to get it there. Pick the one that fits and we'll take it from there.",
+      "aroundTown": {
+        "title": "Around town",
+        "count": "Taxi · Courier · Moving · Freight",
+        "tagline": "From groceries to grand pianos."
+      },
+      "air": {
+        "title": "Up in the air",
+        "count": "Jets · Helicopters · Airlines · Cargo",
+        "tagline": "Window seat or window frame, we fly it."
+      },
+      "sea": {
+        "title": "Out at sea",
+        "count": "Cargo · Yacht · Ferry",
+        "tagline": "Calm seas and container ships."
+      },
+      "special": {
+        "title": "Something special",
+        "count": "Rail · Armored · Medical · Hazmat · Oversized",
+        "tagline": "The stuff other platforms won't touch."
+      }
+    },
+    "moments": {
+      "label": "Made for your moments",
+      "title": "Whatever the day brings.",
+      "sending": {
+        "title": "Sending it",
+        "desc": "A birthday box to mom. A forgotten charger to your partner. We'll get it there today.",
+        "cta": "Send a package"
+      },
+      "moving": {
+        "title": "Moving in",
+        "desc": "First apartment, fifth house, or somewhere in between. Book verified movers with one tap.",
+        "cta": "Book movers"
+      },
+      "business": {
+        "title": "Running a biz",
+        "desc": "Pallets, containers, or a fleet of deliveries. Scale up without hiring a logistics team.",
+        "cta": "Ship at scale"
+      },
+      "premium": {
+        "title": "Going big",
+        "desc": "Private jet for the weekend. Yacht for the honeymoon. Armored transport for the art. Yes, really.",
+        "cta": "Go premium"
+      }
+    },
+    "how": {
+      "label": "Easier than texting a friend",
+      "title": "Four taps. You're done.",
+      "step1": {
+        "title": "Say what you need",
+        "desc": "A taxi? A courier? A container ship? Tell us in your own words."
+      },
+      "step2": {
+        "title": "Real people bid",
+        "desc": "Verified pros with real ratings compete for your job. Pick the one you like."
+      },
+      "step3": {
+        "title": "Money held safely",
+        "desc": "Your funds sit in escrow. Nobody gets paid until you're happy."
+      },
+      "step4": {
+        "title": "Watch it happen",
+        "desc": "Live map, photo check-ins, and a friendly ping when it arrives."
+      }
+    },
+    "peace": {
+      "label": "Peace of mind, included",
+      "title": "We've got your back.",
+      "titleSub": "Every single move.",
+      "body": "Strangers on the internet? Not here. Every driver, mover, and pilot passes real ID checks. Your money is held safely until you say the word. And if something goes sideways, a real person steps in — not a chatbot.",
+      "chipIdVerified": "ID-verified",
+      "chipEscrowSafe": "Escrow-safe",
+      "chipTracking": "9-layer tracking",
+      "chipDisputes": "Real-human disputes",
+      "feature1": {
+        "title": "Real people, real IDs",
+        "desc": "Every user passes government ID checks. Ghosts need not apply."
+      },
+      "feature2": {
+        "title": "Money held safely",
+        "desc": "Your funds wait in escrow. The provider only gets paid when you're happy."
+      },
+      "feature3": {
+        "title": "Know where it is",
+        "desc": "GPS, photos, QR check-ins. Nine layers of \"yep, still on track.\""
+      },
+      "feature4": {
+        "title": "Fair if it goes wrong",
+        "desc": "Real people resolve disputes within 24 hours. Funds stay frozen till it's sorted."
+      }
+    },
+    "tracking": {
+      "label": "Always in the loop",
+      "title": "You'll never wonder",
+      "titleHighlight": "\"where is it?\"",
+      "sub": "Nine ways of keeping eyes on your stuff. Quietly, in the background.",
+      "gps": { "title": "Live GPS", "desc": "Updates every 15 seconds." },
+      "flight": { "title": "Flight tracking", "desc": "Follow every wing in the sky." },
+      "maritime": { "title": "Maritime AIS", "desc": "Cargo ships and yacht charters on the map." },
+      "qr": { "title": "QR / PIN confirm", "desc": "Cryptographic proof at pickup & drop." },
+      "photo": { "title": "Photo check-ins", "desc": "Timestamped, geotagged, shareable." },
+      "sensors": { "title": "Condition sensors", "desc": "Temperature, humidity, shock — all logged." },
+      "satellite": { "title": "Satellite GPS", "desc": "GLONASS backup where cell won't reach." },
+      "geofence": { "title": "Geofence pings", "desc": "Notified the moment it enters your zone." },
+      "timeline": { "title": "Full timeline", "desc": "Every checkpoint, exportable as PDF." }
+    },
+    "pros": {
+      "label": "For the pros behind the wheel",
+      "title": "Drivers. Movers. Pilots. We built this for you too.",
+      "advanceBadge": "CouthActs Advance",
+      "advanceTitle": "Get paid.",
+      "advanceTitleFast": "Fast.",
+      "advanceBody": "Don't wait for the job to close. Elite providers can pull up to 70% of their escrow within 24 hours — so the next fuel tank, next load, next week is always covered.",
+      "advanceStat1": "Advance rate",
+      "advanceStat2": "Funding speed",
+      "advanceStat3": "Lowest fee",
+      "advanceCta": "Learn about Advance",
+      "academyBadge": "CouthActs Academy",
+      "academyTitle": "Learn.",
+      "academyTitleEarn": "Earn.",
+      "academyTitleRepeat": "Repeat.",
+      "academyBody": "Short courses. Real certifications. Bigger jobs. Level up your score and unlock the stuff everyone else can't touch.",
+      "academyCta": "Explore the Academy",
+      "courseSafety": "Transport Safety",
+      "courseHazmat": "Hazmat Handling",
+      "courseExcellence": "Customer Excellence",
+      "courseCert": "Cert",
+      "courseBoost": "Boost"
+    },
+    "bigOps": {
+      "label": "Big operations",
+      "title": "Moving more?",
+      "titleSub": "We do that too.",
+      "body": "Whether you're a Fortune 500 or a federal agency, the infrastructure scales. Same platform, serious tools.",
+      "enterpriseTitle": "Enterprise",
+      "enterpriseBody": "Volume pricing, dedicated teams, SSO, API webhooks, white-label tracking.",
+      "governmentTitle": "Government",
+      "governmentBody": "FedRAMP-aligned controls, SAM.gov integration, full audit trail."
+    },
+    "devs": {
+      "label": "Builders welcome",
+      "title": "Got code? Build on us.",
+      "body": "A clean REST API, real-time webhooks, and a playground that doesn't hate you.",
+      "codeNote": "— one request, done"
+    },
+    "finalCta": {
+      "badge": "Free account. No credit card. No catch.",
+      "title": "So. Ready to",
+      "titleHighlight": "move something?",
+      "body": "Sign up in under a minute. Post your first move in two more. Watch it happen from wherever you are.",
+      "cta": "Start moving"
+    },
+    "footer": {
+      "tagline": "The friendliest way to move anything, anywhere. 18 modes, 190+ countries, and real humans you can trust.",
+      "madeWithCare": "Made with care in Dallas, TX",
+      "platform": "Platform",
+      "resources": "Resources",
+      "legal": "Legal",
+      "rights": "All rights reserved",
+      "founded": "Founded",
+      "address": "The Adolphus Tower, Dallas, TX",
+      "contact": "legal@couthacts.com",
+      "links": {
+        "browseJobs": "Browse Jobs",
+        "getStarted": "Get Started",
+        "forProviders": "For Providers",
+        "enterprise": "Enterprise",
+        "government": "Government",
+        "about": "About",
+        "academy": "Academy",
+        "advance": "Advance",
+        "apiDocs": "API Docs",
+        "signIn": "Sign In",
+        "settings": "Settings",
+        "careers": "Careers",
+        "press": "Press",
+        "help": "Help Center",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy",
+        "cookies": "Cookies",
+        "acceptableUse": "Acceptable Use",
+        "safety": "Safety"
+      }
+    }
   },
   "seo": {
     "escrowSafe": "Escrow-safe",
@@ -65,10 +266,6 @@
   "locale": {
     "change": "Change language",
     "language": "Language"
-  },
-  "footer": {
-    "madeWithCare": "Made with care in Dallas, TX",
-    "rights": "All rights reserved"
   },
   "wallet": {
     "balance": "Balance",

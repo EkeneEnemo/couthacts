@@ -19,7 +19,11 @@
     "learnMore": "詳しく見る",
     "getStarted": "はじめる",
     "readMore": "続きを読む",
-    "viewAll": "すべて表示"
+    "viewAll": "すべて表示",
+    "letsGo": "はじめよう",
+    "contactSales": "営業に連絡",
+    "seeSolutions": "ソリューションを見る",
+    "readTheDocs": "ドキュメントを読む"
   },
   "nav": {
     "services": "サービス",
@@ -28,19 +32,260 @@
     "safety": "安全",
     "enterprise": "法人",
     "government": "官公庁",
-    "api": "API"
+    "api": "API",
+    "browseJobs": "案件を探す",
+    "postAJob": "案件を投稿",
+    "instant": "インスタント",
+    "instantJobs": "インスタント案件",
+    "admin": "管理",
+    "adminDashboard": "管理ダッシュボード"
   },
   "home": {
     "heroBadge": "こんにちは — 最もかんたんな方法",
-    "heroTitle": "目的地までお届けします。",
+    "heroTitle": "さあ、",
+    "heroTitleLine2": "そこまで",
+    "heroTitleHighlight": "届けよう。",
+    "heroSub": "街の反対側への誕生日プレゼント。国を横断するアパート一式。海を越えるコンテナ。CouthActs は<b>最も親しみやすい方法</b>で、どんなものでもどこへでも運びます — 信頼できる本物の人と、到着まで安全に預かられるあなたのお金で。",
     "freeToJoin": "登録無料",
-    "moneyHeldSafely": "安全に預託",
+    "moneyHeldSafely": "お金を安全に預かる",
     "realHumans": "本物の人間",
     "letsMoveSomething": "何か送りましょう",
-    "iDrive": "私が運転します"
+    "iDrive": "私が運転します / 配達します",
+    "countries": "か国",
+    "waysToMove": "運び方",
+    "moneySafe": "資金安全",
+    "realSupport": "本物のサポート",
+    "track": {
+      "title": "追跡コードはありますか？",
+      "sub": "今すぐ荷物をのぞいてみましょう。ログイン不要、手間なし。"
+    },
+    "moving": {
+      "label": "スタイルを選ぶ",
+      "title": "さて、今日は何を運びますか？",
+      "sub": "18 通りの届け方。あなたに合うものを選んでください。あとはお任せを。",
+      "aroundTown": {
+        "title": "市内で",
+        "count": "タクシー · 宅配 · 引越 · 貨物",
+        "tagline": "買い物袋からグランドピアノまで。"
+      },
+      "air": {
+        "title": "空を越えて",
+        "count": "ジェット · ヘリ · 航空会社 · 航空貨物",
+        "tagline": "窓側席でも窓枠でも、空輸します。"
+      },
+      "sea": {
+        "title": "海の上で",
+        "count": "貨物 · ヨット · フェリー",
+        "tagline": "穏やかな海とコンテナ船。"
+      },
+      "special": {
+        "title": "特別なもの",
+        "count": "鉄道 · 装甲 · 医療 · 危険物 · 特大貨物",
+        "tagline": "他のプラットフォームが触れないもの。"
+      }
+    },
+    "moments": {
+      "label": "あなたの場面に合わせて",
+      "title": "どんな一日でも。",
+      "sending": {
+        "title": "送りたい",
+        "desc": "お母さんへの誕生日箱。忘れた充電器をパートナーへ。今日のうちにお届けします。",
+        "cta": "荷物を送る"
+      },
+      "moving": {
+        "title": "引越する",
+        "desc": "初めてのアパート、5 軒目の家、その中間でも。認証された引越チームをワンタップで予約。",
+        "cta": "引越を予約"
+      },
+      "business": {
+        "title": "ビジネスを回す",
+        "desc": "パレット、コンテナ、配送フリート。物流チームを雇わずにスケール。",
+        "cta": "大規模に配送"
+      },
+      "premium": {
+        "title": "本気でいく",
+        "desc": "週末のプライベートジェット。新婚旅行のヨット。美術品の装甲輸送。はい、本当に。",
+        "cta": "プレミアムへ"
+      }
+    },
+    "how": {
+      "label": "友達にメッセージするより簡単",
+      "title": "タップ 4 回。完了。",
+      "step1": {
+        "title": "必要なことを教えてください",
+        "desc": "タクシー？宅配？コンテナ船？あなたの言葉で。"
+      },
+      "step2": {
+        "title": "実在のプロが入札",
+        "desc": "リアルな評価を持つ認証済みプロがあなたの仕事を争います。気に入った人を選んでください。"
+      },
+      "step3": {
+        "title": "お金は安全に",
+        "desc": "資金はエスクロー預かり。あなたが満足するまで誰にも支払われません。"
+      },
+      "step4": {
+        "title": "進行を見守る",
+        "desc": "ライブマップ、写真チェックイン、到着時のやさしい通知。"
+      }
+    },
+    "peace": {
+      "label": "安心もついてきます",
+      "title": "私たちがそばにいます。",
+      "titleSub": "すべての移動で。",
+      "body": "ネットの他人？ここにはいません。すべてのドライバー、引越スタッフ、パイロットが本物の身分確認を通ります。あなたのお金は許可が出るまで安全に保管されます。問題が起きれば、チャットボットではなく本物の人が対応します。",
+      "chipIdVerified": "身分確認済み",
+      "chipEscrowSafe": "エスクロー安全",
+      "chipTracking": "9 層追跡",
+      "chipDisputes": "本物の人による紛争対応",
+      "feature1": {
+        "title": "本物の人、本物の身分証",
+        "desc": "全ユーザーが公的身分確認を通過。幽霊は入れません。"
+      },
+      "feature2": {
+        "title": "お金を安全に預かる",
+        "desc": "資金はエスクローで待機。あなたが満足したときだけ業者に支払い。"
+      },
+      "feature3": {
+        "title": "どこにあるかわかる",
+        "desc": "GPS、写真、QR チェックイン。9 層の「はい、順調です」。"
+      },
+      "feature4": {
+        "title": "問題が起きてもフェア",
+        "desc": "24 時間以内に本物の人が紛争を解決。解決まで資金は凍結。"
+      }
+    },
+    "tracking": {
+      "label": "いつでも状況を把握",
+      "title": "もう",
+      "titleHighlight": "「どこにある？」",
+      "sub": "9 つの方法であなたの荷物を見守ります。静かに、裏側で。",
+      "gps": { "title": "ライブ GPS", "desc": "15 秒ごとに更新。" },
+      "flight": { "title": "フライト追跡", "desc": "空のすべての翼を追跡。" },
+      "maritime": { "title": "船舶 AIS", "desc": "コンテナ船とヨットを地図上に。" },
+      "qr": { "title": "QR / PIN 確認", "desc": "集荷と配達で暗号的な証明。" },
+      "photo": { "title": "写真チェックイン", "desc": "タイムスタンプ、位置情報つき、共有可能。" },
+      "sensors": { "title": "状態センサー", "desc": "温度、湿度、衝撃 — すべて記録。" },
+      "satellite": { "title": "衛星 GPS", "desc": "携帯圏外では GLONASS でバックアップ。" },
+      "geofence": { "title": "ジオフェンス通知", "desc": "あなたのエリアに入った瞬間に通知。" },
+      "timeline": { "title": "完全なタイムライン", "desc": "すべてのチェックポイント、PDF でエクスポート可。" }
+    },
+    "pros": {
+      "label": "ハンドルを握るプロへ",
+      "title": "ドライバー、引越スタッフ、パイロット。あなたのためにも作りました。",
+      "advanceBadge": "CouthActs Advance",
+      "advanceTitle": "報酬を受け取る。",
+      "advanceTitleFast": "速く。",
+      "advanceBody": "仕事の完了を待たなくて大丈夫。エリートプロバイダはエスクローの最大 70% を 24 時間以内に引き出し可能 — 次の給油、次の荷、次の週を常にカバー。",
+      "advanceStat1": "前払い率",
+      "advanceStat2": "入金速度",
+      "advanceStat3": "最低手数料",
+      "advanceCta": "Advance について",
+      "academyBadge": "CouthActs Academy",
+      "academyTitle": "学ぶ。",
+      "academyTitleEarn": "稼ぐ。",
+      "academyTitleRepeat": "繰り返す。",
+      "academyBody": "短いコース。リアルな認定。大きな仕事。スコアを上げて、他の人が触れないものを解除。",
+      "academyCta": "Academy を見る",
+      "courseSafety": "運輸安全",
+      "courseHazmat": "危険物取扱",
+      "courseExcellence": "顧客エクセレンス",
+      "courseCert": "認定",
+      "courseBoost": "ブースト"
+    },
+    "bigOps": {
+      "label": "大規模オペレーション",
+      "title": "もっと運びますか？",
+      "titleSub": "それも対応します。",
+      "body": "Fortune 500 でも連邦機関でも、インフラは拡張します。同じプラットフォーム、本格的なツール。",
+      "enterpriseTitle": "エンタープライズ",
+      "enterpriseBody": "ボリューム価格、専任チーム、SSO、API Webhook、ホワイトラベル追跡。",
+      "governmentTitle": "官公庁",
+      "governmentBody": "FedRAMP 整合の制御、SAM.gov 連携、完全な監査証跡。"
+    },
+    "devs": {
+      "label": "開発者を歓迎",
+      "title": "コードを書く？私たちの上に載せてください。",
+      "body": "きれいな REST API、リアルタイム Webhook、そして嫌いになれないサンドボックス。",
+      "codeNote": "— 1 リクエストで完了"
+    },
+    "finalCta": {
+      "badge": "無料アカウント。クレジットカード不要。しかけなし。",
+      "title": "さて、",
+      "titleHighlight": "何か運ぶ準備は？",
+      "body": "1 分で登録。あと 2 分で初回投稿。どこにいても進行を見守れます。",
+      "cta": "運び始める"
+    },
+    "footer": {
+      "tagline": "どんなものでもどこへでも運ぶ、最も親しみやすい方法。18 モード、190 か国以上、信頼できる本物の人。",
+      "madeWithCare": "テキサス州ダラスで丁寧に作成",
+      "platform": "プラットフォーム",
+      "resources": "リソース",
+      "legal": "法律",
+      "rights": "全著作権保有",
+      "founded": "設立",
+      "address": "アドルファスタワー、テキサス州ダラス",
+      "contact": "legal@couthacts.com",
+      "links": {
+        "browseJobs": "案件を探す",
+        "getStarted": "はじめる",
+        "forProviders": "プロバイダー向け",
+        "enterprise": "エンタープライズ",
+        "government": "官公庁",
+        "about": "会社概要",
+        "academy": "Academy",
+        "advance": "Advance",
+        "apiDocs": "API ドキュメント",
+        "signIn": "ログイン",
+        "settings": "設定",
+        "careers": "採用",
+        "press": "プレス",
+        "help": "ヘルプセンター",
+        "terms": "利用規約",
+        "privacy": "プライバシーポリシー",
+        "cookies": "Cookie",
+        "acceptableUse": "利用規範",
+        "safety": "安全"
+      }
+    }
+  },
+  "seo": {
+    "escrowSafe": "エスクロー安全",
+    "quotesInMinutes": "数分で見積もり",
+    "idVerified": "身元確認済みのプロバイダー",
+    "commonQuestions": "よくある質問",
+    "alsoPopular": "他にも人気",
+    "whatYouGet": "得られるもの",
+    "ready": "準備完了",
+    "postThisMove": "この配送を投稿",
+    "getRealQuotes": "本物の見積もりを取得",
+    "browseSimilar": "似た配送を見る",
+    "fromPrice": "〜",
+    "miles": "mi",
+    "kilometers": "km"
   },
   "locale": {
     "change": "言語を変更",
     "language": "言語"
+  },
+  "wallet": {
+    "balance": "残高",
+    "topUp": "チャージ",
+    "history": "履歴",
+    "pending": "保留中",
+    "available": "利用可能"
+  },
+  "booking": {
+    "status": "ステータス",
+    "pickup": "集荷",
+    "delivery": "配達",
+    "tracking": "追跡",
+    "messages": "メッセージ"
+  },
+  "errors": {
+    "notFound": "ページが見つかりません",
+    "notFoundSub": "お探しのページは移動したか、存在しません。",
+    "goHome": "ホームへ戻る",
+    "serverError": "当方で問題が発生しました",
+    "serverErrorSub": "エンジニアに通知されました。少し時間を置いて再度お試しください。"
   }
 }

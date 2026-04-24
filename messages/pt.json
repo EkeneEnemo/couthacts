@@ -19,7 +19,11 @@
     "learnMore": "Saiba mais",
     "getStarted": "Começar",
     "readMore": "Leia mais",
-    "viewAll": "Ver tudo"
+    "viewAll": "Ver tudo",
+    "letsGo": "Vamos lá",
+    "contactSales": "Falar com vendas",
+    "seeSolutions": "Ver soluções",
+    "readTheDocs": "Ler a documentação"
   },
   "nav": {
     "services": "Serviços",
@@ -28,19 +32,260 @@
     "safety": "Segurança",
     "enterprise": "Empresas",
     "government": "Governo",
-    "api": "API"
+    "api": "API",
+    "browseJobs": "Ver trabalhos",
+    "postAJob": "Publicar trabalho",
+    "instant": "Instantâneo",
+    "instantJobs": "Trabalhos instantâneos",
+    "admin": "Admin",
+    "adminDashboard": "Painel Admin"
   },
   "home": {
     "heroBadge": "Olá — o jeito mais fácil",
-    "heroTitle": "Vamos levar até lá.",
+    "heroTitle": "Ei. Vamos",
+    "heroTitleLine2": "levar até",
+    "heroTitleHighlight": "lá.",
+    "heroSub": "Um presente de aniversário do outro lado da cidade. Um apartamento inteiro do outro lado do país. Um contêiner atravessando o oceano. CouthActs é o <b>jeito mais amigável</b> de mover qualquer coisa, para qualquer lugar — com pessoas reais de confiança e o seu dinheiro guardado em segurança até a entrega.",
     "freeToJoin": "Cadastro gratuito",
-    "moneyHeldSafely": "Dinheiro protegido",
+    "moneyHeldSafely": "Dinheiro guardado com segurança",
     "realHumans": "Pessoas reais",
     "letsMoveSomething": "Mover algo",
-    "iDrive": "Eu dirijo / eu entrego"
+    "iDrive": "Eu dirijo / eu entrego",
+    "countries": "Países",
+    "waysToMove": "Formas de transporte",
+    "moneySafe": "Dinheiro seguro",
+    "realSupport": "Suporte real",
+    "track": {
+      "title": "Tem um código de rastreio?",
+      "sub": "Veja onde está seu envio agora mesmo. Sem login, sem complicação."
+    },
+    "moving": {
+      "label": "Escolha seu estilo",
+      "title": "Então, o que vamos mover hoje?",
+      "sub": "Dezoito maneiras de chegar lá. Escolha a que encaixa e deixa com a gente.",
+      "aroundTown": {
+        "title": "Pela cidade",
+        "count": "Táxi · Entrega · Mudança · Carga",
+        "tagline": "Do mercado a um piano de cauda."
+      },
+      "air": {
+        "title": "Pelos ares",
+        "count": "Jatos · Helicópteros · Aéreas · Carga",
+        "tagline": "Poltrona de janela ou quadro de janela, a gente leva voando."
+      },
+      "sea": {
+        "title": "Em alto mar",
+        "count": "Carga · Iate · Balsa",
+        "tagline": "Mares calmos e porta-contêineres."
+      },
+      "special": {
+        "title": "Algo especial",
+        "count": "Ferroviário · Blindado · Médico · Perigoso · Superdimensionado",
+        "tagline": "O que outras plataformas não encaram."
+      }
+    },
+    "moments": {
+      "label": "Feito para seus momentos",
+      "title": "Seja lá o que o dia trouxer.",
+      "sending": {
+        "title": "Mandando",
+        "desc": "Uma caixinha para a mãe. Um carregador esquecido pro parceiro. A gente entrega hoje.",
+        "cta": "Enviar um pacote"
+      },
+      "moving": {
+        "title": "Se mudando",
+        "desc": "Primeiro apê, quinta casa ou algo entre. Reserve equipes de mudança verificadas num toque.",
+        "cta": "Contratar mudança"
+      },
+      "business": {
+        "title": "Tocando um negócio",
+        "desc": "Paletes, contêineres ou frota de entregas. Cresça sem montar time de logística.",
+        "cta": "Enviar em escala"
+      },
+      "premium": {
+        "title": "Jogando grande",
+        "desc": "Jato particular pro fim de semana. Iate na lua de mel. Transporte blindado para arte. Sim, de verdade.",
+        "cta": "Ir de premium"
+      }
+    },
+    "how": {
+      "label": "Mais fácil que mandar mensagem",
+      "title": "Quatro toques. Pronto.",
+      "step1": {
+        "title": "Diga do que precisa",
+        "desc": "Um táxi? Um entregador? Um navio contêiner? Conta do seu jeito."
+      },
+      "step2": {
+        "title": "Pessoas reais dão lances",
+        "desc": "Profissionais verificados com avaliações reais competem pelo seu trabalho. Escolha quem preferir."
+      },
+      "step3": {
+        "title": "Dinheiro em segurança",
+        "desc": "Seus fundos ficam em depósito. Ninguém recebe até você aprovar."
+      },
+      "step4": {
+        "title": "Veja acontecer",
+        "desc": "Mapa ao vivo, check-ins com foto e um aviso simpático quando chega."
+      }
+    },
+    "peace": {
+      "label": "Tranquilidade incluída",
+      "title": "Estamos com você.",
+      "titleSub": "Em cada mudança.",
+      "body": "Estranhos da internet? Aqui não. Todo motorista, equipe de mudança e piloto passa por verificação de identidade real. Seu dinheiro fica guardado até sua ordem. E se algo sair errado, uma pessoa real entra em cena — não um chatbot.",
+      "chipIdVerified": "Identidade verificada",
+      "chipEscrowSafe": "Depósito seguro",
+      "chipTracking": "Rastreamento de 9 camadas",
+      "chipDisputes": "Disputas resolvidas por pessoas",
+      "feature1": {
+        "title": "Pessoas reais, documentos reais",
+        "desc": "Todo usuário passa por checagem de identidade oficial. Fantasmas não entram."
+      },
+      "feature2": {
+        "title": "Dinheiro em segurança",
+        "desc": "Seus fundos aguardam em depósito. O prestador só recebe quando você estiver satisfeito."
+      },
+      "feature3": {
+        "title": "Saiba onde está",
+        "desc": "GPS, fotos, QR. Nove camadas de \"sim, ainda no caminho\"."
+      },
+      "feature4": {
+        "title": "Justo se algo der errado",
+        "desc": "Pessoas reais resolvem disputas em 24 horas. Fundos congelados até resolver."
+      }
+    },
+    "tracking": {
+      "label": "Sempre informado",
+      "title": "Você nunca vai se perguntar",
+      "titleHighlight": "\"onde está?\"",
+      "sub": "Nove formas de ficar de olho nas suas coisas. Discretamente, em segundo plano.",
+      "gps": { "title": "GPS ao vivo", "desc": "Atualizações a cada 15 segundos." },
+      "flight": { "title": "Rastreio de voos", "desc": "Acompanhe cada asa no céu." },
+      "maritime": { "title": "AIS marítimo", "desc": "Navios de carga e iates no mapa." },
+      "qr": { "title": "Confirmação QR / PIN", "desc": "Prova criptográfica na coleta e entrega." },
+      "photo": { "title": "Check-ins com foto", "desc": "Com carimbo de tempo, geolocalizadas e compartilháveis." },
+      "sensors": { "title": "Sensores de condição", "desc": "Temperatura, umidade, impactos — tudo registrado." },
+      "satellite": { "title": "GPS por satélite", "desc": "Backup GLONASS onde o celular não chega." },
+      "geofence": { "title": "Alertas por geocerca", "desc": "Aviso no momento que entra na sua zona." },
+      "timeline": { "title": "Linha do tempo completa", "desc": "Cada checkpoint, exportável em PDF." }
+    },
+    "pros": {
+      "label": "Para os profissionais na direção",
+      "title": "Motoristas. Equipes de mudança. Pilotos. Construímos para você também.",
+      "advanceBadge": "CouthActs Advance",
+      "advanceTitle": "Receba.",
+      "advanceTitleFast": "Rápido.",
+      "advanceBody": "Não espere o trabalho fechar. Prestadores Elite podem sacar até 70% do depósito em 24 horas — o próximo tanque, a próxima carga, a próxima semana sempre cobertos.",
+      "advanceStat1": "Taxa de adiantamento",
+      "advanceStat2": "Velocidade dos fundos",
+      "advanceStat3": "Taxa mais baixa",
+      "advanceCta": "Conhecer o Advance",
+      "academyBadge": "CouthActs Academy",
+      "academyTitle": "Aprenda.",
+      "academyTitleEarn": "Ganhe.",
+      "academyTitleRepeat": "Repita.",
+      "academyBody": "Cursos curtos. Certificações reais. Trabalhos maiores. Suba sua pontuação e libere o que os outros não alcançam.",
+      "academyCta": "Explorar a Academy",
+      "courseSafety": "Segurança no Transporte",
+      "courseHazmat": "Manuseio de Perigosos",
+      "courseExcellence": "Excelência no Cliente",
+      "courseCert": "Cert",
+      "courseBoost": "Boost"
+    },
+    "bigOps": {
+      "label": "Operações grandes",
+      "title": "Movendo mais?",
+      "titleSub": "Também fazemos isso.",
+      "body": "Seja uma Fortune 500 ou uma agência federal, a infraestrutura escala. Mesma plataforma, ferramentas sérias.",
+      "enterpriseTitle": "Empresa",
+      "enterpriseBody": "Preços por volume, equipes dedicadas, SSO, webhooks de API, rastreamento white-label.",
+      "governmentTitle": "Governo",
+      "governmentBody": "Controles alinhados ao FedRAMP, integração com SAM.gov, trilha de auditoria completa."
+    },
+    "devs": {
+      "label": "Desenvolvedores bem-vindos",
+      "title": "Tem código? Construa com a gente.",
+      "body": "Uma API REST limpa, webhooks em tempo real e um sandbox que não te odeia.",
+      "codeNote": "— uma requisição, feito"
+    },
+    "finalCta": {
+      "badge": "Conta grátis. Sem cartão de crédito. Sem pegadinha.",
+      "title": "Então. Pronto para",
+      "titleHighlight": "mover algo?",
+      "body": "Cadastre-se em menos de um minuto. Publique sua primeira mudança em mais dois. Veja acontecer de onde estiver.",
+      "cta": "Começar a mover"
+    },
+    "footer": {
+      "tagline": "O jeito mais amigável de mover qualquer coisa, para qualquer lugar. 18 modos, mais de 190 países e pessoas reais de confiança.",
+      "madeWithCare": "Feito com carinho em Dallas, TX",
+      "platform": "Plataforma",
+      "resources": "Recursos",
+      "legal": "Legal",
+      "rights": "Todos os direitos reservados",
+      "founded": "Fundada em",
+      "address": "The Adolphus Tower, Dallas, TX",
+      "contact": "legal@couthacts.com",
+      "links": {
+        "browseJobs": "Ver trabalhos",
+        "getStarted": "Começar",
+        "forProviders": "Para prestadores",
+        "enterprise": "Empresa",
+        "government": "Governo",
+        "about": "Sobre",
+        "academy": "Academy",
+        "advance": "Advance",
+        "apiDocs": "Docs da API",
+        "signIn": "Entrar",
+        "settings": "Ajustes",
+        "careers": "Carreiras",
+        "press": "Imprensa",
+        "help": "Central de ajuda",
+        "terms": "Termos de uso",
+        "privacy": "Política de privacidade",
+        "cookies": "Cookies",
+        "acceptableUse": "Uso aceitável",
+        "safety": "Segurança"
+      }
+    }
+  },
+  "seo": {
+    "escrowSafe": "Depósito seguro",
+    "quotesInMinutes": "Orçamentos em minutos",
+    "idVerified": "Prestadores com identidade verificada",
+    "commonQuestions": "Perguntas frequentes",
+    "alsoPopular": "Também populares",
+    "whatYouGet": "O que você recebe",
+    "ready": "Pronto",
+    "postThisMove": "Publicar esta mudança",
+    "getRealQuotes": "Conseguir orçamentos reais",
+    "browseSimilar": "Ver mudanças parecidas",
+    "fromPrice": "A partir de",
+    "miles": "mi",
+    "kilometers": "km"
   },
   "locale": {
     "change": "Alterar idioma",
     "language": "Idioma"
+  },
+  "wallet": {
+    "balance": "Saldo",
+    "topUp": "Recarregar",
+    "history": "Histórico",
+    "pending": "Pendente",
+    "available": "Disponível"
+  },
+  "booking": {
+    "status": "Status",
+    "pickup": "Coleta",
+    "delivery": "Entrega",
+    "tracking": "Rastreamento",
+    "messages": "Mensagens"
+  },
+  "errors": {
+    "notFound": "Página não encontrada",
+    "notFoundSub": "A página que você procura foi movida ou nunca existiu.",
+    "goHome": "Voltar ao início",
+    "serverError": "Algo deu errado do nosso lado",
+    "serverErrorSub": "Nossa equipe já foi avisada. Tente novamente em instantes."
   }
 }

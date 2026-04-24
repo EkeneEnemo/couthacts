@@ -1,0 +1,42 @@
+{
+  "common": {
+    "postAMove": "Publicar una mudanza",
+    "browseJobs": "Ver trabajos",
+    "signIn": "Iniciar sesión",
+    "signUp": "Registrarse",
+    "dashboard": "Panel",
+    "wallet": "Cartera",
+    "settings": "Ajustes",
+    "logout": "Cerrar sesión",
+    "loading": "Cargando…",
+    "error": "Algo salió mal",
+    "retry": "Reintentar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "confirm": "Confirmar",
+    "close": "Cerrar",
+    "search": "Buscar",
+    "learnMore": "Saber más",
+    "getStarted": "Empezar",
+    "readMore": "Leer más",
+    "viewAll": "Ver todo"
+  },
+  "nav": {
+    "services": "Servicios",
+    "aboutUs": "Acerca de",
+    "help": "Ayuda",
+    "safety": "Seguridad",
+    "enterprise": "Empresas",
+    "government": "Gobierno",
+    "api": "API"
+  },
+  "home": {
+    "heroTitle": "Llevémoslo a donde tenga que ir.",
+    "letsMoveSomething": "Mover algo",
+    "iDrive": "Yo conduzco / reparto"
+  },
+  "locale": {
+    "change": "Cambiar idioma",
+    "language": "Idioma"
+  }
+}

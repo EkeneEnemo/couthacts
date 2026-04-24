@@ -12,5 +12,32 @@ Disallow: /bookings/
 Disallow: /postings/new
 Disallow: /instant
 Disallow: /provider/
+Disallow: /profile/
+Disallow: /track/
+Disallow: /email-unsubscribe
 
-Sitemap: https://couthacts.com/sitemap.xml
+User-agent: GPTBot
+Allow: /
+Disallow: /api/
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /settings
+Disallow: /wallet
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /api/
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /settings
+Disallow: /wallet
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /api/
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /settings
+Disallow: /wallet
+
+Sitemap: https://www.couthacts.com/sitemap.xml

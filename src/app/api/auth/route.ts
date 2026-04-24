@@ -2,6 +2,7 @@ import { db } from '@/lib/db'
 import { getOrCreateWallet } from '@/lib/wallet'
 import { sendWelcomeEmail } from '@/lib/email'
 import { rateLimit } from '@/lib/rate-limit'
+import { lookupReferrer, recordPendingRedemption, REFERRAL_COOKIE } from '@/lib/referrals'
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
 import { randomBytes } from 'crypto'
@@ -70,6 +71,23 @@ export async function POST(req: NextRequest) {
 
       // Create wallet for the new user
       await getOrCreateWallet(user.id)
+
+      // Attach pending referral if a code is present (cookie or request body).
+      const refCookie = req.cookies.get(REFERRAL_COOKIE)?.value
+      const refBody = typeof (await req.clone().json().catch(() => ({})))?.referralCode === 'string'
+        ? (await req.clone().json()).referralCode
+        : null
+      const rawRefCode = (refBody ?? refCookie ?? '').trim()
+      if (rawRefCode) {
+        const referrer = await lookupReferrer(rawRefCode)
+        if (referrer && referrer.userId !== user.id) {
+          await recordPendingRedemption({
+            referrerUserId: referrer.userId,
+            referredUserId: user.id,
+            code: rawRefCode,
+          }).catch((err) => console.error('[CouthActs] referral', err))
+        }
+      }
 
       // Send welcome email (fire-and-forget)
       sendWelcomeEmail(user.email, user.firstName, user.id).catch((err) => console.error("[CouthActs]", err))

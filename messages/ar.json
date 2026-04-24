@@ -1,0 +1,37 @@
+{
+  "common": {
+    "postAMove": "نشر طلب نقل",
+    "browseJobs": "تصفح الوظائف",
+    "signIn": "تسجيل الدخول",
+    "signUp": "إنشاء حساب",
+    "dashboard": "لوحة التحكم",
+    "wallet": "المحفظة",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج",
+    "loading": "جار التحميل…",
+    "error": "حدث خطأ ما",
+    "retry": "حاول مجددًا",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "confirm": "تأكيد",
+    "close": "إغلاق",
+    "search": "بحث",
+    "learnMore": "المزيد",
+    "getStarted": "ابدأ الآن",
+    "readMore": "اقرأ المزيد",
+    "viewAll": "عرض الكل"
+  },
+  "nav": {
+    "services": "الخدمات",
+    "aboutUs": "عنّا",
+    "help": "المساعدة",
+    "safety": "السلامة",
+    "enterprise": "المؤسسات",
+    "government": "الحكومة",
+    "api": "واجهة API"
+  },
+  "locale": {
+    "change": "تغيير اللغة",
+    "language": "اللغة"
+  }
+}

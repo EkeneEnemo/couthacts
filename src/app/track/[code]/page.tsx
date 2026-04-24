@@ -14,6 +14,7 @@ import {
   Truck,
   Navigation,
 } from "lucide-react";
+import { TrackingMap } from "@/components/tracking-map";
 
 /* ─── Status messages per mode ─────────────────────────── */
 
@@ -98,7 +99,11 @@ interface TrackingData {
   mode: string;
   title: string;
   origin: string;
+  originLat: number | null;
+  originLng: number | null;
   destination: string;
+  destinationLat: number | null;
+  destinationLng: number | null;
   scheduledPickup: string;
   scheduledDelivery: string | null;
   providerName: string;
@@ -343,14 +348,29 @@ export default function PublicTrackingPage() {
                   )}
                 </div>
               </div>
-              <div className="aspect-[4/3] bg-[#F5F5F7] relative">
-                <iframe
-                  src={`https://www.google.com/maps?q=${data.currentLat},${data.currentLng}&z=15&output=embed`}
-                  className="w-full h-full border-0"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Live tracking map"
-                />
+              <div className="relative">
+                {data.originLat != null && data.originLng != null && data.destinationLat != null && data.destinationLng != null ? (
+                  <TrackingMap
+                    origin={{ lat: data.originLat, lng: data.originLng }}
+                    destination={{ lat: data.destinationLat, lng: data.destinationLng }}
+                    current={
+                      data.currentLat != null && data.currentLng != null
+                        ? { lat: data.currentLat, lng: data.currentLng }
+                        : undefined
+                    }
+                    history={data.events
+                      .filter((e) => e.lat != null && e.lng != null)
+                      .slice(0, 100)
+                      .map((e) => ({ lat: e.lat!, lng: e.lng! }))
+                      .reverse()}
+                    height="360px"
+                    className="rounded-none"
+                  />
+                ) : (
+                  <div className="aspect-[4/3] bg-[#F5F5F7] flex items-center justify-center text-[#86868B] text-[13px]">
+                    Map will appear once the vehicle begins reporting location.
+                  </div>
+                )}
               </div>
               {data.lastLocationUpdate && (
                 <p className="px-4 py-2 text-[11px] text-[#86868B]">

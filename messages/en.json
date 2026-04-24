@@ -1,0 +1,94 @@
+{
+  "common": {
+    "postAMove": "Post a move",
+    "browseJobs": "Browse jobs",
+    "signIn": "Sign in",
+    "signUp": "Get started",
+    "dashboard": "Dashboard",
+    "wallet": "Wallet",
+    "settings": "Settings",
+    "logout": "Log out",
+    "loading": "Loading…",
+    "error": "Something went wrong",
+    "retry": "Try again",
+    "cancel": "Cancel",
+    "save": "Save",
+    "confirm": "Confirm",
+    "close": "Close",
+    "search": "Search",
+    "learnMore": "Learn more",
+    "getStarted": "Get started",
+    "readMore": "Read more",
+    "viewAll": "View all"
+  },
+  "nav": {
+    "platform": "Platform",
+    "resources": "Resources",
+    "legal": "Legal",
+    "services": "Services",
+    "aboutUs": "About",
+    "help": "Help",
+    "safety": "Safety",
+    "enterprise": "Enterprise",
+    "government": "Government",
+    "api": "API"
+  },
+  "home": {
+    "heroBadge": "Hi there — welcome to the easy way",
+    "heroTitle": "Hey. Let's get it there.",
+    "heroSub": "A birthday gift across town. A whole apartment across the country. A container across the ocean. CouthActs is the friendliest way to move anything, anywhere.",
+    "freeToJoin": "Free to join",
+    "moneyHeldSafely": "Money held safely",
+    "realHumans": "Real humans",
+    "letsMoveSomething": "Let's move something",
+    "iDrive": "I drive / I deliver",
+    "countries": "Countries",
+    "waysToMove": "Ways to move",
+    "moneySafe": "Money-safe",
+    "realSupport": "Real support"
+  },
+  "seo": {
+    "escrowSafe": "Escrow-safe",
+    "quotesInMinutes": "Quotes in minutes",
+    "idVerified": "ID-verified providers",
+    "commonQuestions": "Common questions",
+    "alsoPopular": "Also popular",
+    "whatYouGet": "What you get",
+    "ready": "Ready",
+    "postThisMove": "Post this move",
+    "getRealQuotes": "Get real quotes",
+    "browseSimilar": "Browse similar moves",
+    "fromPrice": "From",
+    "miles": "mi",
+    "kilometers": "km"
+  },
+  "locale": {
+    "change": "Change language",
+    "language": "Language"
+  },
+  "footer": {
+    "madeWithCare": "Made with care in Dallas, TX",
+    "rights": "All rights reserved"
+  },
+  "wallet": {
+    "balance": "Balance",
+    "topUp": "Top up",
+    "history": "History",
+    "pending": "Pending",
+    "available": "Available"
+  },
+  "booking": {
+    "status": "Status",
+    "pickup": "Pickup",
+    "delivery": "Delivery",
+    "tracking": "Tracking",
+    "messages": "Messages"
+  },
+  "errors": {
+    "notFound": "Page not found",
+    "notFoundSub": "The page you're looking for moved, or never existed.",
+    "goHome": "Back home",
+    "serverError": "Something went wrong on our side",
+    "serverErrorSub": "Our engineers have been pinged. Please try again in a moment."
+  }
+}

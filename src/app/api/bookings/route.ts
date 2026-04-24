@@ -5,6 +5,7 @@ import { creditWallet } from "@/lib/wallet";
 import { notifyBidAccepted, notifyBookingComplete, notifyEscrowReleased } from "@/lib/notifications";
 import { sendBookingConfirmationEmail, sendBidAcceptedEmail, sendBookingStartedEmail, sendBookingCompletedEmail, sendBookingCancelledEmail } from "@/lib/email";
 import { recalculateCouthActsScore } from "@/lib/scores";
+import { qualifyRedemption } from "@/lib/referrals";
 import { NextRequest, NextResponse } from "next/server";
 import { randomBytes } from "crypto";
 
@@ -205,6 +206,8 @@ export async function PATCH(req: NextRequest) {
       if (provUser) sendBookingCompletedEmail(provUser.email, provUser.firstName, completedBooking.posting.title, bookingId, provUser.id).catch((err) => console.error("[CouthActs]", err));
       // Recalculate CouthActs Score
       recalculateCouthActsScore(completedBooking.providerId).catch((err) => console.error("[CouthActs]", err));
+      // Mark referral as QUALIFIED if the customer was referred and this is their first paid completion.
+      qualifyRedemption(booking.customerId).catch((err) => console.error("[CouthActs] referral qualify", err));
     }
 
     const updated = await db.booking.findUniqueOrThrow({ where: { id: bookingId } });
@@ -247,6 +250,8 @@ export async function PATCH(req: NextRequest) {
       const custUser = await db.user.findUnique({ where: { id: booking.customerId } });
       if (custUser) sendBookingCompletedEmail(custUser.email, custUser.firstName, completedBooking.posting.title, bookingId, custUser.id).catch((err) => console.error("[CouthActs]", err));
       recalculateCouthActsScore(completedBooking.providerId).catch((err) => console.error("[CouthActs]", err));
+      // Mark referral as QUALIFIED if the customer was referred and this is their first paid completion.
+      qualifyRedemption(booking.customerId).catch((err) => console.error("[CouthActs] referral qualify", err));
     }
 
     const updated = await db.booking.findUniqueOrThrow({ where: { id: bookingId } });

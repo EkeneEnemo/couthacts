@@ -1,6 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Figtree } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import "./globals.css";
+import { resolveLocale } from "@/i18n/request";
+import { isRtl } from "@/i18n/config";
+import { PwaRegister } from "@/components/pwa-register";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -23,7 +28,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.couthacts.com"),
-  title: "CouthActs\u2122 \u2014 Move Anything. Anywhere. Protected.",
+  title: "CouthActs™ — Move Anything. Anywhere. Protected.",
   description:
     "The friendliest way to move anything, anywhere. 18 transport modes across 190+ countries. Verified humans, escrow-safe payments, real-time tracking.",
   manifest: "/manifest.json",
@@ -46,30 +51,40 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://www.couthacts.com",
     siteName: "CouthActs",
-    title: "CouthActs\u2122 \u2014 Move Anything. Anywhere. Protected.",
+    title: "CouthActs™ — Move Anything. Anywhere. Protected.",
     description:
       "The friendliest way to move anything, anywhere. Verified humans, escrow-safe payments, real-time tracking across 18 transport modes.",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CouthActs\u2122 \u2014 Move Anything. Anywhere. Protected.",
+    title: "CouthActs™ — Move Anything. Anywhere. Protected.",
     description:
       "The friendliest way to move anything, anywhere. Verified humans, escrow-safe payments, real-time tracking.",
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await resolveLocale();
+  const messages = await getMessages();
+  const dir = isRtl(locale) ? "rtl" : "ltr";
+
   return (
-    <html lang="en">
+    <html lang={locale} dir={dir}>
       <body
         className={`${playfair.variable} ${figtree.variable} font-body antialiased`}
       >
-        {children}
+        <a href="#main" className="skip-to-main">
+          Skip to main content
+        </a>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {children}
+          <PwaRegister />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

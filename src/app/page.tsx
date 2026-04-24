@@ -31,12 +31,15 @@ import {
   Car,
 } from "lucide-react";
 import { Navbar } from "@/components/navbar";
+import { LiveActivity } from "@/components/live-activity";
+import { SmartSearch } from "@/components/smart-search";
 
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-[#FFFBF5]">
       <Navbar />
 
+      <main id="main">
       {/* ═══════════════════════ 1. HERO ═══════════════════════ */}
       <section className="relative overflow-hidden bg-[#FFFBF5] pt-20 pb-20 sm:pt-28 sm:pb-28 lg:pt-32 lg:pb-36">
         {/* Soft gradient blobs */}
@@ -75,13 +78,17 @@ export default function LandingPage() {
                 your money safely held until it lands.
               </p>
 
-              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-8">
+                <SmartSearch />
+              </div>
+
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/register"
                   className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#1D1D1F] px-8 py-4 text-[15px] font-semibold text-white shadow-[0_8px_30px_rgba(29,29,31,0.25)] transition-all hover:bg-[#007AFF] hover:shadow-[0_12px_40px_rgba(0,122,255,0.35)] hover:scale-[1.03] active:scale-[0.98]"
                 >
                   Let&rsquo;s move something
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                 </Link>
                 <Link
                   href="/register?role=PROVIDER"
@@ -190,8 +197,13 @@ export default function LandingPage() {
             </div>
           </div>
 
+          {/* Live activity ticker */}
+          <div className="mt-12 lg:mt-16 flex justify-center">
+            <LiveActivity />
+          </div>
+
           {/* Floating stats row */}
-          <div className="mt-16 lg:mt-24 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+          <div className="mt-10 lg:mt-14 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
             {[
               { value: 190, suffix: "+", label: "Countries", color: "#007AFF" },
               { value: 18, suffix: "", label: "Ways to move", color: "#FF7A59" },
@@ -905,6 +917,8 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      </main>
 
       {/* ═══════════════════════ 12. FOOTER ═══════════════════════ */}
       <footer className="bg-[#1D1D1F]">

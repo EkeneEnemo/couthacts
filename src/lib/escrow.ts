@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { getStripe } from "@/lib/stripe";
 import { creditWallet } from "@/lib/wallet";
 import { getEscrowFeePercent, calculateEscrowFee } from "@/lib/escrow-fees";
+import { withSpan } from "@/lib/tracing";
 
 export { getEscrowFeePercent, calculateEscrowFee };
 
@@ -111,6 +112,14 @@ export async function createEscrow({
  * Uses a DB status check to prevent double-release.
  */
 export async function releaseEscrow(escrowId: string) {
+  return withSpan(
+    "lib.escrow.release",
+    { "escrow.id": escrowId },
+    async () => releaseEscrowImpl(escrowId),
+  );
+}
+
+async function releaseEscrowImpl(escrowId: string) {
   // Atomic status check + update to prevent race conditions
   const updated = await db.escrow.updateMany({
     where: { id: escrowId, status: "HOLDING" },
@@ -250,6 +259,14 @@ export async function releaseFirstPayment(escrowId: string) {
  * Uses atomic status check to prevent double-refund.
  */
 export async function refundEscrow(escrowId: string) {
+  return withSpan(
+    "lib.escrow.refund",
+    { "escrow.id": escrowId },
+    async () => refundEscrowImpl(escrowId),
+  );
+}
+
+async function refundEscrowImpl(escrowId: string) {
   const updated = await db.escrow.updateMany({
     where: { id: escrowId, status: "HOLDING" },
     data: { status: "REFUNDED", refundedAt: new Date() },
@@ -295,4 +312,86 @@ export async function disputeEscrow(escrowId: string) {
     where: { id: escrowId, status: "HOLDING" },
     data: { status: "DISPUTED" },
   });
+}
+
+/**
+ * Resolve a DISPUTED escrow with a partial split: refund `customerRefundUsd`
+ * back to the customer wallet and release the remainder (minus the existing
+ * escrow fee) to the provider.
+ *
+ * Both values must sum to the escrow total. Pass customerRefundUsd = total
+ * for full refund, or customerRefundUsd = 0 for full release to provider.
+ *
+ * This is admin-only and is the settlement primitive used by the dispute
+ * console.
+ */
+export async function resolveDisputeSplit(
+  escrowId: string,
+  customerRefundUsd: number,
+): Promise<{ customerRefundUsd: number; providerPayoutUsd: number }> {
+  const escrow = await db.escrow.findUniqueOrThrow({
+    where: { id: escrowId },
+    include: {
+      booking: { select: { customerId: true, providerId: true, id: true } },
+      posting: { select: { customerId: true } },
+    },
+  });
+
+  if (escrow.status !== "DISPUTED") {
+    throw new Error(`Escrow ${escrowId} is not DISPUTED (is ${escrow.status}).`);
+  }
+
+  const total = Number(escrow.totalAmountUsd);
+  const fee = Number(escrow.escrowFeeUsd);
+  if (!Number.isFinite(customerRefundUsd) || customerRefundUsd < 0 || customerRefundUsd > total) {
+    throw new Error("customerRefundUsd must be between 0 and escrow total.");
+  }
+
+  const providerShareGross = Math.max(0, total - customerRefundUsd);
+  // Fee scales proportionally to provider share (we don't charge fees on the
+  // portion refunded to the customer).
+  const proportionalFee = total > 0 ? (fee * providerShareGross) / total : 0;
+  const providerPayoutUsd = Math.round((providerShareGross - proportionalFee) * 100) / 100;
+  const refund = Math.round(customerRefundUsd * 100) / 100;
+
+  const customerId = escrow.booking?.customerId ?? escrow.posting.customerId;
+
+  await db.escrow.update({
+    where: { id: escrowId },
+    data: {
+      status: refund >= total ? "REFUNDED" : "RELEASED",
+      releasedAt: providerPayoutUsd > 0 ? new Date() : null,
+      refundedAt: refund > 0 ? new Date() : null,
+    },
+  });
+
+  if (refund > 0) {
+    await creditWallet({
+      userId: customerId,
+      amountUsd: refund,
+      type: "ESCROW_REFUND",
+      description: "Partial refund from dispute resolution",
+      bookingId: escrow.bookingId || undefined,
+      postingId: escrow.postingId,
+    });
+  }
+
+  if (providerPayoutUsd > 0 && escrow.booking) {
+    const provider = await db.provider.findUnique({
+      where: { id: escrow.booking.providerId },
+      select: { userId: true },
+    });
+    if (provider) {
+      await creditWallet({
+        userId: provider.userId,
+        amountUsd: providerPayoutUsd,
+        type: "PAYOUT",
+        description: "Provider payout from dispute resolution",
+        bookingId: escrow.bookingId || undefined,
+        postingId: escrow.postingId,
+      });
+    }
+  }
+
+  return { customerRefundUsd: refund, providerPayoutUsd };
 }

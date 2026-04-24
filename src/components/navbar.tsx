@@ -2,9 +2,12 @@
 
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
+import { useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Wallet, Bell, Menu, X, Settings } from "lucide-react";
 import { Logo } from "@/components/logo";
+import { LocaleSwitcher } from "@/components/locale-switcher";
+import type { Locale } from "@/i18n/config";
 
 interface User {
   id: string;
@@ -28,6 +31,7 @@ interface Notification {
 }
 
 export function Navbar() {
+  const currentLocale = useLocale() as Locale;
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -146,11 +150,14 @@ export function Navbar() {
               <div className="relative" ref={notifRef}>
                 <button
                   onClick={() => setShowNotifs(!showNotifs)}
+                  aria-label={unreadCount > 0 ? `Notifications (${unreadCount} unread)` : "Notifications"}
+                  aria-haspopup="true"
+                  aria-expanded={showNotifs}
                   className="relative rounded-full p-2 text-[#86868B] hover:bg-[#E8E8ED] transition-colors"
                 >
-                  <Bell className="h-4 w-4" />
+                  <Bell className="h-4 w-4" aria-hidden="true" />
                   {unreadCount > 0 && (
-                    <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#FF3B30] text-[9px] font-bold text-white">
+                    <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#FF3B30] text-[9px] font-bold text-white" aria-hidden="true">
                       {unreadCount > 9 ? "9+" : unreadCount}
                     </span>
                   )}
@@ -211,19 +218,22 @@ export function Navbar() {
                 )}
               </div>
 
-              <Link href="/settings" className="rounded-full p-2 text-[#86868B] hover:bg-[#E8E8ED] transition-colors">
-                <Settings className="h-4 w-4" />
+              <Link href="/settings" aria-label="Settings" className="rounded-full p-2 text-[#86868B] hover:bg-[#E8E8ED] transition-colors">
+                <Settings className="h-4 w-4" aria-hidden="true" />
               </Link>
               <span className="text-[13px] text-[#6E6E73]">{user.firstName}</span>
               <Button size="sm" variant="ghost" onClick={handleLogout}>Logout</Button>
             </>
           ) : (
             <>
+              <Link href="/services" className="text-[13px] font-medium text-[#1D1D1F] hover:text-[#007AFF] transition-colors px-2 py-1">Services</Link>
               <Link href="/about" className="text-[13px] font-medium text-[#1D1D1F] hover:text-[#007AFF] transition-colors px-2 py-1">About</Link>
+              <LocaleSwitcher currentLocale={currentLocale} />
               <Link href="/login"><Button variant="ghost" size="sm">Sign in</Button></Link>
               <Link href="/register"><Button size="sm">Get started</Button></Link>
             </>
           )}
+          {user && <LocaleSwitcher currentLocale={currentLocale} compact />}
         </div>
 
         {/* Mobile hamburger */}
@@ -240,11 +250,14 @@ export function Navbar() {
               <div className="relative" ref={notifRef}>
                 <button
                   onClick={() => setShowNotifs(!showNotifs)}
+                  aria-label={unreadCount > 0 ? `Notifications (${unreadCount} unread)` : "Notifications"}
+                  aria-haspopup="true"
+                  aria-expanded={showNotifs}
                   className="relative rounded-full p-2 text-[#86868B]"
                 >
-                  <Bell className="h-4 w-4" />
+                  <Bell className="h-4 w-4" aria-hidden="true" />
                   {unreadCount > 0 && (
-                    <span className="absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#FF3B30] text-[9px] font-bold text-white">
+                    <span className="absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#FF3B30] text-[9px] font-bold text-white" aria-hidden="true">
                       {unreadCount}
                     </span>
                   )}
@@ -254,16 +267,19 @@ export function Navbar() {
           )}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
             className="rounded-full p-2 text-[#6E6E73] hover:bg-[#E8E8ED] transition-colors"
           >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileOpen ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
           </button>
         </div>
       </div>
 
       {/* Mobile menu — 44pt min touch targets, safe-area aware */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-[#E8E8ED]/60 bg-[#F5F5F7]/95 backdrop-blur-xl px-5 py-3 pb-[max(12px,env(safe-area-inset-bottom))] space-y-0.5">
+        <div id="mobile-menu" role="menu" className="md:hidden border-t border-[#E8E8ED]/60 bg-[#F5F5F7]/95 backdrop-blur-xl px-5 py-3 pb-[max(12px,env(safe-area-inset-bottom))] space-y-0.5">
           {user ? (
             <>
               <Link href="/dashboard" onClick={() => setMobileOpen(false)} className="flex items-center min-h-[44px] text-[15px] font-medium text-[#1D1D1F] py-3 px-3 rounded-xl hover:bg-[#E8E8ED] active:bg-[#D2D2D7] transition-colors">
@@ -298,6 +314,9 @@ export function Navbar() {
             </>
           ) : (
             <>
+              <Link href="/services" onClick={() => setMobileOpen(false)} className="flex items-center min-h-[44px] text-[15px] font-medium text-[#1D1D1F] py-3 px-3 rounded-xl hover:bg-[#E8E8ED] active:bg-[#D2D2D7] transition-colors">
+                Services
+              </Link>
               <Link href="/about" onClick={() => setMobileOpen(false)} className="flex items-center min-h-[44px] text-[15px] font-medium text-[#1D1D1F] py-3 px-3 rounded-xl hover:bg-[#E8E8ED] active:bg-[#D2D2D7] transition-colors">
                 About
               </Link>
@@ -309,6 +328,9 @@ export function Navbar() {
               </Link>
             </>
           )}
+          <div className="pt-3 mt-3 border-t border-[#E8E8ED]/60">
+            <LocaleSwitcher currentLocale={currentLocale} />
+          </div>
         </div>
       )}
     </nav>

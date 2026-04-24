@@ -1,0 +1,37 @@
+{
+  "common": {
+    "postAMove": "Umzug inserieren",
+    "browseJobs": "Aufträge durchsuchen",
+    "signIn": "Anmelden",
+    "signUp": "Registrieren",
+    "dashboard": "Übersicht",
+    "wallet": "Wallet",
+    "settings": "Einstellungen",
+    "logout": "Abmelden",
+    "loading": "Lädt…",
+    "error": "Etwas ist schiefgelaufen",
+    "retry": "Erneut versuchen",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "confirm": "Bestätigen",
+    "close": "Schließen",
+    "search": "Suchen",
+    "learnMore": "Mehr erfahren",
+    "getStarted": "Loslegen",
+    "readMore": "Weiterlesen",
+    "viewAll": "Alle anzeigen"
+  },
+  "nav": {
+    "services": "Dienste",
+    "aboutUs": "Über uns",
+    "help": "Hilfe",
+    "safety": "Sicherheit",
+    "enterprise": "Unternehmen",
+    "government": "Behörden",
+    "api": "API"
+  },
+  "locale": {
+    "change": "Sprache ändern",
+    "language": "Sprache"
+  }
+}

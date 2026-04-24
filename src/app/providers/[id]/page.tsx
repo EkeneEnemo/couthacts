@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -7,10 +8,46 @@ import { ScoreGauge } from "@/components/score-gauge";
 import { ScoreBars } from "@/components/score-bars";
 import { CheckCircle, ArrowLeft, Star, Award, MapPin, Calendar, Briefcase, MessageSquare, Truck, Shield } from "lucide-react";
 
-export const metadata = {
-  title: "Provider Profile \u2014 CouthActs\u2122",
-  description: "View provider details, reviews, and service history on CouthActs.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const provider = await db.provider.findUnique({
+    where: { id: params.id },
+    select: {
+      businessName: true,
+      bio: true,
+      modes: true,
+      totalJobs: true,
+      couthActsScore: true,
+      scoreTier: true,
+      isVerified: true,
+      user: { select: { city: true, country: true } },
+    },
+  });
+  if (!provider) {
+    return {
+      title: "Provider not found \u2014 CouthActs",
+      robots: { index: false, follow: false },
+    };
+  }
+  const loc = [provider.user.city, provider.user.country].filter(Boolean).join(", ");
+  const title = `${provider.businessName}${loc ? ` \u00b7 ${loc}` : ""} \u2014 verified transport provider | CouthActs`;
+  const baseDesc =
+    provider.bio?.slice(0, 140) ??
+    `${provider.businessName} is a ${provider.isVerified ? "verified " : ""}CouthActs transport provider${loc ? ` based in ${loc}` : ""}.`;
+  const description = `${baseDesc} ${provider.totalJobs.toLocaleString()} jobs completed \u00b7 CouthActs Score ${provider.couthActsScore} (${provider.scoreTier.toLowerCase()}).`;
+  const url = `https://www.couthacts.com/providers/${params.id}`;
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { title, description, url, type: "profile" },
+    twitter: { card: "summary_large_image", title, description },
+    robots: { index: true, follow: true },
+  };
+}
 
 export default async function ProviderProfilePage({
   params,
@@ -48,9 +85,38 @@ export default async function ProviderProfilePage({
 
   const memberSince = new Date(provider.user.createdAt).toLocaleDateString("en-US", { month: "long", year: "numeric" });
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `https://www.couthacts.com/providers/${provider.id}`,
+    name: provider.businessName,
+    description: provider.bio ?? undefined,
+    image: provider.logoUrl ?? provider.fleetPhotoUrls[0] ?? undefined,
+    url: `https://www.couthacts.com/providers/${provider.id}`,
+    address: provider.user.city
+      ? {
+          "@type": "PostalAddress",
+          addressLocality: provider.user.city,
+          addressCountry: provider.user.country ?? undefined,
+        }
+      : undefined,
+    aggregateRating:
+      provider._count.reviews > 0
+        ? {
+            "@type": "AggregateRating",
+            ratingValue: Number(avgRating.toFixed(2)),
+            reviewCount: provider._count.reviews,
+            bestRating: 5,
+            worstRating: 1,
+          }
+        : undefined,
+    serviceType: provider.modes.map((m: string) => m.replace(/_/g, " ")),
+  };
+
   return (
     <div className="min-h-screen bg-[#F5F5F7]">
       <Navbar />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* ── Back link ── */}
       <div className="mx-auto max-w-5xl px-4 pt-6 sm:px-6 sm:pt-8">

@@ -85,6 +85,11 @@ export const EMAIL_NOTIFICATION_TYPES = {
   reverification_required: "Re-verification required",
   api_overage: "API overage charges",
   posting_expired: "Posting expired",
+  posting_abandoned: "Posting reminder (no bids accepted)",
+  first_completion: "Congrats on your first completed move",
+  nps_survey: "Quick 2-question feedback",
+  inactivity: "We miss you — come back to CouthActs",
+  referral_qualified: "You earned a referral bonus",
 };
 
 export type EmailNotificationType = keyof typeof EMAIL_NOTIFICATION_TYPES;
@@ -600,5 +605,98 @@ export async function sendPostingExpiredEmail(
     </div>` : ""}
     <p style="color: #444;">${isInstant ? "Try increasing your budget or posting during peak hours." : "Consider adjusting your budget or requirements to attract more bids."}</p>
     ${btn(`${BASE}/dashboard`, "Post a New Job")}
+  `, userId), userId);
+}
+
+// ─── Lifecycle emails ──────────────────────────────────
+
+/**
+ * Sent ~24h after a posting was created if no bid has been accepted yet.
+ * Nudges the customer to compare bids, adjust budget, or post again.
+ */
+export async function sendPostingAbandonedEmail(
+  email: string, firstName: string, postingTitle: string, postingId: string,
+  bidCount: number, userId: string
+) {
+  if (!(await shouldSendEmail(userId, "posting_abandoned"))) return;
+  await send(email, `Your "${esc(postingTitle)}" is still waiting`, wrap(`
+    <h1 style="color: #1E3A5F;">Hey ${esc(firstName)} — your move is still open</h1>
+    <p style="color: #444; line-height: 1.6;">Your posting <strong>"${esc(postingTitle)}"</strong> hasn't been booked yet.${bidCount > 0 ? ` You have <strong>${bidCount} bid${bidCount === 1 ? '' : 's'}</strong> waiting for your review.` : " No bids yet — a quick budget adjustment often helps."}</p>
+    <p style="color: #444;">A few things that tend to help:</p>
+    <ul style="color: #444; line-height: 1.8;">
+      <li>Review current bids and pick one you like</li>
+      <li>Increase your budget slightly if you need faster response</li>
+      <li>Add flexibility on pickup date if you can</li>
+    </ul>
+    ${btn(`${BASE}/postings/${postingId}`, bidCount > 0 ? "Review your bids" : "Manage your posting")}
+  `, userId), userId);
+}
+
+/**
+ * Sent after a user's FIRST booking completes. Big-win congratulations plus
+ * a referral nudge.
+ */
+export async function sendFirstCompletionEmail(
+  email: string, firstName: string, postingTitle: string, userId: string
+) {
+  if (!(await shouldSendEmail(userId, "first_completion"))) return;
+  await send(email, "🎉 Your first CouthActs move is done!", wrap(`
+    <h1 style="color: #34C759;">Nailed it, ${esc(firstName)}!</h1>
+    <p style="color: #444; line-height: 1.6;">Your first move on CouthActs — <strong>"${esc(postingTitle)}"</strong> — just completed. That's a milestone worth celebrating.</p>
+    <p style="color: #444;">Want to help a friend out? Share your invite code and you'll both get $25 in wallet credit when they book.</p>
+    ${btn(`${BASE}/invite`, "Share CouthActs")}
+    <p style="color: #888; font-size: 13px; margin-top: 24px;">Leave a review on the provider — it helps the next person book with confidence.</p>
+  `, userId), userId);
+}
+
+/**
+ * Sent 3 days after a first completion. Two short questions.
+ */
+export async function sendNpsEmail(
+  email: string, firstName: string, userId: string
+) {
+  if (!(await shouldSendEmail(userId, "nps_survey"))) return;
+  const surveyBase = `${BASE}/feedback?u=${encodeURIComponent(userId)}`;
+  await send(email, "Got 30 seconds for us?", wrap(`
+    <h1 style="color: #1E3A5F;">How'd it go, ${esc(firstName)}?</h1>
+    <p style="color: #444; line-height: 1.6;">On a scale of 0–10, how likely are you to recommend CouthActs to a friend?</p>
+    <div style="text-align: center; margin: 24px 0;">
+      ${Array.from({ length: 11 }).map((_, n) => `<a href="${surveyBase}&score=${n}" style="display: inline-block; width: 34px; height: 34px; line-height: 34px; text-align: center; background: ${n <= 6 ? '#FFE5E3' : n <= 8 ? '#FFF3E0' : '#EEFBF1'}; color: #1D1D1F; font-weight: 600; text-decoration: none; border-radius: 8px; margin: 2px;">${n}</a>`).join('')}
+    </div>
+    <p style="color: #888; font-size: 13px; text-align: center;">One click and we're done. Thank you.</p>
+  `, userId), userId);
+}
+
+/**
+ * Sent after 30 days of inactivity (no postings, no bookings, no logins).
+ */
+export async function sendInactivityEmail(
+  email: string, firstName: string, userId: string
+) {
+  if (!(await shouldSendEmail(userId, "inactivity"))) return;
+  await send(email, "We miss you at CouthActs", wrap(`
+    <h1 style="color: #1E3A5F;">Hey ${esc(firstName)} 👋</h1>
+    <p style="color: #444; line-height: 1.6;">It's been a while. Just a friendly check-in to say — we're still here, and the platform's better than when you left.</p>
+    <ul style="color: #444; line-height: 1.8;">
+      <li>Thousands of new verified providers</li>
+      <li>Instant quotes on popular routes</li>
+      <li>A smoother escrow flow (seriously, try it)</li>
+    </ul>
+    ${btn(`${BASE}/dashboard`, "Book something")}
+  `, userId), userId);
+}
+
+/**
+ * Sent when a referral qualifies — both parties get this to celebrate the win.
+ */
+export async function sendReferralQualifiedEmail(
+  email: string, firstName: string, rewardUsd: number, userId: string
+) {
+  if (!(await shouldSendEmail(userId, "referral_qualified"))) return;
+  await send(email, `$${rewardUsd.toFixed(0)} added to your wallet 🎁`, wrap(`
+    <h1 style="color: #34C759;">Ka-ching, ${esc(firstName)}!</h1>
+    <p style="color: #444; line-height: 1.6;">A friend you invited just completed their first move. We've added <strong>$${rewardUsd.toFixed(2)}</strong> to your wallet as a thank-you.</p>
+    ${btn(`${BASE}/wallet`, "View your wallet")}
+    <p style="color: #888; font-size: 13px; margin-top: 16px;">Keep sharing — no cap on how many bonuses you can earn.</p>
   `, userId), userId);
 }

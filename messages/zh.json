@@ -1,0 +1,37 @@
+{
+  "common": {
+    "postAMove": "发布搬运需求",
+    "browseJobs": "浏览任务",
+    "signIn": "登录",
+    "signUp": "注册",
+    "dashboard": "控制台",
+    "wallet": "钱包",
+    "settings": "设置",
+    "logout": "退出",
+    "loading": "加载中…",
+    "error": "出了点问题",
+    "retry": "重试",
+    "cancel": "取消",
+    "save": "保存",
+    "confirm": "确认",
+    "close": "关闭",
+    "search": "搜索",
+    "learnMore": "了解更多",
+    "getStarted": "开始使用",
+    "readMore": "阅读更多",
+    "viewAll": "查看全部"
+  },
+  "nav": {
+    "services": "服务",
+    "aboutUs": "关于我们",
+    "help": "帮助",
+    "safety": "安全",
+    "enterprise": "企业",
+    "government": "政府",
+    "api": "API"
+  },
+  "locale": {
+    "change": "切换语言",
+    "language": "语言"
+  }
+}

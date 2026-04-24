@@ -1,0 +1,37 @@
+{
+  "common": {
+    "postAMove": "Publicar mudança",
+    "browseJobs": "Ver trabalhos",
+    "signIn": "Entrar",
+    "signUp": "Criar conta",
+    "dashboard": "Painel",
+    "wallet": "Carteira",
+    "settings": "Ajustes",
+    "logout": "Sair",
+    "loading": "Carregando…",
+    "error": "Algo deu errado",
+    "retry": "Tentar novamente",
+    "cancel": "Cancelar",
+    "save": "Salvar",
+    "confirm": "Confirmar",
+    "close": "Fechar",
+    "search": "Buscar",
+    "learnMore": "Saiba mais",
+    "getStarted": "Começar",
+    "readMore": "Leia mais",
+    "viewAll": "Ver tudo"
+  },
+  "nav": {
+    "services": "Serviços",
+    "aboutUs": "Sobre",
+    "help": "Ajuda",
+    "safety": "Segurança",
+    "enterprise": "Empresas",
+    "government": "Governo",
+    "api": "API"
+  },
+  "locale": {
+    "change": "Alterar idioma",
+    "language": "Idioma"
+  }
+}

@@ -519,6 +519,20 @@ export default function SettingsPage() {
             )}
           </div>
         </div>
+
+        {/* Privacy / data controls */}
+        <div className="mt-8 bg-white rounded-2xl p-6 border border-[#E8E8ED]/60">
+          <h2 className="text-[17px] font-display font-bold text-[#1D1D1F]">Your data</h2>
+          <p className="mt-1 text-[13px] text-[#1D1D1F]/60">
+            Download a full copy of your account data, or permanently delete your account.
+          </p>
+          <a
+            href="/settings/data"
+            className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#1D1D1F] px-5 py-2 text-[13px] font-semibold text-white hover:bg-[#007AFF] transition-colors"
+          >
+            Manage privacy &amp; data
+          </a>
+        </div>
       </div>
     </div>
   );

@@ -1,21 +1,82 @@
 {
-  "name": "CouthActs\u2122",
+  "name": "CouthActs™ — Move Anything. Anywhere. Protected.",
   "short_name": "CouthActs",
-  "description": "Global Transportation Infrastructure Platform",
-  "start_url": "/",
+  "description": "The friendliest way to move anything, anywhere. 18 transport modes, 190+ countries, escrow-safe.",
+  "start_url": "/?utm_source=pwa",
+  "id": "/",
   "display": "standalone",
-  "background_color": "#F5F5F7",
-  "theme_color": "#F5F5F7",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "orientation": "portrait",
+  "background_color": "#FFFBF5",
+  "theme_color": "#FFFBF5",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["business", "travel", "productivity"],
   "icons": [
     {
       "src": "/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
-  ]
+  ],
+  "shortcuts": [
+    {
+      "name": "Post a job",
+      "short_name": "Post",
+      "description": "Post a new transport job",
+      "url": "/postings/new?utm_source=pwa_shortcut",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Browse jobs",
+      "short_name": "Browse",
+      "description": "Browse available transport jobs",
+      "url": "/browse?utm_source=pwa_shortcut",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Track a shipment",
+      "short_name": "Track",
+      "description": "Track a shipment with your code",
+      "url": "/track?utm_source=pwa_shortcut",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Wallet",
+      "short_name": "Wallet",
+      "description": "View your wallet balance",
+      "url": "/wallet?utm_source=pwa_shortcut",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "prefer_related_applications": false,
+  "share_target": {
+    "action": "/track",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "code",
+      "url": "url"
+    }
+  }
 }

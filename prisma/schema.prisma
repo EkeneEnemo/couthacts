@@ -162,6 +162,10 @@ model User {
   enrollments   Enrollment[]
   messages      Message[]
 
+  referralCode     ReferralCode?        @relation("ReferralCodeOwner")
+  referralsGiven   ReferralRedemption[] @relation("ReferralsGiven")
+  referralReceived ReferralRedemption?  @relation("ReferralsReceived")
+
   @@index([email])
   @@index([role])
 }
@@ -582,6 +586,43 @@ enum WalletTxType {
   API_OVERAGE
   INSTANT_PAYOUT_FEE
   PAYOUT_REVERSAL
+  PROMO_CREDIT
+  REFERRAL_BONUS
+}
+
+model ReferralCode {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  code        String   @unique
+  redeemCount Int      @default(0)
+  createdAt   DateTime @default(now())
+  user        User     @relation("ReferralCodeOwner", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([code])
+}
+
+model ReferralRedemption {
+  id            String   @id @default(cuid())
+  referrerId    String
+  referredId    String   @unique
+  code          String
+  status        ReferralStatus @default(PENDING)
+  referrerRewardUsd Decimal  @db.Decimal(10, 2) @default(0)
+  referredRewardUsd Decimal  @db.Decimal(10, 2) @default(0)
+  qualifiedAt   DateTime?
+  createdAt     DateTime @default(now())
+
+  referrer User @relation("ReferralsGiven", fields: [referrerId], references: [id])
+  referred User @relation("ReferralsReceived", fields: [referredId], references: [id])
+
+  @@index([referrerId])
+  @@index([status])
+}
+
+enum ReferralStatus {
+  PENDING
+  QUALIFIED
+  REVOKED
 }
 
 model ProviderApiKey {

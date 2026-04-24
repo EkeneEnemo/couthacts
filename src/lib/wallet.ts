@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { WalletTxType } from "@prisma/client";
+import { withSpan } from "@/lib/tracing";
 
 /**
  * Get or create a wallet for a user. Every user gets one.
@@ -17,7 +18,24 @@ export async function getOrCreateWallet(userId: string) {
  * Debit (subtract) from a wallet. Throws if insufficient balance or wallet is locked.
  * Runs inside a Prisma interactive transaction for atomicity.
  */
-export async function debitWallet({
+export async function debitWallet(args: {
+  userId: string;
+  amountUsd: number;
+  type: WalletTxType;
+  description: string;
+  reference?: string;
+  postingId?: string;
+  bookingId?: string;
+  stripeId?: string;
+}) {
+  return withSpan(
+    "lib.wallet.debit",
+    { "wallet.tx_type": args.type, "wallet.amount_usd": args.amountUsd },
+    () => debitWalletImpl(args),
+  );
+}
+
+async function debitWalletImpl({
   userId,
   amountUsd,
   type,
@@ -77,7 +95,24 @@ export async function debitWallet({
 /**
  * Credit (add) to a wallet. Used for top-ups, payouts to provider wallet, refunds.
  */
-export async function creditWallet({
+export async function creditWallet(args: {
+  userId: string;
+  amountUsd: number;
+  type: WalletTxType;
+  description: string;
+  reference?: string;
+  postingId?: string;
+  bookingId?: string;
+  stripeId?: string;
+}) {
+  return withSpan(
+    "lib.wallet.credit",
+    { "wallet.tx_type": args.type, "wallet.amount_usd": args.amountUsd },
+    () => creditWalletImpl(args),
+  );
+}
+
+async function creditWalletImpl({
   userId,
   amountUsd,
   type,

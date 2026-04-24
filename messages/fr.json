@@ -1,0 +1,37 @@
+{
+  "common": {
+    "postAMove": "Publier une annonce",
+    "browseJobs": "Voir les missions",
+    "signIn": "Se connecter",
+    "signUp": "S'inscrire",
+    "dashboard": "Tableau de bord",
+    "wallet": "Portefeuille",
+    "settings": "Paramètres",
+    "logout": "Déconnexion",
+    "loading": "Chargement…",
+    "error": "Une erreur est survenue",
+    "retry": "Réessayer",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "confirm": "Confirmer",
+    "close": "Fermer",
+    "search": "Rechercher",
+    "learnMore": "En savoir plus",
+    "getStarted": "Commencer",
+    "readMore": "Lire la suite",
+    "viewAll": "Tout voir"
+  },
+  "nav": {
+    "services": "Services",
+    "aboutUs": "À propos",
+    "help": "Aide",
+    "safety": "Sécurité",
+    "enterprise": "Entreprises",
+    "government": "Gouvernement",
+    "api": "API"
+  },
+  "locale": {
+    "change": "Changer de langue",
+    "language": "Langue"
+  }
+}

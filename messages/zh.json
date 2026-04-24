@@ -30,6 +30,15 @@
     "government": "政府",
     "api": "API"
   },
+  "home": {
+    "heroBadge": "你好 — 最简单的方式",
+    "heroTitle": "把东西送到目的地。",
+    "freeToJoin": "免费加入",
+    "moneyHeldSafely": "资金安全托管",
+    "realHumans": "真人服务",
+    "letsMoveSomething": "开始运送",
+    "iDrive": "我是司机 / 我送货"
+  },
   "locale": {
     "change": "切换语言",
     "language": "语言"

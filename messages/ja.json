@@ -30,6 +30,15 @@
     "government": "官公庁",
     "api": "API"
   },
+  "home": {
+    "heroBadge": "こんにちは — 最もかんたんな方法",
+    "heroTitle": "目的地までお届けします。",
+    "freeToJoin": "登録無料",
+    "moneyHeldSafely": "安全に預託",
+    "realHumans": "本物の人間",
+    "letsMoveSomething": "何か送りましょう",
+    "iDrive": "私が運転します"
+  },
   "locale": {
     "change": "言語を変更",
     "language": "言語"

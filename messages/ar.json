@@ -30,6 +30,15 @@
     "government": "الحكومة",
     "api": "واجهة API"
   },
+  "home": {
+    "heroBadge": "مرحبًا — الطريقة الأسهل",
+    "heroTitle": "لنوصله إلى وجهته.",
+    "freeToJoin": "الانضمام مجاني",
+    "moneyHeldSafely": "أموال محفوظة بأمان",
+    "realHumans": "أشخاص حقيقيون",
+    "letsMoveSomething": "دعنا ننقل شيئًا",
+    "iDrive": "أنا أقود / أنا أوصل"
+  },
   "locale": {
     "change": "تغيير اللغة",
     "language": "اللغة"

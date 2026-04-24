@@ -30,6 +30,15 @@
     "government": "Governo",
     "api": "API"
   },
+  "home": {
+    "heroBadge": "Olá — o jeito mais fácil",
+    "heroTitle": "Vamos levar até lá.",
+    "freeToJoin": "Cadastro gratuito",
+    "moneyHeldSafely": "Dinheiro protegido",
+    "realHumans": "Pessoas reais",
+    "letsMoveSomething": "Mover algo",
+    "iDrive": "Eu dirijo / eu entrego"
+  },
   "locale": {
     "change": "Alterar idioma",
     "language": "Idioma"

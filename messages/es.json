@@ -31,9 +31,18 @@
     "api": "API"
   },
   "home": {
+    "heroBadge": "Hola — la forma más fácil",
     "heroTitle": "Llevémoslo a donde tenga que ir.",
+    "heroSub": "Un regalo de cumpleaños al otro lado de la ciudad. Todo un apartamento al otro extremo del país. Un contenedor al otro lado del océano.",
+    "freeToJoin": "Gratis para unirse",
+    "moneyHeldSafely": "Dinero retenido de forma segura",
+    "realHumans": "Personas reales",
     "letsMoveSomething": "Mover algo",
-    "iDrive": "Yo conduzco / reparto"
+    "iDrive": "Yo conduzco / reparto",
+    "countries": "Países",
+    "waysToMove": "Formas de moverse",
+    "moneySafe": "Seguro",
+    "realSupport": "Soporte real"
   },
   "locale": {
     "change": "Cambiar idioma",

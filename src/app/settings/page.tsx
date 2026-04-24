@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Navbar } from "@/components/navbar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Camera, Shield, AlertTriangle, Clock, Bell, Mail } from "lucide-react";
+import { CheckCircle, Camera, Shield, AlertTriangle, Clock, Mail } from "lucide-react";
 
 export default function SettingsPage() {
   const [loading, setLoading] = useState(true);
@@ -145,26 +145,55 @@ export default function SettingsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#F5F5F7]">
+      <div className="min-h-screen bg-[#FFFBF5]">
         <Navbar />
         <div className="mx-auto max-w-2xl px-6 py-20 text-center">
-          <div className="h-8 w-48 mx-auto animate-pulse rounded-xl bg-[#E8E8ED]" />
+          <div className="h-8 w-48 mx-auto animate-pulse rounded-xl bg-white/70" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F5F7]">
+    <div className="min-h-screen bg-[#FFFBF5]">
       <Navbar />
-      <div className="mx-auto max-w-2xl px-6 py-10">
-        <h1 className="text-2xl font-display font-bold tracking-tight text-[#1D1D1F]">
-          Settings
-        </h1>
+
+      <main id="main">
+      {/* Hero */}
+      <section className="relative overflow-hidden pt-12 pb-8 sm:pt-16 sm:pb-10">
+        <div className="pointer-events-none absolute -top-32 -left-24 h-[24rem] w-[24rem] rounded-full bg-[#FFD8B5]/45 blur-3xl" aria-hidden="true" />
+        <div className="pointer-events-none absolute top-10 -right-24 h-[28rem] w-[28rem] rounded-full bg-[#B5E3FF]/45 blur-3xl" aria-hidden="true" />
+
+        <div className="relative mx-auto max-w-3xl px-6">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#1D1D1F]/10 bg-white/70 backdrop-blur px-4 py-1.5 shadow-sm">
+            <span className="text-base leading-none" aria-hidden="true">⚙️</span>
+            <span className="text-[12px] font-semibold text-[#1D1D1F]/70 tracking-wide">
+              Your account
+            </span>
+          </div>
+          <h1 className="mt-6 font-display font-black leading-[1.05] tracking-tight text-[#1D1D1F] text-4xl sm:text-5xl">
+            Make it{" "}
+            <span className="bg-gradient-to-r from-[#FF7A59] via-[#FF6B9D] to-[#007AFF] bg-clip-text text-transparent">
+              yours.
+            </span>
+          </h1>
+          <p className="mt-4 text-[15px] text-[#1D1D1F]/55 max-w-xl">
+            Identity, profile, payments, notifications — manage everything from one place.
+          </p>
+        </div>
+      </section>
+
+      <div className="relative mx-auto max-w-3xl px-6 pb-16">
 
         {/* Profile Photo */}
-        <div className="mt-8 rounded-3xl bg-white/80 backdrop-blur-xl p-8 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
-          <p className="text-[12px] font-semibold text-[#1D1D1F] mb-4">Profile Photo</p>
+        <div className="mt-8 rounded-[2rem] bg-white/80 backdrop-blur-xl p-7 shadow-[0_2px_20px_rgba(0,0,0,0.04)] border border-white">
+          <div className="mb-5 flex items-center gap-3">
+            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white shadow-sm text-xl" aria-hidden="true">📸</span>
+            <div>
+              <h2 className="text-[15px] font-display font-bold text-[#1D1D1F]">Profile photo</h2>
+              <p className="text-[11px] text-[#1D1D1F]/45">How other people see you on CouthActs</p>
+            </div>
+          </div>
           <div className="flex items-center gap-5">
             <div className="relative">
               {avatarUrl ? (
@@ -197,10 +226,13 @@ export default function SettingsPage() {
         </div>
 
         {/* Identity Verification */}
-        <div className="mt-4 rounded-3xl bg-white/80 backdrop-blur-xl p-8 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
-          <div className="flex items-center gap-2 mb-4">
-            <Shield className="h-5 w-5 text-[#007AFF]" />
-            <p className="text-[12px] font-semibold text-[#1D1D1F]">Identity Verification</p>
+        <div className="mt-4 rounded-[2rem] bg-white/80 backdrop-blur-xl p-7 shadow-[0_2px_20px_rgba(0,0,0,0.04)] border border-white">
+          <div className="mb-5 flex items-center gap-3">
+            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white shadow-sm text-xl" aria-hidden="true">🪪</span>
+            <div>
+              <h2 className="text-[15px] font-display font-bold text-[#1D1D1F]">Identity verification</h2>
+              <p className="text-[11px] text-[#1D1D1F]/45">Required to post jobs or place bids</p>
+            </div>
           </div>
 
           {kycStatus === "APPROVED" ? (
@@ -276,8 +308,14 @@ export default function SettingsPage() {
         </div>
 
         {/* Profile details */}
-        <div className="mt-4 rounded-3xl bg-white/80 backdrop-blur-xl p-8 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60 space-y-5">
-          <p className="text-[12px] font-semibold text-[#1D1D1F]">Profile Details</p>
+        <div className="mt-4 rounded-[2rem] bg-white/80 backdrop-blur-xl p-7 shadow-[0_2px_20px_rgba(0,0,0,0.04)] border border-white space-y-5">
+          <div className="flex items-center gap-3">
+            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white shadow-sm text-xl" aria-hidden="true">🙋</span>
+            <div>
+              <h2 className="text-[15px] font-display font-bold text-[#1D1D1F]">Profile details</h2>
+              <p className="text-[11px] text-[#1D1D1F]/45">Name, location, contact, currency</p>
+            </div>
+          </div>
           {kycStatus === "APPROVED" && (
             <div className="rounded-xl bg-[#FF9500]/5 p-3 border border-[#FF9500]/10">
               <p className="text-[12px] text-[#FF9500] font-medium">
@@ -365,10 +403,13 @@ export default function SettingsPage() {
 
         {/* Stripe Connect — providers only */}
         {userRole === "PROVIDER" && (
-          <div className="mt-4 rounded-3xl bg-white/80 backdrop-blur-xl p-8 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
-            <div className="flex items-center gap-2 mb-4">
-              <Shield className="h-5 w-5 text-[#007AFF]" />
-              <p className="text-[12px] font-semibold text-[#1D1D1F]">Payout Account (Stripe Connect)</p>
+          <div className="mt-4 rounded-[2rem] bg-white/80 backdrop-blur-xl p-7 shadow-[0_2px_20px_rgba(0,0,0,0.04)] border border-white">
+            <div className="mb-5 flex items-center gap-3">
+              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white shadow-sm text-xl" aria-hidden="true">🏦</span>
+              <div>
+                <h2 className="text-[15px] font-display font-bold text-[#1D1D1F]">Payout account</h2>
+                <p className="text-[11px] text-[#1D1D1F]/45">Connect a bank via Stripe to withdraw earnings</p>
+              </div>
             </div>
             {stripeConnected ? (
               <div className="flex items-center gap-3 rounded-xl bg-[#EEFBF1] p-4 border border-[#34C759]/20">
@@ -421,14 +462,14 @@ export default function SettingsPage() {
         )}
 
         {/* Notification Preferences */}
-        <div className="mt-4 rounded-3xl bg-white/80 backdrop-blur-xl p-8 shadow-[0_2px_20px_rgba(0,0,0,.04)] border border-white/60">
-          <div className="flex items-center gap-2 mb-4">
-            <Bell className="h-5 w-5 text-[#007AFF]" />
-            <p className="text-[12px] font-semibold text-[#1D1D1F]">Email Notifications</p>
+        <div className="mt-4 rounded-[2rem] bg-white/80 backdrop-blur-xl p-7 shadow-[0_2px_20px_rgba(0,0,0,0.04)] border border-white">
+          <div className="mb-5 flex items-center gap-3">
+            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white shadow-sm text-xl" aria-hidden="true">📬</span>
+            <div>
+              <h2 className="text-[15px] font-display font-bold text-[#1D1D1F]">Email notifications</h2>
+              <p className="text-[11px] text-[#1D1D1F]/45">Pick what lands in your inbox — in-app is always on</p>
+            </div>
           </div>
-          <p className="text-[14px] text-[#6E6E73] mb-4">
-            Choose which email notifications you want to receive. In-app notifications are always on.
-          </p>
           <div className="space-y-3">
             {([
               { key: "new_bid", label: "New bid on your posting", desc: "When a provider bids on your job" },
@@ -521,19 +562,23 @@ export default function SettingsPage() {
         </div>
 
         {/* Privacy / data controls */}
-        <div className="mt-8 bg-white rounded-2xl p-6 border border-[#E8E8ED]/60">
-          <h2 className="text-[17px] font-display font-bold text-[#1D1D1F]">Your data</h2>
-          <p className="mt-1 text-[13px] text-[#1D1D1F]/60">
-            Download a full copy of your account data, or permanently delete your account.
-          </p>
+        <div className="mt-4 rounded-[2rem] bg-white/80 backdrop-blur-xl p-7 shadow-[0_2px_20px_rgba(0,0,0,0.04)] border border-white">
+          <div className="mb-5 flex items-center gap-3">
+            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white shadow-sm text-xl" aria-hidden="true">🔐</span>
+            <div>
+              <h2 className="text-[15px] font-display font-bold text-[#1D1D1F]">Your data</h2>
+              <p className="text-[11px] text-[#1D1D1F]/45">Export, download, or permanently delete your account</p>
+            </div>
+          </div>
           <a
             href="/settings/data"
-            className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#1D1D1F] px-5 py-2 text-[13px] font-semibold text-white hover:bg-[#007AFF] transition-colors"
+            className="inline-flex items-center gap-2 rounded-full bg-[#1D1D1F] px-6 py-2.5 text-[13px] font-semibold text-white hover:bg-[#007AFF] transition-colors"
           >
             Manage privacy &amp; data
           </a>
         </div>
       </div>
+      </main>
     </div>
   );
 }

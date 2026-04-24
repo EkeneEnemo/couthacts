@@ -33,8 +33,10 @@ import {
 import { Navbar } from "@/components/navbar";
 import { LiveActivity } from "@/components/live-activity";
 import { SmartSearch } from "@/components/smart-search";
+import { getTranslations } from "next-intl/server";
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const tHome = await getTranslations("home");
   return (
     <div className="min-h-screen bg-[#FFFBF5]">
       <Navbar />
@@ -52,9 +54,9 @@ export default function LandingPage() {
             {/* Left: copy */}
             <div className="animate-fade-up">
               <div className="inline-flex items-center gap-2 rounded-full border border-[#1D1D1F]/10 bg-white/70 backdrop-blur px-4 py-1.5 shadow-sm">
-                <Sun className="h-3.5 w-3.5 text-[#FF9A3C]" />
+                <Sun className="h-3.5 w-3.5 text-[#FF9A3C]" aria-hidden="true" />
                 <span className="text-[12px] font-semibold text-[#1D1D1F]/70 tracking-wide">
-                  Hi there &mdash; welcome to the easy way
+                  {tHome("heroBadge")}
                 </span>
               </div>
 
@@ -87,29 +89,29 @@ export default function LandingPage() {
                   href="/register"
                   className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#1D1D1F] px-8 py-4 text-[15px] font-semibold text-white shadow-[0_8px_30px_rgba(29,29,31,0.25)] transition-all hover:bg-[#007AFF] hover:shadow-[0_12px_40px_rgba(0,122,255,0.35)] hover:scale-[1.03] active:scale-[0.98]"
                 >
-                  Let&rsquo;s move something
+                  {tHome("letsMoveSomething")}
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                 </Link>
                 <Link
                   href="/register?role=PROVIDER"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-[#1D1D1F]/15 bg-white/80 backdrop-blur px-8 py-4 text-[15px] font-semibold text-[#1D1D1F] transition-all hover:bg-white hover:scale-[1.03]"
                 >
-                  I drive / I deliver
+                  {tHome("iDrive")}
                 </Link>
               </div>
 
               <div className="mt-8 flex flex-wrap items-center gap-4 text-[13px] text-[#1D1D1F]/50">
                 <span className="flex items-center gap-1.5">
-                  <Heart className="h-3.5 w-3.5 text-[#FF6B9D]" />
-                  Free to join
+                  <Heart className="h-3.5 w-3.5 text-[#FF6B9D]" aria-hidden="true" />
+                  {tHome("freeToJoin")}
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Shield className="h-3.5 w-3.5 text-[#34C759]" />
-                  Money held safely
+                  <Shield className="h-3.5 w-3.5 text-[#34C759]" aria-hidden="true" />
+                  {tHome("moneyHeldSafely")}
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Smile className="h-3.5 w-3.5 text-[#FFB020]" />
-                  Real humans
+                  <Smile className="h-3.5 w-3.5 text-[#FFB020]" aria-hidden="true" />
+                  {tHome("realHumans")}
                 </span>
               </div>
             </div>

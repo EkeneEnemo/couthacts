@@ -30,6 +30,15 @@
     "government": "सरकार",
     "api": "API"
   },
+  "home": {
+    "heroBadge": "नमस्ते — आसान तरीका",
+    "heroTitle": "इसे वहाँ पहुँचाते हैं।",
+    "freeToJoin": "जुड़ना मुफ़्त",
+    "moneyHeldSafely": "पैसा सुरक्षित",
+    "realHumans": "असली लोग",
+    "letsMoveSomething": "कुछ भेजें",
+    "iDrive": "मैं ड्राइव करता हूँ / डिलीवर करता हूँ"
+  },
   "locale": {
     "change": "भाषा बदलें",
     "language": "भाषा"

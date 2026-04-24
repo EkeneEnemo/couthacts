@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Wallet, Bell, Menu, X, Settings } from "lucide-react";
 import { Logo } from "@/components/logo";
@@ -30,8 +30,68 @@ interface Notification {
   createdAt: string;
 }
 
+const NOTIFICATION_EMOJI: Record<string, string> = {
+  NEW_BID: "👋",
+  BID_ACCEPTED: "🎉",
+  BOOKING_CONFIRMED: "✅",
+  BOOKING_STARTED: "🚚",
+  BOOKING_COMPLETED: "🏁",
+  ESCROW_RELEASED: "💰",
+  ESCROW_REFUNDED: "↩️",
+  DISPUTE_FILED: "⚠️",
+  REVIEW_RECEIVED: "⭐",
+  SCORE_TIER_CHANGE: "🏆",
+  PAYOUT_INITIATED: "💸",
+  VERIFICATION_APPROVED: "🛡️",
+  WALLET_TOPUP: "💳",
+  REFERRAL_QUALIFIED: "🎁",
+  ADVANCE_DISBURSED: "⚡",
+  DEFAULT: "📬",
+};
+
+const NOTIFICATION_ACCENT: Record<string, string> = {
+  NEW_BID: "#FF7A59",
+  BID_ACCEPTED: "#34C759",
+  BOOKING_CONFIRMED: "#34C759",
+  BOOKING_STARTED: "#007AFF",
+  BOOKING_COMPLETED: "#34C759",
+  ESCROW_RELEASED: "#34C759",
+  ESCROW_REFUNDED: "#FFB020",
+  DISPUTE_FILED: "#FF3B30",
+  REVIEW_RECEIVED: "#FFB020",
+  SCORE_TIER_CHANGE: "#FF6B9D",
+  PAYOUT_INITIATED: "#34C759",
+  VERIFICATION_APPROVED: "#007AFF",
+  WALLET_TOPUP: "#34C759",
+  REFERRAL_QUALIFIED: "#FF6B9D",
+  ADVANCE_DISBURSED: "#FFB020",
+  DEFAULT: "#007AFF",
+};
+
+function notificationEmoji(type: string): string {
+  return NOTIFICATION_EMOJI[type] ?? NOTIFICATION_EMOJI.DEFAULT;
+}
+
+function notificationAccent(type: string): string {
+  return NOTIFICATION_ACCENT[type] ?? NOTIFICATION_ACCENT.DEFAULT;
+}
+
+function relativeTimeShort(iso: string): string {
+  const delta = Math.max(0, Date.now() - new Date(iso).getTime());
+  const m = Math.round(delta / 60000);
+  if (m < 1) return "just now";
+  if (m < 60) return `${m}m ago`;
+  const h = Math.round(m / 60);
+  if (h < 24) return `${h}h ago`;
+  const d = Math.round(h / 24);
+  if (d < 7) return `${d}d ago`;
+  return new Date(iso).toLocaleDateString();
+}
+
 export function Navbar() {
   const currentLocale = useLocale() as Locale;
+  const tCommon = useTranslations("common");
+  const tNav = useTranslations("nav");
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -105,7 +165,7 @@ export function Navbar() {
           ) : user ? (
             <>
               <Link href="/dashboard" className="text-[13px] font-medium text-[#1D1D1F] hover:text-[#007AFF] transition-colors px-2 py-1">
-                Dashboard
+                {tCommon("dashboard")}
               </Link>
               {user.role === "ADMIN" && (
                 <Link href="/admin" className="text-[13px] font-medium text-[#5856D6] hover:text-[#4B49C9] transition-colors px-2 py-1">
@@ -163,57 +223,126 @@ export function Navbar() {
                   )}
                 </button>
                 {showNotifs && (
-                  <div className="absolute right-0 mt-2 w-80 rounded-2xl bg-white/90 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,.12)] border border-[#E8E8ED]/60 z-50 overflow-hidden">
-                    <div className="flex items-center justify-between px-4 py-3 border-b border-[#E8E8ED]/60">
-                      <p className="text-[13px] font-semibold text-[#1D1D1F]">Notifications</p>
+                  <div
+                    role="dialog"
+                    aria-label="Notifications"
+                    className="absolute right-0 mt-3 w-[22rem] rounded-[1.75rem] bg-white/95 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.18)] border border-white z-50 overflow-hidden"
+                  >
+                    {/* Gradient halo */}
+                    <div className="pointer-events-none absolute -top-16 -left-16 h-48 w-48 rounded-full bg-[#FFD8B5]/40 blur-3xl" aria-hidden="true" />
+                    <div className="pointer-events-none absolute -bottom-16 -right-16 h-48 w-48 rounded-full bg-[#B5E3FF]/45 blur-3xl" aria-hidden="true" />
+
+                    {/* Header */}
+                    <div className="relative flex items-center justify-between gap-2 px-5 pt-5 pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-white shadow-sm text-lg" aria-hidden="true">🔔</span>
+                        <div>
+                          <p className="text-[14px] font-display font-bold text-[#1D1D1F]">Notifications</p>
+                          {unreadCount > 0 ? (
+                            <p className="text-[11px] text-[#FF7A59] font-semibold">{unreadCount} new</p>
+                          ) : (
+                            <p className="text-[11px] text-[#1D1D1F]/45">You&rsquo;re all caught up</p>
+                          )}
+                        </div>
+                      </div>
                       {unreadCount > 0 && (
-                        <button onClick={markAllRead} className="text-[11px] text-[#007AFF] hover:text-[#0055D4] font-medium transition-colors">
+                        <button
+                          onClick={markAllRead}
+                          className="rounded-full bg-[#1D1D1F] text-white px-3 py-1.5 text-[11px] font-semibold hover:bg-[#007AFF] transition-colors"
+                        >
                           Mark all read
                         </button>
                       )}
                     </div>
-                    <div className="max-h-80 overflow-y-auto">
+
+                    {/* Body */}
+                    <div className="relative max-h-[22rem] overflow-y-auto px-3 pb-3">
                       {notifications.length === 0 ? (
-                        <div className="px-4 py-12 text-center">
-                          <Bell className="mx-auto h-8 w-8 text-[#D2D2D7]" />
-                          <p className="mt-2 text-[13px] text-[#86868B]">No notifications</p>
-                          <p className="text-[11px] text-[#C7C7CC] mt-1">We&apos;ll notify you when something happens</p>
+                        <div className="mx-2 mb-2 mt-2 rounded-2xl bg-white/70 border border-white px-4 py-10 text-center shadow-sm">
+                          <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FFFBF5] text-2xl shadow-sm" aria-hidden="true">✨</span>
+                          <p className="mt-3 text-[14px] font-display font-bold text-[#1D1D1F]">Nothing new here</p>
+                          <p className="mt-1 text-[12px] text-[#1D1D1F]/55">
+                            We&rsquo;ll ping you the moment something happens.
+                          </p>
                         </div>
                       ) : (
-                        notifications.slice(0, 15).map((n) => {
-                          const dest = n.link || "/dashboard";
-                          return (
-                            <div
-                              key={n.id}
-                              role="button"
-                              tabIndex={0}
-                              onMouseDown={() => {
-                                if (!n.isRead) {
-                                  fetch("/api/notifications", {
-                                    method: "PATCH",
-                                    headers: { "Content-Type": "application/json" },
-                                    body: JSON.stringify({ action: "mark_read", notificationId: n.id }),
-                                  }).catch(() => {});
-                                }
-                                window.location.href = dest;
-                              }}
-                              className={`block w-full text-left px-4 py-3 border-b border-[#F5F5F7] hover:bg-[#F5F5F7] transition cursor-pointer select-none ${!n.isRead ? "bg-[#EDF4FF]/50" : ""}`}
-                            >
-                              <div className="flex items-start gap-2">
-                                {!n.isRead && (
-                                  <span className="mt-1.5 flex-shrink-0 h-2 w-2 rounded-full bg-[#007AFF]" />
-                                )}
-                                <div className={!n.isRead ? "" : "ml-4"}>
-                                  <p className="text-[13px] font-medium text-[#1D1D1F]">{n.title}</p>
-                                  <p className="text-[11px] text-[#86868B] mt-0.5 line-clamp-2">{n.body}</p>
-                                  <p className="text-[10px] text-[#C7C7CC] mt-1">{new Date(n.createdAt).toLocaleDateString()}</p>
+                        <ul className="space-y-1.5">
+                          {notifications.slice(0, 15).map((n) => {
+                            const dest = n.link || "/dashboard";
+                            const emoji = notificationEmoji(n.type);
+                            const accent = notificationAccent(n.type);
+                            return (
+                              <li key={n.id}>
+                                <div
+                                  role="button"
+                                  tabIndex={0}
+                                  onMouseDown={() => {
+                                    if (!n.isRead) {
+                                      fetch("/api/notifications", {
+                                        method: "PATCH",
+                                        headers: { "Content-Type": "application/json" },
+                                        body: JSON.stringify({ action: "mark_read", notificationId: n.id }),
+                                      }).catch(() => {});
+                                    }
+                                    window.location.href = dest;
+                                  }}
+                                  onKeyDown={(e) => {
+                                    if (e.key === "Enter" || e.key === " ") {
+                                      e.preventDefault();
+                                      window.location.href = dest;
+                                    }
+                                  }}
+                                  className={`group relative flex items-start gap-3 rounded-2xl px-3 py-3 cursor-pointer select-none transition-all hover:bg-white hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] ${
+                                    !n.isRead ? "bg-white/70 border border-white" : "bg-transparent"
+                                  }`}
+                                >
+                                  <span
+                                    className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl text-base shadow-sm"
+                                    style={{ backgroundColor: `${accent}18` }}
+                                    aria-hidden="true"
+                                  >
+                                    {emoji}
+                                  </span>
+                                  <div className="flex-1 min-w-0">
+                                    <div className="flex items-center gap-2">
+                                      <p className="flex-1 text-[13px] font-semibold text-[#1D1D1F] truncate">
+                                        {n.title}
+                                      </p>
+                                      {!n.isRead && (
+                                        <span
+                                          className="flex h-2 w-2 flex-shrink-0 rounded-full"
+                                          style={{ backgroundColor: accent }}
+                                          aria-label="Unread"
+                                        />
+                                      )}
+                                    </div>
+                                    <p className="mt-0.5 text-[12px] text-[#1D1D1F]/60 leading-relaxed line-clamp-2">
+                                      {n.body}
+                                    </p>
+                                    <p className="mt-1 text-[10px] text-[#1D1D1F]/40 uppercase tracking-wider">
+                                      {relativeTimeShort(n.createdAt)}
+                                    </p>
+                                  </div>
                                 </div>
-                              </div>
-                            </div>
-                          );
-                        })
+                              </li>
+                            );
+                          })}
+                        </ul>
                       )}
                     </div>
+
+                    {/* Footer link */}
+                    {notifications.length > 0 && (
+                      <div className="relative border-t border-[#1D1D1F]/5 bg-white/50 px-5 py-3 text-center">
+                        <Link
+                          href="/dashboard"
+                          onClick={() => setShowNotifs(false)}
+                          className="text-[12px] font-semibold text-[#007AFF] hover:text-[#0055D4]"
+                        >
+                          Open dashboard →
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -222,15 +351,15 @@ export function Navbar() {
                 <Settings className="h-4 w-4" aria-hidden="true" />
               </Link>
               <span className="text-[13px] text-[#6E6E73]">{user.firstName}</span>
-              <Button size="sm" variant="ghost" onClick={handleLogout}>Logout</Button>
+              <Button size="sm" variant="ghost" onClick={handleLogout}>{tCommon("logout")}</Button>
             </>
           ) : (
             <>
-              <Link href="/services" className="text-[13px] font-medium text-[#1D1D1F] hover:text-[#007AFF] transition-colors px-2 py-1">Services</Link>
-              <Link href="/about" className="text-[13px] font-medium text-[#1D1D1F] hover:text-[#007AFF] transition-colors px-2 py-1">About</Link>
+              <Link href="/services" className="text-[13px] font-medium text-[#1D1D1F] hover:text-[#007AFF] transition-colors px-2 py-1">{tNav("services")}</Link>
+              <Link href="/about" className="text-[13px] font-medium text-[#1D1D1F] hover:text-[#007AFF] transition-colors px-2 py-1">{tNav("aboutUs")}</Link>
               <LocaleSwitcher currentLocale={currentLocale} />
-              <Link href="/login"><Button variant="ghost" size="sm">Sign in</Button></Link>
-              <Link href="/register"><Button size="sm">Get started</Button></Link>
+              <Link href="/login"><Button variant="ghost" size="sm">{tCommon("signIn")}</Button></Link>
+              <Link href="/register"><Button size="sm">{tCommon("signUp")}</Button></Link>
             </>
           )}
           {user && <LocaleSwitcher currentLocale={currentLocale} compact />}

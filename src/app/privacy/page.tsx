@@ -25,7 +25,7 @@ export default function PrivacyPage() {
         </h1>
 
         <div className="mt-4 flex flex-wrap items-center gap-2 text-[13px] text-[#1D1D1F]/55">
-          <span>The Ravine of Willows, Inc. (operating CouthActs&#8482;)</span>
+          <span>CouthActs&#8482;, a wholly owned subsidiary of The Ravine of Willows, Inc.</span>
           <span className="text-[#1D1D1F]/20">•</span>
           <span>The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202</span>
         </div>
@@ -37,8 +37,8 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-lg font-display font-bold text-[#1D1D1F]">1. Introduction &amp; Data Controller</h2>
-            <p className="mt-3"><strong className="text-[#1D1D1F]">The Ravine of Willows, Inc.</strong>, a Texas corporation operating the CouthActs&#8482; platform as a wholly owned subsidiary brand (&quot;CouthActs,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), is committed to protecting your privacy. This policy explains what data we collect, how we use it, and your rights. CouthActs is a wholly owned subsidiary and operating brand of The Ravine of Willows, Inc.; it is not a separately incorporated legal entity.</p>
-            <p className="mt-3">For purposes of applicable data protection law (including the GDPR and UK GDPR), the data controller is <strong className="text-[#1D1D1F]">The Ravine of Willows, Inc.</strong> (operating CouthActs&#8482;), with its principal place of business at The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202, United States. The underlying CouthActs platform intellectual property is wholly owned by Enemo Consulting Group, Inc.&reg;, and The Ravine of Willows, Inc. operates CouthActs under license from Enemo Consulting Group, Inc.&reg;</p>
+            <p className="mt-3"><strong className="text-[#1D1D1F]">CouthActs&#8482;</strong> (&quot;CouthActs,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) is committed to protecting your privacy. This policy explains what data we collect, how we use it, and your rights. CouthActs is a wholly owned subsidiary of <strong className="text-[#1D1D1F]">The Ravine of Willows, Inc.</strong>, a Texas corporation.</p>
+            <p className="mt-3">For purposes of applicable data protection law (including the GDPR and UK GDPR), the data controller is <strong className="text-[#1D1D1F]">CouthActs&#8482;</strong>, with its principal place of business at The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202, United States. The CouthActs platform&apos;s underlying intellectual property is wholly owned by Enemo Consulting Group, Inc.&reg;, and CouthActs operates under license from Enemo Consulting Group, Inc.&reg;</p>
           </section>
 
           <section>
@@ -108,7 +108,7 @@ export default function PrivacyPage() {
             <h2 className="text-lg font-display font-bold text-[#1D1D1F]">13. Contact</h2>
             <p className="mt-3">Privacy: privacy@couthacts.com &middot; Data requests: privacy@couthacts.com</p>
             <p className="mt-3">
-              <strong className="text-[#1D1D1F]">The Ravine of Willows, Inc.</strong> (operating CouthActs&#8482;)<br />
+              <strong className="text-[#1D1D1F]">CouthActs&#8482;</strong>, a wholly owned subsidiary of The Ravine of Willows, Inc.<br />
               The Adolphus Tower<br />
               1412 Main Street<br />
               STE 609<br />

@@ -34,7 +34,6 @@ export function AirportPage({ corridor }: { corridor: AirportCorridor }) {
         provider: {
           "@type": "Organization",
           name: "CouthActs",
-          legalName: "The Ravine of Willows, Inc.",
           url: "https://www.couthacts.com",
           parentOrganization: {
             "@type": "Organization",

@@ -83,10 +83,10 @@ export default function PressPage() {
             190 countries. The platform supports ground, air, maritime, and rail
             transportation with built-in escrow payments, real-time tracking, provider
             verification, and dispute resolution. CouthActs is a wholly owned subsidiary
-            and operating brand of <strong className="text-[#1D1D1F]">The Ravine of Willows, Inc.</strong>, a Texas corporation
-            headquartered at The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202.
-            All intellectual property is wholly owned by <strong className="text-[#1D1D1F]">Enemo Consulting
-            Group, Inc.&reg;</strong>; CouthActs and The Ravine of Willows, Inc. operate under license from
+            of <strong className="text-[#1D1D1F]">The Ravine of Willows, Inc.</strong>, a Texas corporation,
+            with its principal place of business at The Adolphus Tower, 1412 Main Street, STE 609,
+            Dallas, TX 75202. All intellectual property is wholly owned by <strong className="text-[#1D1D1F]">Enemo
+            Consulting Group, Inc.&reg;</strong>; CouthActs operates under license from
             Enemo Consulting Group, Inc.&reg;
           </p>
         </section>
@@ -136,7 +136,7 @@ export default function PressPage() {
             {[
               <>Always refer to the company as <strong className="text-[#1D1D1F]">CouthActs</strong> or <strong className="text-[#1D1D1F]">CouthActs&#8482;</strong>. Please don&rsquo;t abbreviate.</>,
               <>CouthActs is a <strong className="text-[#1D1D1F]">platform</strong> &mdash; not a carrier, broker, or freight forwarder.</>,
-              <>When referencing the corporate structure: <strong className="text-[#1D1D1F]">The Ravine of Willows, Inc.</strong> (Texas corporation, parent / operator) &middot; <strong className="text-[#1D1D1F]">CouthActs&#8482;</strong> (wholly owned subsidiary brand) &middot; <strong className="text-[#1D1D1F]">Enemo Consulting Group, Inc.&reg;</strong> (IP Owner)</>,
+              <>When referencing the corporate structure: <strong className="text-[#1D1D1F]">CouthActs&#8482;</strong> (operator, wholly owned subsidiary) &middot; <strong className="text-[#1D1D1F]">The Ravine of Willows, Inc.</strong> (Texas corporation, parent) &middot; <strong className="text-[#1D1D1F]">Enemo Consulting Group, Inc.&reg;</strong> (IP Owner)</>,
               <>For logo usage, use the assets in the press kit. Please don&rsquo;t alter colors, proportions, or typography.</>,
             ].map((item, i) => (
               <li

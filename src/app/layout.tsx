@@ -78,11 +78,10 @@ export default async function RootLayout({
     "@type": "Organization",
     name: "CouthActs",
     alternateName: "CouthActs™",
-    legalName: "The Ravine of Willows, Inc.",
     url: "https://www.couthacts.com",
     logo: "https://www.couthacts.com/images/logo.jpg",
     description:
-      "CouthActs is a wholly owned subsidiary and operating brand of The Ravine of Willows, Inc., a Texas corporation. All intellectual property is wholly owned by Enemo Consulting Group, Inc.",
+      "CouthActs is a wholly owned subsidiary of The Ravine of Willows, Inc., a Texas corporation. All intellectual property is wholly owned by Enemo Consulting Group, Inc.",
     parentOrganization: {
       "@type": "Organization",
       name: "The Ravine of Willows, Inc.",

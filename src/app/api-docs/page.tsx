@@ -506,12 +506,15 @@ Authorization: Bearer ca_live_your_key_here
       {/* ═══════════════════════ FOOTER ═══════════════════════ */}
       <footer className="bg-[#1D1D1F] text-white">
         <div className="mx-auto max-w-7xl px-6 py-12">
-          <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
+          <div className="flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center">
             <Logo size="sm" variant="white" href="/" />
-            <p className="text-[11px] text-white/35">
-              &copy; {new Date().getFullYear()} CouthActs&#8482;. Operated by CouthActs, Inc.
+            <p className="text-[11px] text-white/35 max-w-2xl sm:text-right leading-relaxed">
+              &copy; {new Date().getFullYear()} CouthActs&#8482;. A wholly owned subsidiary of The Ravine of Willows, Inc., a Texas corporation. All intellectual property wholly owned by Enemo Consulting Group, Inc.&reg;
             </p>
           </div>
+          <p className="mt-3 text-[10px] text-white/25 leading-relaxed text-center">
+            The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202 &middot; legal@couthacts.com
+          </p>
         </div>
       </footer>
     </div>

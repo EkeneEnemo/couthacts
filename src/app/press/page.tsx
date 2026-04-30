@@ -7,9 +7,9 @@ export const metadata = {
 
 const facts = [
   { label: "Founded", value: "November 27, 2021", emoji: "🎂", color: "#FF7A59", bg: "#FFF1E8" },
-  { label: "Headquarters", value: "The Adolphus Tower, Dallas, TX", emoji: "🏙️", color: "#007AFF", bg: "#E8F1FF" },
-  { label: "Operator", value: "CouthActs, Inc.", emoji: "🏢", color: "#34C759", bg: "#E8F7EC" },
-  { label: "IP Owner", value: "Enemo Consulting Group, Inc.", emoji: "💡", color: "#FFB020", bg: "#FFF5E6" },
+  { label: "Headquarters", value: "The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202", emoji: "🏙️", color: "#007AFF", bg: "#E8F1FF" },
+  { label: "Parent Company", value: "The Ravine of Willows, Inc. (Texas corporation)", emoji: "🏢", color: "#34C759", bg: "#E8F7EC" },
+  { label: "IP Owner", value: "Enemo Consulting Group, Inc.®", emoji: "💡", color: "#FFB020", bg: "#FFF5E6" },
   { label: "Transport Modes", value: "18", emoji: "🚚", color: "#FF6B9D", bg: "#FFE8F0" },
   { label: "Countries Served", value: "190+", emoji: "🌍", color: "#5AC8FA", bg: "#E8F5FF" },
   { label: "Categories", value: "Ground, Air, Maritime, Rail", emoji: "🛣️", color: "#007AFF", bg: "#E8F1FF" },
@@ -82,8 +82,12 @@ export default function PressPage() {
             customers with verified service providers across 18 transport modes in more than
             190 countries. The platform supports ground, air, maritime, and rail
             transportation with built-in escrow payments, real-time tracking, provider
-            verification, and dispute resolution. CouthActs is operated by CouthActs, Inc. IP owned by Enemo
-            Consulting Group Inc. and is headquartered at The Adolphus Tower in Dallas, Texas.
+            verification, and dispute resolution. CouthActs is a wholly owned subsidiary
+            and operating brand of <strong className="text-[#1D1D1F]">The Ravine of Willows, Inc.</strong>, a Texas corporation
+            headquartered at The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202.
+            All intellectual property is wholly owned by <strong className="text-[#1D1D1F]">Enemo Consulting
+            Group, Inc.&reg;</strong>; CouthActs and The Ravine of Willows, Inc. operate under license from
+            Enemo Consulting Group, Inc.&reg;
           </p>
         </section>
 
@@ -132,7 +136,7 @@ export default function PressPage() {
             {[
               <>Always refer to the company as <strong className="text-[#1D1D1F]">CouthActs</strong> or <strong className="text-[#1D1D1F]">CouthActs&#8482;</strong>. Please don&rsquo;t abbreviate.</>,
               <>CouthActs is a <strong className="text-[#1D1D1F]">platform</strong> &mdash; not a carrier, broker, or freight forwarder.</>,
-              <>When referencing our parent: <strong className="text-[#1D1D1F]">CouthActs, Inc.</strong> (Operator) &middot; <strong className="text-[#1D1D1F]">Enemo Consulting Group, Inc.</strong> (IP Owner)</>,
+              <>When referencing the corporate structure: <strong className="text-[#1D1D1F]">The Ravine of Willows, Inc.</strong> (Texas corporation, parent / operator) &middot; <strong className="text-[#1D1D1F]">CouthActs&#8482;</strong> (wholly owned subsidiary brand) &middot; <strong className="text-[#1D1D1F]">Enemo Consulting Group, Inc.&reg;</strong> (IP Owner)</>,
               <>For logo usage, use the assets in the press kit. Please don&rsquo;t alter colors, proportions, or typography.</>,
             ].map((item, i) => (
               <li

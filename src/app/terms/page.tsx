@@ -24,19 +24,19 @@ export default function TermsPage() {
         </h1>
 
         <div className="mt-4 flex flex-wrap items-center gap-2 text-[13px] text-[#1D1D1F]/55">
-          <span>CouthActs, Inc.</span>
+          <span>The Ravine of Willows, Inc. (operating CouthActs&#8482;)</span>
           <span className="text-[#1D1D1F]/20">•</span>
-          <span>The Adolphus Tower, Dallas, Texas</span>
+          <span>The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202</span>
         </div>
         <p className="mt-1 text-[11px] text-[#1D1D1F]/40">
-          Effective November 27, 2021 &middot; Last updated March 30, 2026
+          Effective November 27, 2021 &middot; Last updated April 30, 2026
         </p>
 
         <div className="mt-12 rounded-[2rem] bg-white border border-[#1D1D1F]/5 p-8 sm:p-10 lg:p-12 shadow-[0_4px_30px_rgba(0,0,0,0.03)] space-y-8 text-[14px] text-[#1D1D1F]/65 leading-relaxed">
 
           <section>
             <h2 className="text-lg font-display font-bold text-[#1D1D1F]">1. Acceptance of Terms</h2>
-            <p className="mt-3">These Terms of Service (&quot;Terms&quot;) constitute a legally binding agreement between you (&quot;User,&quot; &quot;you,&quot; or &quot;your&quot;) and CouthActs, Inc. (&quot;CouthActs,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), the operator of the CouthActs platform. The CouthActs platform and all related intellectual property are owned by Enemo Consulting Group, Inc. and licensed to CouthActs, Inc. By accessing or using the platform, you agree to these Terms in full. If you do not agree, you must not access or use the platform.</p>
+            <p className="mt-3">These Terms of Service (&quot;Terms&quot;) constitute a legally binding agreement between you (&quot;User,&quot; &quot;you,&quot; or &quot;your&quot;) and <strong className="text-[#1D1D1F]">The Ravine of Willows, Inc.</strong>, a Texas corporation operating the CouthActs&#8482; platform as a wholly owned subsidiary brand (collectively with CouthActs, &quot;CouthActs,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), with its principal place of business at The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202, United States. CouthActs is a wholly owned subsidiary and operating brand of The Ravine of Willows, Inc.; it is not a separately incorporated legal entity. The CouthActs platform and all related intellectual property are wholly owned by Enemo Consulting Group, Inc.&reg;, and The Ravine of Willows, Inc. operates CouthActs under license from Enemo Consulting Group, Inc.&reg; By accessing or using the platform, you agree to these Terms in full. If you do not agree, you must not access or use the platform.</p>
             <p className="mt-3">We reserve the right to modify these Terms at any time. Material changes will be communicated via email or platform notification at least thirty (30) days before they take effect. Your continued use of the platform after such notice constitutes acceptance of the modified Terms.</p>
           </section>
 
@@ -67,7 +67,7 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-lg font-display font-bold text-[#1D1D1F]">7. CouthActs Protection</h2>
-            <p className="mt-3">CouthActs Protection is a contractual platform guarantee offered by CouthActs, Inc. It is not an insurance product and CouthActs is not acting as an insurance carrier, broker, or agent. Protection tiers: No Coverage ($0), Basic ($15, up to $500), Standard ($35, up to $2,500), Premium ($75, up to $10,000), Elite (1.5% of budget, min $150, full declared value). Elite is mandatory for hazmat, oversized, heavy haul, armored, medical, private jet, and yacht charter. Fees are non-refundable. CouthActs Protection does not replace commercial insurance.</p>
+            <p className="mt-3">CouthActs Protection is a contractual platform guarantee offered by The Ravine of Willows, Inc. (operating CouthActs&#8482;). It is not an insurance product and CouthActs is not acting as an insurance carrier, broker, or agent. Protection tiers: No Coverage ($0), Basic ($15, up to $500), Standard ($35, up to $2,500), Premium ($75, up to $10,000), Elite (1.5% of budget, min $150, full declared value). Elite is mandatory for hazmat, oversized, heavy haul, armored, medical, private jet, and yacht charter. Fees are non-refundable. CouthActs Protection does not replace commercial insurance.</p>
           </section>
 
           <section>
@@ -77,7 +77,7 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-lg font-display font-bold text-[#1D1D1F]">9. CouthActs Academy</h2>
-            <p className="mt-3">CouthActs Academy provides professional development courses. Certificates are CouthActs credentials issued by CouthActs, Inc. — they do not constitute government-issued licenses or regulatory certifications. Course fees are non-refundable after content is accessed. Exam passing score is 70%. Retakes unlimited with 24-hour lockout after attempt 2.</p>
+            <p className="mt-3">CouthActs Academy provides professional development courses. Certificates are CouthActs credentials issued by The Ravine of Willows, Inc. (operating CouthActs&#8482;) — they do not constitute government-issued licenses or regulatory certifications. Course fees are non-refundable after content is accessed. Exam passing score is 70%. Retakes unlimited with 24-hour lockout after attempt 2.</p>
           </section>
 
           <section>
@@ -122,22 +122,35 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-lg font-display font-bold text-[#1D1D1F]">18. Indemnification</h2>
-            <p className="mt-3">Users agree to indemnify CouthActs, Inc., Enemo Consulting Group, Inc., and their officers, directors, employees, and agents from any claims arising from platform use, violation of these Terms, or transport operations.</p>
+            <p className="mt-3">Users agree to indemnify The Ravine of Willows, Inc. (operating CouthActs&#8482;), Enemo Consulting Group, Inc.&reg;, and their respective parents, subsidiaries, affiliates, officers, directors, employees, and agents from any claims arising from platform use, violation of these Terms, or transport operations.</p>
           </section>
 
           <section>
             <h2 className="text-lg font-display font-bold text-[#1D1D1F]">19. Intellectual Property</h2>
-            <p className="mt-3">All intellectual property is owned exclusively by Enemo Consulting Group, Inc. and licensed to CouthActs, Inc. Founded November 27, 2021. Unauthorized reproduction is prohibited.</p>
+            <p className="mt-3">All intellectual property associated with the CouthActs&#8482; service — including but not limited to source code, trademarks, service marks, logos, designs, documentation, algorithms, models, and proprietary methods — is wholly owned by Enemo Consulting Group, Inc.&reg; The Ravine of Willows, Inc. operates CouthActs under license from Enemo Consulting Group, Inc.&reg; Unauthorized reproduction, distribution, modification, or use is prohibited.</p>
           </section>
 
           <section>
-            <h2 className="text-lg font-display font-bold text-[#1D1D1F]">20. Governing Law</h2>
-            <p className="mt-3">These Terms are governed by the laws of the State of Texas. Disputes shall be resolved in the courts of Dallas County, Texas, or through binding arbitration at CouthActs&apos; election.</p>
+            <h2 className="text-lg font-display font-bold text-[#1D1D1F]">20. Trademarks</h2>
+            <p className="mt-3">CouthActs&#8482; is a trademark of Enemo Consulting Group, Inc.&reg; All other trademarks, service marks, and logos used in connection with the CouthActs service are owned by Enemo Consulting Group, Inc.&reg; and used by The Ravine of Willows, Inc. under license.</p>
           </section>
 
           <section>
-            <h2 className="text-lg font-display font-bold text-[#1D1D1F]">21. Contact</h2>
-            <p className="mt-3">Legal: legal@couthacts.com &middot; Support: support@couthacts.com<br /><strong>CouthActs, Inc.</strong> &middot; The Adolphus Tower, Dallas, Texas</p>
+            <h2 className="text-lg font-display font-bold text-[#1D1D1F]">21. Governing Law</h2>
+            <p className="mt-3">These Terms are governed by and construed in accordance with the laws of the State of Texas, without regard to its conflict of laws principles. Any disputes shall be resolved in the state or federal courts located in Dallas County, Texas, or through binding arbitration at CouthActs&apos; election.</p>
+          </section>
+
+          <section>
+            <h2 className="text-lg font-display font-bold text-[#1D1D1F]">22. Contact</h2>
+            <p className="mt-3">Legal: legal@couthacts.com &middot; Support: support@couthacts.com</p>
+            <p className="mt-3">
+              <strong className="text-[#1D1D1F]">The Ravine of Willows, Inc.</strong> (operating CouthActs&#8482;)<br />
+              The Adolphus Tower<br />
+              1412 Main Street<br />
+              STE 609<br />
+              Dallas, TX 75202<br />
+              United States
+            </p>
           </section>
 
         </div>

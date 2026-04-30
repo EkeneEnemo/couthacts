@@ -50,7 +50,21 @@ export function CorridorPage({
         provider: {
           "@type": "Organization",
           name: "CouthActs",
+          legalName: "The Ravine of Willows, Inc.",
           url: "https://www.couthacts.com",
+          parentOrganization: {
+            "@type": "Organization",
+            name: "The Ravine of Willows, Inc.",
+            legalName: "The Ravine of Willows, Inc.",
+          },
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "The Adolphus Tower, 1412 Main Street, STE 609",
+            addressLocality: "Dallas",
+            addressRegion: "TX",
+            postalCode: "75202",
+            addressCountry: "US",
+          },
         },
         areaServed: [
           { "@type": "City", name: corridor.origin.name, addressCountry: corridor.origin.countryCode },
@@ -486,9 +500,17 @@ export function SeoFooter() {
             <Link href="/terms" className="hover:text-white">Terms</Link>
             <Link href="/privacy" className="hover:text-white">Privacy</Link>
           </div>
-          <p className="text-[11px] text-white/30 pt-4 border-t border-white/10 w-full">
-            &copy; {new Date().getFullYear()} CouthActs&#8482;, Inc. All rights reserved.
-          </p>
+          <div className="pt-4 border-t border-white/10 w-full space-y-2 text-center">
+            <p className="text-[11px] text-white/30 leading-relaxed">
+              &copy; {new Date().getFullYear()} CouthActs&#8482;. A wholly owned subsidiary of The Ravine of Willows, Inc., a Texas corporation. All intellectual property wholly owned by Enemo Consulting Group, Inc.&reg;
+            </p>
+            <p className="text-[10px] text-white/25 leading-relaxed">
+              The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202 &middot; legal@couthacts.com
+            </p>
+            <p className="text-[10px] text-white/25 leading-relaxed">
+              CouthActs&#8482; is a trademark of Enemo Consulting Group, Inc.&reg; All other trademarks, service marks, and logos used in connection with the CouthActs service are owned by Enemo Consulting Group, Inc.&reg; and used by The Ravine of Willows, Inc. under license.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

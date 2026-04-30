@@ -59,10 +59,10 @@ export default async function CertificatePage({
 
           {/* Footer */}
           <div className="border-t border-[#E8E8ED] px-10 py-6 text-center">
-            <p className="text-[11px] text-[#86868B]">
-              This certificate is issued by CouthActs Academy, operated by CouthActs, Inc.
+            <p className="text-[11px] text-[#86868B] leading-relaxed">
+              This certificate is issued by CouthActs&trade; Academy, operated by The Ravine of Willows, Inc., a Texas corporation.
               <br />
-              Founded November 27, 2021 &middot; The Adolphus Tower, Dallas, TX
+              The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202
             </p>
             <p className="mt-2 text-[11px] text-[#E8E8ED]">Verified by CouthActs&trade; &middot; couthacts.com</p>
           </div>

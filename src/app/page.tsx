@@ -872,14 +872,17 @@ export default async function LandingPage() {
             </div>
           </div>
 
-          <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
-            <p className="text-[11px] text-white/30">
-              &copy; {new Date().getFullYear()} CouthActs&#8482;, Inc. · {tFooter("rights")}
+          <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
+            <p className="text-[11px] text-white/30 max-w-2xl leading-relaxed">
+              &copy; {new Date().getFullYear()} CouthActs&#8482;. {tFooter("ownership")}
             </p>
-            <p className="text-[11px] text-white/30">
+            <p className="text-[11px] text-white/30 sm:text-right">
               {tFooter("address")} · {tFooter("contact")}
             </p>
           </div>
+          <p className="mt-3 text-[10px] text-white/25 leading-relaxed">
+            {tFooter("trademarks")}
+          </p>
         </div>
       </footer>
     </div>

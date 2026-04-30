@@ -131,17 +131,21 @@ async function send(email: string, subject: string, html: string, userId?: strin
 }
 
 function wrap(body: string, userId?: string): string {
+  const year = new Date().getFullYear();
+  const ownership = `&copy; ${year} CouthActs&trade;. A wholly owned subsidiary of The Ravine of Willows, Inc., a Texas corporation. All intellectual property wholly owned by Enemo Consulting Group, Inc.&reg;`;
+  const address = `The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202`;
   const footer = userId
     ? `<div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #E8E8ED; text-align: center;">
         <p style="color: #86868B; font-size: 11px; line-height: 1.6; margin: 0;">
-          CouthActs, Inc. &middot; Global Transportation Platform<br/>
+          ${ownership}<br/>
+          ${address}<br/>
           <a href="${BASE}/settings" style="color: #86868B;">Manage email preferences</a>
           &nbsp;&middot;&nbsp;
           <a href="${unsubscribeUrl(userId)}" style="color: #86868B;">Unsubscribe</a>
         </p>
       </div>`
     : `<div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #E8E8ED; text-align: center;">
-        <p style="color: #86868B; font-size: 11px; margin: 0;">CouthActs, Inc. &middot; Global Transportation Platform</p>
+        <p style="color: #86868B; font-size: 11px; line-height: 1.6; margin: 0;">${ownership}<br/>${address}</p>
       </div>`;
   return `<div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">${body}${footer}</div>`;
 }

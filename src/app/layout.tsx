@@ -73,6 +73,45 @@ export default async function RootLayout({
   const messages = await getMessages();
   const dir = isRtl(locale) ? "rtl" : "ltr";
 
+  const orgJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "CouthActs",
+    alternateName: "CouthActs™",
+    legalName: "The Ravine of Willows, Inc.",
+    url: "https://www.couthacts.com",
+    logo: "https://www.couthacts.com/images/logo.jpg",
+    description:
+      "CouthActs is a wholly owned subsidiary and operating brand of The Ravine of Willows, Inc., a Texas corporation. All intellectual property is wholly owned by Enemo Consulting Group, Inc.",
+    parentOrganization: {
+      "@type": "Organization",
+      name: "The Ravine of Willows, Inc.",
+      legalName: "The Ravine of Willows, Inc.",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "The Adolphus Tower, 1412 Main Street, STE 609",
+        addressLocality: "Dallas",
+        addressRegion: "TX",
+        postalCode: "75202",
+        addressCountry: "US",
+      },
+    },
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "The Adolphus Tower, 1412 Main Street, STE 609",
+      addressLocality: "Dallas",
+      addressRegion: "TX",
+      postalCode: "75202",
+      addressCountry: "US",
+    },
+    contactPoint: [
+      { "@type": "ContactPoint", contactType: "customer support", email: "support@couthacts.com" },
+      { "@type": "ContactPoint", contactType: "legal", email: "legal@couthacts.com" },
+      { "@type": "ContactPoint", contactType: "press", email: "press@couthacts.com" },
+      { "@type": "ContactPoint", contactType: "privacy", email: "privacy@couthacts.com" },
+    ],
+  };
+
   return (
     <html lang={locale} dir={dir}>
       <body
@@ -81,6 +120,10 @@ export default async function RootLayout({
         <a href="#main" className="skip-to-main">
           Skip to main content
         </a>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
           <PwaRegister />

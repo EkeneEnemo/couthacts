@@ -31,7 +31,25 @@ export function AirportPage({ corridor }: { corridor: AirportCorridor }) {
         name: `Airport transfer ${directionLabel} ${corridor.iata}`,
         description: `Licensed taxi and black-car transfers ${directionLabel} ${corridor.iata} airport and ${cityLabel}. Verified drivers, escrow-safe pricing, and live tracking.`,
         areaServed: { "@type": "City", name: corridor.city.name, addressCountry: corridor.city.countryCode },
-        provider: { "@type": "Organization", name: "CouthActs", url: "https://www.couthacts.com" },
+        provider: {
+          "@type": "Organization",
+          name: "CouthActs",
+          legalName: "The Ravine of Willows, Inc.",
+          url: "https://www.couthacts.com",
+          parentOrganization: {
+            "@type": "Organization",
+            name: "The Ravine of Willows, Inc.",
+            legalName: "The Ravine of Willows, Inc.",
+          },
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "The Adolphus Tower, 1412 Main Street, STE 609",
+            addressLocality: "Dallas",
+            addressRegion: "TX",
+            postalCode: "75202",
+            addressCountry: "US",
+          },
+        },
         offers: {
           "@type": "AggregateOffer",
           priceCurrency: "USD",

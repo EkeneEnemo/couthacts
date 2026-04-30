@@ -95,7 +95,25 @@ export default function ModePage({ params }: { params: { mode: string } }) {
     name: mode.label,
     serviceType: mode.label,
     description: mode.description,
-    provider: { "@type": "Organization", name: "CouthActs", url: "https://www.couthacts.com" },
+    provider: {
+      "@type": "Organization",
+      name: "CouthActs",
+      legalName: "The Ravine of Willows, Inc.",
+      url: "https://www.couthacts.com",
+      parentOrganization: {
+        "@type": "Organization",
+        name: "The Ravine of Willows, Inc.",
+        legalName: "The Ravine of Willows, Inc.",
+      },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "The Adolphus Tower, 1412 Main Street, STE 609",
+        addressLocality: "Dallas",
+        addressRegion: "TX",
+        postalCode: "75202",
+        addressCountry: "US",
+      },
+    },
     areaServed: { "@type": "Place", name: "Worldwide" },
   };
 

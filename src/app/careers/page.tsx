@@ -56,7 +56,7 @@ const whys = [
   { emoji: "🌍", text: "Work on a platform that handles real money, real cargo, and real accountability across the globe." },
   { emoji: "⚡", text: "Small, high-impact team where your work ships fast and matters immediately." },
   { emoji: "💰", text: "Competitive compensation, equity, and the flexibility to work remotely." },
-  { emoji: "🏙️", text: "Headquartered at The Adolphus Tower in Dallas, TX, with a distributed team worldwide." },
+  { emoji: "🏙️", text: "Headquartered at The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202, with a distributed team worldwide." },
 ];
 
 export default function CareersPage() {

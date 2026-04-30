@@ -509,7 +509,7 @@ Authorization: Bearer ca_live_your_key_here
           <div className="flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center">
             <Logo size="sm" variant="white" href="/" />
             <p className="text-[11px] text-white/35 max-w-2xl sm:text-right leading-relaxed">
-              &copy; {new Date().getFullYear()} CouthActs&#8482;, Inc., a Texas corporation. A wholly owned subsidiary of The Ravine of Willows, Inc., also a Texas corporation. All intellectual property wholly owned by Enemo Consulting Group, Inc.&reg;
+              &copy; {new Date().getFullYear()} CouthActs&#8482;, Inc., a Texas corporation. A wholly owned subsidiary of The Ravine of Willows, Inc., also a Texas corporation. All intellectual property wholly owned by Enemo Consulting Group, Inc.
             </p>
           </div>
           <p className="mt-3 text-[10px] text-white/25 leading-relaxed text-center">

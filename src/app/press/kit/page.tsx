@@ -86,7 +86,7 @@ export default function PressKitPage() {
                 Every transaction on CouthActs is escrow-protected from the moment a job is posted. Providers are paid only after both parties confirm completion. The proprietary CouthActs Score rates every provider on reliability, on-time delivery, communication, and dispute history — visible to all users.
               </p>
               <p>
-                The CouthActs platform is operated by CouthActs&#8482;, Inc., a Texas corporation and a wholly owned subsidiary of The Ravine of Willows, Inc., also a Texas corporation. All intellectual property and trademarks are wholly owned by Enemo Consulting Group, Inc.&reg;; CouthActs&#8482;, Inc. operates under license from Enemo Consulting Group, Inc.&reg; CouthActs&#8482;, Inc. is headquartered at The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202, and was founded on November 27, 2021.
+                The CouthActs platform is operated by CouthActs&#8482;, Inc., a Texas corporation and a wholly owned subsidiary of The Ravine of Willows, Inc., also a Texas corporation. All intellectual property and trademarks are wholly owned by Enemo Consulting Group, Inc.; CouthActs&#8482;, Inc. operates under license from Enemo Consulting Group, Inc. CouthActs&#8482;, Inc. is headquartered at The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202, and was founded on November 27, 2021.
               </p>
             </div>
           </section>
@@ -100,7 +100,7 @@ export default function PressKitPage() {
                 { label: "Headquarters", value: "The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202" },
                 { label: "Operator", value: "CouthActs™, Inc. (Texas corporation)" },
                 { label: "Parent Company", value: "The Ravine of Willows, Inc. (Texas corporation)" },
-                { label: "IP & Trademark Owner", value: "Enemo Consulting Group, Inc.®" },
+                { label: "IP & Trademark Owner", value: "Enemo Consulting Group, Inc." },
                 { label: "Transport Modes", value: "18" },
                 { label: "Countries", value: "190+" },
                 { label: "Categories", value: "Ground, Air, Maritime, Rail" },
@@ -198,7 +198,7 @@ export default function PressKitPage() {
               <p className="text-lg font-display font-bold text-[#1D1D1F]">Ekene C. Enemo</p>
               <p className="mt-0.5 text-[13px] text-[#007AFF] font-medium">Founder & CEO</p>
               <p className="mt-3 text-[13px] text-[#6E6E73] leading-relaxed max-w-2xl">
-                Ekene C. Enemo founded CouthActs&#8482; on November 27, 2021 with a vision to build the global infrastructure layer for transportation. Under his leadership, the platform has expanded to support 18 transport modes across 190+ countries, with every transaction protected by escrow and verified through government ID. Enemo also serves as CEO of Enemo Consulting Group, Inc.&reg;, the intellectual property and trademark holding company for CouthActs, and of The Ravine of Willows, Inc., the Texas corporation that is the parent of CouthActs&#8482;, Inc.
+                Ekene C. Enemo founded CouthActs&#8482; on November 27, 2021 with a vision to build the global infrastructure layer for transportation. Under his leadership, the platform has expanded to support 18 transport modes across 190+ countries, with every transaction protected by escrow and verified through government ID. Enemo also serves as CEO of Enemo Consulting Group, Inc., the intellectual property and trademark holding company for CouthActs, and of The Ravine of Willows, Inc., the Texas corporation that is the parent of CouthActs&#8482;, Inc.
               </p>
             </div>
           </section>
@@ -323,10 +323,10 @@ export default function PressKitPage() {
           {/* ═══════════ LEGAL FOOTER ═══════════ */}
           <div className="mt-10 pb-8 text-center print:text-left space-y-1">
             <p className="text-[11px] text-[#86868B] leading-relaxed">
-              &copy; {new Date().getFullYear()} CouthActs&#8482;, Inc., a Texas corporation. A wholly owned subsidiary of The Ravine of Willows, Inc., also a Texas corporation. All intellectual property wholly owned by Enemo Consulting Group, Inc.&reg;
+              &copy; {new Date().getFullYear()} CouthActs&#8482;, Inc., a Texas corporation. A wholly owned subsidiary of The Ravine of Willows, Inc., also a Texas corporation. All intellectual property wholly owned by Enemo Consulting Group, Inc.
             </p>
             <p className="text-[11px] text-[#C7C7CC] leading-relaxed">
-              CouthActs&#8482; is a trademark of Enemo Consulting Group, Inc.&reg; All other trademarks, service marks, and logos used in connection with the CouthActs service are owned by Enemo Consulting Group, Inc.&reg; and used by CouthActs&#8482;, Inc. under license.
+              CouthActs&#8482; is a trademark of Enemo Consulting Group, Inc. All other trademarks, service marks, and logos used in connection with the CouthActs service are owned by Enemo Consulting Group, Inc. and used by CouthActs&#8482;, Inc. under license.
             </p>
             <p className="text-[11px] text-[#C7C7CC]">
               The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202 &middot; legal@couthacts.com

@@ -36,7 +36,7 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-lg font-display font-bold text-[#1D1D1F]">1. Acceptance of Terms</h2>
-            <p className="mt-3">These Terms of Service (&quot;Terms&quot;) constitute a legally binding agreement between you (&quot;User,&quot; &quot;you,&quot; or &quot;your&quot;) and <strong className="text-[#1D1D1F]">CouthActs&#8482;, Inc.</strong>, a Texas corporation (&quot;CouthActs,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), the operator of the CouthActs platform. CouthActs&#8482;, Inc. is a wholly owned subsidiary of <strong className="text-[#1D1D1F]">The Ravine of Willows, Inc.</strong>, also a Texas corporation. CouthActs&#8482;, Inc. has its principal place of business at The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202, United States. The CouthActs platform and all related intellectual property are wholly owned by Enemo Consulting Group, Inc.&reg;, and CouthActs&#8482;, Inc. operates under license from Enemo Consulting Group, Inc.&reg; By accessing or using the platform, you agree to these Terms in full. If you do not agree, you must not access or use the platform.</p>
+            <p className="mt-3">These Terms of Service (&quot;Terms&quot;) constitute a legally binding agreement between you (&quot;User,&quot; &quot;you,&quot; or &quot;your&quot;) and <strong className="text-[#1D1D1F]">CouthActs&#8482;, Inc.</strong>, a Texas corporation (&quot;CouthActs,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), the operator of the CouthActs platform. CouthActs&#8482;, Inc. is a wholly owned subsidiary of <strong className="text-[#1D1D1F]">The Ravine of Willows, Inc.</strong>, also a Texas corporation. CouthActs&#8482;, Inc. has its principal place of business at The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202, United States. The CouthActs platform and all related intellectual property are wholly owned by Enemo Consulting Group, Inc., and CouthActs&#8482;, Inc. operates under license from Enemo Consulting Group, Inc. By accessing or using the platform, you agree to these Terms in full. If you do not agree, you must not access or use the platform.</p>
             <p className="mt-3">We reserve the right to modify these Terms at any time. Material changes will be communicated via email or platform notification at least thirty (30) days before they take effect. Your continued use of the platform after such notice constitutes acceptance of the modified Terms.</p>
           </section>
 
@@ -122,17 +122,17 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-lg font-display font-bold text-[#1D1D1F]">18. Indemnification</h2>
-            <p className="mt-3">Users agree to indemnify CouthActs&#8482;, Inc., The Ravine of Willows, Inc., Enemo Consulting Group, Inc.&reg;, and their respective parents, subsidiaries, affiliates, officers, directors, employees, and agents from any claims arising from platform use, violation of these Terms, or transport operations.</p>
+            <p className="mt-3">Users agree to indemnify CouthActs&#8482;, Inc., The Ravine of Willows, Inc., Enemo Consulting Group, Inc., and their respective parents, subsidiaries, affiliates, officers, directors, employees, and agents from any claims arising from platform use, violation of these Terms, or transport operations.</p>
           </section>
 
           <section>
             <h2 className="text-lg font-display font-bold text-[#1D1D1F]">19. Intellectual Property</h2>
-            <p className="mt-3">All intellectual property associated with the CouthActs&#8482; service — including but not limited to source code, trademarks, service marks, logos, designs, documentation, algorithms, models, and proprietary methods — is wholly owned by Enemo Consulting Group, Inc.&reg; CouthActs&#8482;, Inc. operates under license from Enemo Consulting Group, Inc.&reg; Unauthorized reproduction, distribution, modification, or use is prohibited.</p>
+            <p className="mt-3">All intellectual property associated with the CouthActs&#8482; service — including but not limited to source code, trademarks, service marks, logos, designs, documentation, algorithms, models, and proprietary methods — is wholly owned by Enemo Consulting Group, Inc. CouthActs&#8482;, Inc. operates under license from Enemo Consulting Group, Inc. Unauthorized reproduction, distribution, modification, or use is prohibited.</p>
           </section>
 
           <section>
             <h2 className="text-lg font-display font-bold text-[#1D1D1F]">20. Trademarks</h2>
-            <p className="mt-3">CouthActs&#8482; is a trademark of Enemo Consulting Group, Inc.&reg; All other trademarks, service marks, and logos used in connection with the CouthActs service are owned by Enemo Consulting Group, Inc.&reg; and used by CouthActs&#8482;, Inc. under license.</p>
+            <p className="mt-3">CouthActs&#8482; is a trademark of Enemo Consulting Group, Inc. All other trademarks, service marks, and logos used in connection with the CouthActs service are owned by Enemo Consulting Group, Inc. and used by CouthActs&#8482;, Inc. under license.</p>
           </section>
 
           <section>

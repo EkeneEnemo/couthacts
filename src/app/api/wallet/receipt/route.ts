@@ -273,7 +273,7 @@ export async function GET(req: NextRequest) {
     </div>
 
     <div class="footer">
-      <strong>CouthActs&trade;, Inc.</strong>, a Texas corporation &middot; A wholly owned subsidiary of The Ravine of Willows, Inc., also a Texas corporation. All intellectual property wholly owned by Enemo Consulting Group, Inc.&reg;<br>
+      <strong>CouthActs&trade;, Inc.</strong>, a Texas corporation &middot; A wholly owned subsidiary of The Ravine of Willows, Inc., also a Texas corporation. All intellectual property wholly owned by Enemo Consulting Group, Inc.<br>
       All top-ups are final and non-refundable. All amounts in USD.<br>
       The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202<br>
       https://couthacts.com

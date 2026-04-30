@@ -82,11 +82,19 @@ export default async function RootLayout({
     url: "https://www.couthacts.com",
     logo: "https://www.couthacts.com/images/logo.jpg",
     description:
-      "CouthActs, Inc. is a wholly owned subsidiary of The Ravine of Willows, Inc., a Texas corporation. All intellectual property and trademarks are wholly owned by Enemo Consulting Group, Inc.",
+      "CouthActs, Inc. is a Texas corporation and a wholly owned subsidiary of The Ravine of Willows, Inc., also a Texas corporation. All intellectual property and trademarks are wholly owned by Enemo Consulting Group, Inc.",
+    foundingLocation: {
+      "@type": "AdministrativeArea",
+      name: "Texas, United States",
+    },
     parentOrganization: {
       "@type": "Organization",
       name: "The Ravine of Willows, Inc.",
       legalName: "The Ravine of Willows, Inc.",
+      foundingLocation: {
+        "@type": "AdministrativeArea",
+        name: "Texas, United States",
+      },
       address: {
         "@type": "PostalAddress",
         streetAddress: "The Adolphus Tower, 1412 Main Street, STE 609",

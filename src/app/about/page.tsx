@@ -44,7 +44,8 @@ export default function AboutPage() {
               people around the world should be safe, transparent, and friendly.
             </p>
             <p className="mt-4 text-[14px] text-[#1D1D1F]/50 leading-relaxed max-w-2xl">
-              <strong className="text-[#1D1D1F]/70">CouthActs&#8482;, Inc.</strong> is a wholly owned subsidiary of <strong className="text-[#1D1D1F]/70">The Ravine of Willows, Inc.</strong>, a Texas corporation,
+              <strong className="text-[#1D1D1F]/70">CouthActs&#8482;, Inc.</strong> is a Texas corporation and a wholly owned subsidiary
+              of <strong className="text-[#1D1D1F]/70">The Ravine of Willows, Inc.</strong>, also a Texas corporation,
               with its principal place of business at The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202.
               All intellectual property and trademarks are wholly owned by <strong className="text-[#1D1D1F]/70">Enemo Consulting Group, Inc.&reg;</strong>
             </p>
@@ -346,7 +347,7 @@ export default function AboutPage() {
 
           <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { label: "Operator", value: "CouthActs™, Inc.", emoji: "🏢", bg: "#E8F1FF" },
+              { label: "Operator", value: "CouthActs™, Inc. (Texas)", emoji: "🏢", bg: "#E8F1FF" },
               { label: "Parent company", value: "The Ravine of Willows, Inc. (Texas)", emoji: "🏛️", bg: "#E8F7EC" },
               { label: "IP & trademark owner", value: "Enemo Consulting Group, Inc.®", emoji: "💡", bg: "#FFF5E6" },
               { label: "Headquarters", value: "The Adolphus Tower, Dallas", emoji: "🏙️", bg: "#FFF1E8" },
@@ -373,8 +374,8 @@ export default function AboutPage() {
 
           <div className="mt-10 mx-auto max-w-3xl rounded-[2rem] bg-white border border-[#1D1D1F]/5 p-8 text-center shadow-[0_2px_16px_rgba(0,0,0,0.04)]">
             <p className="text-[13px] text-[#1D1D1F]/65 leading-relaxed">
-              <strong className="text-[#1D1D1F]">CouthActs&#8482;, Inc.</strong> is a corporation that is a wholly owned subsidiary of <strong className="text-[#1D1D1F]">The Ravine of Willows, Inc.</strong>,
-              a Texas corporation, with its principal place of business at The Adolphus Tower, 1412 Main Street,
+              <strong className="text-[#1D1D1F]">CouthActs&#8482;, Inc.</strong> is a Texas corporation and a wholly owned subsidiary of <strong className="text-[#1D1D1F]">The Ravine of Willows, Inc.</strong>,
+              also a Texas corporation, with its principal place of business at The Adolphus Tower, 1412 Main Street,
               STE 609, Dallas, TX 75202. All intellectual property and trademarks associated with the CouthActs
               service — including source code, trademarks, service marks, logos, designs, documentation,
               algorithms, models, and proprietary methods — are wholly owned by <strong className="text-[#1D1D1F]">Enemo Consulting
@@ -470,7 +471,7 @@ export default function AboutPage() {
           </div>
           <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
             <p className="text-[11px] text-white/30 max-w-2xl leading-relaxed">
-              &copy; {new Date().getFullYear()} CouthActs&#8482;, Inc. A wholly owned subsidiary of The Ravine of Willows, Inc., a Texas corporation. All intellectual property wholly owned by Enemo Consulting Group, Inc.&reg;
+              &copy; {new Date().getFullYear()} CouthActs&#8482;, Inc., a Texas corporation. A wholly owned subsidiary of The Ravine of Willows, Inc., also a Texas corporation. All intellectual property wholly owned by Enemo Consulting Group, Inc.&reg;
             </p>
             <p className="text-[11px] text-white/30 sm:text-right">
               The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202 &middot; legal@couthacts.com

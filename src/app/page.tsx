@@ -874,7 +874,7 @@ export default async function LandingPage() {
 
           <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
             <p className="text-[11px] text-white/30 max-w-2xl leading-relaxed">
-              &copy; {new Date().getFullYear()} CouthActs&#8482;. {tFooter("ownership")}
+              &copy; {new Date().getFullYear()} {tFooter("ownership")}
             </p>
             <p className="text-[11px] text-white/30 sm:text-right">
               {tFooter("address")} · {tFooter("contact")}

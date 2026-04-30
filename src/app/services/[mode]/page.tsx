@@ -98,6 +98,7 @@ export default function ModePage({ params }: { params: { mode: string } }) {
     provider: {
       "@type": "Organization",
       name: "CouthActs",
+      legalName: "CouthActs, Inc.",
       url: "https://www.couthacts.com",
       parentOrganization: {
         "@type": "Organization",

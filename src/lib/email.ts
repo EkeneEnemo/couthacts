@@ -132,7 +132,7 @@ async function send(email: string, subject: string, html: string, userId?: strin
 
 function wrap(body: string, userId?: string): string {
   const year = new Date().getFullYear();
-  const ownership = `&copy; ${year} CouthActs&trade;. A wholly owned subsidiary of The Ravine of Willows, Inc., a Texas corporation. All intellectual property wholly owned by Enemo Consulting Group, Inc.&reg;`;
+  const ownership = `&copy; ${year} CouthActs&trade;, Inc. A wholly owned subsidiary of The Ravine of Willows, Inc., a Texas corporation. All intellectual property wholly owned by Enemo Consulting Group, Inc.&reg;`;
   const address = `The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202`;
   const footer = userId
     ? `<div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #E8E8ED; text-align: center;">

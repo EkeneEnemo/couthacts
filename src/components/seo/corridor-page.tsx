@@ -50,6 +50,7 @@ export function CorridorPage({
         provider: {
           "@type": "Organization",
           name: "CouthActs",
+          legalName: "CouthActs, Inc.",
           url: "https://www.couthacts.com",
           parentOrganization: {
             "@type": "Organization",
@@ -501,13 +502,13 @@ export function SeoFooter() {
           </div>
           <div className="pt-4 border-t border-white/10 w-full space-y-2 text-center">
             <p className="text-[11px] text-white/30 leading-relaxed">
-              &copy; {new Date().getFullYear()} CouthActs&#8482;. A wholly owned subsidiary of The Ravine of Willows, Inc., a Texas corporation. All intellectual property wholly owned by Enemo Consulting Group, Inc.&reg;
+              &copy; {new Date().getFullYear()} CouthActs&#8482;, Inc. A wholly owned subsidiary of The Ravine of Willows, Inc., a Texas corporation. All intellectual property wholly owned by Enemo Consulting Group, Inc.&reg;
             </p>
             <p className="text-[10px] text-white/25 leading-relaxed">
               The Adolphus Tower, 1412 Main Street, STE 609, Dallas, TX 75202 &middot; legal@couthacts.com
             </p>
             <p className="text-[10px] text-white/25 leading-relaxed">
-              CouthActs&#8482; is a trademark of Enemo Consulting Group, Inc.&reg; All other trademarks, service marks, and logos used in connection with the CouthActs service are owned by Enemo Consulting Group, Inc.&reg; and used by CouthActs under license.
+              CouthActs&#8482; is a trademark of Enemo Consulting Group, Inc.&reg; All other trademarks, service marks, and logos used in connection with the CouthActs service are owned by Enemo Consulting Group, Inc.&reg; and used by CouthActs&#8482;, Inc. under license.
             </p>
           </div>
         </div>
